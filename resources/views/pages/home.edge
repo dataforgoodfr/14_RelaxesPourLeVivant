@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Relaxes Pour Le Climat
+    </title>
+    @include('partials/bootstrap')
+  </head>
+  <body class="bg-light">
+    @include('partials/navbar')
+
+    <div class="container mt-3">
+      <form class="mb-3" method="GET">
+        <div class="row">
+          <div class="col-10">
+            <input
+              name="search"
+              value="{{ searchQuery.search ?? '' }}"
+              class="form-control"
+              placeholder="Faits"
+              type="text"
+              autocomplete="off"
+            />
+          </div>
+          <div class="col">
+            <input class="btn btn-primary" type="submit" value="Rechercher" />
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <input
+              name="startDate"
+              value="{{ searchQuery.startDate ?? '' }}"
+              id="startDate"
+              class="form-control"
+              type="date"
+            />
+          </div>
+          <div class="col-auto">
+            <label class="col-form-label">➜</label>
+          </div>
+          <div class="col">
+            <input
+              name="endDate"
+              value="{{ searchQuery.endDate ?? '' }}"
+              id="endDate"
+              class="form-control"
+              type="date"
+            />
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <select name="decision" class="form-select">
+              <option value="" {{ searchQuery.decision === "" ? "selected" : "" }}>
+                Décision
+              </option>
+              <option value="Condamnable" {{ searchQuery.decision === "Condamnable" ? "selected" : "" }}>
+                Condamnable
+              </option>
+              <option value="Relaxe" {{ searchQuery.decision === "Relaxe" ? "selected" : "" }}>
+                Relaxe
+              </option>
+            </select>
+          </div>
+          <div class="col">
+            <select name="juridiction" class="form-select">
+              <option value="" {{ searchQuery.juridiction === "" ? "selected" : "" }}>
+                Juridiction
+              </option>
+              <option
+                value="Tribunal de police"
+                {{ searchQuery.juridiction === "Tribunal de police" ? "selected" : "" }}
+              >
+                Tribunal de police
+              </option>
+              <option
+                value="Tribunal correctionnel"
+                {{ searchQuery.juridiction === "Tribunal correctionnel" ? "selected" : "" }}
+              >
+                Tribunal correctionnel
+              </option>
+              <option value="Cour d’appel" {{ searchQuery.juridiction === "Cour d’appel" ? "selected" : "" }}>
+                Cour d’appel
+              </option>
+              <option value="Cour de cassation" {{ searchQuery.juridiction === "Cour de cassation" ? "selected" : "" }}>
+                Cour de cassation
+              </option>
+            </select>
+          </div>
+          <div class="col">
+            <select name="chefDePrevention" class="form-select">
+              <option value="" {{ searchQuery.chefDePrevention === "" ? "selected" : "" }}>
+                Chef de prévention
+              </option>
+              @each(chefDePrevention in chefDePreventions)
+                <option
+                  value="{{ chefDePrevention.nom }}"
+                  {{ searchQuery.chefDePrevention === chefDePrevention.nom ? "selected" : "" }}
+                >
+                  {{ chefDePrevention.nom }}
+                </option>
+              @end
+            </select>
+          </div>
+          <div class="col">
+            <select name="ville" class="form-select">
+              <option value="" {{ searchQuery.ville === "" ? "selected" : "" }}>
+                Ville
+              </option>
+              @each(ville in villes)
+                <option value="{{ ville.nom }}" {{ searchQuery.ville === ville.nom ? "selected" : "" }}>
+                  {{ ville.nom }}
+                </option>
+              @end
+            </select>
+          </div>
+          <div class="col">
+            <select name="collectif" value="{{ searchQuery.collectif }}" class="form-select">
+              <option value="" {{ searchQuery.collectif === "" ? "selected" : "" }}>
+                Collectif d'action
+              </option>
+              @each(collectif in collectifs)
+                <option value="{{ collectif.nom }}" {{ searchQuery.collectif === collectif.nom ? "selected" : "" }}>
+                  {{ collectif.nom }}
+                </option>
+              @end
+            </select>
+          </div>
+        </div>
+      </form>
+
+      <ul class="list-group">
+        @each(audience in audiences)
+          <li class="list-group-item">
+            <p>
+              <b>Juridiction:</b> {{audience.juridiction}}
+            </p>
+            <p>
+              <b>Ville:</b> {{audience.ville_de_l_audience}}
+            </p>
+            <p>
+              <b>Collectif d'action:</b> {{audience.collectif_d_action_ou_lutte}}
+            </p>
+            <p>
+              <b>Date de l'audience:</b> {{audience.date_de_l_audience}}
+            </p>
+            <p>
+              <b>Decision pour les faits:</b> {{audience.decision_pour_les_faits}}
+            </p>
+            <p>
+              {{ audience.courte_description }}
+            </p>
+            <details class="mb-3">
+              <summary>Déscription</summary>
+              {{ audience.description }}
+            </details>
+            <a href="/audiences/{{audience.id}}">Details</a>
+          </li>
+        @end
+      </ul>
+
+      <nav class="mt-3">
+        <ul class="pagination">
+          @each(pagination in paginations)
+            <li class="page-item">
+              <a href="{{ pagination.url }}" class="page-link">{{ pagination.page }}</a>
+            </li>
+          @end
+        </ul>
+      </nav>
+    </div>
+
+  </body>
+</html>

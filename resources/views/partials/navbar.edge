@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="/">Relaxes Pour Le Climat</a>
+    <div class="d-flex gap-2">
+      @if(auth.user)
+        <form action="/logout" method="POST">
+          {{ csrfField() }}
+          <button type="submit" class="btn btn-outline-danger">Déconnexion</button>
+        </form>
+      @else
+        <a href="/sign-in" class="btn btn-outline-primary">Connexion</a>
+        <a href="/sign-up" class="btn btn-primary">Demander un compte</a>
+      @endif
+    </div>
+  </div>
+</nav>

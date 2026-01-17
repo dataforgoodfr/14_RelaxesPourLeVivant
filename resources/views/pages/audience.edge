@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Relaxes Pour Le Climat
+    </title>
+    @include('partials/bootstrap')
+  </head>
+  <body class="bg-light">
+    @include('partials/navbar')
+    <div class="container mt-3">
+      <h3>Date de l'audience</h3>
+      <p>{{ audience.date_de_l_audience.toLocaleString() }}</p>
+      <h3>Ville de l'audience</h3>
+      <p>{{ audience.ville_de_l_audience }}</p>
+      <h3>Juridiction</h3>
+      <p>{{ audience.juridiction }}</p>
+      <h3>Date de décision</h3>
+      <p>{{ audience.date_de_decision.toLocaleString() }}</p>
+      <h3>Decision pour les faits</h3>
+      <p>{{ audience.decision_pour_les_faits }}</p>
+      <h3>Decision pour les infractions</h3>
+      <p>{{ audience.decision_pour_les_infractions }}</p>
+    </div>
+  </body>
