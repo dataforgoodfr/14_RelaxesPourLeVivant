@@ -1,0 +1,20 @@
+.timeline {
+  display: flex;
+  flex-direction: row;
+}
+
+.timeline-node::after {
+  content: "";
+  float: inline-start;
+  width: 20px;
+  height: 20px;
+  border-color: blue;
+  border-style: solid;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+
+.timeline-node.current::after {
+  background-color: aqua;
+}

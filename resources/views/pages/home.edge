@@ -132,9 +132,16 @@
           {{ audience.courte_description }}
         </p>
         <details class="mb-3">
-          <summary>Déscription</summary>
+          <summary>Description</summary>
           {{ audience.description }}
         </details>
+        <div class="timeline mb-3">
+          @each(t in audience.timeline)
+          <div class="timeline-node {{html.classNames({ 'current': t.id == audience.id }) }}" data-date="{{t.date}}" data-id="{{t.id}}">
+            {{t.date}}
+          </div>
+          @end
+        </div>
         <a href="/audiences/{{audience.id}}">Details</a>
       </li>
       @end
