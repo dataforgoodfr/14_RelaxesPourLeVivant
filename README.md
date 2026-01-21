@@ -79,6 +79,6 @@ Le projet est construit sur un architecture MVC
 
 AdonisJs fournis une configuration par défaut pour ESlint et Prettier.
 
-![schema d'architecture de l'application](https://github.com/dataforgoodfr/14_RelaxesPourClimat/blob/main/docs/architecture.svg?raw=true)
+![schema d'architecture de l'application](https://github.com/dataforgoodfr/14_RelaxesPourLeVivant/blob/main/docs/architecture.svg?raw=true)
 
-![configuration de NocoDB](https://github.com/dataforgoodfr/14_RelaxesPourClimat/blob/main/docs/nocodb_config.svg?raw=true)
+![configuration de NocoDB](https://github.com/dataforgoodfr/14_RelaxesPourLeVivant/blob/main/docs/nocodb_config.svg?raw=true)
