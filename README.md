@@ -2,15 +2,16 @@
 
 Plateforme de jurisprudences et de ressources juridiques à destination des professionel·les ou des citoyen·nes.
 
-  - Recherche de décisions de justices
-  - Accès à fiches détaillées de chaque audience
-  - Visulation temporelle des procédures
+- Recherche de décisions de justices
+- Accès à fiches détaillées de chaque audience
+- Visulation temporelle des procédures
 
 ## Stack techniques
 
 - [AdonisJS](https://docs.adonisjs.com/guides/preface/introduction)
 - [NocoDB](https://nocodb.com/docs/product-docs)
 - [Postgres](https://www.postgresql.org/docs/)
+- [Metabase](https://www.metabase.com/)
 
 ## Prérequis
 
@@ -35,10 +36,10 @@ et relancer les commande du donnée ci-dessus.
 
 ### Configurer NocoDB
 
-Après votre premier installation de NocoDB vous aurez besoin de configurer une connexion vers la base données de l'application.
+Après votre premier installation de NocoDB vous aurez besoin de configurer une connexion vers la base données de l'application.  
+Par défaut NocoDB est accessible via http://localhost:4444 (cf. compose.yaml)
 
 - Allez dans integrations, puis ajouter une integration pour Postgres :
-
   - Host address : db
   - Port number : 5432
   - Username : la valeur de POSTGRES_USER dans `.env`
@@ -73,7 +74,7 @@ make
 
 Le projet est construit sur un architecture MVC
 
-- des models via l'ORM [Lucid](https://lucid.adonisjs.com/docs/introduction) 
+- des models via l'ORM [Lucid](https://lucid.adonisjs.com/docs/introduction)
 - des vues via le moteur de template [Edge](https://edgejs.dev/docs/introduction)
 - des [controlleurs](https://docs.adonisjs.com/guides/basics/controllers)
 
@@ -82,3 +83,16 @@ AdonisJs fournis une configuration par défaut pour ESlint et Prettier.
 ![schema d'architecture de l'application](https://github.com/dataforgoodfr/14_RelaxesPourLeVivant/blob/main/docs/architecture.svg?raw=true)
 
 ![configuration de NocoDB](https://github.com/dataforgoodfr/14_RelaxesPourLeVivant/blob/main/docs/nocodb_config.svg?raw=true)
+
+### Configurer Metabase
+
+Si vous lancer Metabase pour la permeir fois vous aurez besoin de le configurer manuellement, un peu comme NocoDB.  
+Par défaut vous NocoDB est accessible via le http://localhost:3000 (cf. compose.yaml)
+
+Suivez les instructions pour créer un premier compte, puis allez dans _Ajoutez vos données_, choisisez _PostgreSQL_.
+
+Pour gagner du temps vous pouvez renseigner la _Connection string_
+
+- Connection string : jdbc:postgresql://db:5423/le_nom_de_votre_base_de_donnee (cf. .env ou database/postgres-init/create-database.sql)
+- Nom d'utilisateur : la valeur de POSTGRES_USER dans `.env`
+- Mot de passe : la valeur de POSTGRES_PASSWORD dans `.env`

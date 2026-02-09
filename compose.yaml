@@ -19,3 +19,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  metabase:
+    image: metabase/metabase:latest
+    env_file: .env
+    ports:
+      - 3000:3000
+    depends_on:
+      db:
+        condition: service_healthy
