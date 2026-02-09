@@ -86,8 +86,8 @@ AdonisJs fournis une configuration par défaut pour ESlint et Prettier.
 
 ### Configurer Metabase
 
-Si vous lancer Metabase pour la permeir fois vous aurez besoin de le configurer manuellement, un peu comme NocoDB.  
-Par défaut vous NocoDB est accessible via le http://localhost:3000 (cf. compose.yaml)
+Si vous lancez Metabase pour la permeir fois vous aurez besoin de le configurer manuellement, un peu comme NocoDB.  
+Par défaut Metabase est accessible via le http://localhost:3000 (cf. compose.yaml)
 
 Suivez les instructions pour créer un premier compte, puis allez dans _Ajoutez vos données_, choisisez _PostgreSQL_.
 
