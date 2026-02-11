@@ -2,11 +2,11 @@
 
 Plateforme de jurisprudences et de ressources juridiques à destination des professionel·les ou des citoyen·nes.
 
-- Recherche de décisions de justices
-- Accès à fiches détaillées de chaque audience
-- Visulation temporelle des procédures
+- Recherche de décisions de justice
+- Accès à des fiches détaillées de chaque audience
+- Visualisation temporelle des procédures
 
-## Stack techniques
+## Stack technique
 
 - [AdonisJS](https://docs.adonisjs.com/guides/preface/introduction)
 - [NocoDB](https://nocodb.com/docs/product-docs)
@@ -20,26 +20,26 @@ Plateforme de jurisprudences et de ressources juridiques à destination des prof
 
 ### Installation
 
-- clonez le dépots
+- clonez le dépôts
 - installez les dépendances `npm install`
-- copier `.env.example` vers `.env` et renseignez les variables manquante
+- copiez `.env.example` vers `.env` et renseignez les variables manquantes
 - démarrez les services externes `docker compose up -d` ou `podman compose up -d`
 - démarrez l'application en mode dev `npm run dev`
 
 ### Préparer la base de données
 
 - jouez les migrations `node ace migration:run`
-- ajoutez de la donnée factis `node ace db:seed`
+- ajoutez de la donnée factice `node ace db:seed`
 
 Si besoin vous pouvez remettre à zéro votre dase de données avec les commandes `node ace db:wipe` ou `node ace migration:reset`
-et relancer les commande du donnée ci-dessus.
+et relancer les commandes de données ci-dessus.
 
 ### Configurer NocoDB
 
-Après votre premier installation de NocoDB vous aurez besoin de configurer une connexion vers la base données de l'application.  
+Après votre première installation de NocoDB vous aurez besoin de configurer une connexion vers la base données de l'application.  
 Par défaut NocoDB est accessible via http://localhost:4444 (cf. compose.yaml)
 
-- Allez dans integrations, puis ajouter une integration pour Postgres :
+- Allez dans integrations, puis ajoutez une integration pour Postgres :
   - Host address : db
   - Port number : 5432
   - Username : la valeur de POSTGRES_USER dans `.env`
@@ -47,10 +47,10 @@ Par défaut NocoDB est accessible via http://localhost:4444 (cf. compose.yaml)
   - Database : le nom de la database dans `database/postgres-init/create-database.sql`
   - Schema name : public
 
-### Strucutre du projet
+### Structure du projet
 
 Le projet suit le plus possible la structure d'un projet [AdonisJS](https://docs.adonisjs.com/guides/preface/introduction).
-Le framework offre un ensemble de commande pour créer de nouveaux composants via la commande `node ace`
+Le framework offre un ensemble de commandes pour créer de nouveaux composants via la commande `node ace`
 
 ```txt
 make
@@ -72,13 +72,13 @@ make
   make:view           Create a new Edge.js template file
 ```
 
-Le projet est construit sur un architecture MVC
+Le projet est construit sur une architecture MVC
 
 - des models via l'ORM [Lucid](https://lucid.adonisjs.com/docs/introduction)
 - des vues via le moteur de template [Edge](https://edgejs.dev/docs/introduction)
 - des [controlleurs](https://docs.adonisjs.com/guides/basics/controllers)
 
-AdonisJs fournis une configuration par défaut pour ESlint et Prettier.
+AdonisJs fournit une configuration par défaut pour ESlint et Prettier.
 
 ![schema d'architecture de l'application](https://github.com/dataforgoodfr/14_RelaxesPourLeVivant/blob/main/docs/architecture.svg?raw=true)
 
@@ -86,10 +86,10 @@ AdonisJs fournis une configuration par défaut pour ESlint et Prettier.
 
 ### Configurer Metabase
 
-Si vous lancez Metabase pour la permeir fois vous aurez besoin de le configurer manuellement, un peu comme NocoDB.  
+Si vous lancez Metabase pour la première fois vous aurez besoin de le configurer manuellement, un peu comme NocoDB.  
 Par défaut Metabase est accessible via le http://localhost:3000 (cf. compose.yaml)
 
-Suivez les instructions pour créer un premier compte, puis allez dans _Ajoutez vos données_, choisisez _PostgreSQL_.
+Suivez les instructions pour créer un premier compte, puis allez dans _Ajoutez vos données_, choisissez _PostgreSQL_.
 
 Pour gagner du temps vous pouvez renseigner la _Connection string_
 
