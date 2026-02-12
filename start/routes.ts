@@ -17,14 +17,7 @@ router.on('/welcome').render('pages/welcome')
 router.get('/', [HomeController, 'home'])
 router.get('/audiences/:id', [audiencesController, 'get'])
 router.on('/sign-up').render('pages/auth/sign_up')
-router
-  .on('/sign-in')
-  .render('pages/auth/sign_in')
-  .use(
-    middleware.guest({
-      guards: ['web'],
-    })
-  )
+router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest())
 
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])

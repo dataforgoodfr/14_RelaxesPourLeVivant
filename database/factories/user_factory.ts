@@ -7,6 +7,7 @@ export const UserFactory = factory
       email: faker.internet.email(),
       password: '1234',
       motivation: faker.lorem.sentence(),
+      approved: faker.datatype.boolean(),
     }
   })
   .build()

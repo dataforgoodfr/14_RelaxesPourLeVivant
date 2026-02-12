@@ -4,12 +4,10 @@ import { createUserValidator } from '#validators/create_user'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class AuthController {
-  async signup({ request, auth, response, session }: HttpContext) {
+  async signup({ request, response, session }: HttpContext) {
     const { confirmPassword, ...payload } = await request.validateUsing(createUserValidator)
 
-    const user = await User.create(payload)
-
-    await auth.use('web').login(user)
+    await User.create(payload)
 
     session.flash('notification', {
       type: 'success',

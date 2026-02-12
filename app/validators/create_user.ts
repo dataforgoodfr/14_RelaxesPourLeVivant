@@ -6,6 +6,6 @@ export const createUserValidator = vine.compile(
     email: vine.string().email().unique({ table: User.table, column: 'email' }),
     password: vine.string(),
     confirmPassword: vine.string().sameAs('password'),
-    motivation: vine.string(),
+    motivation: vine.string().maxLength(1000),
   })
 )

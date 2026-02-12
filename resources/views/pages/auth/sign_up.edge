@@ -72,7 +72,7 @@
                   </div>
                   <div class="mb-3">
                     <label for="motivation" class="form-label">Motivation de la demande <span class="text-danger">*</span></label>
-                    <textarea rows="5" class="form-control" id="motivation" name="motivation" required>{{ old('motivation') || '' }}</textarea>
+                    <textarea rows="5" class="form-control" id="motivation" name="motivation" maxlength="1000" required>{{ old('motivation') || '' }}</textarea>
                   </div>
                   <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Envoyer la demande</button>
