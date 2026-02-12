@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>
+    Relaxes Pour Le Vivant
+  </title>
+  @include('partials/bootstrap')
+</head>
+
+<body class="bg-light">
+  @include('partials/navbar')
+
+  <div class="container vstack gap-3">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10">
+        <h1 class="text-center">Bienvenue sur la plateforme de ressources juridiques pour les défenseur•es du vivant</h1>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <a href="/sign-in" class="btn btn-outline-primary">Se connecter</a>
+        <a href="/sign-up" class="btn btn-primary">Demander un accès</a>
+      </div>
+    </div>
+    
+    <div class="row align-items-center g-3">
+      <div class="col-12 col-lg-7">
+        <img src="/welcome_illustration.png" class="img-fluid object-fit-cover w-100" alt="illustration of a bunch of people peacefully protesting with flags"/>
+      </div>
+      <div class="col-12 col-lg-5">
+        <p>
+          Décisions de justice, analyses de la répression, arguments du parquet, ... retrouvez toutes les ressources indispensables pour aider les militant·es en procès pour avoir défendu le vivant à se défendre.
+        </p>
+        <p>
+          Cette plateforme est destinée aux avocat·es qui défendent les militant·es dans les prétoires, aux équipes juridiques des collectifs d’action, aux militant·es et aux chercheur·ses qui travaillent sur ces sujets.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
