@@ -7,7 +7,7 @@ import db from '@adonisjs/lucid/services/db'
 
 export default class HomeController {
   async home({ request, view }: HttpContext) {
-    const searchQuery = await await request.validateUsing(searchQueryValidator)
+    const searchQuery = await request.validateUsing(searchQueryValidator)
 
     const query = db
       .query()
