@@ -13,25 +13,25 @@
 <body class="bg-light">
   @include('partials/navbar')
 
-  <div class="container mt-3">
-    <div class="row mb-3">
-      <div class="col">
-        <h1 class="text-center" style="padding-left: 100px; padding-right: 100px">Bienvenue sur la plateforme de ressources juridiques pour les défenseur•es du vivant</h1>
+  <div class="container vstack gap-3">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10">
+        <h1 class="text-center">Bienvenue sur la plateforme de ressources juridiques pour les défenseur•es du vivant</h1>
       </div>
     </div>
     
-    <div class="row justify-content-center mb-3">
+    <div class="row justify-content-center">
       <div class="col-auto">
         <a href="/sign-in" class="btn btn-outline-primary">Se connecter</a>
         <a href="/sign-up" class="btn btn-primary">Demander un accès</a>
       </div>
     </div>
     
-    <div class="row align-items-center">
-      <div class="col-7">
-        <img src="/welcome_illustration.png" class="img-fluid" alt="illustration of a bunch of people peacefully protesting with flags"/>
+    <div class="row align-items-center g-3">
+      <div class="col-12 col-lg-7">
+        <img src="/welcome_illustration.png" class="img-fluid object-fit-cover w-100" alt="illustration of a bunch of people peacefully protesting with flags"/>
       </div>
-      <div class="col-5">
+      <div class="col-12 col-lg-5">
         <p>
           Décisions de justice, analyses de la répression, arguments du parquet, ... retrouvez toutes les ressources indispensables pour aider les militant·es en procès pour avoir défendu le vivant à se défendre.
         </p>
