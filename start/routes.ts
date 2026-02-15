@@ -22,3 +22,9 @@ router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest())
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])
 router.post('/logout', [AuthController, 'signout'])
+
+/*
+  development-only routes
+*/
+
+router.on('/dev/design').render('designSystem/designSystem')

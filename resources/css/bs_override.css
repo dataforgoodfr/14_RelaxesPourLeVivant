@@ -1,0 +1,48 @@
+/*
+  This file is used to override bootstrap's css variables
+  Bootstraps components are personnalised via native css variable to represent the design identity of the app
+*/
+
+
+/*
+  Embedded font
+  The brand identity uses Gelica (commercial) and Poppins (free) fonts
+  For the moment we don't have access to Gelica license and files
+  Poppins is available only as static files and must be embedded sperately.
+  "devOnly" font (which is Unifraktur Maguntia font) is just used to verify if file are correctly embedded and should not be a part of ptroduction code
+*/
+
+@font-face{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Poppins-Medium.ttf');
+  /*src: url('/fonts/devOnly.ttf');*/
+}
+
+:root {
+  --bs-font-sans-serif: 'Poppins', sans-serif;
+  --bs-primary: #004349;
+  --bs-primary-rgb: 0 ,67 ,73;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-bg: var(--bs-primary);
+  --bs-btn-hover-border-color: var(--bs-primary);
+  --bs-btn-active-bg: var(--bs-primary);
+  --bs-btn-active-border-color: var(--bs-primary);
+  --bs-btn-disabled-bg: var(--bs-primary);
+  --bs-btn-disabled-border-color: var(--bs-primary);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: --var(--grey-600);
+  --bs-btn-border-color: #0d6efd00;
+  --bs-btn-hover-border-color: #0d6efd;
+  --bs-btn-active-border-color: #0d6efd;
+  --bs-btn-disabled-color: #0d6efd;
+  --bs-btn-disabled-border-color: #0d6efd;
+}
