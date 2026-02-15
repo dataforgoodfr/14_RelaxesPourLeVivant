@@ -132,14 +132,20 @@
   
   height: 80px;
   width: 260px;
-  
-  --bs-btn-font-size: 1.25rem;
 }
 
 /*
   Custom msde guidelines "En-Tête"
 */
-.gelica {
+.gelica-display {
   font-family: "Gelica", sans-serif;
   font-weight: 300;
+}
+
+/*
+  Custom msde guidelines "Titres"
+*/
+.gelica {
+  font-family: "Gelica", sans-serif;
+  font-weight: 700;
 }
