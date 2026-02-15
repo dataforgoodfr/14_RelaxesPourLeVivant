@@ -78,6 +78,13 @@
 }
 
 /*
+  Overriding Bootstrap's p colour
+*/
+p {
+  color: var(--bs-gray-600);
+}
+
+/*
   Overriding primary button element
 */
 
