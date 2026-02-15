@@ -1,6 +1,6 @@
 import { CollectifFactory } from '#database/factories/collectif_factory'
 import { ProcedureFactory } from '#database/factories/procedure_factory'
-import { UserFactory } from '#database/factories/user_factory'
+import { AdminUserFactory, UserFactory } from '#database/factories/user_factory'
 import { VilleFactory } from '#database/factories/ville_factory'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 import { randomInt } from 'node:crypto'
@@ -19,5 +19,6 @@ export default class extends BaseSeeder {
       .createMany(50)
 
     await UserFactory.createMany(4)
+    await AdminUserFactory.create()
   }
 }
