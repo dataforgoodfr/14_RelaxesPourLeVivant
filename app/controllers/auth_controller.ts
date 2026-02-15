@@ -23,7 +23,7 @@ export default class AuthController {
     try {
       const user = await User.verifyCredentials(email, password)
       await auth.use('web').login(user)
-      return response.redirect('/')
+      return response.redirect('/audiences')
     } catch {
       session.flash('errors.auth', 'Invalid credentials')
       return response.redirect().back()
