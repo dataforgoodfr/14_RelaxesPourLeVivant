@@ -46,7 +46,7 @@ export default class Audience extends BaseModel {
   declare decision_pour_les_infractions?: 'Condamnable' | 'Relaxe'
 
   @column()
-  declare numero_de_chambre?: number
+  declare numero_de_chambre?: string
 
   @column()
   declare nombre_de_prevenu_es?: number

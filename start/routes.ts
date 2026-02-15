@@ -15,7 +15,7 @@ const audiencesController = () => import('#controllers/audiences_controller')
 
 router.on('/welcome').render('pages/welcome').use(middleware.guest())
 router.get('/audiences', [HomeController, 'home']).use(middleware.auth())
-router.get('/audiences/:id', [audiencesController, 'get'])
+router.get('/audiences/:id', [audiencesController, 'get']).use(middleware.auth())
 router.on('/sign-up').render('pages/auth/sign_up')
 router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest())
 

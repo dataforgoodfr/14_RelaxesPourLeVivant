@@ -1,5 +1,5 @@
-import factory from '@adonisjs/lucid/factories'
 import Audience from '#models/audience'
+import factory from '@adonisjs/lucid/factories'
 import { DateTime } from 'luxon'
 import { VilleFactory } from './ville_factory.js'
 
@@ -16,7 +16,7 @@ export const AudienceFactory = factory
       date_de_decision: DateTime.fromJSDate(faker.date.past()),
       decision_pour_les_faits: faker.helpers.arrayElement(['Condamnable', 'Relaxe']),
       decision_pour_les_infractions: faker.helpers.arrayElement(['Condamnable', 'Relaxe']),
-      numero_de_chambre: faker.number.int({ min: 0, max: 10 }),
+      numero_de_chambre: `Tribunal de ${faker.location.city()} chambre correctionnelle n°${faker.number.int({ min: 0, max: 50 })}`,
       nombre_de_prevenu_es: faker.number.int({ min: 0, max: 10 }),
       nombre_de_temoins: faker.number.int({ min: 0, max: 10 }),
       expertise_des_temoins: faker.helpers

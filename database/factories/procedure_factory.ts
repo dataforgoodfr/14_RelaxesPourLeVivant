@@ -1,12 +1,12 @@
-import factory from '@adonisjs/lucid/factories'
 import Procedure from '#models/procedure'
+import factory from '@adonisjs/lucid/factories'
 import { DateTime } from 'luxon'
 import { AudienceFactory } from './audience_factory.js'
 
 export const ProcedureFactory = factory
   .define(Procedure, async ({ faker }) => {
     return {
-      nom: faker.string.alpha({ length: 80 }),
+      nom: faker.lorem.sentence(),
       date_des_faits: DateTime.fromJSDate(faker.date.past()),
       courte_description: faker.lorem.paragraph(),
       description: faker.lorem.paragraphs(),
