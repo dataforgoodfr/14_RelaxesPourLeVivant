@@ -58,13 +58,23 @@
 }
 
 /*
-  Overriding root Bootstrap's variables
+  Overriding root Bootstrap's root variables
 */
 
 :root {
   --bs-font-sans-serif: 'Poppins', sans-serif;
   --bs-primary: var(--msde-green);
   --bs-primary-rgb: var(--msde-green-rgb);
+  --bs-light-rgb: var(--msde-white-rgb);
+}
+
+/*
+  Overriding Bootstrap's navbar
+*/
+.navbar {
+  --bs-navbar-padding-y: 1rem;
+  
+  border-bottom: solid 1px var(--bs-gray-100);
 }
 
 /*
@@ -149,3 +159,4 @@
   font-family: "Gelica", sans-serif;
   font-weight: 700;
 }
+
