@@ -10,4 +10,7 @@ export const UserFactory = factory
       approved: faker.datatype.boolean(),
     }
   })
+  .state('approved', (user) => {
+    user.approved = true
+  })
   .build()

@@ -19,5 +19,11 @@ export default class extends BaseSeeder {
       .createMany(50)
 
     await UserFactory.createMany(4)
+    await UserFactory.apply('approved')
+      .merge({
+        email: 'admin@relaxe.local',
+        password: '1234',
+      })
+      .create()
   }
 }
