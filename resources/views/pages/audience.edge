@@ -1,29 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>
-    Relaxes Pour Le Vivant
-  </title>
-  @include('partials/bootstrap')
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Relaxes Pour Le Vivant
+    </title>
+    @include('partials/bootstrap')
+  </head>
 
-<body class="bg-light">
-  @include('partials/navbar')
-  <div class="container mt-3">
-    <h3>Date de l'audience</h3>
-    <p>{{ audience.date_de_l_audience.toLocaleString() }}</p>
-    <h3>Ville de l'audience</h3>
-    <p>{{ audience.ville_de_l_audience }}</p>
-    <h3>Juridiction</h3>
-    <p>{{ audience.juridiction }}</p>
-    <h3>Date de décision</h3>
-    <p>{{ audience.date_de_decision.toLocaleString() }}</p>
-    <h3>Decision pour les faits</h3>
-    <p>{{ audience.decision_pour_les_faits }}</p>
-    <h3>Decision pour les infractions</h3>
-    <p>{{ audience.decision_pour_les_infractions }}</p>
+  <body class="bg-light">
+    @include('partials/navbar')
+
+    <div class="container mt-3">
+      <div class="card">
+        <div class="card-body">
+          <header>
+            <h1>
+              {{ audience.procedure.nom }}<br />
+              <small class="text-body-secondary">{{ audience.procedure.courte_description }}</small>
+            </h1>
+          </header>
+
+          <section class="p-2 rounded text-bg-secondary mt-3" aria-labelledby="section-resume-jugement-heading">
+            <h3 id="section-resume-jugement-heading">
+              Résumé du jugement
+            </h3>
+            <p>
+              {{ audience.resume_du_jugement_ou_arret }}
+            </p>
+            <div class="d-flex gap-2 flex-wrap">
+              @if (audience.recit_d_audience)
+                <a href="{{ audience.recit_d_audience }}" class="badge text-bg-light" download>🔗 Récit d'audience</a>
+              @endif
+              <a href="{{ audience.decision }}" class="badge text-bg-light" download>🔗 Décision</a>
+            </div>
+          </section>
+
+          <section class="mt-3" aria-labelledby="section-infos-generales-heading">
+            <h3 id="section-infos-generales-heading">
+              Informations générales
+            </h3>
+            <dl class="row">
+              <dt class="col-sm-3">
+                Date de l'audience
+              </dt>
+              <dd class="col-sm-9">
+                {{ audience.date_de_l_audience.toLocaleString() }}
+              </dd>
+              <dt class="col-sm-3">
+                Ville de l'audience
+              </dt>
+              <dd class="col-sm-9">
+                {{ audience.ville_de_l_audience }}
+              </dd>
+              <dt class="col-sm-3">
+                Juridiction
+              </dt>
+              <dd class="col-sm-9">
+                {{ audience.juridiction }}
+              </dd>
+              @if (audience.numero_de_chambre)
+                <dt class="col-sm-3">
+                  Numéro de chambre
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.numero_de_chambre }}
+                </dd>
+              @endif
+            </dl>
+          </section>
+
+          <section class="mt-3" aria-labelledby="section-defense-heading">
+            <h3 id="section-defense-heading">
+              Défense
+            </h3>
+            <dl class="row">
+              @if (audience.nombre_de_prevenu_es)
+                <dt class="col-sm-3">
+                  Nombre de prévenu·es
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.nombre_de_prevenu_es }}
+                </dd>
+              @endif
+              @if (audience.nombre_de_temoins)
+                <dt class="col-sm-3">
+                  Nombre de témoins
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.nombre_de_temoins }}
+                </dd>
+              @endif
+            </dl>
+          </section>
+
+          <section class="mt-3" aria-labelledby="section-accusation-heading">
+            <h3 id="section-accusation-heading">
+              Accusation
+            </h3>
+            <dl class="row">
+              @if (audience.nombre_d_avocat_es)
+                <dt class="col-sm-3">
+                  Nombre d'avocat·es
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.nombre_d_avocat_es }}
+                </dd>
+              @endif
+              @if (audience.nom_des_parties_civiles)
+                <dt class="col-sm-3">
+                  Nom des parties civiles
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.nom_des_parties_civiles }}
+                </dd>
+              @endif
+              @if (audience.demande_des_parties_civiles)
+                <dt class="col-sm-3">
+                  Demande des parties civiles
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.demande_des_parties_civiles }}
+                </dd>
+              @endif
+            </dl>
+          </section>
+
+          <section class="mt-3" aria-labelledby="section-jugement-heading">
+            <h3 id="section-jugement-heading">
+              Jugement
+            </h3>
+            <dl class="row">
+              @if (audience.composition_du_tribunal)
+                <dt class="col-sm-3">
+                  Composition du Tribunal
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.composition_du_tribunal }}
+                </dd>
+              @endif
+            </dl>
+          </section>
+
+          <section class="mt-3" aria-labelledby="section-decision-heading">
+            <h3 id="section-decision-heading">
+              Décision
+            </h3>
+            <dl class="row">
+              <dt class="col-sm-3">
+                Date de décision
+              </dt>
+              <dd class="col-sm-9">
+                {{ audience.date_de_decision.toLocaleString() }}
+              </dd>
+              @if (audience.fondement_de_la_relaxe)
+                <dt class="col-sm-3">
+                  Fondement de la relaxe
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.fondement_de_la_relaxe }}
+                </dd>
+              @endif
+              <dt class="col-sm-3">
+                Decision pour les faits
+              </dt>
+              <dd class="col-sm-9">
+                {{ audience.decision_pour_les_faits }}
+              </dd>
+              @if (audience.decision_pour_les_infractions)
+                <dt class="col-sm-3">
+                  Decision pour les infractions
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.decision_pour_les_infractions }}
+                </dd>
+              @endif
+              <dt class="col-sm-3">
+                Peine pour les faits
+              </dt>
+              <dd class="col-sm-9">
+                {{ audience.peine_pour_les_faits }}
+              </dd>
+              @if (audience.peine_complementaire)
+                <dt class="col-sm-3">
+                  Peine complémentaire
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.peine_complementaire }}
+                </dd>
+              @endif
+            </dl>
+          </section>
+
+          <section class="mt-3" aria-labelledby="section-appel-heading">
+            <h3 id="section-appel-heading">
+              Appel
+            </h3>
+            <dl class="row">
+              <dt class="col-sm-3">
+                Appel d'une des parties
+              </dt>
+              <dd class="col-sm-9">
+                {{ audience.appel_d_une_des_parties ? 'Oui' : 'Non' }}
+              </dd>
+              @if (audience.partie_de_l_appel_principal)
+                <dt class="col-sm-3">
+                  Partie de l'appel principal
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.partie_de_l_appel_principal }}
+                </dd>
+              @endif
+              @if (audience.partie_de_l_appel_incident)
+                <dt class="col-sm-3">
+                  Partie de l'appel incident
+                </dt>
+                <dd class="col-sm-9">
+                  {{ audience.partie_de_l_appel_incident }}
+                </dd>
+              @endif
+            </dl>
+          </section>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
+</html>
