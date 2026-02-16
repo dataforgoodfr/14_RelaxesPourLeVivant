@@ -1,7 +1,9 @@
 @eval(await auth.check())
-<nav class="navbar">
+<nav class="navbar mb-3">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="/">Relaxes Pour Le Vivant</a>
+    <a class="navbar-brand fw-bold" href="/">
+      <img src="/msde_logo.svg"/>
+    </a>
     <div class="d-flex gap-2">
       @if(auth.user)
         <span class="navbar-text">
@@ -10,11 +12,11 @@
         </span>
         <form action="/logout" method="POST">
           {{ csrfField() }}
-        <button type="submit" class="btn btn-outline-danger">Déconnexion</button>
+        <button type="submit" class="btn btn-outline-danger">Se déconnecter</button>
         </form>
       @else
-        <a href="/sign-in" class="btn btn-outline-primary">Connexion</a>
-        <a href="/sign-up" class="btn btn-primary">Demander un compte</a>
+        <a href="/sign-in" class="btn btn-outline-primary">Se connecter</a>
+        <a href="/sign-up" class="btn btn-primary">Demander un accès</a>
       @endif
     </div>
   </div>

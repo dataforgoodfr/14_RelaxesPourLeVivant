@@ -1,0 +1,169 @@
+/*
+  This file is used to override bootstrap's css variables
+  Bootstraps components are personnalised via native css variable to represent the design identity of the app
+*/
+
+
+/*
+  Embedded font
+  The brand identity uses Gelica (commercial) and Poppins (free) fonts
+  For the moment we don't have access to Gelica license and files
+  Poppins is available only as static files and must be embedded sperately.
+  "devOnly" font (which is Unifraktur Maguntia font) is just used to verify if file are correctly embedded and should not be a part of ptroduction code
+*/
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Poppins-Medium.ttf');
+  /*src: url('/fonts/devOnly.ttf');*/
+}
+
+@font-face { 
+  font-family: 'Gelica';
+  font-style: bold;
+  font-weight: 700;
+  font-display: block;
+  src: url('https://typographer.io/1/fonts/drt:gelica::bold@1.0.0/woff2?token=1654b22ac1');
+}
+
+@font-face { 
+  font-family: 'Gelica';
+  font-style: light;
+  font-weight: 300;
+  font-display: block;
+  src: url('https://typographer.io/1/fonts/drt:gelica::light@1.0.0/woff2?token=2098236b94');
+}
+
+/*
+  Brand colour scheme
+  According to Identité Visuelle MSDE document
+*/
+:root{
+  --msde-white: #ffffff;
+  --msde-white-rgb: 255, 255, 255;
+  --msde-black: #14141a;
+  --msde-black-rgb: 20, 20, 26;
+  --msde-blue: #181a2e;
+  --msde-blue-rgb: 24, 26, 46;
+  --msde-green: #004348;
+  --msde-green-rgb: 0, 67, 72;
+  --msde-light-green: #017d61;
+  --msde-light-green-rgb: 1, 125, 97;
+  --msde-yellow: #f7c502;
+  --msde-yellow-rgb: 247, 197, 2;
+  --msde-orange: #faa200;
+  --msde-orange-rgb: 250, 162, 0;
+}
+
+/*
+  Overriding root Bootstrap's root variables
+*/
+
+:root {
+  --bs-font-sans-serif: 'Poppins', sans-serif;
+  --bs-primary: var(--msde-green);
+  --bs-primary-rgb: var(--msde-green-rgb);
+  --bs-light-rgb: var(--msde-white-rgb);
+}
+
+/*
+  Overriding Bootstrap's navbar
+*/
+.navbar {
+  --bs-navbar-padding-y: 1rem;
+  
+  border-bottom: solid 1px var(--bs-gray-100);
+}
+
+/*
+  Overriding Bootstrap's p colour
+*/
+p {
+  color: var(--bs-gray-600);
+}
+
+/*
+  Overriding primary button element
+*/
+
+.btn-primary {
+  --bs-btn-color: var(--msde-white);
+  --bs-btn-bg: var(--msde-black);
+  --bs-btn-border-color: var(--msde-green);
+  
+  --bs-btn-hover-color: var(--bs-btn-color);
+  --bs-btn-hover-bg: var(--bs-btn-bg);
+  --bs-btn-hover-border-color: var(--bs-btn-border-color);
+  
+  /*--bs-btn-focus-shadow-rgb: none;*/
+  
+  --bs-btn-active-color: var(--bs-btn-color);
+  --bs-btn-active-bg: var(--bs-btn-bg);
+  --bs-btn-active-border-color: var(--bs-btn-border-color);
+  /*--bs-btn-active-shadow: none;*/
+  
+  --bs-btn-disabled-color: var(--bs-btn-color);
+  --bs-btn-disabled-bg: var(--bs-btn-bg);
+  --bs-btn-disabled-border-color: var(--bs-btn-border-color);
+  
+  --bs-border-radius: 100px;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--msde-black);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: transparent;
+  
+  --bs-btn-hover-color: var(--bs-btn-color);
+  --bs-btn-hover-bg: var(--bs-btn-bg);
+  --bs-btn-hover-border-color: var(--bs-btn-border-color);
+  
+  --bs-btn-active-color: var(--bs-btn-color);
+  --bs-btn-active-bg: var(--bs-btn-bg);
+  --bs-btn-active-border-color: var(--bs-btn-border-color);
+  
+  --bs-btn-disabled-color: var(--bs-btn-color);
+  --bs-btn-disabled-bg: var(--bs-btn-bg);
+  --bs-btn-disabled-border-color: var(--bs-btn-border-color);
+  
+  --bs-border-radius: 100px;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+  Custom Yellow CTA
+*/
+.yellow-cta {
+  --bs-btn-color: var(--msde-green);
+  --bs-btn-bg: var(--msde-yellow);
+  --bs-btn-border-color: var(--msde-green);
+  
+  height: 80px;
+  width: 260px;
+}
+
+/*
+  Custom msde guidelines "En-Tête"
+*/
+.gelica-display {
+  font-family: "Gelica", sans-serif;
+  font-weight: 300;
+}
+
+/*
+  Custom msde guidelines "Titres"
+*/
+.gelica {
+  font-family: "Gelica", sans-serif;
+  font-weight: 700;
+}
+

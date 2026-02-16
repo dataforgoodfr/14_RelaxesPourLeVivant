@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import env from '#start/env'
 const HomeController = () => import('#controllers/home_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const audiencesController = () => import('#controllers/audiences_controller')
@@ -24,3 +25,7 @@ router.post('/sign-in', [AuthController, 'signin'])
 router.post('/logout', [AuthController, 'signout'])
 
 router.on('/').redirectToPath('/welcome')
+
+if (env.get('NODE_ENV') === 'development') {
+  router.on('/dev/design').render('designSystem/design_system')
+}
