@@ -22,10 +22,10 @@ export default class AuthController {
 
     try {
       const user = await User.verifyCredentials(email, password)
-      await auth.use('web').login(user)
+      await auth.use('web').login(user, !!request.input('rememberMe'))
       return response.redirect('/audiences')
     } catch {
-      session.flash('errors.auth', 'Invalid credentials')
+      session.flash('errors.auth', 'Mot de passe ou email incorrect')
       return response.redirect().back()
     }
   }
