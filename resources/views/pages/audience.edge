@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
   <head>
     <meta charset="utf-8" />
@@ -27,7 +27,8 @@
             <h3 id="section-resume-jugement-heading">
               Résumé du jugement
             </h3>
-            <p>
+            {{-- TODO: remove text-body-secondary when design system is fixed (i.e: no color on p element) --}}
+            <p class="text-body-secondary">
               {{ audience.resume_du_jugement_ou_arret }}
             </p>
             <div class="d-flex gap-2 flex-wrap">

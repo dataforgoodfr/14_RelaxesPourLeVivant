@@ -50,7 +50,14 @@ export const AudienceFactory = factory
       recit_d_audience: faker.system.filePath(),
       decision: faker.system.filePath(),
       resume_du_jugement_ou_arret: faker.lorem.paragraph(),
+      publiee: faker.datatype.boolean(),
     }
+  })
+  .state('publiee', (user) => {
+    user.publiee = true
+  })
+  .state('draft', (user) => {
+    user.publiee = false
   })
   .relation('ville', () => VilleFactory)
   .build()

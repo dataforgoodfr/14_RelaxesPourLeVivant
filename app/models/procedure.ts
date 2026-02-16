@@ -46,4 +46,7 @@ export default class Procedure extends BaseModel {
 
   @column()
   declare collectif_d_action_ou_lutte: string
+
+  @column()
+  declare publiee: boolean
 }

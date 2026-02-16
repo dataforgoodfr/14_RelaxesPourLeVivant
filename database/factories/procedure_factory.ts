@@ -13,7 +13,14 @@ export const ProcedureFactory = factory
       poursuites: faker.lorem.words(),
       nom_des_parties_civiles: faker.word.words(3),
       la_presse_parle_des_faits: faker.internet.url(),
+      publiee: faker.datatype.boolean(),
     }
+  })
+  .state('publiee', (user) => {
+    user.publiee = true
+  })
+  .state('draft', (user) => {
+    user.publiee = false
   })
   .relation('audiences', () => AudienceFactory)
   .build()

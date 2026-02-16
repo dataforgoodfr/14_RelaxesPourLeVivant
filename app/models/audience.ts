@@ -1,7 +1,7 @@
-import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import Procedure from './procedure.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { DateTime } from 'luxon'
+import Procedure from './procedure.js'
 import Ville from './ville.js'
 
 export default class Audience extends BaseModel {
@@ -107,4 +107,7 @@ export default class Audience extends BaseModel {
 
   @column()
   declare resume_du_jugement_ou_arret?: string
+
+  @column()
+  declare publiee: boolean
 }
