@@ -1,8 +1,24 @@
-<h1>
-  {{ error.code }} - Server error
-</h1>
-<p>
-  This template is rendered by the
-  <a href="http://docs.adonisjs.com/guides/exception-handling#status-pages">status pages feature</a>
-  of the global exception handler.
-</p>
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Relaxes Pour Le Vivant
+    </title>
+    @include('partials/bootstrap')
+  </head>
+
+  <body class="bg-light">
+    @include('partials/navbar')
+
+    <div class="container mt-3">
+      <h1>
+        {{ error.code }} - Erreur serveur
+      </h1>
+    </div>
+
+  </body>
+
+</html>
