@@ -22,6 +22,13 @@ export default class AuthController {
 
     try {
       const user = await User.verifyCredentials(email, password)
+      if (!user.approved) {
+        session.flash(
+          'errors.auth',
+          "Vous n'êtes pas autorisé, si vous pensez que c'est un problème contactez nous"
+        )
+        return response.redirect().back()
+      }
       await auth.use('web').login(user, !!request.input('rememberMe'))
       return response.redirect('/audiences')
     } catch {
