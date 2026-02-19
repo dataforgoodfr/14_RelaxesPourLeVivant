@@ -16,6 +16,7 @@ services:
     env_file: .env.example
     ports:
       - 4444
+      - 8080
     depends_on:
       db:
         condition: service_healthy
