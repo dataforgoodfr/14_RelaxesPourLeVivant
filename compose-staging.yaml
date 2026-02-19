@@ -21,7 +21,7 @@ services:
         condition: service_healthy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.once-campfire.rule=Host(`relaxeclimat.app.services.d4g.fr`)
+      - traefik.http.routers.once-campfire.rule=Host(`relaxeclimat-app.services.d4g.fr`)
       - traefik.http.routers.once-campfire.entryPoints=webtls
       - traefik.http.routers.once-campfire.tls=true
       - traefik.docker.network=d4g-internal
@@ -36,7 +36,7 @@ services:
         condition: service_healthy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.once-campfire.rule=Host(`relaxeclimat.metabase.services.d4g.fr`)
+      - traefik.http.routers.once-campfire.rule=Host(`relaxeclimat-metabase.services.d4g.fr`)
       - traefik.http.routers.once-campfire.entryPoints=webtls
       - traefik.http.routers.once-campfire.tls=true
       - traefik.docker.network=d4g-internal
