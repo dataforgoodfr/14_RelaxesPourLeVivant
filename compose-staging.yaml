@@ -25,7 +25,7 @@ services:
       - traefik.http.routers.relaxeclimat-app.entryPoints=webtls
       - traefik.http.routers.relaxeclimat-app.tls=true
       - traefik.docker.network=d4g-internal
-      - traefik.http.services.relaxeclimat-app.loadbalancer.server.port=4444
+      - traefik.http.services.relaxeclimat-app.loadbalancer.server.port=8080
   metabase:
     image: metabase/metabase:latest
     env_file: .env.example
