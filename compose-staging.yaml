@@ -19,6 +19,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.once-campfire.rule=Host(`relaxeclimat.app.services.d4g.fr`)
+      - traefik.http.routers.once-campfire.entryPoints=webtls
+      - traefik.http.routers.once-campfire.tls=true
+      - traefik.docker.network=d4g-internal
+      - traefik.http.services.once-campfire.loadbalancer.server.port=4444
   metabase:
     image: metabase/metabase:latest
     env_file: .env.example
@@ -27,3 +34,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.once-campfire.rule=Host(`relaxeclimat.metabase.services.d4g.fr`)
+      - traefik.http.routers.once-campfire.entryPoints=webtls
+      - traefik.http.routers.once-campfire.tls=true
+      - traefik.docker.network=d4g-internal
+      - traefik.http.services.once-campfire.loadbalancer.server.port=3000
