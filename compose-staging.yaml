@@ -21,11 +21,11 @@ services:
         condition: service_healthy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.once-campfire.rule=Host(`relaxeclimat-app.services.d4g.fr`)
-      - traefik.http.routers.once-campfire.entryPoints=webtls
-      - traefik.http.routers.once-campfire.tls=true
+      - traefik.http.routers.relaxeclimat-app.rule=Host(`relaxeclimat-app.services.d4g.fr`)
+      - traefik.http.routers.relaxeclimat-app.entryPoints=webtls
+      - traefik.http.routers.relaxeclimat-app.tls=true
       - traefik.docker.network=d4g-internal
-      - traefik.http.services.once-campfire.loadbalancer.server.port=4444
+      - traefik.http.services.relaxeclimat-app.loadbalancer.server.port=4444
   metabase:
     image: metabase/metabase:latest
     env_file: .env.example
@@ -36,8 +36,8 @@ services:
         condition: service_healthy
     labels:
       - traefik.enable=true
-      - traefik.http.routers.once-campfire.rule=Host(`relaxeclimat-metabase.services.d4g.fr`)
-      - traefik.http.routers.once-campfire.entryPoints=webtls
-      - traefik.http.routers.once-campfire.tls=true
+      - traefik.http.routers.relaxeclimat-metabase.rule=Host(`relaxeclimat-metabase.services.d4g.fr`)
+      - traefik.http.routers.relaxeclimat-metabase.entryPoints=webtls
+      - traefik.http.routers.relaxeclimat-metabase.tls=true
       - traefik.docker.network=d4g-internal
-      - traefik.http.services.once-campfire.loadbalancer.server.port=3000
+      - traefik.http.services.relaxeclimat-metabase.loadbalancer.server.port=3000
