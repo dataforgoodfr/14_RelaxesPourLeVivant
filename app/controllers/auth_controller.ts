@@ -6,6 +6,7 @@ import { DateTime } from 'luxon'
 import crypto from 'node:crypto'
 import { errors } from '@adonisjs/lucid'
 import mail from '@adonisjs/mail/services/main'
+import { resetPasswordValidator } from '#validators/reset_password'
 
 export default class AuthController {
   async signup({ request, response, session }: HttpContext) {
@@ -76,10 +77,23 @@ export default class AuthController {
     return response.redirect().back()
   }
 
-  async resetPassword({ view, params }: HttpContext) {
+  async showResetPassword({ view, params }: HttpContext) {
     return view.render('pages/auth/reset_password', {
       token: params.token,
       email: params.email,
     })
+  }
+
+  async handleResetPassword({ request }: HttpContext) {
+    const email = request.input('email')
+    const { password } = await request.validateUsing(resetPasswordValidator)
+
+    console.log(email)
+    console.log(password)
+
+    // console.log(data.email)
+    // console.log(data.password)
+    // console.log(data.confirmPassword)
+    return 'hello'
   }
 }
