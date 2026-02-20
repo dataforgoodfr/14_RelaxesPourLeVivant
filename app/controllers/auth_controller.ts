@@ -5,6 +5,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
 import crypto from 'node:crypto'
 import { errors } from '@adonisjs/lucid'
+import mail from '@adonisjs/mail/services/main'
 
 export default class AuthController {
   async signup({ request, response, session }: HttpContext) {
@@ -53,6 +54,14 @@ export default class AuthController {
       user.passwordToken = crypto.randomBytes(10).toString('hex')
       user.passwordTokenCreatedAt = DateTime.now()
       await user.save()
+
+      await mail.send((message) => {
+        message
+          .to(user.email)
+          .from('info@example.org')
+          .subject('Demande de mot de passe')
+          .htmlView('emails/forgotten_password', { user })
+      })
     } catch (error) {
       if (!(error instanceof errors.E_ROW_NOT_FOUND)) {
         throw error
@@ -65,5 +74,12 @@ export default class AuthController {
     })
 
     return response.redirect().back()
+  }
+
+  async resetPassword({ view, params }: HttpContext) {
+    return view.render('pages/auth/reset_password', {
+      token: params.token,
+      email: params.email,
+    })
   }
 }
