@@ -2,6 +2,9 @@ import { SIGNUP_SUCCESS, FORGOT_PASSWORD_SENT } from '#config/constants'
 import User from '#models/user'
 import { createUserValidator } from '#validators/create_user'
 import type { HttpContext } from '@adonisjs/core/http'
+import { DateTime } from 'luxon'
+import crypto from 'node:crypto'
+import { errors } from '@adonisjs/lucid'
 
 export default class AuthController {
   async signup({ request, response, session }: HttpContext) {
@@ -47,9 +50,13 @@ export default class AuthController {
 
     try {
       const user = await User.findByOrFail('email', email)
-      console.log(user.email, 'a demandé de réinitialiser son mot de passe')
+      user.passwordToken = crypto.randomBytes(10).toString('hex')
+      user.passwordTokenCreatedAt = DateTime.now()
+      await user.save()
     } catch (error) {
-      console.log(`Utilisateur ${email} introuvable`)
+      if (!(error instanceof errors.E_ROW_NOT_FOUND)) {
+        throw error
+      }
     }
 
     session.flash('notification', {
