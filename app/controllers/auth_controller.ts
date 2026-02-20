@@ -1,4 +1,4 @@
-import { SIGNUP_SUCCESS } from '#config/constants'
+import { SIGNUP_SUCCESS, FORGOT_PASSWORD_SENT } from '#config/constants'
 import User from '#models/user'
 import { createUserValidator } from '#validators/create_user'
 import type { HttpContext } from '@adonisjs/core/http'
@@ -40,5 +40,23 @@ export default class AuthController {
   async signout({ auth, response }: HttpContext) {
     await auth.use('web').logout()
     return response.redirect('/sign-in')
+  }
+
+  async forgottenpassword({ request, response, session }: HttpContext) {
+    const email = request.input('email')
+
+    try {
+      const user = await User.findByOrFail('email', email)
+      console.log(user.email, 'a demandé de réinitialiser son mot de passe')
+    } catch (error) {
+      console.log(`Utilisateur ${email} introuvable`)
+    }
+
+    session.flash('notification', {
+      type: 'success',
+      code: FORGOT_PASSWORD_SENT,
+    })
+
+    return response.redirect().back()
   }
 }

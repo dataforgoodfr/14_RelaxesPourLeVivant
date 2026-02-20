@@ -24,6 +24,7 @@ router.on('/forgotten-password').render('pages/auth/forgotten_password')
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])
 router.post('/logout', [AuthController, 'signout'])
+router.post('/forgotten-password', [AuthController, 'forgottenpassword'])
 
 router.on('/').redirectToPath('/welcome')
 
