@@ -19,6 +19,7 @@ router.get('/audiences', [HomeController, 'home']).use(middleware.auth())
 router.get('/audiences/:id', [AudiencesController, 'get']).use(middleware.auth())
 router.on('/sign-up').render('pages/auth/sign_up')
 router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest())
+router.on('/forgotten-password').render('pages/auth/forgotten_password')
 
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])
