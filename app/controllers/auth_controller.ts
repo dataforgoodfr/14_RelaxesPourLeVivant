@@ -1,4 +1,4 @@
-import { SIGNUP_SUCCESS, FORGOT_PASSWORD_SENT } from '#config/constants'
+import { SIGNUP_SUCCESS } from '#config/constants'
 import User from '#models/user'
 import { createUserValidator } from '#validators/create_user'
 import type { HttpContext } from '@adonisjs/core/http'
@@ -69,10 +69,10 @@ export default class AuthController {
       }
     }
 
-    session.flash('notification', {
-      type: 'success',
-      code: FORGOT_PASSWORD_SENT,
-    })
+    session.flash(
+      'success.forgotten_password',
+      "Si le compte existe, un e-mail de réinitialisation de mot de passe va vous parvenir d'ici quelques instants. Pensez à vérifier vos spams."
+    )
 
     return response.redirect().back()
   }
@@ -93,10 +93,8 @@ export default class AuthController {
       .where('passwordTokenCreatedAt', '>', DateTime.now().minus({ hours: 2 }).toSQL())
       .first()
 
-    console.log(user)
-
     if (!user) {
-      session.flash('notification', { type: 'error', message: 'Lien invalide ou expiré.' })
+      session.flash('errors.password_reset', 'Lien invalide ou expiré.')
       return response.redirect().toPath('/forgotten-password')
     }
 
@@ -108,7 +106,7 @@ export default class AuthController {
 
     await user.save()
 
-    session.flash('notification', { type: 'success', message: 'Mot de passe modifié !' })
+    session.flash('success.password_reset', 'Le mot de passe a bien été modifié.')
     return response.redirect().toPath('/sign-in')
   }
 }

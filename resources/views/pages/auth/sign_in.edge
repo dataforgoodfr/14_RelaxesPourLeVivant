@@ -31,6 +31,11 @@
                 {{ flashMessages.get('errors.auth') }}
               </div>
             @endif
+            @if(flashMessages.has('success.password_reset'))
+              <div class="alert alert-success">
+                {{ flashMessages.get('success.password_reset') }}
+              </div>
+            @endif
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
               <input
