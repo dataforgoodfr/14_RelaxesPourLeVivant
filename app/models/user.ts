@@ -33,10 +33,10 @@ export default class Utilisateur extends compose(BaseModel, AuthFinder) {
   declare updatedAt: DateTime
 
   @column()
-  declare passwordToken: string
+  declare passwordToken: string | null
 
   @column()
-  declare passwordTokenCreatedAt: DateTime
+  declare passwordTokenCreatedAt: DateTime | null
 
   static rememberMeTokens = DbRememberMeTokensProvider.forModel(Utilisateur)
 }

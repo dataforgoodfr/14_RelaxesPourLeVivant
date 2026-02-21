@@ -84,16 +84,31 @@ export default class AuthController {
     })
   }
 
-  async handleResetPassword({ request }: HttpContext) {
-    const email = request.input('email')
-    const { password } = await request.validateUsing(resetPasswordValidator)
+  async handleResetPassword({ request, response, session }: HttpContext) {
+    const { email, password, token } = await request.validateUsing(resetPasswordValidator)
 
-    console.log(email)
-    console.log(password)
+    const user = await User.query()
+      .where('email', email)
+      .where('passwordToken', token)
+      .where('passwordTokenCreatedAt', '>', DateTime.now().minus({ hours: 2 }).toSQL())
+      .first()
 
-    // console.log(data.email)
-    // console.log(data.password)
-    // console.log(data.confirmPassword)
-    return 'hello'
+    console.log(user)
+
+    if (!user) {
+      session.flash('notification', { type: 'error', message: 'Lien invalide ou expiré.' })
+      return response.redirect().toPath('/forgotten-password')
+    }
+
+    user.merge({
+      password,
+      passwordToken: null,
+      passwordTokenCreatedAt: null,
+    })
+
+    await user.save()
+
+    session.flash('notification', { type: 'success', message: 'Mot de passe modifié !' })
+    return response.redirect().toPath('/sign-in')
   }
 }
