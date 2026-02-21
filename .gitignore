@@ -23,6 +23,3 @@ yarn-error.log
 
 # Platform specific
 .DS_Store
-
-# Docker mounting points
-mailpit_data
