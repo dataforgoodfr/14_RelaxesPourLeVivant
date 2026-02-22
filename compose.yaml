@@ -27,3 +27,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  mailpit:
+    image: axllent/mailpit
+    restart: unless-stopped
+    ports:
+      - 8025:8025
+      - 1025:1025

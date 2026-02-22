@@ -96,3 +96,9 @@ Pour gagner du temps vous pouvez renseigner la _Connection string_
 - Connection string : jdbc:postgresql://db:5423/le_nom_de_votre_base_de_donnee (cf. .env ou database/postgres-init/create-database.sql)
 - Nom d'utilisateur : la valeur de POSTGRES_USER dans `.env`
 - Mot de passe : la valeur de POSTGRES_PASSWORD dans `.env`
+
+## Mailpit (serveur de mail dev)
+
+Le service `mailpit` du Docker Compose File est un serveur mail de développement, qui gère:
+- les envois d'e-mail sur le port `1025`
+- la réception des e-mail, à travers un webmail accessible à l'adresse [http://localhost:8025/](http://localhost:8025/)

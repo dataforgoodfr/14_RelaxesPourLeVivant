@@ -32,5 +32,11 @@ export default class Utilisateur extends compose(BaseModel, AuthFinder) {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
+  @column()
+  declare passwordToken: string | null
+
+  @column()
+  declare passwordTokenCreatedAt: DateTime | null
+
   static rememberMeTokens = DbRememberMeTokensProvider.forModel(Utilisateur)
 }
