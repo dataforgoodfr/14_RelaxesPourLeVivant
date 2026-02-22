@@ -10,32 +10,39 @@
     @include('partials/bootstrap')
   </head>
 
-  <body class="bg-light">
+  <body>
+    <header>
+      @include('partials/navbar')
+    </header>
     <div class="container mt-5">
       <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card shadow-sm">
-            <div class="card-body p-4">
-              @if (flashMessages.get('notification.code') === 'SIGNUP_SUCCESS')
-                <div class="alert alert-success mb-3" role="alert">
-                  <h4 class="alert-heading">
-                    Confirmation
-                  </h4>
-                  <p class="mb-0">
-                    Votre demande sera traîtée par MSDE et vous serez recontacté par mail lors de l'activation de votre compte.
-                  </p>
-                </div>
-                <div class="d-grid">
-                  <a href="/" class="btn btn-primary">Aller à l'accueil</a>
-                </div>
-              @else
-                <h2 class="text-center mb-4">
-                  Demande d'accès
-                </h2>
-                <form method="POST" action="/sign-up">
+        <div class="col-md-4">
+          <div class="vstack gap-3">
+            @if (flashMessages.get('notification.code') === 'SIGNUP_SUCCESS')
+              <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">
+                  Confirmation
+                </h4>
+                <p>
+                  Votre demande sera traîtée par MSDE et vous serez recontacté par mail lors de l'activation de votre compte.
+                </p>
+              </div>
+              <div class="d-grid">
+                <a href="/" class="text-center">Aller à l'accueil</a>
+              </div>
+            @else
+              <img class="d-block mx-auto" style="width: 48px;" src="msde_icon.svg" alt="MSDE logo icon" />
+              <h2 class="text-center">
+                Demande d'accès
+              </h2>
+              <p class="text-center text-secondary">
+                Envoyez votre demande d'accès à la plateforme. L'association reviendra vers vous par e-mail pour confirmer l'ouverture de votre compte.
+              </p>
+              <form method="POST" action="/sign-up">
+                <div class="vstack gap-3">
                   {{ csrfField() }}
-                  <div class="mb-3">
-                    <label for="email" class="form-label">Adresse email <span class="text-danger">*</span></label>
+                  <div>
+                    <label for="email" class="form-label text-secondary">Adresse email <span class="text-danger">*</span></label>
                     <input
                       type="email"
                       class="form-control"
@@ -46,12 +53,12 @@
                       required
                     />
                   </div>
-                  <div class="mb-3">
-                    <label for="password" class="form-label">Mot de passe <span class="text-danger">*</span></label>
+                  <div>
+                    <label for="password" class="form-label text-secondary">Mot de passe <span class="text-danger">*</span></label>
                     <input type="password" class="form-control" id="password" name="password" required />
                   </div>
-                  <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Confirmer le mot de passe <span class="text-danger">*</span></label>
+                  <div>
+                    <label for="confirmPassword" class="form-label text-secondary">Confirmer le mot de passe <span class="text-danger">*</span></label>
                     <input
                       type="password"
                       class="form-control {{ flashMessages.has('inputErrorsBag.confirmPassword') ? 'is-invalid' : '' }}"
@@ -70,20 +77,19 @@
                       </div>
                     @end
                   </div>
-                  <div class="mb-3">
-                    <label for="motivation" class="form-label">Motivation de la demande <span class="text-danger">*</span></label>
+                  <div>
+                    <label for="motivation" class="form-label text-secondary">Motivation de la demande <span class="text-danger">*</span></label>
                     <textarea rows="5" class="form-control" id="motivation" name="motivation" maxlength="1000" required>{{ old('motivation') || '' }}</textarea>
                   </div>
                   <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Envoyer la demande</button>
                   </div>
-                </form>
-              @endif
-            </div>
+                </div>
+              </form>
+            @endif
           </div>
         </div>
       </div>
     </div>
   </body>
-
 </html>
