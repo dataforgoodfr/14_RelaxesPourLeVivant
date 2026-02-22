@@ -7,6 +7,8 @@ import { sessionApiClient } from '@adonisjs/session/plugins/api_client'
 import { shieldApiClient } from '@adonisjs/shield/plugins/api_client'
 import { authApiClient } from '@adonisjs/auth/plugins/api_client'
 import { apiClient } from '@japa/api-client'
+import { PostgreSqlContainer } from '@testcontainers/postgresql'
+import env from '#start/env'
 
 /**
  * This file is imported by the "bin/test.ts" entrypoint file
@@ -43,6 +45,24 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
  */
 export const configureSuite: Config['configureSuite'] = (suite) => {
   if (['browser', 'functional', 'e2e'].includes(suite.name)) {
-    return suite.setup(() => testUtils.db().migrate()).setup(() => testUtils.httpServer().start())
+    return suite
+      .setup(() => startPostgres())
+      .setup(() => testUtils.db().migrate())
+      .setup(() => testUtils.httpServer().start())
+  }
+}
+
+async function startPostgres() {
+  const postgres = await new PostgreSqlContainer('postgres:18-alpine')
+    .withDatabase(env.get('DB_DATABASE'))
+    .withUsername(env.get('DB_USER'))
+    .withPassword(env.get('DB_PASSWORD')!)
+    .withExposedPorts({
+      container: 5432,
+      host: env.get('DB_PORT'),
+    })
+    .start()
+  return async () => {
+    await postgres.stop()
   }
 }

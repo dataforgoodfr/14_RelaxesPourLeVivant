@@ -28,7 +28,7 @@ router.post('/logout', [AuthController, 'signout'])
 router.post('/forgotten-password', [AuthController, 'forgottenpassword'])
 router.post('/reset-password', [AuthController, 'handleResetPassword'])
 
-router.on('/').redirectToPath('/welcome')
+router.on('*').redirectToPath('/welcome')
 
 if (env.get('NODE_ENV') === 'development') {
   router.on('/dev/design').render('designSystem/design_system')
