@@ -2,7 +2,10 @@ import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import Procedure from './procedure.js'
+import { AttachmentRecord } from './vendors/nocodb.js'
 import Ville from './ville.js'
+
+export type RecitFile = AttachmentRecord & { extension: string }
 
 export default class Audience extends BaseModel {
   @column({ isPrimary: true })
@@ -99,8 +102,17 @@ export default class Audience extends BaseModel {
   @column()
   declare partie_de_l_appel_incident?: string
 
-  @column()
-  declare recit_d_audience?: string
+  @column({
+    consume: (value: string | null) => {
+      return value
+        ? JSON.parse(value).map((recit: AttachmentRecord) => ({
+            ...recit,
+            extension: recit.title.split('.')[1] ?? null,
+          }))
+        : []
+    },
+  })
+  declare recit_d_audience?: RecitFile[]
 
   @column()
   declare decision?: string

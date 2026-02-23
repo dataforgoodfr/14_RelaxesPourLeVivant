@@ -32,8 +32,9 @@
               {{ audience.resume_du_jugement_ou_arret }}
             </p>
             <div class="d-flex gap-2 flex-wrap">
-              @each((recit, index) in recitsFiles)
-                @let (fileInfo = `${recit.extension ? recit.extension +" - " : ''}${recit.prettySize}`)
+              @let (recitsFiles = audience.recit_d_audience)
+              @each((recit, index) in (recitsFiles))
+                @let (fileInfo = `${recit.extension ? recit.extension +" - " : ''}${stringHelper.bytes.format(recit.size)}`)
                 {{-- Display file number if more than 1 file --}}
                 @let (fileNumberOrEmpty = (recitsFiles.length > 1) ? `#${index+1} - ` : '')
                 <a href="./{{ audience.id }}/recit/{{ recit.id }}" class="btn btn-sm btn-dark" download>> Télécharger le récit d'audience {{fileNumberOrEmpty}}({{fileInfo}})</a>

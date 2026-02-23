@@ -40,7 +40,7 @@ export default class extends BaseSchema {
       table.boolean('appel_d_une_des_parties')
       table.string('partie_de_l_appel_principal')
       table.string('partie_de_l_appel_incident')
-      table.json('recit_d_audience')
+      table.string('recit_d_audience')
       table.string('decision')
       table.text('resume_du_jugement_ou_arret')
 

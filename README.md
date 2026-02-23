@@ -47,6 +47,12 @@ Par défaut NocoDB est accessible via http://localhost:4444 (cf. compose.yaml)
   - Database : le nom de la database dans `database/postgres-init/create-database.sql`
   - Schema name : public
 
+Pour faire les appels à l'API, il faudra également récupérer un API_TOKEN lié au compte utilisé pour administrer NocoDB.
+
+1. Sur l'interface d'administration, ouvrir le menu "API Tokens" en cliquant sur le compte (en bas à gauche)
+2. Ajouter un nouveau token pour l'appli AdonisJS
+3. Copier le token généré et le renseigner pour la valeur NC_API_TOKEN dans `.env`
+
 ### Configurer Metabase
 
 Si vous lancez Metabase pour la première fois vous aurez besoin de le configurer manuellement, un peu comme NocoDB.  

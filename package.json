@@ -67,7 +67,6 @@
     "@adonisjs/vite": "^4.0.0",
     "@vinejs/vine": "^3.0.1",
     "edge.js": "^6.2.1",
-    "filesize": "^11.0.13",
     "luxon": "^3.7.2",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2"
