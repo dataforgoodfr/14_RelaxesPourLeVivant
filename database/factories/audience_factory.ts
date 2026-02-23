@@ -47,7 +47,7 @@ export const AudienceFactory = factory
         'Parquet',
         'Partie Civile',
       ]),
-      recit_d_audience: faker.system.filePath(),
+      recit_d_audience: null,
       decision: faker.system.filePath(),
       resume_du_jugement_ou_arret: faker.lorem.paragraph(),
       publiee: faker.datatype.boolean(),
