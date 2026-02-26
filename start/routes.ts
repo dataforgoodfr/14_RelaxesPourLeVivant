@@ -22,6 +22,7 @@ router
 router.get('/audiences/:id', [AudiencesController, 'get']).use(middleware.auth())
 router.on('/sign-up').render('pages/auth/sign_up')
 router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest())
+router.on('/change-password').render('pages/auth/change_password').use(middleware.auth())
 router.on('/forgotten-password').render('pages/auth/forgotten_password')
 router.get('/reset-password/:token/:email', [AuthController, 'showResetPassword'])
 
