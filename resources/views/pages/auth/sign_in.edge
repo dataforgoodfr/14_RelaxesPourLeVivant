@@ -15,61 +15,71 @@
       @include('partials/navbar')
     </header>
 
-    <div class="container mt-5">
+    <div class="container my-5">
       <div class="row justify-content-center">
         <div class="col-md-4">
-          <h2 class="text-center">
-            Connectez vous pour accéder aux données
-          </h2>
-          <p class="text-center">
-            Bienvenue ! Entrez vos identifiants
-          </p>
-          <form method="POST" action="/sign-in">
-            {{ csrfField() }}
-            @if(flashMessages.has('errors.auth'))
-              <div class="alert alert-danger">
-                {{ flashMessages.get('errors.auth') }}
-              </div>
-            @endif
-            @if(flashMessages.has('success.password_reset'))
-              <div class="alert alert-success">
-                {{ flashMessages.get('success.password_reset') }}
-              </div>
-            @endif
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                placeholder="name@example.com"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Mot de passe</label>
-              <input type="password" class="form-control" id="password" name="password" required />
-            </div>
-            <div class="mb-3 text-center">
-              <input class="form-check-input" type="checkbox" value="true" name="rememberMe" id="rememberMe" />
-              <label class="form-check-label" for="rememberMe">
-                Se rappeler de moi (30 jours)
-              </label>
-            </div>
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Se connecter</button>
-            </div>
-          </form>
-          <div class="mt-3 text-center">
-            <p>
-              <a href="/forgotten-password">Mot de passe oublié</a>
+          <div class="vstack gap-3">
+            <img
+              class="d-block mx-auto"
+              style="width: 48px;"
+              src="{{ asset('resources/images/msde_icon.svg') }}"
+              alt="MSDE logo icon"
+            />
+            <h2 class="text-center">
+              Connectez vous pour accéder aux données
+            </h2>
+            <p class="text-center text-secondary">
+              Bienvenue ! Entrez vos identifiants
             </p>
-          </div>
-          <div class="mt-3 text-center">
-            <p>
-              Vous n’avez pas de compte? <a href="/sign-up">Demander un accès</a>
-            </p>
+            <form method="POST" action="/sign-in">
+              <div class="vstack gap-3">
+                {{ csrfField() }}
+                @if(flashMessages.has('errors.auth'))
+                  <div class="alert alert-danger">
+                    {{ flashMessages.get('errors.auth') }}
+                  </div>
+                @endif
+                @if(flashMessages.has('success.password_reset'))
+                  <div class="alert alert-success">
+                    {{ flashMessages.get('success.password_reset') }}
+                  </div>
+                @endif
+                <div>
+                  <label for="email" class="form-label text-secondary">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="name@example.com"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="password" class="form-label text-secondary">Mot de passe</label>
+                  <input type="password" class="form-control" id="password" name="password" required />
+                </div>
+                <div class="text-center">
+                  <input class="form-check-input" type="checkbox" value="true" name="rememberMe" id="rememberMe" />
+                  <label class="form-check-label text-secondary" for="rememberMe">
+                    Se rappeler de moi (30 jours)
+                  </label>
+                </div>
+                <div class="text-center">
+                  <p>
+                    <a href="/forgotten-password">Mot de passe oublié</a>
+                  </p>
+                </div>
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary">Se connecter</button>
+                </div>
+              </div>
+            </form>
+            <div>
+              <p class="text-center text-secondary">
+                Vous n’avez pas de compte? <a href="/sign-up">Demander un accès</a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
