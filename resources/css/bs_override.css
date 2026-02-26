@@ -88,8 +88,14 @@ a {
 }
 
 /*
-  Overriding primary button element
+  Overriding button elements
 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .btn-primary {
   --bs-btn-color: var(--msde-white);
   --bs-btn-bg: var(--msde-black);
@@ -111,10 +117,6 @@ a {
   --bs-btn-disabled-border-color: var(--bs-btn-border-color);
 
   --bs-border-radius: 100px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .btn-outline-primary {
@@ -135,10 +137,6 @@ a {
   --bs-btn-disabled-border-color: var(--bs-btn-border-color);
 
   --bs-border-radius: 100px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /*
@@ -164,9 +162,6 @@ form button.btn-primary {
   --bs-border-radius: 8px;
 
   height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /*
