@@ -17,32 +17,39 @@ export default class extends BaseSchema {
       // Public fields
       table.date('date_de_l_audience')
       table.string('ville_de_l_audience').references('villes.nom')
-      table.string('juridiction')
+      table.string('juridiction')  // TODO : create table juridiction and reference it here
+      table.string('degre_de_juridiction')  // TODO : create table degre_de_juridiction and reference it here
       table.date('date_de_decision')
       table.string('decision_pour_les_faits')
-      table.string('decision_pour_les_infractions')
+      table.string('decision_pour_les_infractions_principales')  // TODO : link to table with values
 
       // Restricted fields
       table.string('numero_de_chambre')
-      table.integer('nombre_de_prevenu_es').unsigned().defaultTo(0).notNullable()
-      table.integer('nombre_de_temoins').unsigned().defaultTo(0).notNullable()
-      table.text('expertise_des_temoins')
-      table.integer('nombre_d_avocat_es').unsigned().defaultTo(0).notNullable()
-      table.text('nom_des_parties_civiles')
+      table.integer('plaidoirie_de_la_defense')
+      table.text('noms_des_parties_civiles')
       table.text('demande_des_parties_civiles')
-      table.string('composition_du_tribunal')
-      table.string('fondement_de_la_relaxe')
-      table.text('peine_pour_les_faits')
-      table.text('detail_de_la_peine')
-      table.integer('score_de_la_gravite').unsigned()
-      table.text('peine_complementaire')
-      table.text('peine_pour_les_infractions')
+      table.text('requisitions')
+      table.string('fondement_de_la_relaxe')  // Todo : create a table with value, multiple choices
+      table.string('type_de_peine_pour_les_infractions_principales')  // Todo : create a table with value, multiple choices
+      table.text('details_de_la_decision_pour_les_infractions_principales')
+      table.text('details_des_peines_pour_les_infractions_secondaires')
+      table.text('decision_et_peines_pour_les_infractions_subies_ou_incidentes')
+      table.float('score_de_la_gravite').unsigned()
+      table.boolean('dommages_et_interets')
+      table.text('detail_des_dommages_et_interets')
+      table.boolean('inscription_au_casier_judiciaire')
       table.boolean('appel_d_une_des_parties')
-      table.string('partie_de_l_appel_principal')
-      table.string('partie_de_l_appel_incident')
-      table.string('recit_d_audience')
-      table.string('decision')
+      table.string('partie_de_l_appel_principal')  // TODO : create table, multiple choices
+      table.string('partie_de_l_appel_incident')  // TODO : create table, multiple choices
+      table.string('la_presse_parle_du_proces')  //  TODO : create table, multiple choices
+      table.string('recit_d_audience')  // Todo : change type to file ?
+      table.string('jugement_ou_arret')  // Todo : change type to file ?
+      table.string('reference_de_la_decision')
       table.text('resume_du_jugement_ou_arret')
+      table.text('resume_de_l_audience')
+      table.text('commentaire_msde')
+      table.text('extrait_de_la_decision')
+      table.text('mots_cles')  // TODO : create table, multiple choices
 
       table.boolean('publiee').defaultTo(true).notNullable()
       table.index('publiee')
