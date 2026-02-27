@@ -9,9 +9,9 @@ export default class extends BaseSchema {
 
       // Relation fields
       table
-        .string('nom_de_la_procedure')
+        .string('reference_procedure')
         .notNullable()
-        .references('procedures.nom')
+        .references('procedures.reference_procedure')
         .onDelete('CASCADE')
 
       // Public fields

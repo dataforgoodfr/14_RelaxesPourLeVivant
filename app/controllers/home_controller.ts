@@ -14,28 +14,29 @@ export default class HomeController {
       .with('timeline', (q) => {
         q.from('audiences')
           .select(
-            'nom_de_la_procedure as name',
+            'reference_procedure',
             db.raw(
               "array_agg(json_object('{id,date}', ARRAY[id::text, date_de_l_audience::text])) as audiences"
             )
           )
-          .groupBy('nom_de_la_procedure')
+          .groupBy('reference_procedure')
       })
       .select(
         'audiences.*',
-        'procedures.description',
-        'procedures.courte_description',
+        'procedures.titre',
+        'procedures.faits_detailles',
+        'procedures.faits_concis',
         'procedures.collectif_d_action_ou_lutte',
         'timeline.audiences as timeline'
       )
       .from('audiences')
-      .join('procedures', 'audiences.nom_de_la_procedure', 'procedures.nom')
-      .join('timeline', 'timeline.name', 'audiences.nom_de_la_procedure')
+      .join('procedures', 'audiences.reference_procedure', 'procedures.reference_procedure')
+      .join('timeline', 'timeline.reference_procedure', 'audiences.reference_procedure')
       .where('audiences.publiee', true)
       .andWhere('procedures.publiee', true)
 
     if (searchQuery.search) {
-      query.andWhereRaw("procedures.description_searchable @@ to_tsquery('french', ?)", [
+      query.andWhereRaw("procedures.faits_detailles_searchable @@ to_tsquery('french', ?)", [
         searchQuery.search,
       ])
     }

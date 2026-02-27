@@ -6,12 +6,13 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('titre').notNullable().unique()
+      table.string('reference_procedure').notNullable().unique()
 
       // Public fields
       table.text('faits_concis')
 
       // Private fields
+      table.string('titre').notNullable()
       table.text('date_des_faits')  // or type "list of date"
       table.text('faits_detailles')
       table.text('poursuites')
