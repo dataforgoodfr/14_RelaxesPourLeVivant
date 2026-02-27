@@ -25,13 +25,14 @@ export default class extends BaseSchema {
 
       // Restricted fields
       table.string('numero_de_chambre')
-      table.integer('plaidoirie_de_la_defense')
+      table.integer('nombre_de_prevenus')
+      table.text('plaidoirie_de_la_defense')
       table.text('noms_des_parties_civiles')
       table.text('demande_des_parties_civiles')
       table.text('requisitions')
       table.string('fondement_de_la_relaxe')  // Todo : create a table with value, multiple choices
       table.string('type_de_peine_pour_les_infractions_principales')  // Todo : create a table with value, multiple choices
-      table.text('details_des_peines_pour_les_infractions_secondaires')
+      table.text('details_des_peines_pour_les_infractions_principales')
       table.text('decision_et_peines_pour_les_infractions_subies_ou_incidentes')
       table.float('score_de_la_gravite').unsigned()
       table.boolean('dommages_et_interets')
