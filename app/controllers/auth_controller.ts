@@ -111,15 +111,20 @@ export default class AuthController {
     return response.redirect().toPath('/sign-in')
   }
 
-  async changePassword({ auth, request }: HttpContext) {
-    // this route is already protected via auth middleware, user cannot be undefined
-    const user = auth.user!
+  async changePassword({ auth, request, response, session }: HttpContext) {
+    const { oldPassword, newPassword } = await request.validateUsing(changePasswordValidator)
 
-    const { oldPassword, newPassword, confirmNewPassword } =
-      await request.validateUsing(changePasswordValidator)
+    try {
+      // this route is already protected via auth middleware, user cannot be undefined (auth.user!)
+      const user = await User.verifyCredentials(auth.user!.email, oldPassword)
+      user.password = newPassword
+      await user.save()
 
-    console.log(oldPassword, newPassword, confirmNewPassword)
-
-    return user
+      session.flash('success.password_change', 'Le mot de passe a bien été modifié.')
+      return response.redirect().back()
+    } catch (error) {
+      session.flash('errors.auth', "L'ancien mot de passe ne correspond pas.")
+      return response.redirect().back()
+    }
   }
 }
