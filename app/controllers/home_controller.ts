@@ -49,7 +49,7 @@ export default class HomeController {
     }
 
     if (searchQuery.decision) {
-      query.andWhere('audiences.decision_pour_les_faits', searchQuery.decision)
+      query.andWhere('audiences.decision_pour_les_infractions_principales', searchQuery.decision)
     }
 
     if (searchQuery.juridiction) {
