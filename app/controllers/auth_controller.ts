@@ -7,6 +7,7 @@ import crypto from 'node:crypto'
 import { errors } from '@adonisjs/lucid'
 import mail from '@adonisjs/mail/services/main'
 import { resetPasswordValidator } from '#validators/reset_password'
+import { changePasswordValidator } from '#validators/change_password'
 
 export default class AuthController {
   async signup({ request, response, session }: HttpContext) {
@@ -47,7 +48,7 @@ export default class AuthController {
     return response.redirect('/sign-in')
   }
 
-  async forgottenpassword({ request, response, session }: HttpContext) {
+  async forgottenPassword({ request, response, session }: HttpContext) {
     const email = request.input('email')
 
     try {
@@ -108,5 +109,17 @@ export default class AuthController {
 
     session.flash('success.password_reset', 'Le mot de passe a bien été modifié.')
     return response.redirect().toPath('/sign-in')
+  }
+
+  async changePassword({ auth, request }: HttpContext) {
+    // this route is already protected via auth middleware, user cannot be undefined
+    const user = auth.user!
+
+    const { oldPassword, newPassword, confirmNewPassword } =
+      await request.validateUsing(changePasswordValidator)
+
+    console.log(oldPassword, newPassword, confirmNewPassword)
+
+    return user
   }
 }

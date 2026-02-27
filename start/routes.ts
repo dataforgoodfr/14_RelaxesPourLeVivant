@@ -29,7 +29,8 @@ router.get('/reset-password/:token/:email', [AuthController, 'showResetPassword'
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])
 router.post('/logout', [AuthController, 'signout'])
-router.post('/forgotten-password', [AuthController, 'forgottenpassword'])
+router.post('/change-password', [AuthController, 'changePassword']).use(middleware.auth())
+router.post('/forgotten-password', [AuthController, 'forgottenPassword'])
 router.post('/reset-password', [AuthController, 'handleResetPassword'])
 
 router.on('*').redirectToPath('/welcome')
