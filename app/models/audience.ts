@@ -12,13 +12,13 @@ export default class Audience extends BaseModel {
   declare id: number
 
   @belongsTo(() => Procedure, {
-    foreignKey: 'nom_de_la_procedure',
-    localKey: 'nom',
+    foreignKey: 'reference_procedure',
+    localKey: 'reference_procedure',
   })
   declare procedure: BelongsTo<typeof Procedure>
 
   @column()
-  declare nom_de_la_procedure?: string
+  declare reference_procedure?: string
 
   @column.date()
   declare date_de_l_audience?: DateTime
@@ -33,7 +33,7 @@ export default class Audience extends BaseModel {
   declare ville_de_l_audience?: string
 
   @column()
-  declare juridiction?:
+  declare juridiction?:  // TODO : change to dynamic choices
     | 'Tribunal de police'
     | 'Tribunal correctionnel'
     | 'Cour d’appel'
@@ -42,11 +42,9 @@ export default class Audience extends BaseModel {
   @column.date()
   declare date_de_decision?: DateTime
 
+  // TODO : change to dynamic list
   @column()
-  declare decision_pour_les_faits?: 'Condamnable' | 'Relaxe'
-
-  @column()
-  declare decision_pour_les_infractions?: 'Condamnable' | 'Relaxe'
+  declare decision_pour_les_infractions_principales?: 'Condamnable' | 'Relaxe'
 
   @column()
   declare numero_de_chambre?: string
@@ -55,23 +53,12 @@ export default class Audience extends BaseModel {
   declare nombre_de_prevenu_es?: number
 
   @column()
-  declare nombre_de_temoins?: number
-
-  @column()
-  declare expertise_des_temoins?: string
-
-  @column()
-  declare nombre_d_avocat_es?: number
-
-  @column()
-  declare nom_des_parties_civiles?: string
+  declare noms_des_parties_civiles?: string
 
   @column()
   declare demande_des_parties_civiles?: string
 
-  @column()
-  declare composition_du_tribunal?: 'Juge unique' | 'Formation collégiale'
-
+  // TODO : change to dynamic list
   @column()
   declare fondement_de_la_relaxe?:
     | 'Infraction non caractérisée'
@@ -79,19 +66,16 @@ export default class Audience extends BaseModel {
     | 'Liberté d’expression'
 
   @column()
-  declare peine_pour_les_faits?: string
+  declare type_de_peine_pour_les_infractions_principales?: string
 
   @column()
-  declare detail_de_la_peine?: string
+  declare details_des_peines_pour_les_infractions_principales?: string
 
   @column()
-  declare score_de_la_gravite?: number
+  declare decision_et_peines_pour_les_infractions_subies_ou_incidentes?: string
 
   @column()
-  declare peine_complementaire?: string
-
-  @column()
-  declare peine_pour_les_infractions?: string
+  declare score_de_la_gravite?: float
 
   @column()
   declare appel_d_une_des_parties?: boolean
@@ -100,7 +84,7 @@ export default class Audience extends BaseModel {
   declare partie_de_l_appel_principal?: 'Prévenu·e' | 'Parquet' | 'Partie Civile'
 
   @column()
-  declare partie_de_l_appel_incident?: string
+  declare partie_de_l_appel_incident?: 'Prévenu·e' | 'Parquet' | 'Partie Civile'
 
   @column({
     consume: (value: string | null) => {
@@ -114,11 +98,25 @@ export default class Audience extends BaseModel {
   })
   declare recit_d_audience?: RecitFile[]
 
+  // TODO : add column File for "jugement_ou_arret"
+
   @column()
-  declare decision?: string
+  declare reference_de_la_decision?: string
 
   @column()
   declare resume_du_jugement_ou_arret?: string
+
+  @column()
+  declare resume_de_l_audience?: string
+
+  @column()
+  declare commentaire_msde?: string
+
+  @column()
+  declare extrait_de_la_decision?: string
+
+  @column()
+  declare mots_cles?: string
 
   @column()
   declare publiee: boolean

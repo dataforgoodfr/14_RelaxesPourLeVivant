@@ -9,11 +9,14 @@ export default class Procedure extends BaseModel {
   declare id: string
 
   @column()
-  declare nom: string
+  declare reference_procedure: string
+
+  @column()
+  declare titre: string
 
   @hasMany(() => Audience, {
-    foreignKey: 'nom_de_la_procedure',
-    localKey: 'nom',
+    foreignKey: 'reference_procedure',
+    localKey: 'reference_procedure',
   })
   declare audiences: HasMany<typeof Audience>
 
@@ -21,19 +24,16 @@ export default class Procedure extends BaseModel {
   declare date_des_faits: DateTime
 
   @column()
-  declare courte_description: string
+  declare faits_concis: string
 
   @column()
-  declare description: string
+  declare faits_detailles: string
 
   @column()
-  declare description_searchable: string
+  declare faits_detailles_searchable: string
 
   @column()
   declare poursuites: string
-
-  @column()
-  declare nom_des_parties_civiles: string
 
   @column()
   declare la_presse_parle_des_faits: string
