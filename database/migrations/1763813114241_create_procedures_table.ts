@@ -6,16 +6,15 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('nom').unique()
+      table.string('titre').notNullable().unique()
 
       // Public fields
-      table.text('courte_description')
+      table.text('faits_concis')
 
       // Private fields
-      table.date('date_des_faits')
-      table.text('description')
+      table.text('date_des_faits')  // or type "list of date"
+      table.text('faits_detailles')
       table.text('poursuites')
-      table.string('nom_des_parties_civiles')
       table.string('la_presse_parle_des_faits')
       table.string('collectif_d_action_ou_lutte').references('collectifs.nom')
 
@@ -23,7 +22,7 @@ export default class extends BaseSchema {
       table.index('publiee')
 
       this.schema.raw(
-        "ALTER TABLE procedures ADD COLUMN description_searchable tsvector GENERATED ALWAYS AS (to_tsvector('french', coalesce(description, ''))) STORED;"
+        "ALTER TABLE procedures ADD COLUMN faits_detailles_searchable tsvector GENERATED ALWAYS AS (to_tsvector('french', coalesce(faits_detailles, ''))) STORED;"
       )
     })
   }
