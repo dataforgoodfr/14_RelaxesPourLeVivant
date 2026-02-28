@@ -1,6 +1,3 @@
-import ChefDePrevention from '#models/chef_de_prevention'
-import Collectif from '#models/collectif'
-import Ville from '#models/ville'
 import { searchQueryValidator } from '#validators/search_query'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
@@ -66,9 +63,6 @@ export default class HomeController {
 
     const audiences = await query.paginate(searchQuery.page ?? 1, 50)
 
-    const villes = await Ville.all()
-    const collectifs = await Collectif.all()
-    const chefDePreventions = await ChefDePrevention.all()
     const paginations = audiences.getUrlsForRange(1, audiences.lastPage).map((anchor) => {
       const url = new URLSearchParams(request.qs())
       url.set('page', anchor.page.toString(10))
@@ -77,9 +71,6 @@ export default class HomeController {
 
     return view.render('pages/home', {
       audiences,
-      villes,
-      collectifs,
-      chefDePreventions,
       paginations,
       searchQuery,
     })
