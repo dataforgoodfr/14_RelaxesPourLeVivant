@@ -1,8 +1,7 @@
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import Audience from './audience.js'
-import Collectif from './collectif.js'
 
 export default class Procedure extends BaseModel {
   @column({ isPrimary: true })

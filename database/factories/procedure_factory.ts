@@ -6,6 +6,7 @@ import { AudienceFactory } from './audience_factory.js'
 export const ProcedureFactory = factory
   .define(Procedure, async ({ faker }) => {
     return {
+      reference_procedure: faker.lorem.words(),
       titre: faker.lorem.sentence(),
       date_des_faits: DateTime.fromJSDate(faker.date.past()),
       faits_concis: faker.lorem.paragraph(),

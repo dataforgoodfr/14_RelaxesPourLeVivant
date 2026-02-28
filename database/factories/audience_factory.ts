@@ -1,41 +1,46 @@
 import Audience from '#models/audience'
 import factory from '@adonisjs/lucid/factories'
 import { DateTime } from 'luxon'
-import { VilleFactory } from './ville_factory.js'
 
 export const AudienceFactory = factory
   .define(Audience, async ({ faker }) => {
     return {
+      reference_procedure: faker.lorem.words(),
       date_de_l_audience: DateTime.fromJSDate(faker.date.past()),
+      ville_de_l_audience: faker.helpers.arrayElement(['PARIS', 'LYON', 'MARSEILLE']),
       juridiction: faker.helpers.arrayElement([
         'Tribunal de police',
         'Tribunal correctionnel',
         'Cour d’appel',
         'Cour de cassation',
       ]),
+      degre_de_juridiction: faker.helpers.arrayElement(['1ere instance', 'Appel', 'Cassation']),
       date_de_decision: DateTime.fromJSDate(faker.date.past()),
-      decision_pour_les_faits: faker.helpers.arrayElement(['Condamnable', 'Relaxe']),
-      decision_pour_les_infractions: faker.helpers.arrayElement(['Condamnable', 'Relaxe']),
-      numero_de_chambre: `Tribunal de ${faker.location.city()} chambre correctionnelle n°${faker.number.int({ min: 0, max: 50 })}`,
-      nombre_de_prevenu_es: faker.number.int({ min: 0, max: 10 }),
-      nombre_de_temoins: faker.number.int({ min: 0, max: 10 }),
-      expertise_des_temoins: faker.helpers
-        .multiple(faker.person.jobTitle, { count: { min: 1, max: 10 } })
-        .join(', '),
-      nombre_d_avocat_es: faker.number.int({ min: 0, max: 10 }),
-      nom_des_parties_civiles: faker.word.words(2),
+      details_de_la_decision_pour_les_infractions_principales: faker.lorem.lines(),
+      decision_pour_les_infractions_principales: faker.helpers.arrayElement([
+        'Condamnation',
+        'Relaxe',
+      ]),
+      numero_de_chambre: `Chambre correctionnelle n°${faker.number.int({ min: 0, max: 50 })}`,
+      chefs_de_prevention_categorie: faker.word.words(2),
+      chefs_de_prevention_sous_categorie: faker.word.words(4),
+      nombre_de_prevenus: faker.number.int({ min: 0, max: 10 }),
+      plaidoirie_de_la_defense: faker.lorem.lines(),
+      noms_des_parties_civiles: faker.word.words(2),
       demande_des_parties_civiles: faker.lorem.lines(),
-      composition_du_tribunal: faker.helpers.arrayElement(['Juge unique', 'Formation collégiale']),
+      requisitions: faker.lorem.lines(),
       fondement_de_la_relaxe: faker.helpers.arrayElement([
         'Infraction non caractérisée',
         'Etat de nécessité',
         'Liberté d’expression',
       ]),
-      peine_pour_les_faits: faker.lorem.lines(),
-      detail_de_la_peine: faker.lorem.paragraph(),
-      score_de_la_gravite: faker.number.int({ min: 0, max: 5 }),
-      peine_complementaire: faker.lorem.lines(),
-      peine_pour_les_infractions: faker.lorem.lines(),
+      type_de_peine_pour_les_infractions_principales: faker.word.words(2),
+      details_des_peines_pour_les_infractions_principales: faker.lorem.lines(),
+      decision_et_peines_pour_les_infractions_subies_ou_incidentes: faker.lorem.paragraph(),
+      score_de_la_gravite: faker.number.float({ min: 0.5, max: 8 }),
+      dommages_et_interets: faker.datatype.boolean(),
+      detail_des_dommages_et_interets: faker.lorem.lines(),
+      inscription_au_casier_judiciaire: faker.datatype.boolean(),
       appel_d_une_des_parties: faker.datatype.boolean(),
       partie_de_l_appel_principal: faker.helpers.arrayElement([
         'Prévenu·e',
@@ -47,9 +52,15 @@ export const AudienceFactory = factory
         'Parquet',
         'Partie Civile',
       ]),
-      recit_d_audience: [],
-      decision: faker.system.filePath(),
+      la_presse_parle_du_proces: faker.internet.url(),
+      recit_d_audience: faker.system.filePath(),
+      jugement_ou_arret: faker.system.filePath(),
+      reference_de_la_decision: faker.word.words(3),
       resume_du_jugement_ou_arret: faker.lorem.paragraph(),
+      resume_de_l_audience: faker.lorem.paragraph(),
+      commentaire_msde: faker.lorem.paragraph(),
+      extrait_de_la_decision: faker.lorem.paragraph(),
+      mots_cles: faker.word.words(5),
       publiee: faker.datatype.boolean(),
     }
   })
@@ -59,5 +70,4 @@ export const AudienceFactory = factory
   .state('draft', (user) => {
     user.publiee = false
   })
-  .relation('ville', () => VilleFactory)
   .build()
