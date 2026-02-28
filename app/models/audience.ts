@@ -80,7 +80,7 @@ export default class Audience extends BaseModel {
   declare decision_et_peines_pour_les_infractions_subies_ou_incidentes?: string
 
   @column()
-  declare score_de_la_gravite?: decimal
+  declare score_de_la_gravite?: number
 
   @column()
   declare dommages_et_interets?: boolean
@@ -89,8 +89,6 @@ export default class Audience extends BaseModel {
   declare detail_des_dommages_et_interets?: string
 
   @column()
-  declare inscription_au_casier_judiciaire?: string
-
   @column()
   declare appel_d_une_des_parties?: boolean
 
