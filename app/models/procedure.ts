@@ -38,12 +38,6 @@ export default class Procedure extends BaseModel {
   @column()
   declare la_presse_parle_des_faits: string
 
-  @belongsTo(() => Collectif, {
-    foreignKey: 'collectif_d_action_ou_lutte',
-    localKey: 'nom',
-  })
-  declare collectif: BelongsTo<typeof Collectif>
-
   @column()
   declare collectif_d_action_ou_lutte: string
 

@@ -13,11 +13,11 @@ export default class extends BaseSchema {
 
       // Private fields
       table.string('titre').notNullable()
-      table.text('date_des_faits')  // or type "list of date"
+      table.text('date_des_faits') // or type "list of date"
       table.text('faits_detailles')
       table.text('poursuites')
-      table.string('la_presse_parle_des_faits')  // .references to a table "presse_article" ?
-      table.string('collectif_d_action_ou_lutte').references('collectifs.nom')
+      table.string('la_presse_parle_des_faits') // .references to a table "presse_article" ?
+      table.text('collectif_d_action_ou_lutte')
 
       table.boolean('publiee').defaultTo(true).notNullable()
       table.index('publiee')
