@@ -4,7 +4,7 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {
   async run() {
-    await ProcedureFactory.createMany(4)
+    await ProcedureFactory.with('audiences', 5).createMany(50)
 
     await UserFactory.createMany(4)
     await UserFactory.apply('approved')
