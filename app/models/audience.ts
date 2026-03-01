@@ -3,7 +3,6 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import Procedure from './procedure.js'
 import { AttachmentRecord } from './vendors/nocodb.js'
-import Ville from './ville.js'
 
 export type RecitFile = AttachmentRecord & { extension: string }
 
@@ -12,95 +11,97 @@ export default class Audience extends BaseModel {
   declare id: number
 
   @belongsTo(() => Procedure, {
-    foreignKey: 'nom_de_la_procedure',
-    localKey: 'nom',
+    foreignKey: 'reference_procedure',
+    localKey: 'reference_procedure',
   })
   declare procedure: BelongsTo<typeof Procedure>
 
   @column()
-  declare nom_de_la_procedure?: string
+  declare reference_procedure?: string
 
   @column.date()
   declare date_de_l_audience?: DateTime
 
-  @belongsTo(() => Ville, {
-    foreignKey: 'ville_de_l_audience',
-    localKey: 'nom',
-  })
-  declare ville: BelongsTo<typeof Ville>
+  @column()
+  declare reference_de_la_decision?: string
 
   @column()
   declare ville_de_l_audience?: string
 
   @column()
-  declare juridiction?:
-    | 'Tribunal de police'
-    | 'Tribunal correctionnel'
-    | 'Cour d’appel'
-    | 'Cour de cassation'
+  declare juridiction?: string
+
+  @column()
+  declare degre_de_juridiction?: string
 
   @column.date()
   declare date_de_decision?: DateTime
 
   @column()
-  declare decision_pour_les_faits?: 'Condamnable' | 'Relaxe'
+  declare details_de_la_decision_pour_les_infractions_principales?: string
 
   @column()
-  declare decision_pour_les_infractions?: 'Condamnable' | 'Relaxe'
+  declare decision_pour_les_infractions_principales?: string
 
   @column()
   declare numero_de_chambre?: string
 
   @column()
-  declare nombre_de_prevenu_es?: number
+  declare chefs_de_prevention_categorie?: string
 
   @column()
-  declare nombre_de_temoins?: number
+  declare chefs_de_prevention_sous_categorie?: string
 
   @column()
-  declare expertise_des_temoins?: string
+  declare nombre_de_prevenus?: number
 
   @column()
-  declare nombre_d_avocat_es?: number
+  declare plaidoirie_de_la_defense?: string
 
   @column()
-  declare nom_des_parties_civiles?: string
+  declare noms_des_parties_civiles?: string
 
   @column()
   declare demande_des_parties_civiles?: string
 
   @column()
-  declare composition_du_tribunal?: 'Juge unique' | 'Formation collégiale'
+  declare requisitions?: string
 
   @column()
-  declare fondement_de_la_relaxe?:
-    | 'Infraction non caractérisée'
-    | 'Etat de nécessité'
-    | 'Liberté d’expression'
+  declare fondement_de_la_relaxe?: string
 
   @column()
-  declare peine_pour_les_faits?: string
+  declare type_de_peine_pour_les_infractions_principales?: string
 
   @column()
-  declare detail_de_la_peine?: string
+  declare details_des_peines_pour_les_infractions_principales?: string
+
+  @column()
+  declare decision_et_peines_pour_les_infractions_subies_ou_incidentes?: string
 
   @column()
   declare score_de_la_gravite?: number
 
   @column()
-  declare peine_complementaire?: string
+  declare dommages_et_interets?: boolean
 
   @column()
-  declare peine_pour_les_infractions?: string
+  declare detail_des_dommages_et_interets?: string
+
+  @column()
+  declare inscription_au_casier_judiciaire?: boolean
 
   @column()
   declare appel_d_une_des_parties?: boolean
 
   @column()
-  declare partie_de_l_appel_principal?: 'Prévenu·e' | 'Parquet' | 'Partie Civile'
+  declare partie_de_l_appel_principal?: string
 
   @column()
   declare partie_de_l_appel_incident?: string
+
+  @column()
+  declare la_presse_parle_du_proces?: string // TODO : link to the table articles_de_presse
 
   @column({
     consume: (value: string | null) => {
@@ -114,11 +115,32 @@ export default class Audience extends BaseModel {
   })
   declare recit_d_audience?: RecitFile[]
 
-  @column()
-  declare decision?: string
+  @column({
+    consume: (value: string | null) => {
+      return value
+        ? JSON.parse(value).map((recit: AttachmentRecord) => ({
+            ...recit,
+            extension: recit.title.split('.')[1] ?? null,
+          }))
+        : []
+    },
+  })
+  declare jugement_ou_arret?: RecitFile[]
 
   @column()
   declare resume_du_jugement_ou_arret?: string
+
+  @column()
+  declare resume_de_l_audience?: string
+
+  @column()
+  declare commentaire_msde?: string
+
+  @column()
+  declare extrait_de_la_decision?: string
+
+  @column()
+  declare mots_cles?: string
 
   @column()
   declare publiee: boolean
