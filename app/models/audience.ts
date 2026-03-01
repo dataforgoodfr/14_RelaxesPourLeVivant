@@ -89,13 +89,16 @@ export default class Audience extends BaseModel {
   declare detail_des_dommages_et_interets?: string
 
   @column()
+  declare inscription_au_casier_judiciaire?: boolean
+
+  @column()
   declare appel_d_une_des_parties?: boolean
 
   @column()
-  declare partie_de_l_appel_principal?: 'Prévenu·e' | 'Parquet' | 'Partie Civile'
+  declare partie_de_l_appel_principal?: string
 
   @column()
-  declare partie_de_l_appel_incident?: 'Prévenu·e' | 'Parquet' | 'Partie Civile'
+  declare partie_de_l_appel_incident?: string
 
   @column()
   declare la_presse_parle_du_proces?: string // TODO : link to the table articles_de_presse
