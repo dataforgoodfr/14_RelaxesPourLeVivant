@@ -18,11 +18,23 @@
       <div class="row justify-content-center">
         <div class="col-md-4">
           <div class="vstack gap-3">
+            <img
+              class="d-block mx-auto"
+              style="width: 48px;"
+              src="{{ asset('resources/images/msde_icon.svg') }}"
+              alt="MSDE logo icon"
+            />
+            <h2 class="text-center">
+              Demande d'accès
+            </h2>
+            <p class="text-center text-secondary">
+              Envoyez votre demande d'accès à la plateforme. L'association reviendra vers vous par e-mail pour confirmer l'ouverture de votre compte.
+            </p>
             @if (flashMessages.get('notification.code') === 'SIGNUP_SUCCESS')
               <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">
+                <h3 class="alert-heading">
                   Confirmation
-                </h4>
+                </h3>
                 <p>
                   Votre demande sera traîtée par MSDE et vous serez recontacté par mail lors de l'activation de votre compte.
                 </p>
@@ -31,18 +43,6 @@
                 <a href="/" class="text-center">Aller à l'accueil</a>
               </div>
             @else
-              <img
-                class="d-block mx-auto"
-                style="width: 48px;"
-                src="{{ asset('resources/images/msde_icon.svg') }}"
-                alt="MSDE logo icon"
-              />
-              <h2 class="text-center">
-                Demande d'accès
-              </h2>
-              <p class="text-center text-secondary">
-                Envoyez votre demande d'accès à la plateforme. L'association reviendra vers vous par e-mail pour confirmer l'ouverture de votre compte.
-              </p>
               <form method="POST" action="/sign-up">
                 <div class="vstack gap-3">
                   {{ csrfField() }}
