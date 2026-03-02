@@ -50,13 +50,23 @@
                     <label for="email" class="form-label text-secondary">Adresse email <span class="text-danger">*</span></label>
                     <input
                       type="email"
-                      class="form-control"
+                      class="form-control {{ flashMessages.has('inputErrorsBag.email') ? 'is-invalid' : '' }}"
                       id="email"
                       name="email"
                       placeholder="name@example.com"
                       value="{{ old('email') || '' }}"
                       required
+                      aria-describedby="emailAlreadyUsed"
                     />
+                    @inputError('email')
+                      <div id="emailAlreadyUsed" class="invalid-feedback">
+                        @each(message in $messages)
+                          <div>
+                            {{ message }}
+                          </div>
+                        @end
+                      </div>
+                    @end
                   </div>
                   <div>
                     <label for="password" class="form-label text-secondary">Mot de passe <span class="text-danger">*</span></label>

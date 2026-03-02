@@ -95,7 +95,10 @@ export default class AuthController {
       .first()
 
     if (!user) {
-      session.flash('errors.password_reset', 'Lien invalide ou expiré.')
+      session.flash(
+        'errors.password_reset',
+        'Lien de changement de mot de passe invalide ou expiré.'
+      )
       return response.redirect().toPath('/forgotten-password')
     }
 
