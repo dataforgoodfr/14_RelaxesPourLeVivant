@@ -8,7 +8,8 @@
       @if(auth.user)
         <span class="navbar-text">
           {{ auth.user.email }} -
-          ({{ auth.user.approved ? 'Compte approuvé' : 'En attente d\'approbation' }})
+          ({{ auth.user.approved ? 'Compte approuvé' : 'En attente d\'approbation' }}) - 
+          <a href="/change-password">Changer le mot de passe</a>
         </span>
         <form action="/logout" method="POST">
           {{ csrfField() }}

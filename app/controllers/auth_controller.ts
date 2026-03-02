@@ -7,6 +7,7 @@ import crypto from 'node:crypto'
 import { errors } from '@adonisjs/lucid'
 import mail from '@adonisjs/mail/services/main'
 import { resetPasswordValidator } from '#validators/reset_password'
+import { changePasswordValidator } from '#validators/change_password'
 
 export default class AuthController {
   async signup({ request, response, session }: HttpContext) {
@@ -47,7 +48,7 @@ export default class AuthController {
     return response.redirect('/sign-in')
   }
 
-  async forgottenpassword({ request, response, session }: HttpContext) {
+  async forgottenPassword({ request, response, session }: HttpContext) {
     const email = request.input('email')
 
     try {
@@ -94,7 +95,10 @@ export default class AuthController {
       .first()
 
     if (!user) {
-      session.flash('errors.password_reset', 'Lien invalide ou expiré.')
+      session.flash(
+        'errors.password_reset',
+        'Lien de changement de mot de passe invalide ou expiré.'
+      )
       return response.redirect().toPath('/forgotten-password')
     }
 
@@ -108,5 +112,22 @@ export default class AuthController {
 
     session.flash('success.password_reset', 'Le mot de passe a bien été modifié.')
     return response.redirect().toPath('/sign-in')
+  }
+
+  async changePassword({ auth, request, response, session }: HttpContext) {
+    const { oldPassword, newPassword } = await request.validateUsing(changePasswordValidator)
+
+    try {
+      // this route is already protected via auth middleware, user cannot be undefined (auth.user!)
+      const user = await User.verifyCredentials(auth.user!.email, oldPassword)
+      user.password = newPassword
+      await user.save()
+
+      session.flash('success.password_change', 'Le mot de passe a bien été modifié.')
+      return response.redirect().back()
+    } catch (error) {
+      session.flash('errors.auth', "L'ancien mot de passe ne correspond pas.")
+      return response.redirect().back()
+    }
   }
 }

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
-      Sign In - Relaxes Pour Le Vivant
+      Connexion - Relaxes Pour Le Vivant
     </title>
     @include('partials/bootstrap')
   </head>
@@ -34,16 +34,16 @@
             <form method="POST" action="/sign-in">
               <div class="vstack gap-3">
                 {{ csrfField() }}
-                @if(flashMessages.has('errors.auth'))
+                @flashMessage('errors.auth')
                   <div class="alert alert-danger">
                     {{ flashMessages.get('errors.auth') }}
                   </div>
-                @endif
-                @if(flashMessages.has('success.password_reset'))
+                @end
+                @flashMessage('success.password_reset')
                   <div class="alert alert-success">
                     {{ flashMessages.get('success.password_reset') }}
                   </div>
-                @endif
+                @end
                 <div>
                   <label for="email" class="form-label text-secondary">Email</label>
                   <input
