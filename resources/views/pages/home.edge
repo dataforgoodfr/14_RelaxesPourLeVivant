@@ -95,7 +95,7 @@
               <option value="" {{ searchQuery.chefDePrevention==="" ? "selected" : "" }}>
                 Chef de prévention
               </option>
-              @each(chefDePrevention in chefDePreventions)
+              @each(chefDePrevention in [])
                 <option
                   value="{{ chefDePrevention.nom }}"
                   {{ searchQuery.chefDePrevention===chefDePrevention.nom
@@ -111,7 +111,7 @@
               <option value="" {{ searchQuery.ville==="" ? "selected" : "" }}>
                 Ville
               </option>
-              @each(ville in villes)
+              @each(ville in [])
                 <option value="{{ ville.nom }}" {{ searchQuery.ville===ville.nom ? "selected" : "" }}>
                   {{ ville.nom }}
                 </option>
@@ -123,7 +123,7 @@
               <option value="" {{ searchQuery.collectif==="" ? "selected" : "" }}>
                 Collectif d'action
               </option>
-              @each(collectif in collectifs)
+              @each(collectif in [])
                 <option value="{{ collectif.nom }}" {{ searchQuery.collectif===collectif.nom ? "selected" : "" }}>
                   {{ collectif.nom }}
                 </option>

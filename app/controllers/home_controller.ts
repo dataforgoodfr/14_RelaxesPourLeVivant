@@ -1,6 +1,3 @@
-import ChefDePrevention from '#models/chef_de_prevention'
-import Collectif from '#models/collectif'
-import Ville from '#models/ville'
 import { searchQueryValidator } from '#validators/search_query'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
@@ -14,28 +11,29 @@ export default class HomeController {
       .with('timeline', (q) => {
         q.from('audiences')
           .select(
-            'nom_de_la_procedure as name',
+            'reference_procedure',
             db.raw(
               "array_agg(json_object('{id,date}', ARRAY[id::text, date_de_l_audience::text])) as audiences"
             )
           )
-          .groupBy('nom_de_la_procedure')
+          .groupBy('reference_procedure')
       })
       .select(
         'audiences.*',
-        'procedures.description',
-        'procedures.courte_description',
+        'procedures.titre',
+        'procedures.faits_detailles',
+        'procedures.faits_concis',
         'procedures.collectif_d_action_ou_lutte',
         'timeline.audiences as timeline'
       )
       .from('audiences')
-      .join('procedures', 'audiences.nom_de_la_procedure', 'procedures.nom')
-      .join('timeline', 'timeline.name', 'audiences.nom_de_la_procedure')
+      .join('procedures', 'audiences.reference_procedure', 'procedures.reference_procedure')
+      .join('timeline', 'timeline.reference_procedure', 'audiences.reference_procedure')
       .where('audiences.publiee', true)
       .andWhere('procedures.publiee', true)
 
     if (searchQuery.search) {
-      query.andWhereRaw("procedures.description_searchable @@ to_tsquery('french', ?)", [
+      query.andWhereRaw("procedures.faits_detailles_searchable @@ to_tsquery('french', ?)", [
         searchQuery.search,
       ])
     }
@@ -48,7 +46,7 @@ export default class HomeController {
     }
 
     if (searchQuery.decision) {
-      query.andWhere('audiences.decision_pour_les_faits', searchQuery.decision)
+      query.andWhere('audiences.decision_pour_les_infractions_principales', searchQuery.decision)
     }
 
     if (searchQuery.juridiction) {
@@ -65,9 +63,6 @@ export default class HomeController {
 
     const audiences = await query.paginate(searchQuery.page ?? 1, 50)
 
-    const villes = await Ville.all()
-    const collectifs = await Collectif.all()
-    const chefDePreventions = await ChefDePrevention.all()
     const paginations = audiences.getUrlsForRange(1, audiences.lastPage).map((anchor) => {
       const url = new URLSearchParams(request.qs())
       url.set('page', anchor.page.toString(10))
@@ -76,9 +71,6 @@ export default class HomeController {
 
     return view.render('pages/home', {
       audiences,
-      villes,
-      collectifs,
-      chefDePreventions,
       paginations,
       searchQuery,
     })
