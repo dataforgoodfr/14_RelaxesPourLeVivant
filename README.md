@@ -87,7 +87,7 @@ Lancer les tests
 
 ```bash
 npm run test
-``
+```
 
 Si vous utiliser **Podman** vous aurez besoin de configurer [testcontainer](https://node.testcontainers.org/) pour fonctionner avec
 
