@@ -75,10 +75,19 @@ Le service `mailpit` du Docker Compose File est un serveur mail de développemen
 
 ## Tester
 
-Le projet repose actuellement sur deux stratégies de test _unit_ et _functional_
+Étant donné que le projet suit une architecture MVC, les tests reposent actuellement sur une stratégie e2e avec [PlayWright](https://docs.adonisjs.com/guides/testing/browser-tests)
 
-- _functional_ : tester une fonctionnalité dans son ensemble en _Closed Box_
-- _unit_ : tester un composant de l'application (service, controller, validator, etc)
+Initialiser PlayWright en installant les binaires des navigateurs headless:
+
+```bash
+npx playwright install
+```
+
+Lancer les tests
+
+```bash
+npm run test
+``
 
 Si vous utiliser **Podman** vous aurez besoin de configurer [testcontainer](https://node.testcontainers.org/) pour fonctionner avec
 
