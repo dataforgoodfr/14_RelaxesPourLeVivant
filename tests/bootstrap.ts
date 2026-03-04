@@ -3,12 +3,12 @@ import app from '@adonisjs/core/services/app'
 import type { Config } from '@japa/runner/types'
 import { pluginAdonisJS } from '@japa/plugin-adonisjs'
 import testUtils from '@adonisjs/core/services/test_utils'
-import { sessionApiClient } from '@adonisjs/session/plugins/api_client'
 import { shieldApiClient } from '@adonisjs/shield/plugins/api_client'
-import { authApiClient } from '@adonisjs/auth/plugins/api_client'
-import { apiClient } from '@japa/api-client'
 import { PostgreSqlContainer } from '@testcontainers/postgresql'
 import env from '#start/env'
+import { browserClient } from '@japa/browser-client'
+import { authBrowserClient } from '@adonisjs/auth/plugins/browser_client'
+import { sessionBrowserClient } from '@adonisjs/session/plugins/browser_client'
 
 /**
  * This file is imported by the "bin/test.ts" entrypoint file
@@ -20,10 +20,10 @@ import env from '#start/env'
  */
 export const plugins: Config['plugins'] = [
   assert(),
-  apiClient(),
   pluginAdonisJS(app),
-  authApiClient(app),
-  sessionApiClient(app),
+  browserClient({ runInSuites: ['browser'] }),
+  sessionBrowserClient(app),
+  authBrowserClient(app),
   shieldApiClient(),
 ]
 
