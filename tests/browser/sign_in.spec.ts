@@ -29,7 +29,9 @@ test
     })
 
     test('user is known but not approved', async ({ visit }) => {
-      const user = await UserFactory.merge({ password: 'random-password' }).create()
+      const user = await UserFactory.merge({ password: 'random-password' })
+        .apply('not approved')
+        .create()
 
       const page = await visit('/sign-in')
 

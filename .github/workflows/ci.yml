@@ -52,4 +52,4 @@ jobs:
         run: npx prettier --check .
 
       - name: Run tests
-        run: npm test -- --timeout 15000
+        run: npm test

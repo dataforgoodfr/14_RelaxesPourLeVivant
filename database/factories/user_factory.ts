@@ -13,4 +13,7 @@ export const UserFactory = factory
   .state('approved', (user) => {
     user.approved = true
   })
+  .state('not approved', (user) => {
+    user.approved = false
+  })
   .build()
