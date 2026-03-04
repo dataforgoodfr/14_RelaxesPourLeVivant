@@ -39,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Typecheck
         run: npm run typecheck
 
@@ -49,4 +52,4 @@ jobs:
         run: npx prettier --check .
 
       - name: Run tests
-        run: npm test
+        run: npm test -- --timeout 15000
