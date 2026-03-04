@@ -33,7 +33,9 @@ test
       await page.getByLabel('Motivation de la demande').fill(user.motivation)
       await page.getByRole('button').click()
 
-      await page.assertVisible(page.getByText('Un compte semble déjà associé à cette email'))
+      await page.assertVisible(
+        page.getByText('Un compte semble déjà associé à cette adresse e-mail')
+      )
     })
 
     test('confirm password is wrong', async ({ visit }) => {
