@@ -111,7 +111,7 @@
               <option value="" {{ searchQuery.ville==="" ? "selected" : "" }}>
                 Ville
               </option>
-              @each(ville in [])
+              @each(ville in villes)
                 <option value="{{ ville.nom }}" {{ searchQuery.ville===ville.nom ? "selected" : "" }}>
                   {{ ville.nom }}
                 </option>
@@ -123,7 +123,7 @@
               <option value="" {{ searchQuery.collectif==="" ? "selected" : "" }}>
                 Collectif d'action
               </option>
-              @each(collectif in [])
+              @each(collectif in collectifs)
                 <option value="{{ collectif.nom }}" {{ searchQuery.collectif===collectif.nom ? "selected" : "" }}>
                   {{ collectif.nom }}
                 </option>
