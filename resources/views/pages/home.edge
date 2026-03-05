@@ -111,7 +111,7 @@
               <option value="" {{ searchQuery.ville==="" ? "selected" : "" }}>
                 Ville
               </option>
-              @each(ville in [])
+              @each(ville in villes)
                 <option value="{{ ville.nom }}" {{ searchQuery.ville===ville.nom ? "selected" : "" }}>
                   {{ ville.nom }}
                 </option>

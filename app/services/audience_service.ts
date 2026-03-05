@@ -89,4 +89,8 @@ export class AudienceService {
 
     return query.paginate(searchQuery.page ?? 1, 50)
   }
+
+  async getVilles(): Promise<Array<{ nom: string }>> {
+    return db.query().select('*').from('villes')
+  }
 }

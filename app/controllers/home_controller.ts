@@ -10,7 +10,10 @@ export default class HomeController {
   async home({ request, view }: HttpContext) {
     const searchQuery = await request.validateUsing(searchQueryValidator)
 
-    const audiences = await this.audienceService.searchAudiences(searchQuery)
+    const [audiences, villes] = await Promise.all([
+      this.audienceService.searchAudiences(searchQuery),
+      this.audienceService.getVilles(),
+    ])
 
     const paginations = audiences.getUrlsForRange(1, audiences.lastPage).map((anchor) => {
       const url = new URLSearchParams(request.qs())
@@ -19,6 +22,7 @@ export default class HomeController {
     })
 
     return view.render('pages/home', {
+      villes,
       audiences,
       paginations,
       searchQuery,
