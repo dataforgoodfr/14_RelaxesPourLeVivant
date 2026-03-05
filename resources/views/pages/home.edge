@@ -133,6 +133,16 @@
         </div>
       </form>
 
+      @if (audiences.length > 1 )
+        <p>
+          {{ audiences.length }} résultats trouvés:
+        </p>
+      @else
+        <p>
+          {{ audiences.length === 1 ? "1 résultat trouvé:" : "Aucun résultat trouvé." }}
+        </p>
+      @endif
+        
       <ul class="list-group">
         @each(audience in audiences)
           <li class="list-group-item">
