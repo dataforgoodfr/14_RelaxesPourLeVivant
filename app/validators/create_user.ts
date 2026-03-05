@@ -1,5 +1,5 @@
 import User from '#models/user'
-import vine from '@vinejs/vine'
+import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 export const createUserValidator = vine.compile(
   vine.object({
@@ -9,3 +9,8 @@ export const createUserValidator = vine.compile(
     motivation: vine.string().maxLength(1000),
   })
 )
+
+createUserValidator.messagesProvider = new SimpleMessagesProvider({
+  'email.database.unique': 'Un compte semble déjà associé à cette adresse e-mail',
+  'confirmPassword.sameAs': 'Vos mots de passe ne sont pas identiques',
+})
