@@ -123,7 +123,7 @@
               <option value="" {{ searchQuery.collectif==="" ? "selected" : "" }}>
                 Collectif d'action
               </option>
-              @each(collectif in [])
+              @each(collectif in collectifs)
                 <option value="{{ collectif.nom }}" {{ searchQuery.collectif===collectif.nom ? "selected" : "" }}>
                   {{ collectif.nom }}
                 </option>

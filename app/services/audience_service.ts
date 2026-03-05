@@ -93,4 +93,8 @@ export class AudienceService {
   async getVilles(): Promise<Array<{ nom: string }>> {
     return db.query().select('*').from('villes')
   }
+
+  async getCollectifs(): Promise<Array<{ nom: string }>> {
+    return db.query().select('*').from('collectifs')
+  }
 }
