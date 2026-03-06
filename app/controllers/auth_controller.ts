@@ -39,6 +39,7 @@ export default class AuthController {
       return response.redirect(targetPath)
     } catch {
       session.flash('errors.auth', 'Mot de passe ou email incorrect.')
+      session.flash('email', email)
       return response.redirect().withQs().back()
     }
   }
