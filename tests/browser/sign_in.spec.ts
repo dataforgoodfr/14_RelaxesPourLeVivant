@@ -11,7 +11,7 @@ test
       await page.getByLabel('Mot de passe').fill('random-password')
       await page.getByRole('button').click()
 
-      await page.assertVisible(page.getByText('Mot de passe ou email incorrect'))
+      await page.assertVisible(page.getByText('Mot de passe ou email incorrect.'))
     })
 
     test('user is known and approved', async ({ visit }) => {
@@ -41,7 +41,7 @@ test
 
       await page.assertVisible(
         page.getByText(
-          "Vous n'êtes pas autorisé, si vous pensez que c'est un problème contactez nous"
+          "Vous n'êtes pas autorisé, si vous pensez que c'est un problème contactez nous."
         )
       )
     })
