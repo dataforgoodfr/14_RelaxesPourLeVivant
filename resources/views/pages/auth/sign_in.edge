@@ -65,6 +65,11 @@
                     Se rappeler de moi (30 jours)
                   </label>
                 </div>
+                <input
+                  type="hidden"
+                  name="targetPath"
+                  value="{{ (flashMessages.get('targetPath') || '/audiences') + request.parsedUrl.search }}"
+                />
                 <div class="text-center">
                   <p>
                     <a href="/forgotten-password">Mot de passe oublié</a>

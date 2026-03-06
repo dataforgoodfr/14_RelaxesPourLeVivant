@@ -24,7 +24,7 @@ export default class AuthController {
   }
 
   async signin({ request, auth, response, session }: HttpContext) {
-    const { email, password } = request.only(['email', 'password'])
+    const { email, password, targetPath } = request.only(['email', 'password', 'targetPath'])
 
     try {
       const user = await User.verifyCredentials(email, password)
@@ -33,13 +33,13 @@ export default class AuthController {
           'errors.auth',
           "Vous n'êtes pas autorisé, si vous pensez que c'est un problème contactez nous."
         )
-        return response.redirect('/sign-in')
+        return response.redirect().withQs().back()
       }
       await auth.use('web').login(user, !!request.input('rememberMe'))
-      return response.redirect('/audiences')
+      return response.redirect(targetPath)
     } catch {
       session.flash('errors.auth', 'Mot de passe ou email incorrect.')
-      return response.redirect('/sign-in')
+      return response.redirect().withQs().back()
     }
   }
 
