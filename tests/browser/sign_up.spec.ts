@@ -34,7 +34,7 @@ test
       await page.getByRole('button').click()
 
       await page.assertVisible(
-        page.getByText('Un compte semble déjà associé à cette adresse e-mail')
+        page.getByText('Un compte semble déjà associé à cette adresse e-mail.')
       )
     })
 
@@ -49,7 +49,7 @@ test
       await page.getByLabel('Motivation de la demande').fill(user.motivation)
       await page.getByRole('button').click()
 
-      await page.assertVisible(page.getByText('Vos mots de passe ne sont pas identiques'))
+      await page.assertVisible(page.getByText('Vos mots de passe ne sont pas identiques.'))
     })
   })
   .teardown(async () => {

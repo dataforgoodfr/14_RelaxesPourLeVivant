@@ -11,6 +11,6 @@ export const createUserValidator = vine.compile(
 )
 
 createUserValidator.messagesProvider = new SimpleMessagesProvider({
-  'email.database.unique': 'Un compte semble déjà associé à cette adresse e-mail',
-  'confirmPassword.sameAs': 'Vos mots de passe ne sont pas identiques',
+  'email.database.unique': 'Un compte semble déjà associé à cette adresse e-mail.',
+  'confirmPassword.sameAs': 'Vos mots de passe ne sont pas identiques.',
 })

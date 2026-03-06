@@ -31,14 +31,14 @@ export default class AuthController {
       if (!user.approved) {
         session.flash(
           'errors.auth',
-          "Vous n'êtes pas autorisé, si vous pensez que c'est un problème contactez nous"
+          "Vous n'êtes pas autorisé, si vous pensez que c'est un problème contactez nous."
         )
         return response.redirect('/sign-in')
       }
       await auth.use('web').login(user, !!request.input('rememberMe'))
       return response.redirect('/audiences')
     } catch {
-      session.flash('errors.auth', 'Mot de passe ou email incorrect')
+      session.flash('errors.auth', 'Mot de passe ou email incorrect.')
       return response.redirect('/sign-in')
     }
   }
