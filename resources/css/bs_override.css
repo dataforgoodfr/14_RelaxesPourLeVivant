@@ -81,6 +81,17 @@
 }
 
 /*
+  Overriding Bootstrap's nav
+*/
+.nav {
+  --bs-nav-link-color: var(--bs-gray-600);
+  --bs-nav-link-hover-color: var(--bs-primary);
+  &.nav-underline {
+    --bs-nav-underline-gap: 3.5rem;
+  }
+}
+
+/*
   Overriding a markup
 */
 a {
@@ -190,4 +201,23 @@ form button.btn-primary {
 .gelica {
   font-family: 'Gelica', sans-serif;
   font-weight: 700;
+}
+
+/*
+  Overriding badges elements
+*/
+.badge {
+  --bs-badge-padding-x: 0.75rem;
+  --bs-badge-padding-y: 0.25rem;
+  --bs-badge-font-weight: 500;
+  line-height: 1.25rem;
+
+  &.badge-collectif {
+    background-color: #eef4ff;
+    color: #3538cd;
+  }
+  &.badge-mot-clef {
+    background-color: #fdf2fa;
+    color: #c11574;
+  }
 }

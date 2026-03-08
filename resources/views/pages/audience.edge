@@ -20,15 +20,18 @@
           <header class="vstack gap-5">
             <section>
               @each(collectif in procedure.collectif_d_action_ou_lutte)
-                <span class="badge rounded-pill text-bg-primary">{{ collectif }}</span>
+                <span class="badge badge-collectif rounded-pill">{{ collectif }}</span>
               @end
               @each(motCle in motsCles)
-                <span class="badge rounded-pill text-bg-danger">{{ motCle }}</span>
+                <span class="badge badge-mot-clef rounded-pill">{{ motCle }}</span>
               @end
             </section>
             <h1 class="h4 fw-semibold">
-              {{ procedure.titre }}<br />
-              <small class="text-secondary h6 fw-normal">{{ procedure.faits_concis }}</small>
+              {{ procedure.titre }}
+              @if (procedure.faits_concis)
+                <br />
+                <small class="text-secondary h6 fw-normal">{{ procedure.faits_concis }}</small>
+              @endif
             </h1>
           </header>
 
@@ -38,7 +41,11 @@
                 <small>Détails des faits</small>
               </h2>
               <p class="text-secondary">
-                {{ procedure.faits_detailles }}
+                @if (procedure.faits_detailles)
+                  {{ procedure.faits_detailles }}
+                @else
+                  <span class="fst-italic text-muted">Non disponible</span>
+                @endif
               </p>
             </section>
 
@@ -47,7 +54,11 @@
                 <small>Poursuites</small>
               </h2>
               <p class="text-secondary">
-                {{ procedure.poursuites }}
+                @if (procedure.poursuites)
+                  {{ procedure.poursuites }}
+                @else
+                  <span class="fst-italic text-muted">Non disponible</span>
+                @endif
               </p>
             </section>
 
@@ -55,22 +66,21 @@
               <h2 class="h6 fw-semibold text-secondary">
                 <small>La presse en parle</small>
               </h2>
-              {{-- TODO: use link label and url when association table is ready --}}
-              @link({
+              {{-- TODO: use link label and url when association table is ready + turn to list --}}
+              @if (procedure.la_presse_parle_des_faits)
+                @link({
                 url: procedure.la_presse_parle_des_faits,
                 external: true
-              })
-                {{ procedure.la_presse_parle_des_faits }}
-              @end
+                })
+                  {{ procedure.la_presse_parle_des_faits }}
+                @end
+              @else
+                <span class="fst-italic text-muted">Non disponible</span>
+              @endif
             </section>
           </div>
 
-          <ul
-            class="nav nav-underline"
-            id="audienceTab"
-            role="tablist"
-            style="--bs-nav-underline-gap: 3.5rem;"
-          >
+          <ul class="nav nav-underline" id="audienceTab" role="tablist">
             @each (audience in procedure.audiences)
               <li class="nav-item" role="presentation">
                 <button
@@ -89,7 +99,7 @@
               </li>
             @end
           </ul>
-          <div class="tab-content" id="myTabContent">
+          <div class="tab-content" id="audienceTabContent">
             @each (audience in procedure.audiences)
               <div
                 class="tab-pane fade {{ currentAudience.id === audience.id ? 'show active' : '' }}"
@@ -98,6 +108,7 @@
                 aria-labelledby="audience-{{ audience.id }}-tab"
                 tabindex="0"
               >
+                {{-- For better accessibility hierarchy --}}
                 <h2 class="visually-hidden">
                   Détails de l'audience {{ audience.degre_de_juridiction }} du {{ audience.date_de_l_audience.toFormat(dateFormat) }}
                 </h2>
@@ -153,48 +164,63 @@
                         Juridiction
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.juridiction }} / {{ audience.ville_de_l_audience }}
+                        @let (juridiction = [audience.juridiction, audience.ville_de_l_audience].filter(Boolean).join(" / "))
+                        @if (juridiction)
+                          {{ juridiction }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @end
                       </dd>
-                      @if (audience.composition_du_tribunal)
-                        <dt class="col-sm-3">
-                          Composition du Tribunal
-                        </dt>
-                        <dd class="col-sm-9">
+                      <dt class="col-sm-3">
+                        Composition du Tribunal
+                      </dt>
+                      <dd class="col-sm-9">
+                        @if (audience.composition_du_tribunal)
                           {{ audience.composition_du_tribunal }}
-                        </dd>
-                      @endif
-                      @if (audience.numero_de_chambre)
-                        <dt class="col-sm-3">
-                          Numéro de chambre
-                        </dt>
-                        <dd class="col-sm-9">
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
+                      </dd>
+                      <dt class="col-sm-3">
+                        Numéro de chambre
+                      </dt>
+                      <dd class="col-sm-9">
+                        @if (audience.numero_de_chambre)
                           {{ audience.numero_de_chambre }}
-                        </dd>
-                      @endif
-                      @if (audience.nombre_de_prevenus)
-                        <dt class="col-sm-3">
-                          Nombre de prévenu·es
-                        </dt>
-                        <dd class="col-sm-9">
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
+                      </dd>
+                      <dt class="col-sm-3">
+                        Nombre de prévenu·es
+                      </dt>
+                      <dd class="col-sm-9">
+                        @if (audience.nombre_de_prevenus)
                           {{ audience.nombre_de_prevenus }}
-                        </dd>
-                      @endif
-                      @if (audience.noms_des_parties_civiles)
-                        <dt class="col-sm-3">
-                          Nom des parties civiles
-                        </dt>
-                        <dd class="col-sm-9">
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
+                      </dd>
+                      <dt class="col-sm-3">
+                        Nom des parties civiles
+                      </dt>
+                      <dd class="col-sm-9">
+                        @if (audience.noms_des_parties_civiles)
                           {{ audience.noms_des_parties_civiles }}
-                        </dd>
-                      @endif
-                      @if (audience.demande_des_parties_civiles)
-                        <dt class="col-sm-3">
-                          Demande des parties civiles
-                        </dt>
-                        <dd class="col-sm-9">
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
+                      </dd>
+                      <dt class="col-sm-3">
+                        Demande des parties civiles
+                      </dt>
+                      <dd class="col-sm-9">
+                        @if (audience.demande_des_parties_civiles)
                           {{ audience.demande_des_parties_civiles }}
-                        </dd>
-                      @endif
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
+                      </dd>
                       <dt class="col-sm-3">
                         Chefs de prévention
                       </dt>
@@ -213,25 +239,41 @@
                         Réquisitions
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.requisitions }}
+                        @if (audience.requisitions)
+                          {{ audience.requisitions }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                       <dt class="col-sm-3">
                         Date de l'audience
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.date_de_l_audience.toFormat(dateFormat) }}
+                        @if (audience.date_de_l_audience)
+                          {{ audience.date_de_l_audience.toFormat(dateFormat) }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                       <dt class="col-sm-3">
                         Plaidoirie de la défense
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.plaidoirie_de_la_defense }}
+                        @if (audience.plaidoirie_de_la_defense)
+                          {{ audience.plaidoirie_de_la_defense }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                       <dt class="col-sm-3">
                         Résumé de l’audience
                       </dt>
                       <dd class="col-sm-9 fst-italic">
-                        "{{ audience.resume_de_l_audience }}"
+                        @if (audience.resume_de_l_audience)
+                          "{{ audience.resume_de_l_audience }}"
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                     </dl>
 
@@ -239,13 +281,17 @@
                       <h4 class="h6 fw-semibold text-secondary">
                         <small>La presse en parle</small>
                       </h4>
-                      {{-- TODO: use link label and url when association table is ready --}}
-                      @link({
+                      {{-- TODO: use link label and url when association table is ready + turn into list --}}
+                      @if (audience.la_presse_parle_du_proces)
+                        @link({
                         url: audience.la_presse_parle_du_proces,
                         external: true
-                      })
-                        {{ audience.la_presse_parle_du_proces }}
-                      @end
+                        })
+                          {{ audience.la_presse_parle_du_proces }}
+                        @end
+                      @else
+                        <span class="fst-italic text-muted">Non disponible</span>
+                      @endif
                     </div>
                   </section>
 
@@ -258,59 +304,91 @@
                         Date de la décision
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.date_de_decision.toFormat('dd/MM/yyyy') }}
+                        @if (audience.date_de_decision)
+                          {{ audience.date_de_decision.toFormat('dd/MM/yyyy') }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
-                      @if (audience.details_de_la_decision_pour_les_infractions_principales)
-                        <dt class="col-sm-3">
-                          Décision pour les infractions principales
-                        </dt>
-                        <dd class="col-sm-9">
+                      <dt class="col-sm-3">
+                        Décision pour les infractions principales
+                      </dt>
+                      <dd class="col-sm-9">
+                        @if (audience.details_de_la_decision_pour_les_infractions_principales)
                           {{ audience.details_de_la_decision_pour_les_infractions_principales }}
-                        </dd>
-                      @endif
-                      @if (audience.fondement_de_la_relaxe)
-                        <dt class="col-sm-3">
-                          Fondement de la relaxe
-                        </dt>
-                        <dd class="col-sm-9">
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
+                      </dd>
+                      <dt class="col-sm-3">
+                        Fondement de la relaxe
+                      </dt>
+                      <dd class="col-sm-9">
+                        @if (audience.fondement_de_la_relaxe)
                           {{ audience.fondement_de_la_relaxe }}
-                        </dd>
-                      @endif
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
+                      </dd>
                       <dt class="col-sm-3">
                         Peine pour les infractions principales
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.details_des_peines_pour_les_infractions_principales }}
+                        @if (audience.details_des_peines_pour_les_infractions_principales)
+                          {{ audience.details_des_peines_pour_les_infractions_principales }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                       <dt class="col-sm-3">
                         Peine complémentaire
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes }}
+                        @if (audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes)
+                          {{ audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                       <dt class="col-sm-3">
                         Dommages et intérêts
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.detail_des_dommages_et_interets }}
+                        @if (audience.detail_des_dommages_et_interets)
+                          {{ audience.detail_des_dommages_et_interets }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                       <dt class="col-sm-3">
                         Inscription au casier
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.inscription_au_casier_judiciaire ? 'Oui' : 'Non' }}
+                        @if (audience.inscription_au_casier_judiciaire)
+                          {{ audience.inscription_au_casier_judiciaire ? 'Oui' : 'Non' }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                       <dt class="col-sm-3">
                         Extrait de la décision
                       </dt>
                       <dd class="col-sm-9 fst-italic">
-                        "{{ audience.extrait_de_la_decision }}"
+                        @if (audience.extrait_de_la_decision)
+                          "{{ audience.extrait_de_la_decision }}"
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                       <dt class="col-sm-3">
                         Commentaires MSDE
                       </dt>
                       <dd class="col-sm-9 fst-italic">
-                        "{{ audience.commentaire_msde }}"
+                        @if (audience.commentaire_msde)
+                          "{{ audience.commentaire_msde }}"
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
                     </dl>
                   </section>
@@ -324,24 +402,32 @@
                         Appel d'une des parties
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.appel_d_une_des_parties ? 'Oui' : 'Non' }}
+                        @if (audience.appel_d_une_des_parties)
+                          {{ audience.appel_d_une_des_parties ? 'Oui' : 'Non' }}
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
                       </dd>
-                      @if (audience.partie_de_l_appel_principal)
-                        <dt class="col-sm-3">
-                          Partie de l'appel principal
-                        </dt>
-                        <dd class="col-sm-9">
+                      <dt class="col-sm-3">
+                        Partie de l'appel principal
+                      </dt>
+                      <dd class="col-sm-9">
+                        @if (audience.partie_de_l_appel_principal)
                           {{ audience.partie_de_l_appel_principal }}
-                        </dd>
-                      @endif
-                      @if (audience.partie_de_l_appel_incident)
-                        <dt class="col-sm-3">
-                          Partie de l'appel incident
-                        </dt>
-                        <dd class="col-sm-9">
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
+                      </dd>
+                      <dt class="col-sm-3">
+                        Partie de l'appel incident
+                      </dt>
+                      <dd class="col-sm-9">
+                        @if (audience.partie_de_l_appel_incident)
                           {{ audience.partie_de_l_appel_incident }}
-                        </dd>
-                      @endif
+                        @else
+                          <span class="fst-italic text-muted">Non disponible</span>
+                        @endif
+                      </dd>
                     </dl>
                   </section>
                 </div>
