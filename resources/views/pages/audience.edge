@@ -199,9 +199,14 @@
                         Chefs de prévention
                       </dt>
                       <dd class="col-sm-9">
-                        {{ audience.chefs_de_prevention_categorie }}
-                        @if (audience.chefs_de_prevention_sous_categorie)
-                          <br />{{ audience.chefs_de_prevention_sous_categorie }}
+                        @let (chefsCategories = audience.chefs_de_prevention_categorie ? audience.chefs_de_prevention_categorie.join(', ') : null)
+                        @if (chefsCategories)
+                          {{ chefsCategories }}
+                        @endif
+                        @let (chefsSousCategories = audience.chefs_de_prevention_sous_categorie ? audience.chefs_de_prevention_sous_categorie.join(', ') : null)
+                        @if (chefsSousCategories)
+                          {{{ chefsCategories ? '<br />' : null }}}
+                          {{ chefsSousCategories }}
                         @endif
                       </dd>
                       <dt class="col-sm-3">

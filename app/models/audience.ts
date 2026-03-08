@@ -1,12 +1,7 @@
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
-import {
-  attachmentToFiles,
-  filesToAttachment,
-  multiSelectToStringList,
-  stringListToMultiSelect,
-} from '../utils/mapper.js'
+import { dbMappers } from '../../database/mappers.js'
 import { AppFile } from './common.js'
 import Procedure from './procedure.js'
 
@@ -50,13 +45,11 @@ export default class Audience extends BaseModel {
   @column()
   declare numero_de_chambre?: string
 
-  // multi-select
-  @column()
-  declare chefs_de_prevention_categorie?: string
+  @column(dbMappers.multiSelect)
+  declare chefs_de_prevention_categorie?: string[]
 
-  // multi-select
-  @column()
-  declare chefs_de_prevention_sous_categorie?: string
+  @column(dbMappers.multiSelect)
+  declare chefs_de_prevention_sous_categorie?: string[]
 
   @column()
   declare nombre_de_prevenus?: number
@@ -109,18 +102,10 @@ export default class Audience extends BaseModel {
   @column()
   declare la_presse_parle_du_proces?: string // TODO : link to the table articles_de_presse
 
-  // attachments
-  @column({
-    consume: (value) => attachmentToFiles(value),
-    prepare: (value) => filesToAttachment(value),
-  })
+  @column(dbMappers.attachment)
   declare recit_d_audience?: AppFile[]
 
-  // attachments
-  @column({
-    consume: (value) => attachmentToFiles(value),
-    prepare: (value) => filesToAttachment(value),
-  })
+  @column(dbMappers.attachment)
   declare jugement_ou_arret?: AppFile[]
 
   @column()
@@ -135,11 +120,7 @@ export default class Audience extends BaseModel {
   @column()
   declare extrait_de_la_decision?: string
 
-  // multi-select
-  @column({
-    consume: (value) => multiSelectToStringList(value),
-    prepare: (value) => stringListToMultiSelect(value),
-  })
+  @column(dbMappers.multiSelect)
   declare mots_cles?: string[]
 
   @column()

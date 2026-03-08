@@ -1,7 +1,7 @@
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
-import { multiSelectToStringList, stringListToMultiSelect } from '../utils/mapper.js'
+import { dbMappers } from '../../database/mappers.js'
 import Audience from './audience.js'
 
 export default class Procedure extends BaseModel {
@@ -38,11 +38,7 @@ export default class Procedure extends BaseModel {
   @column()
   declare la_presse_parle_des_faits: string
 
-  // multi-select
-  @column({
-    consume: (value) => multiSelectToStringList(value),
-    prepare: (value) => stringListToMultiSelect(value),
-  })
+  @column(dbMappers.multiSelect)
   declare collectif_d_action_ou_lutte: string[]
 
   @column()

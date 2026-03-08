@@ -1,5 +1,8 @@
 import { AppFile } from '#models/common'
 import { AttachmentRecord } from '#models/vendors/nocodb'
+import { ColumnOptions } from '@adonisjs/lucid/types/model'
+
+// ---- Multiselect ----
 
 /**
  * Map a nocodb multiselect type to a string array.
@@ -7,7 +10,7 @@ import { AttachmentRecord } from '#models/vendors/nocodb'
  * @param separator
  * @returns
  */
-export function multiSelectToStringList(
+function multiSelectToStringList(
   multiSelect: string | null | undefined,
   separator = ','
 ): string[] {
@@ -23,16 +26,18 @@ export function multiSelectToStringList(
  * @param separator
  * @returns
  */
-export function stringListToMultiSelect(stringList: string[], separator = ','): string {
+function stringListToMultiSelect(stringList: string[], separator = ','): string {
   return stringList.join(separator)
 }
+
+// ---- Attachment ----
 
 /**
  * Map a nocodb attachment type to an array of AppFile.
  * @param attachment
  * @returns
  */
-export function attachmentToFiles(attachment: string | null | undefined): AppFile[] {
+function attachmentToFiles(attachment: string | null | undefined): AppFile[] {
   return attachment
     ? JSON.parse(attachment).map((recit: AttachmentRecord) => ({
         ...recit,
@@ -46,6 +51,18 @@ export function attachmentToFiles(attachment: string | null | undefined): AppFil
  * @param files
  * @returns
  */
-export function filesToAttachment(files: AppFile[]): string {
+function filesToAttachment(files: AppFile[]): string {
   return JSON.stringify(files)
+}
+
+// ---- Exported mappers ----
+export const dbMappers: Record<string, Pick<ColumnOptions, 'prepare' | 'consume'>> = {
+  multiSelect: {
+    prepare: stringListToMultiSelect,
+    consume: multiSelectToStringList,
+  },
+  attachment: {
+    prepare: filesToAttachment,
+    consume: attachmentToFiles,
+  },
 }
