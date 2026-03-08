@@ -1,10 +1,14 @@
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
+import {
+  attachmentToFiles,
+  filesToAttachment,
+  multiSelectToStringList,
+  stringListToMultiSelect,
+} from '../utils/mapper.js'
+import { AppFile } from './common.js'
 import Procedure from './procedure.js'
-import { AttachmentRecord } from './vendors/nocodb.js'
-
-export type RecitFile = AttachmentRecord & { extension: string }
 
 export default class Audience extends BaseModel {
   @column({ isPrimary: true })
@@ -46,9 +50,11 @@ export default class Audience extends BaseModel {
   @column()
   declare numero_de_chambre?: string
 
+  // multi-select
   @column()
   declare chefs_de_prevention_categorie?: string
 
+  // multi-select
   @column()
   declare chefs_de_prevention_sous_categorie?: string
 
@@ -103,29 +109,19 @@ export default class Audience extends BaseModel {
   @column()
   declare la_presse_parle_du_proces?: string // TODO : link to the table articles_de_presse
 
+  // attachments
   @column({
-    consume: (value: string | null) => {
-      return value
-        ? JSON.parse(value).map((recit: AttachmentRecord) => ({
-            ...recit,
-            extension: recit.title.split('.')[1] ?? null,
-          }))
-        : []
-    },
+    consume: (value) => attachmentToFiles(value),
+    prepare: (value) => filesToAttachment(value),
   })
-  declare recit_d_audience?: RecitFile[]
+  declare recit_d_audience?: AppFile[]
 
+  // attachments
   @column({
-    consume: (value: string | null) => {
-      return value
-        ? JSON.parse(value).map((recit: AttachmentRecord) => ({
-            ...recit,
-            extension: recit.title.split('.')[1] ?? null,
-          }))
-        : []
-    },
+    consume: (value) => attachmentToFiles(value),
+    prepare: (value) => filesToAttachment(value),
   })
-  declare jugement_ou_arret?: RecitFile[]
+  declare jugement_ou_arret?: AppFile[]
 
   @column()
   declare resume_du_jugement_ou_arret?: string
@@ -139,8 +135,12 @@ export default class Audience extends BaseModel {
   @column()
   declare extrait_de_la_decision?: string
 
-  @column()
-  declare mots_cles?: string
+  // multi-select
+  @column({
+    consume: (value) => multiSelectToStringList(value),
+    prepare: (value) => stringListToMultiSelect(value),
+  })
+  declare mots_cles?: string[]
 
   @column()
   declare publiee: boolean

@@ -60,7 +60,12 @@ export const AudienceFactory = factory
       resume_de_l_audience: faker.lorem.paragraph(),
       commentaire_msde: faker.lorem.paragraph(),
       extrait_de_la_decision: faker.lorem.paragraph(),
-      mots_cles: faker.word.words(5),
+      mots_cles: faker.helpers.multiple(() => faker.word.words(3), {
+        count: {
+          min: 0,
+          max: 3,
+        },
+      }),
       publiee: faker.datatype.boolean(),
     }
   })

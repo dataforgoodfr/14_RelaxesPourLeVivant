@@ -1,5 +1,5 @@
 @eval(await auth.check())
-<nav class="navbar mb-3">
+<nav class="navbar">
   <div class="container">
     <a class="navbar-brand fw-bold" href="/">
       <img src="{{ asset('resources/images/msde_logo.svg') }}" />
@@ -8,7 +8,7 @@
       @if(auth.user)
         <span class="navbar-text">
           {{ auth.user.email }} -
-          ({{ auth.user.approved ? 'Compte approuvé' : 'En attente d\'approbation' }}) - 
+          ({{ auth.user.approved ? 'Compte approuvé' : 'En attente d\'approbation' }}) -
           <a href="/change-password">Changer le mot de passe</a>
         </span>
         <form action="/logout" method="POST">
