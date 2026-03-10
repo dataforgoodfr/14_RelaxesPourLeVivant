@@ -22,8 +22,18 @@ export const AudienceFactory = factory
         'Relaxe',
       ]),
       numero_de_chambre: `Chambre correctionnelle n°${faker.number.int({ min: 0, max: 50 })}`,
-      chefs_de_prevention_categorie: faker.word.words(2),
-      chefs_de_prevention_sous_categorie: faker.word.words(4),
+      chefs_de_prevention_categorie: faker.helpers.multiple(() => faker.word.words(2), {
+        count: {
+          min: 0,
+          max: 2,
+        },
+      }),
+      chefs_de_prevention_sous_categorie: faker.helpers.multiple(() => faker.word.words(4), {
+        count: {
+          min: 0,
+          max: 2,
+        },
+      }),
       nombre_de_prevenus: faker.number.int({ min: 0, max: 10 }),
       plaidoirie_de_la_defense: faker.lorem.lines(),
       noms_des_parties_civiles: faker.word.words(2),
@@ -60,7 +70,12 @@ export const AudienceFactory = factory
       resume_de_l_audience: faker.lorem.paragraph(),
       commentaire_msde: faker.lorem.paragraph(),
       extrait_de_la_decision: faker.lorem.paragraph(),
-      mots_cles: faker.word.words(5),
+      mots_cles: faker.helpers.multiple(() => faker.word.words(3), {
+        count: {
+          min: 0,
+          max: 3,
+        },
+      }),
       publiee: faker.datatype.boolean(),
     }
   })

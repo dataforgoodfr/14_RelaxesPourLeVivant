@@ -17,7 +17,12 @@ const AudiencesController = () => import('#controllers/audiences_controller')
 router.on('/welcome').render('pages/welcome').use(middleware.guest())
 router.get('/audiences', [HomeController, 'home']).use(middleware.auth())
 router
-  .get('/audiences/:id/recit/:recitId', [AudiencesController, 'getRecit'])
+  .get('/audiences/:id/recits/:recitId', [AudiencesController, 'getRecitFile'])
+  .as('audiences.recits')
+  .use(middleware.auth())
+router
+  .get('/audiences/:id/jugements/:jugementId', [AudiencesController, 'getJugementFile'])
+  .as('audiences.jugements')
   .use(middleware.auth())
 router.get('/audiences/:id', [AudiencesController, 'get']).use(middleware.auth())
 router.on('/sign-up').render('pages/auth/sign_up')

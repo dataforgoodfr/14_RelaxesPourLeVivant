@@ -12,7 +12,12 @@ export const ProcedureFactory = factory
       faits_concis: faker.lorem.paragraph(),
       faits_detailles: faker.lorem.paragraphs(),
       poursuites: faker.lorem.words(),
-      collectif_d_action_ou_lutte: faker.company.name(),
+      collectif_d_action_ou_lutte: faker.helpers.multiple(() => faker.company.name(), {
+        count: {
+          min: 1,
+          max: 2,
+        },
+      }),
       la_presse_parle_des_faits: faker.internet.url(),
       publiee: faker.datatype.boolean(),
     }

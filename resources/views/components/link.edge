@@ -1,0 +1,5 @@
+<a
+  href="{{ url }}"
+  class="btn btn-sm btn-light"
+  {{{ external ? 'rel="noopener noreferrer" target="_blank"' : '' }}}
+>> {{{ await $slots.main() }}}</a>
