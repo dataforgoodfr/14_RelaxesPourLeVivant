@@ -16,8 +16,12 @@ export class ProcedureService {
       })
       .andWhere('publiee', true)
       .preload('audiences', (query) => {
-        query.where('publiee', true).orderBy('date_de_l_audience', 'asc')
+        query
+          .where('publiee', true)
+          .orderBy('date_de_l_audience', 'asc')
+          .preload('la_presse_parle_du_proces')
       })
+      .preload('la_presse_parle_des_faits')
       .firstOrFail()
   }
 }
