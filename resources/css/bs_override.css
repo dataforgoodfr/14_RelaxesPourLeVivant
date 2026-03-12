@@ -54,6 +54,10 @@
   --msde-yellow-rgb: 247, 197, 2;
   --msde-orange: #faa200;
   --msde-orange-rgb: 250, 162, 0;
+
+  --relx-gray-background: #f8f9fa;
+  --relx-purple-background: #ebe5fc;
+  --relx-purple-text: #5227cc;
 }
 
 /*
@@ -89,6 +93,22 @@
   &.nav-underline {
     --bs-nav-underline-gap: 3.5rem;
   }
+}
+
+/*
+  Adding colour classes
+*/
+.text-bg-purple {
+  color: var(--relx-purple-text);
+  background-color: var(--relx-purple-background);
+}
+
+.text-purple {
+  color: var(--relx-purple-text);
+}
+
+.bg-gray {
+  background-color: var(--relx-gray-background);
 }
 
 /*

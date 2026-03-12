@@ -133,6 +133,93 @@
         </div>
       </form>
 
+      @if (audiences.length > 1 )
+        <p>
+          {{ audiences.length }} résultats trouvés:
+        </p>
+      @else
+        <p>
+          {{ audiences.length === 1 ? "1 résultat trouvé:" : "Aucun résultat trouvé." }}
+        </p>
+      @endif
+        
+      @each(audience in audiences)
+        <div class="card rounded-5">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-5 vstack gap-4 justify-content-center align-items-start">
+                <h2 class="card-title">
+                  Blocage de l'autoroute A6 par des militant·es écologistes
+                </h2>
+                <span class="badge rounded-pill text-bg-purple">
+                  Condamnation
+                </span>
+                <div class="row">
+                  <p class="mb-0">
+                    <i class="ph-fill ph-calendar-dot"></i>11.05.2023
+                  </p>
+                  <p class="mb-0">
+                    <i class="ph-fill ph-bank"></i>Tribunal correctionnel de Paris
+                  </p>
+                  <p class="mb-0">
+                    <i class="ph-fill ph-scales"></i>Entrave à la circulation
+                  </p>
+                  <p class="mb-0">
+                    <i class="ph-fill ph-gavel"></i>35 heures de travail d'intérêt général
+                  </p>
+                </div>
+                <div class="d-flex flex-column align-items-start gap-2">
+                  <span class="badge rounded-pill border text-secondary">
+                    Relaxe pour liberté d'expression
+                  </span>
+                  <span class="badge rounded-pill border text-secondary">
+                    Collectif Dernière Rénovation
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-7 d-flex flex-column gap-3">
+                <div class="row bg-gray rounded-3">
+                  <div class="col-5 d-flex flex-column gap-3">
+                    <h3 class="text-purple">
+                      <i class="ph-fill ph-folder-open"></i>Faits et chronologie
+                    </h3>
+                    <p>
+                      Action de blocage de l'autoroute A6, le 28 octobre 2022 par des militant·es du collectif Dernière Rénovation.
+                    </p>
+                  </div>
+                  <div class="col-7 d-flex flex-column gap-3">
+                    <pre>
+                      //insert timeline here
+                    </pre>
+                  </div>
+                </div>
+                <div class="row bg-gray rounded-3">
+                  <div class="col-12 d-flex flex-column gap-3">
+                    <h3 class="text-purple">
+                      <i class="ph-fill ph-note"></i>Extrait de la décision
+                    </h3>
+                    <p>
+                      "La cour considère ainsi que l'infraction d'entrave à la circulation retenue par le tribunal de Créteil constitue une atteinte disproportionnée à la liberté d'expression des prévenus qui ont mené une action militante, pacifique, responsable, de blocage de l'autoroute A6 ayant pour but d'alerter l'Ipinion et les pouvoirs publics des conséquences du déréglement climatique. (...)"
+                    </p>
+                  </div>
+                </div>
+                <div class="row bg-gray rounded-3">
+                  <div class="col-12 d-flex flex-column gap-3">
+                    <h3 class="text-purple">
+                      <i class="ph-fill ph-leaf"></i>Commentaire MSDE
+                    </h3>
+                    <p>
+                      Décision très détaillée et très pédagogique, qui pose les bases de la liberté d'expression comme justification des actions de blocage de route au regard du militantisme écologiste.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      @end
+        
       <ul class="list-group">
         @each(audience in audiences)
           <li class="list-group-item">
