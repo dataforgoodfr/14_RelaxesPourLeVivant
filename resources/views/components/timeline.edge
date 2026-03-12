@@ -1,10 +1,12 @@
+@let (dateFormat = 'dd.MM.yy')
+
 <div class="timeline mb-3">
   @each(t in data.sort((a, b) => new Date(a.date) - new Date(b.date)))
     <a href="/audiences/{{ t.id }}">
-      <div class="timeline-node">
+      <div class="timeline-node {{ html.classNames({ 'current': t.id == current }) }}">
         <span class="timeline-link"></span>
-        <span class="timeline-pin {{ html.classNames({ 'current': t.id == current }) }}"></span>
-        <span class="label">{{ t.date.replaceAll('-', '/') }}</span>
+        <span class="timeline-pin"></span>
+        <span class="label">{{ DateTime.fromISO(t.date).toFormat(dateFormat) }}</span>
       </div>
     </a>
   @end

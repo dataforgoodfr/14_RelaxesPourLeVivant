@@ -160,7 +160,7 @@
                     <i class="ph-fill ph-calendar-dot"></i>{{ DateTime.fromJSDate(audience.date_de_l_audience).toFormat(dateFormat) }}
                   </p>
                   <p class="mb-0">
-                    <i class="ph-fill ph-bank"></i>{{ audience.juridiction }} de {{ audience.ville_de_l_audience }}
+                    <i class="ph-fill ph-bank"></i>{{ audience.juridiction }} de <span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
                   </p>
                   <p class="mb-0">
                     <i class="ph-fill ph-scales"></i>{{ audience.chefs_de_prevention_categorie }}
@@ -190,9 +190,7 @@
                     </p>
                   </div>
                   <div class="col-7 d-flex flex-column gap-3">
-                    <pre>
-                      //insert timeline here
-                    </pre>
+                    @!component('components/timeline', { data: audience.timeline, current: audience.id })
                   </div>
                 </div>
                 <div class="row bg-gray rounded-3">
@@ -218,31 +216,6 @@
               </div>
             </div>
           </div>
-
-          <div class="accordion m-5" id="accordionExample">
-            <div class="accordion-item bg-danger">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button bg-danger"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="false"
-                  aria-controls="collapseOne"
-                >
-                  Development Only - inspect audience
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <pre>
-                    {{ inspect(audience) }}
-                  </pre>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       @end
         
