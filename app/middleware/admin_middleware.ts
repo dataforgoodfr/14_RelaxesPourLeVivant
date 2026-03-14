@@ -2,20 +2,14 @@ import env from '#start/env'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 
-export default class AdminMiddleware {
+export default class WebhookMiddleware {
+  private readonly apiToken = env.get('NC_API_TOKEN')
+
   async handle(ctx: HttpContext, next: NextFn) {
-    const headerAuthorization = await ctx.request.header('Authorization')
-
-    if (!headerAuthorization) {
-      return ctx.response.unauthorized()
+    if (ctx.request.header('Authorization') !== `Bearer ${this.apiToken}`) {
+      return ctx.response.unauthorized({ error: 'Invalid API token' })
     }
 
-    const apiKey = headerAuthorization.split('Bearer ').at(1)
-
-    if (env.get('NC_API_TOKEN') !== apiKey) {
-      return ctx.response.unauthorized()
-    }
-
-    return next()
+    await next()
   }
 }

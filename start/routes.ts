@@ -10,6 +10,7 @@
 import env from '#start/env'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+const ImportsController = () => import('#controllers/imports_controller')
 const HomeController = () => import('#controllers/home_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const AudiencesController = () => import('#controllers/audiences_controller')
@@ -41,10 +42,13 @@ router.post('/reset-password', [AuthController, 'handleResetPassword'])
 
 router
   .group(() => {
-    router.post('/user', [WebhooksController, 'user'])
+    router.post('/webhooks/user', [WebhooksController, 'user'])
+    router
+      .put('/imports/:table', [ImportsController, 'import'])
+      .where('table', /^(procedures|audiences)$/)
   })
-  .prefix('/_/webhooks')
-  .use(middleware.webhook())
+  .prefix('/_')
+  .use(middleware.admin())
 
 if (env.get('NODE_ENV') === 'development') {
   router.on('/dev/design').render('designSystem/design_system')
