@@ -39,7 +39,7 @@ export default class extends BaseSchema {
       table.decimal('score_de_la_gravite').unsigned()
       table.boolean('dommages_et_interets')
       table.text('detail_des_dommages_et_interets')
-      table.boolean('inscription_au_casier_judiciaire')
+      table.text('inscription_au_casier_judiciaire')
       table.boolean('appel_d_une_des_parties')
       table.string('partie_de_l_appel_principal')
       table.string('partie_de_l_appel_incident')
