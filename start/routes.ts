@@ -46,8 +46,8 @@ router
   .prefix('/_/webhooks')
   .use(middleware.webhook())
 
-router.on('*').redirectToPath('/welcome')
-
 if (env.get('NODE_ENV') === 'development') {
   router.on('/dev/design').render('designSystem/design_system')
 }
+
+router.on('*').redirectToPath('/welcome')
