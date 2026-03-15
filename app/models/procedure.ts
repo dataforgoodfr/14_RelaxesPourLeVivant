@@ -1,8 +1,9 @@
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import { dbMappers } from '../../database/mappers.js'
 import Audience from './audience.js'
+import PresseArticle from './presse_article.js'
 
 export default class Procedure extends BaseModel {
   @column({ isPrimary: true })
@@ -35,8 +36,10 @@ export default class Procedure extends BaseModel {
   @column()
   declare poursuites: string
 
-  @column()
-  declare la_presse_parle_des_faits: string
+  @manyToMany(() => PresseArticle, {
+    pivotTable: 'procedures_presse_articles',
+  })
+  declare la_presse_parle_des_faits: ManyToMany<typeof PresseArticle>
 
   @column(dbMappers.multiSelect)
   declare collectif_d_action_ou_lutte: string[]

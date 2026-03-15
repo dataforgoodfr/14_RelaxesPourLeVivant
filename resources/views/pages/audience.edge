@@ -66,14 +66,17 @@
               <h2 class="h6 fw-semibold text-secondary">
                 <small>La presse en parle</small>
               </h2>
-              {{-- TODO: use link label and url when association table is ready + turn to list --}}
               @if (procedure.la_presse_parle_des_faits)
-                @link({
-                url: procedure.la_presse_parle_des_faits,
-                external: true
-                })
-                  {{ procedure.la_presse_parle_des_faits }}
-                @end
+                <div class="hstack flex-wrap gap-2">
+                  @each (laPresseParleDesFaits in procedure.la_presse_parle_des_faits)
+                    @link({
+                    url: laPresseParleDesFaits.url,
+                    external: true
+                    })
+                      {{ laPresseParleDesFaits.titre }}
+                    @end
+                  @end
+                </div>
               @else
                 <span class="fst-italic text-muted">Non disponible</span>
               @endif
@@ -281,14 +284,17 @@
                       <h4 class="h6 fw-semibold text-secondary">
                         <small>La presse en parle</small>
                       </h4>
-                      {{-- TODO: use link label and url when association table is ready + turn into list --}}
                       @if (audience.la_presse_parle_du_proces)
-                        @link({
-                        url: audience.la_presse_parle_du_proces,
-                        external: true
-                        })
-                          {{ audience.la_presse_parle_du_proces }}
-                        @end
+                        <div class="hstack flex-wrap gap-2">
+                          @each (laPresseParleDuProces in audience.la_presse_parle_du_proces)
+                            @link({
+                            url: laPresseParleDuProces.url,
+                            external: true
+                            })
+                              {{ laPresseParleDuProces.titre }}
+                            @end
+                          @end
+                        </div>
                       @else
                         <span class="fst-italic text-muted">Non disponible</span>
                       @endif
