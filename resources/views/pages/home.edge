@@ -119,12 +119,15 @@
             </select>
           </div>
           <div class="col">
-            <select name="collectif" value="{{ searchQuery.collectif }}" class="form-select">
-              <option value="" {{ searchQuery.collectif==="" ? "selected" : "" }}>
+            <select name="collectif" class="form-select" multiple>
+              <option value="" disabled>
                 Collectif d'action
               </option>
               @each(collectif in collectifs)
-                <option value="{{ collectif.nom }}" {{ searchQuery.collectif===collectif.nom ? "selected" : "" }}>
+                <option
+                  value="{{ collectif.nom }}"
+                  {{ searchQuery.collectif?.includes(collectif.nom) ? "selected" : "" }}
+                >
                   {{ collectif.nom }}
                 </option>
               @end

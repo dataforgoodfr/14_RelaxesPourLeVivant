@@ -9,7 +9,7 @@ type SearchAudiencesQuery = {
   juridiction?: string
   chefDePrevention?: string
   ville?: string
-  collectif?: string
+  collectif?: string[]
   page?: number
 }
 
@@ -84,7 +84,7 @@ export class AudienceService {
     }
 
     if (searchQuery.collectif) {
-      query.andWhere('procedures.collectif_d_action_ou_lutte', searchQuery.collectif)
+      query.andWhereIn('procedures.collectif_d_action_ou_lutte', searchQuery.collectif)
     }
 
     return query.paginate(searchQuery.page ?? 1, 50)
