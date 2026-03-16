@@ -39,7 +39,7 @@ export class AudienceService {
           .select(
             'reference_procedure',
             db.raw(
-              "array_agg(json_object('{id,date}', ARRAY[id::text, date_de_l_audience::text])) as audiences"
+              "array_agg(json_object('{id,date}', ARRAY[id::text, date_de_decision::text])) as audiences"
             )
           )
           .groupBy('reference_procedure')
