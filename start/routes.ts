@@ -44,7 +44,7 @@ router
   .group(() => {
     router.post('/webhooks/user', [WebhooksController, 'user'])
     router
-      .put('/imports/:table', [ImportsController, 'import'])
+      .post('/imports/:table', [ImportsController, 'import'])
       .where('table', /^(procedures|audiences)$/)
   })
   .prefix('/_')
