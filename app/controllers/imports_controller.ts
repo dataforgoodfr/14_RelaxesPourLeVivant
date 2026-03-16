@@ -10,7 +10,8 @@ export default class ImportsController {
     const data = await readFile(csv.tmpPath!, { encoding: 'base64' })
 
     await db.knexRawQuery(
-      `COPY "${request.param('table')}" FROM PROGRAM 'echo ${data} | base64 -d' WITH (FORMAT csv, HEADER, DELIMITER ';', FORCE_NULL *)`
+      `COPY ?? FROM PROGRAM 'echo ${data} | base64 -d' WITH (FORMAT csv, HEADER, DELIMITER ';', FORCE_NULL *)`,
+      [request.param('table')]
     )
 
     try {
