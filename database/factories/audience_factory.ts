@@ -1,6 +1,7 @@
 import Audience from '#models/audience'
 import factory from '@adonisjs/lucid/factories'
 import { DateTime } from 'luxon'
+import { PresseArticleFactory } from './presse_article_factory.js'
 
 export const AudienceFactory = factory
   .define(Audience, async ({ faker }) => {
@@ -62,7 +63,6 @@ export const AudienceFactory = factory
         'Parquet',
         'Partie Civile',
       ]),
-      la_presse_parle_du_proces: faker.internet.url(),
       recit_d_audience: [],
       jugement_ou_arret: [],
       reference_de_la_decision: faker.word.words(3),
@@ -85,4 +85,5 @@ export const AudienceFactory = factory
   .state('draft', (user) => {
     user.publiee = false
   })
+  .relation('la_presse_parle_du_proces', () => PresseArticleFactory)
   .build()

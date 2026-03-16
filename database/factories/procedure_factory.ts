@@ -2,6 +2,7 @@ import Procedure from '#models/procedure'
 import factory from '@adonisjs/lucid/factories'
 import { DateTime } from 'luxon'
 import { AudienceFactory } from './audience_factory.js'
+import { PresseArticleFactory } from './presse_article_factory.js'
 
 export const ProcedureFactory = factory
   .define(Procedure, async ({ faker }) => {
@@ -18,7 +19,6 @@ export const ProcedureFactory = factory
           max: 2,
         },
       }),
-      la_presse_parle_des_faits: faker.internet.url(),
       publiee: faker.datatype.boolean(),
     }
   })
@@ -29,4 +29,5 @@ export const ProcedureFactory = factory
     user.publiee = false
   })
   .relation('audiences', () => AudienceFactory)
+  .relation('la_presse_parle_des_faits', () => PresseArticleFactory)
   .build()

@@ -1,8 +1,9 @@
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import { dbMappers } from '../../database/mappers.js'
 import { AppFile } from './common.js'
+import PresseArticle from './presse_article.js'
 import Procedure from './procedure.js'
 
 export default class Audience extends BaseModel {
@@ -99,8 +100,10 @@ export default class Audience extends BaseModel {
   @column()
   declare partie_de_l_appel_incident?: string
 
-  @column()
-  declare la_presse_parle_du_proces?: string // TODO : link to the table articles_de_presse
+  @manyToMany(() => PresseArticle, {
+    pivotTable: 'audiences_presse_articles',
+  })
+  declare la_presse_parle_du_proces: ManyToMany<typeof PresseArticle>
 
   @column(dbMappers.attachment)
   declare recit_d_audience?: AppFile[]
