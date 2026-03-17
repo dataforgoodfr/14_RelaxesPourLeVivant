@@ -9,7 +9,7 @@ export const searchQueryValidator = vine.compile(
     juridiction: vine.string().optional(),
     chefDePrevention: vine.string().optional(),
     ville: vine.string().optional(),
-    collectif: vine.string().optional(),
+    collectif: vine.array(vine.string()).optional(),
     page: vine.number().optional(),
   })
 )
