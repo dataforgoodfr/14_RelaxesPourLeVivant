@@ -1,7 +1,7 @@
 @let (dateFormat = 'dd.MM.yy')
 
 <div class="timeline mb-3">
-  @each(t in data.sort((a, b) => new Date(a.date) - new Date(b.date)))
+  @each(t in data)
     @let(decisionClass = html.classNames({
       'conviction': t.decision_pour_les_infractions_principales === 'Condamnation',
       'acquittal': t.decision_pour_les_infractions_principales === 'Relaxe'
@@ -20,3 +20,7 @@
     </a>
   @end
 </div>
+
+<pre>
+  {{ inspect(data) }}
+</pre>

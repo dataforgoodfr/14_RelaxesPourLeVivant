@@ -13,6 +13,14 @@ type SearchAudiencesQuery = {
   page?: number
 }
 
+type TimelineItem = {
+  id: number
+  date_de_decision: string
+  degre_de_juridiction: string
+  decision_pour_les_infractions_principales: string
+  type_de_peine_pour_les_infractions_principales: string
+}
+
 export class AudienceService {
   /**
    * Get an audience if both the audience and its procedure are published.
@@ -104,7 +112,59 @@ export class AudienceService {
       query.andWhere('procedures.collectif_d_action_ou_lutte', searchQuery.collectif)
     }
 
-    return query.paginate(searchQuery.page ?? 1, 50)
+    const results = await query.paginate(searchQuery.page ?? 1, 50)
+
+    results.map((row) => {
+      row.timeline = this.filterTimeline(row.timeline, row.id)
+    })
+
+    return results
+  }
+
+  /**
+   * Filters out timeline for a given maximum number of events,
+   * and sorting it ascendant with a preferred position for current audience's date
+   * @param timeline
+   * @param audienceId
+   * @returns
+   */
+  private filterTimeline(timeline: TimelineItem[], audienceId: number) {
+    // Algorithm parameters
+    const maximumNumberOfEvents = 4
+    const preferredPositionForCurrentAudience = 1
+
+    // Sorting dates (ASC)
+    const sortedTimeline = [...timeline].sort((a, b) => {
+      return new Date(a.date_de_decision).getTime() - new Date(b.date_de_decision).getTime()
+    })
+
+    // When total events < maximum number of events, early return of sorted dates
+    if (sortedTimeline.length <= maximumNumberOfEvents) {
+      return sortedTimeline
+    }
+
+    // Splitting data into 3 groups (pasts, current, futures)
+    const currentIndex = sortedTimeline.findIndex((t) => Number(t.id) === audienceId)
+
+    if (currentIndex === -1) {
+      return sortedTimeline.slice(0, maximumNumberOfEvents)
+    }
+
+    const currentEvent = sortedTimeline[currentIndex]
+    const pastEvents = sortedTimeline.slice(0, currentIndex)
+    const futureEvents = sortedTimeline.slice(currentIndex + 1)
+
+    // Defining number of items per group according to preferences
+    const numberOfPastEvents = Math.min(preferredPositionForCurrentAudience, pastEvents.length)
+    const numberOfFutureEvents = maximumNumberOfEvents - (1 + numberOfPastEvents)
+
+    // Building the filtered array
+    const filteredArray = []
+    filteredArray.push(...pastEvents.slice(pastEvents.length - numberOfPastEvents))
+    filteredArray.push(currentEvent)
+    filteredArray.push(...futureEvents.slice(0, numberOfFutureEvents))
+
+    return filteredArray
   }
 
   async getVilles(): Promise<Array<{ nom: string }>> {
