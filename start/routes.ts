@@ -10,6 +10,8 @@
 import env from '#start/env'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import Procedure from '#models/procedure'
+import Audience from '#models/audience'
 const ImportsController = () => import('#controllers/imports_controller')
 const HomeController = () => import('#controllers/home_controller')
 const AuthController = () => import('#controllers/auth_controller')
@@ -45,7 +47,7 @@ router
     router.post('/webhooks/user', [WebhooksController, 'user'])
     router
       .post('/imports/:table', [ImportsController, 'import'])
-      .where('table', /^(procedures|audiences)$/)
+      .where('table', `^(${Procedure.table}|${Audience.table})$`)
   })
   .prefix('/_')
   .use(middleware.admin())
