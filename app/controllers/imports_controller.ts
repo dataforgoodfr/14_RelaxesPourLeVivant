@@ -8,18 +8,24 @@ export default class ImportsController {
   async import({ request, response, logger }: HttpContext) {
     const { csv } = await request.validateUsing(importCsvValidator)
 
-    const data = await readFile(csv.tmpPath!, { encoding: 'base64' })
-
     const trx = await db.transaction()
 
-    await trx.knexRawQuery(
-      `COPY ?? FROM PROGRAM 'echo ${data} | base64 -d' WITH (FORMAT csv, HEADER, DELIMITER ';', FORCE_NULL *)`,
-      [request.param('table')]
-    )
+    try {
+      const data = await readFile(csv.tmpPath!, { encoding: 'base64' })
 
-    await this.refreshAutoIncrement(request.param('table'), trx)
+      await trx.knexRawQuery(
+        `COPY ?? FROM PROGRAM 'echo ${data} | base64 -d' WITH (FORMAT csv, HEADER, DELIMITER ';', FORCE_NULL *)`,
+        [request.param('table')]
+      )
 
-    await trx.commit()
+      await this.refreshAutoIncrement(request.param('table'), trx)
+
+      await trx.commit()
+    } catch (err) {
+      await trx.rollback()
+      logger.error({ file: csv.tmpPath }, 'something went wrong during the import')
+      return response.internalServerError('something went wrong during the import')
+    }
 
     try {
       await rm(csv.tmpPath!)
