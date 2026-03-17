@@ -13,6 +13,7 @@ import { middleware } from './kernel.js'
 const HomeController = () => import('#controllers/home_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const AudiencesController = () => import('#controllers/audiences_controller')
+const WebhooksController = () => import('#controllers/webhooks_controller')
 
 router.on('/welcome').render('pages/welcome').use(middleware.guest())
 router.get('/audiences', [HomeController, 'home']).use(middleware.auth())
@@ -37,6 +38,13 @@ router.post('/logout', [AuthController, 'signout'])
 router.post('/change-password', [AuthController, 'changePassword']).use(middleware.auth())
 router.post('/forgotten-password', [AuthController, 'forgottenPassword'])
 router.post('/reset-password', [AuthController, 'handleResetPassword'])
+
+router
+  .group(() => {
+    router.post('/user', [WebhooksController, 'user'])
+  })
+  .prefix('/_/webhooks')
+  .use(middleware.webhook())
 
 router.on('*').redirectToPath('/welcome')
 
