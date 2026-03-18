@@ -3,6 +3,10 @@
   flex-direction: row;
 }
 
+.timeline .flex-1 {
+  flex: 1;
+}
+
 .timeline > a > .timeline-node {
   display: flex;
   flex-direction: column;
@@ -41,4 +45,18 @@
 
 .timeline > a > .timeline-node.current > .label {
   color: #0d6efd;
+}
+
+.timeline > a > .timeline-node > .label.conclusion {
+  background-color: white;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.timeline > a > .timeline-node > .label.acquittal {
+  color: #28a745;
+}
+
+.timeline > a > .timeline-node > .label.conviction {
+  color: #dc3545;
 }

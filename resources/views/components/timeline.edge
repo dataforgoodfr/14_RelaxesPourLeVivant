@@ -1,20 +1,20 @@
 @let (dateFormat = 'dd.MM.yy')
 
-<div class="timeline mb-3">
+<div class="timeline d-flex">
   @each(t in data)
     @let(decisionClass = html.classNames({
       'conviction': t.decision_pour_les_infractions_principales === 'Condamnation',
       'acquittal': t.decision_pour_les_infractions_principales === 'Relaxe'
     }))
 
-    <a href="/audiences/{{ t.id }}">
+    <a class="flex-1" href="/audiences/{{ t.id }}">
       <div class="timeline-node {{ html.classNames({ 'current': t.id == current }) }}">
         <span class="timeline-link"></span>
         <span class="timeline-pin"></span>
         <span class="label">{{ DateTime.fromISO(t.date_de_decision).toFormat(dateFormat) }}</span>
         <span class="label">{{ t.degre_de_juridiction }}</span>
         <span class="label conclusion {{ decisionClass }}">
-          {{ t.type_de_peine_pour_les_infractions_principales }} 
+          <i class="ph-fill ph-gavel"></i>{{ t.type_de_peine_pour_les_infractions_principales }} 
         </span>
       </div>
     </a>
