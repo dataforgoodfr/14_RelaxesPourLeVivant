@@ -13,10 +13,19 @@
 @font-face {
   font-family: 'Poppins';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-display: swap;
   src: url('/resources/fonts/Poppins-Medium.ttf');
-  /*src: url('/fonts/devOnly.ttf');*/
+  /*src: url('/resources/fonts/devOnly.ttf');*/
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-Regular.ttf');
+  /*src: url('/resources/fonts/devOnly.ttf');*/
 }
 
 @font-face {
@@ -109,6 +118,13 @@
 
 .bg-gray {
   background-color: var(--relx-gray-background);
+}
+
+/*
+  Adding text utilities
+*/
+.fs-7 {
+  font-size: 0.875rem !important;
 }
 
 /*
@@ -230,7 +246,7 @@ form button.btn-primary {
   --bs-badge-padding-x: 0.75rem;
   --bs-badge-padding-y: 0.25rem;
   --bs-badge-font-weight: 500;
-  line-height: 1.25rem;
+  line-height: 0.75rem;
 
   &.badge-collectif {
     background-color: #eef4ff;
