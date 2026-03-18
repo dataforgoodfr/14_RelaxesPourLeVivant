@@ -257,3 +257,13 @@ form button.btn-primary {
     color: #c11574;
   }
 }
+
+/*
+  Custom MSDE leaf icon to replace phosphor leaf item
+*/
+.msde-leaf-icon {
+  height: 0.875em;
+  width: 0.875em;
+  vertical-align: baseline;
+  flex-shrink: 0;
+}
