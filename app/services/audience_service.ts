@@ -15,10 +15,18 @@ type SearchAudiencesQuery = {
 
 type TimelineItem = {
   id: number
+  date_de_decision?: string
+  degre_de_juridiction?: string
+  decision_pour_les_infractions_principales?: string
+  type_de_peine_pour_les_infractions_principales?: string
+}
+
+type NormalisedTimelineItem = {
+  id: number
   date_de_decision: string
-  degre_de_juridiction: string
-  decision_pour_les_infractions_principales: string
-  type_de_peine_pour_les_infractions_principales: string
+  degre_de_juridiction?: string
+  decision_pour_les_infractions_principales?: string
+  type_de_peine_pour_les_infractions_principales?: string
 }
 
 export class AudienceService {
@@ -133,8 +141,17 @@ export class AudienceService {
     const maximumNumberOfEvents = 4
     const preferredPositionForCurrentAudience = 1
 
+    // Inserting future date for unavailable dates
+    const normalisedTimeline: NormalisedTimelineItem[] = []
+    timeline.forEach((event) => {
+      normalisedTimeline.push({
+        ...event,
+        date_de_decision: event.date_de_decision ?? '2199-12-31',
+      })
+    })
+
     // Sorting dates (ASC)
-    const sortedTimeline = [...timeline].sort((a, b) => {
+    const sortedTimeline = [...normalisedTimeline].sort((a, b) => {
       return new Date(a.date_de_decision).getTime() - new Date(b.date_de_decision).getTime()
     })
 

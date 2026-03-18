@@ -158,16 +158,16 @@
                   </span>
                   <div class="row">
                     <p class="mb-1">
-                      <i class="ph-fill ph-calendar-dot"></i>Audience : {{ DateTime.fromJSDate(audience.date_de_l_audience).toFormat(dateFormat) }}
+                      <i class="ph-fill ph-calendar-dot me-1"></i>Audience : {{ DateTime.fromJSDate(audience.date_de_l_audience).toFormat(dateFormat) }}
                     </p>
                     <p class="mb-1">
-                      <i class="ph-fill ph-bank"></i>{{ audience.juridiction }} de <span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
+                      <i class="ph-fill ph-bank me-1"></i>{{ audience.juridiction }} de <span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
                     </p>
                     <p class="mb-1">
-                      <i class="ph-fill ph-scales"></i>{{ audience.chefs_de_prevention_categorie }}
+                      <i class="ph-fill ph-scales me-1"></i>{{ audience.chefs_de_prevention_categorie }}
                     </p>
                     <p class="mb-1">
-                      <i class="ph-fill ph-gavel"></i>{{ audience.type_de_peine_pour_les_infractions_principales }}
+                      <i class="ph-fill ph-gavel me-1"></i>{{ audience.type_de_peine_pour_les_infractions_principales }}
                     </p>
                   </div>
                   <div class="d-flex flex-column align-items-start gap-2">
@@ -184,7 +184,7 @@
                   <div class="row bg-gray rounded-3 p-3">
                     <div class="col-5 d-flex flex-column gap-1 px-0">
                       <h3 class="text-purple fs-7">
-                        <i class="ph-fill ph-folder-open"></i>Faits et chronologie
+                        <i class="ph-fill ph-folder-open me-1"></i>Faits et chronologie
                       </h3>
                       <p class="fs-7 fw-normal mb-0">
                         {{ audience.resume_de_l_audience }}
@@ -197,7 +197,7 @@
                   <div class="row bg-gray rounded-3 p-3">
                     <div class="col-12 d-flex flex-column gap-1 px-0">
                       <h3 class="text-purple fs-7">
-                        <i class="ph-fill ph-note"></i>Extrait de la décision
+                        <i class="ph-fill ph-note me-1"></i>Extrait de la décision
                       </h3>
                       <p class="fs-7 fw-normal mb-0">
                         <em>"{{ audience.extrait_de_la_decision  }}"</em>
@@ -207,7 +207,7 @@
                   <div class="row bg-gray rounded-3 p-3">
                     <div class="col-12 d-flex flex-column gap-1 px-0">
                       <h3 class="text-purple fs-7">
-                        <i class="ph-fill ph-leaf"></i>Commentaire MSDE
+                        <i class="ph-fill ph-leaf me-1"></i>Commentaire MSDE
                       </h3>
                       <p class="fs-7 fw-normal mb-0">
                         {{ audience.commentaire_msde }}

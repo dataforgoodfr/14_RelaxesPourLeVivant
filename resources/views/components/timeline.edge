@@ -11,9 +11,9 @@
       <div class="timeline-node {{ html.classNames({ 'current': t.id == current }) }}">
         <span class="timeline-link"></span>
         <span class="timeline-pin"></span>
-        <span class="label">{{ DateTime.fromISO(t.date_de_decision).toFormat(dateFormat) }}</span>
-        <span class="label">{{ t.degre_de_juridiction }}</span>
-        <span class="label conclusion {{ decisionClass }}">
+        <span class="label mt-1">{{ t.date_de_decision === "2199-12-31" ? "À venir" : DateTime.fromISO(t.date_de_decision).toFormat(dateFormat) }}</span>
+        <span class="label mt-1">{{ t.degre_de_juridiction || "\u00A0" }}</span>
+        <span class="label mt-1 conclusion {{ decisionClass }}">
           <i class="ph-fill ph-gavel"></i>{{ t.type_de_peine_pour_les_infractions_principales }} 
         </span>
       </div>
