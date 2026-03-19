@@ -1,13 +1,14 @@
 import { SIGNUP_SUCCESS } from '#config/constants'
 import User from '#models/user'
+import env from '#start/env'
+import { changePasswordValidator } from '#validators/change_password'
 import { createUserValidator } from '#validators/create_user'
+import { resetPasswordValidator } from '#validators/reset_password'
 import type { HttpContext } from '@adonisjs/core/http'
-import { DateTime } from 'luxon'
-import crypto from 'node:crypto'
 import { errors } from '@adonisjs/lucid'
 import mail from '@adonisjs/mail/services/main'
-import { resetPasswordValidator } from '#validators/reset_password'
-import { changePasswordValidator } from '#validators/change_password'
+import { DateTime } from 'luxon'
+import crypto from 'node:crypto'
 
 export default class AuthController {
   async signup({ request, response, session }: HttpContext) {
@@ -61,7 +62,7 @@ export default class AuthController {
       await mail.send((message) => {
         message
           .to(user.email)
-          .from('info@example.org')
+          .from(env.get('SMTP_SENDER'))
           .subject('Demande de mot de passe')
           .htmlView('emails/forgotten_password', { user })
       })
