@@ -21,7 +21,7 @@ export default class WebhooksController {
         await mail.send((message) => {
           message
             .to(user.email)
-            .from(env.get('SMTP_SENDER'))
+            .from(env.get('ADMIN_EMAIL'))
             .subject('Votre demande a été approuvée')
             .htmlView('emails/user_approved')
         })

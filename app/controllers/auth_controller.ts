@@ -62,7 +62,7 @@ export default class AuthController {
       await mail.send((message) => {
         message
           .to(user.email)
-          .from(env.get('SMTP_SENDER'))
+          .from(env.get('ADMIN_EMAIL'))
           .subject('Demande de mot de passe')
           .htmlView('emails/forgotten_password', { user })
       })

@@ -23,9 +23,9 @@ env:
   DB_DATABASE: relaxes_pour_le_vivant
   SMTP_HOST: localhost
   SMTP_PORT: 1025
-  SMTP_SENDER: info@example.org
   NC_API_TOKEN: generated-token
   NC_API_URL: http://localhost:3333
+  ADMIN_EMAIL: info@example.org
 
 jobs:
   tests:
