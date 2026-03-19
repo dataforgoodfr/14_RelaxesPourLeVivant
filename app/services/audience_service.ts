@@ -172,8 +172,17 @@ export class AudienceService {
     const futureEvents = sortedTimeline.slice(currentIndex + 1)
 
     // Defining number of items per group according to preferences
-    const numberOfPastEvents = Math.min(preferredPositionForCurrentAudience, pastEvents.length)
-    const numberOfFutureEvents = maximumNumberOfEvents - (1 + numberOfPastEvents)
+    let numberOfPastEvents = Math.min(preferredPositionForCurrentAudience, pastEvents.length)
+    const numberOfFutureEvents = Math.min(
+      futureEvents.length,
+      maximumNumberOfEvents - (1 + numberOfPastEvents)
+    )
+    if (numberOfPastEvents + numberOfFutureEvents !== maximumNumberOfEvents - 1) {
+      numberOfPastEvents = Math.min(
+        pastEvents.length,
+        maximumNumberOfEvents - 1 - numberOfFutureEvents
+      )
+    }
 
     // Building the filtered array
     const filteredArray = []
