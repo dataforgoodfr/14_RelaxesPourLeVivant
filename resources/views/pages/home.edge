@@ -153,22 +153,34 @@
                   <h2 class="card-title fs-4">
                     {{ audience.titre }}
                   </h2>
-                  <span class="badge rounded-pill text-bg-purple">
-                    {{ audience.decision_pour_les_infractions_principales }}
-                  </span>
+                  @if(audience.decision_pour_les_infractions_principales)
+                    <span class="badge rounded-pill text-bg-purple">
+                      {{ audience.decision_pour_les_infractions_principales }}
+                    </span>
+                  @endif
                   <div class="row">
                     <p class="mb-1">
                       <i class="ph-fill ph-calendar-dot me-1"></i>Audience : {{ DateTime.fromJSDate(audience.date_de_l_audience).toFormat(dateFormat) }}
                     </p>
-                    <p class="mb-1">
-                      <i class="ph-fill ph-bank me-1"></i>{{ audience.juridiction }} de <span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
-                    </p>
-                    <p class="mb-1">
-                      <i class="ph-fill ph-scales me-1"></i>{{ audience.chefs_de_prevention_categorie }}
-                    </p>
-                    <p class="mb-1">
-                      <i class="ph-fill ph-gavel me-1"></i>{{ audience.type_de_peine_pour_les_infractions_principales }}
-                    </p>
+                    @if(audience.juridiction && audience.ville_de_l_audience)
+                      <p class="mb-1">
+                        <i class="ph-fill ph-bank me-1"></i>{{ audience.juridiction }} de <span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
+                      </p>
+                    @elseif(audience.juridiction || audience.ville_de_l_audience)
+                      <p class="mb-1">
+                        <i class="ph-fill ph-bank me-1"></i>{{ audience.juridiction }}<span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
+                      </p>
+                    @endif
+                    @if(audience.chefs_de_prevention_categorie)
+                      <p class="mb-1">
+                        <i class="ph-fill ph-scales me-1"></i>{{ audience.chefs_de_prevention_categorie }}
+                      </p>
+                    @endif
+                    @if(audience.type_de_peine_pour_les_infractions_principales)
+                      <p class="mb-1">
+                        <i class="ph-fill ph-gavel me-1"></i>{{ audience.type_de_peine_pour_les_infractions_principales }}
+                      </p>
+                    @endif
                   </div>
                   <div class="d-flex flex-column align-items-start gap-2">
                     <span class="badge rounded-pill border text-secondary">
@@ -187,7 +199,7 @@
                         <i class="ph-fill ph-folder-open me-1"></i>Faits et chronologie
                       </h3>
                       <p class="fs-7 fw-normal mb-0">
-                        {{ audience.resume_de_l_audience }}
+                        {{ audience.resume_de_l_audience ?? "Aucune information." }}
                       </p>
                     </div>
                     <div class="col-7 d-flex justify-content-end align-items-center">
@@ -200,7 +212,11 @@
                         <img class="summary-icon me-1" src="/resources/images/summary_icon.svg" alt="summary icon" />Extrait de la décision
                       </h3>
                       <p class="fs-7 fw-normal mb-0">
-                        <em>"{{ audience.extrait_de_la_decision  }}"</em>
+                        @if(audience.extrait_de_la_decision)
+                          <em>"{{ audience.extrait_de_la_decision }}"</em>
+                        @else
+                          Aucune information
+                        @endif
                       </p>
                     </div>
                   </div>
@@ -210,7 +226,7 @@
                         <img class="msde-leaf-icon me-1" src="/resources/images/msde_icon_purple.svg" alt="msde leaf" />Commentaire MSDE
                       </h3>
                       <p class="fs-7 fw-normal mb-0">
-                        {{ audience.commentaire_msde }}
+                        {{ audience.commentaire_msde ?? "Aucune information." }}
                       </p>
                     </div>
                   </div>
