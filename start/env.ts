@@ -17,7 +17,10 @@ export default await Env.create(new URL('../', import.meta.url), {
   APP_KEY: Env.schema.string(),
   HOST: Env.schema.string({ format: 'host' }),
   APP_NAME: Env.schema.string(),
-  APP_URL: Env.schema.string({ format: 'url' }),
+  APP_URL: Env.schema.string({
+    format: 'url',
+    tld: process.env.NODE_ENV === 'production' ? true : false,
+  }),
   LOG_LEVEL: Env.schema.string(),
   NC_API_TOKEN: Env.schema.string(),
 
