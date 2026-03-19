@@ -7,7 +7,7 @@ type SearchAudiencesQuery = {
   endDate?: string
   decision?: string
   juridiction?: string
-  chefDePrevention?: string
+  chefDePrevention?: string[]
   ville?: string
   collectif?: string[]
   page?: number
@@ -83,6 +83,10 @@ export class AudienceService {
       query.andWhere('audiences.ville_de_l_audience', searchQuery.ville)
     }
 
+    if (searchQuery.chefDePrevention) {
+      query.andWhereIn('audiences.chefs_de_prevention_categorie', searchQuery.chefDePrevention)
+    }
+
     if (searchQuery.collectif) {
       query.andWhereIn('procedures.collectif_d_action_ou_lutte', searchQuery.collectif)
     }
@@ -96,5 +100,9 @@ export class AudienceService {
 
   async getCollectifs(): Promise<Array<{ nom: string }>> {
     return db.query().select('*').from('collectifs')
+  }
+
+  async getChefDePreventionCategories(): Promise<Array<{ intitule: string }>> {
+    return db.query().select('*').from('chef_prevention_categories')
   }
 }

@@ -91,17 +91,16 @@
             </select>
           </div>
           <div class="col">
-            <select name="chefDePrevention" class="form-select">
-              <option value="" {{ searchQuery.chefDePrevention==="" ? "selected" : "" }}>
+            <select name="chefDePrevention[]" class="form-select" multiple>
+              <option value="" disabled>
                 Chef de prévention
               </option>
-              @each(chefDePrevention in [])
+              @each(chefDePrevention in chefDePreventionCategories)
                 <option
-                  value="{{ chefDePrevention.nom }}"
-                  {{ searchQuery.chefDePrevention===chefDePrevention.nom
-              ? "selected" : "" }}
+                  value="{{ chefDePrevention.intitule }}"
+                  {{ searchQuery.chefDePrevention?.includes(chefDePrevention.intitule) ? "selected" : "" }}
                 >
-                  {{ chefDePrevention.nom }}
+                  {{ chefDePrevention.intitule }}
                 </option>
               @end
             </select>
@@ -119,7 +118,7 @@
             </select>
           </div>
           <div class="col">
-            <select name="collectif" class="form-select" multiple>
+            <select name="collectif[]" class="form-select" multiple>
               <option value="" disabled>
                 Collectif d'action
               </option>
