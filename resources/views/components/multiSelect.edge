@@ -1,0 +1,17 @@
+<div class="mb-3">
+  @if(label)
+    <label class="form-label fw-medium">{{ label }}</label>
+  @end
+  
+  <div
+    class="token-input-wrapper"
+    data-token-select
+    data-options="{{ JSON.stringify(options) }}"
+    data-selected="{{ JSON.stringify(selected) }}"
+    data-name="{{ name }}"
+  >
+    <input type="text" class="token-input" placeholder="Rechercher..." autocomplete="off" />
+    <div class="token-dropdown">
+    </div>
+  </div>
+</div>
