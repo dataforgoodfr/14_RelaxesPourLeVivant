@@ -10,6 +10,8 @@ env:
   TZ: UTC
   PORT: 3333
   HOST: localhost
+  APP_NAME: Relaxes Pour Le Vivant
+  APP_URL: http://localhost:3333
   LOG_LEVEL: info
   APP_KEY: aHiNA4O4ZLpzu789anZ_c8DgqyAxEVJh
   NODE_ENV: test
@@ -23,6 +25,7 @@ env:
   SMTP_PORT: 1025
   NC_API_TOKEN: generated-token
   NC_API_URL: http://localhost:3333
+  ADMIN_EMAIL: info@example.org
 
 jobs:
   tests:

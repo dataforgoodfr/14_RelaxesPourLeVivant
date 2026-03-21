@@ -30,10 +30,12 @@ router
   .use(middleware.auth())
 router.get('/audiences/:id', [AudiencesController, 'get']).use(middleware.auth())
 router.on('/sign-up').render('pages/auth/sign_up')
-router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest())
+router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest()).as('auth.sign_in')
 router.on('/change-password').render('pages/auth/change_password').use(middleware.auth())
 router.on('/forgotten-password').render('pages/auth/forgotten_password')
-router.get('/reset-password/:token/:email', [AuthController, 'showResetPassword'])
+router
+  .get('/reset-password/:token/:email', [AuthController, 'showResetPassword'])
+  .as('auth.show_reset_password')
 
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])
