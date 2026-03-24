@@ -159,26 +159,31 @@
                     </span>
                   @endif
                   <div class="row">
-                    <p class="mb-1">
-                      <i class="ph-fill ph-calendar-dot me-1"></i>Audience : {{ DateTime.fromJSDate(audience.date_de_l_audience).toFormat(dateFormat) }}
+                    <p class="mb-1 d-flex align-items-center gap-1">
+                      @svg('ph:calendar-dot-fill')
+                      Audience : {{ DateTime.fromJSDate(audience.date_de_l_audience).toFormat(dateFormat) }}
                     </p>
                     @if(audience.juridiction && audience.ville_de_l_audience)
-                      <p class="mb-1">
-                        <i class="ph-fill ph-bank me-1"></i>{{ audience.juridiction }} de <span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
+                      <p class="mb-1 d-flex align-items-center gap-1">
+                        @svg('ph:bank-fill')
+                        {{ audience.juridiction }} de <span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
                       </p>
                     @elseif(audience.juridiction || audience.ville_de_l_audience)
-                      <p class="mb-1">
-                        <i class="ph-fill ph-bank me-1"></i>{{ audience.juridiction }}<span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
+                      <p class="mb-1 d-flex align-items-center gap-1">
+                        @svg('ph:bank-fill')
+                        {{ audience.juridiction }}<span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
                       </p>
                     @endif
                     @if(audience.chefs_de_prevention_categorie)
-                      <p class="mb-1">
-                        <i class="ph-fill ph-scales me-1"></i>{{ audience.chefs_de_prevention_categorie }}
+                      <p class="mb-1 d-flex align-items-center gap-1">
+                        @svg('ph:scales-fill')
+                        {{ audience.chefs_de_prevention_categorie }}
                       </p>
                     @endif
                     @if(audience.type_de_peine_pour_les_infractions_principales)
-                      <p class="mb-1">
-                        <i class="ph-fill ph-gavel me-1"></i>{{ audience.type_de_peine_pour_les_infractions_principales }}
+                      <p class="mb-1 d-flex align-items-center gap-1">
+                        @svg('ph:gavel-fill')
+                        {{ audience.type_de_peine_pour_les_infractions_principales }}
                       </p>
                     @endif
                   </div>
@@ -195,11 +200,16 @@
                 <div class="col-7 d-flex flex-column gap-2">
                   <div class="row bg-gray rounded-3 p-3">
                     <div class="col-5 d-flex flex-column gap-1 px-0">
-                      <h3 class="text-purple fs-7">
-                        <i class="ph-fill ph-folder-open me-1"></i>Faits et chronologie
+                      <h3 class="text-purple fs-7 d-flex align-items-center gap-1">
+                        @svg('ph:gavel-fill')
+                        Faits et chronologie
                       </h3>
                       <p class="fs-7 fw-normal mb-0">
-                        {{ audience.resume_de_l_audience ?? "Aucune information." }}
+                        @if(audience.resume_de_l_audience)
+                          <em>"{{ audience.resume_de_l_audience }}"</em>
+                        @else
+                          Aucune information
+                        @endif
                       </p>
                     </div>
                     <div class="col-7 d-flex justify-content-end align-items-center">
@@ -208,8 +218,8 @@
                   </div>
                   <div class="row bg-gray rounded-3 p-3">
                     <div class="col-12 d-flex flex-column gap-1 px-0">
-                      <h3 class="text-purple fs-7">
-                        <img class="summary-icon me-1" src="/resources/images/summary_icon.svg" alt="summary icon" />Extrait de la décision
+                      <h3 class="text-purple fs-7 d-flex align-items-center gap-1">
+                        <img class="summary-icon" src="/resources/images/summary_icon.svg" alt="summary icon" />Extrait de la décision
                       </h3>
                       <p class="fs-7 fw-normal mb-0">
                         @if(audience.extrait_de_la_decision)
@@ -222,11 +232,15 @@
                   </div>
                   <div class="row bg-gray rounded-3 p-3">
                     <div class="col-12 d-flex flex-column gap-1 px-0">
-                      <h3 class="text-purple fs-7">
+                      <h3 class="text-purple fs-7 d-flex align-items-center gap-1">
                         <img class="msde-leaf-icon me-1" src="/resources/images/msde_icon_purple.svg" alt="msde leaf" />Commentaire MSDE
                       </h3>
                       <p class="fs-7 fw-normal mb-0">
-                        {{ audience.commentaire_msde ?? "Aucune information." }}
+                        @if(audience.commentaire_msde)
+                          {{ audience.commentaire_msde }}
+                        @else
+                          Aucune information
+                        @endif
                       </p>
                     </div>
                   </div>

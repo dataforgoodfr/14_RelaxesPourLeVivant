@@ -13,8 +13,9 @@
         <span class="timeline-pin"></span>
         <span class="label mt-1">{{ t.date_de_decision === "2199-12-31" ? "À venir" : DateTime.fromISO(t.date_de_decision).toFormat(dateFormat) }}</span>
         <span class="label mt-1">{{ t.degre_de_juridiction || "\u00A0" }}</span>
-        <span class="label mt-1 conclusion {{ decisionClass }}">
-          <i class="ph-fill ph-gavel"></i>{{ t.type_de_peine_pour_les_infractions_principales }} 
+        <span class="label mt-1 conclusion d-flex align-items-center gap-1 {{ decisionClass }}">
+          @svg('ph:gavel-fill', { class:"flex-shrink-0" })
+          {{ t.type_de_peine_pour_les_infractions_principales }} 
         </span>
       </div>
     </a>
