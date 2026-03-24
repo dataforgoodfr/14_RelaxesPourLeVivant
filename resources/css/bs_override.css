@@ -237,9 +237,8 @@ form button.btn-primary {
 */
 .badge {
   --bs-badge-padding-x: 0.75rem;
-  --bs-badge-padding-y: 0.25rem;
+  --bs-badge-padding-y: 0.375rem;
   --bs-badge-font-weight: 500;
-  line-height: 0.75rem;
 
   &.badge-collectif {
     background-color: #eef4ff;
