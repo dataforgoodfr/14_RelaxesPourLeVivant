@@ -105,4 +105,8 @@ export class AudienceService {
   async getChefDePreventionCategories(): Promise<Array<{ intitule: string }>> {
     return db.query().select('*').from('chef_prevention_categories')
   }
+
+  async getJuridictions(): Promise<Array<{ intitule: string }>> {
+    return db.query().select('*').from('juridictions')
+  }
 }
