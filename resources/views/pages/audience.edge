@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
-      Détails d'audience - Relaxes Pour Le Vivant
+      Détails d'audience - {{ env.get('APP_NAME') }}
     </title>
     @include('partials/bootstrap')
   </head>
@@ -371,7 +371,7 @@
                       </dt>
                       <dd class="col-sm-9">
                         @if (audience.inscription_au_casier_judiciaire)
-                          {{ audience.inscription_au_casier_judiciaire ? 'Oui' : 'Non' }}
+                          {{ audience.inscription_au_casier_judiciaire }}
                         @else
                           <span class="fst-italic text-muted">Non disponible</span>
                         @endif

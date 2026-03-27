@@ -89,7 +89,7 @@ export default class Audience extends BaseModel {
   declare detail_des_dommages_et_interets?: string
 
   @column()
-  declare inscription_au_casier_judiciaire?: boolean
+  declare inscription_au_casier_judiciaire?: string
 
   @column()
   declare appel_d_une_des_parties?: boolean

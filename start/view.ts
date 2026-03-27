@@ -1,3 +1,4 @@
+import env from '#start/env'
 import string from '@adonisjs/core/helpers/string'
 import edge from 'edge.js'
 import { DateTime } from 'luxon'
@@ -9,3 +10,4 @@ edge.global('stringHelper', string)
 
 addCollection(phIcons)
 edge.use(edgeIconify)
+edge.global('env', env)

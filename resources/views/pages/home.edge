@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
-      Liste d'audiences - Relaxes Pour Le Vivant
+      Liste d'audiences - {{ env.get('APP_NAME') }}
     </title>
     @include('partials/bootstrap')
   </head>
@@ -73,36 +73,27 @@
               <option value="" {{ searchQuery.juridiction==="" ? "selected" : "" }}>
                 Juridiction
               </option>
-              <option value="Tribunal de police" {{ searchQuery.juridiction==="Tribunal de police" ? "selected" : "" }}>
-                Tribunal de police
-              </option>
-              <option
-                value="Tribunal correctionnel"
-                {{ searchQuery.juridiction==="Tribunal correctionnel" ? "selected"
-              : "" }}
-              >
-                Tribunal correctionnel
-              </option>
-              <option value="Cour d’appel" {{ searchQuery.juridiction==="Cour d’appel" ? "selected" : "" }}>
-                Cour d’appel
-              </option>
-              <option value="Cour de cassation" {{ searchQuery.juridiction==="Cour de cassation" ? "selected" : "" }}>
-                Cour de cassation
-              </option>
+              @each(juridiction in juridictions)
+                <option
+                  value="{{ juridiction.intitule }}"
+                  {{ searchQuery.juridiction===juridiction.intitule ? "selected" : "" }}
+                >
+                  {{ juridiction.intitule }}
+                </option>
+              @end
             </select>
           </div>
           <div class="col">
-            <select name="chefDePrevention" class="form-select">
-              <option value="" {{ searchQuery.chefDePrevention==="" ? "selected" : "" }}>
+            <select name="chefDePrevention[]" class="form-select" multiple>
+              <option value="" disabled>
                 Chef de prévention
               </option>
-              @each(chefDePrevention in [])
+              @each(chefDePrevention in chefDePreventionCategories)
                 <option
-                  value="{{ chefDePrevention.nom }}"
-                  {{ searchQuery.chefDePrevention===chefDePrevention.nom
-              ? "selected" : "" }}
+                  value="{{ chefDePrevention.intitule }}"
+                  {{ searchQuery.chefDePrevention?.includes(chefDePrevention.intitule) ? "selected" : "" }}
                 >
-                  {{ chefDePrevention.nom }}
+                  {{ chefDePrevention.intitule }}
                 </option>
               @end
             </select>
@@ -120,12 +111,15 @@
             </select>
           </div>
           <div class="col">
-            <select name="collectif" value="{{ searchQuery.collectif }}" class="form-select">
-              <option value="" {{ searchQuery.collectif==="" ? "selected" : "" }}>
+            <select name="collectif[]" class="form-select" multiple>
+              <option value="" disabled>
                 Collectif d'action
               </option>
               @each(collectif in collectifs)
-                <option value="{{ collectif.nom }}" {{ searchQuery.collectif===collectif.nom ? "selected" : "" }}>
+                <option
+                  value="{{ collectif.nom }}"
+                  {{ searchQuery.collectif?.includes(collectif.nom) ? "selected" : "" }}
+                >
                   {{ collectif.nom }}
                 </option>
               @end

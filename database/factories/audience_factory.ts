@@ -51,7 +51,7 @@ export const AudienceFactory = factory
       score_de_la_gravite: faker.number.float({ min: 0.5, max: 8 }),
       dommages_et_interets: faker.datatype.boolean(),
       detail_des_dommages_et_interets: faker.lorem.lines(),
-      inscription_au_casier_judiciaire: faker.datatype.boolean(),
+      inscription_au_casier_judiciaire: faker.word.words(3),
       appel_d_une_des_parties: faker.datatype.boolean(),
       partie_de_l_appel_principal: faker.helpers.arrayElement([
         'Prévenu·e',

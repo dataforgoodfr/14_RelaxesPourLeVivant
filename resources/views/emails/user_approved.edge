@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Demande approuvée - {{ env.get('APP_NAME') }}
+    </title>
+  </head>
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family: sans-serif;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="8px" border="0">
+          <tr>
+            <td>
+              <h1>
+                Demande approuvée
+              </h1>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Bonjour, votre demande d'accès à la plateforme {{ env.get('APP_NAME') }} a été approuvée.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Vous pouvez dès à présent vous connecter à votre compte en cliquant sur le lien ci-dessous :
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a
+                href="{{ route(
+                  'auth.sign_in',
+                  [],
+                  {
+                  prefixUrl: env.get('APP_URL')
+                }) }}"
+              >
+                Se connecter
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</html>
+
