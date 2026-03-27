@@ -1,4 +1,3 @@
-import '../css/app.css'
-import '../css/bs_override.css'
+import '../scss/main.scss'
 
 import.meta.glob(['../images/**', '../fonts/**'])

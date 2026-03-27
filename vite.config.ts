@@ -1,9 +1,16 @@
-import { defineConfig } from 'vite'
 import adonisjs from '@adonisjs/vite/client'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   server: {
     allowedHosts: [process.env.SERVER_URL!],
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        silenceDeprecations: ['import', 'color-functions', 'global-builtin', 'if-function'],
+      },
+    },
   },
   plugins: [
     adonisjs({
