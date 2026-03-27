@@ -17,22 +17,31 @@ export class TimelineDataMapper {
   ) {}
 
   map(audience: { timeline: TimelineItem[]; id: number }) {
-    const sortedTimeline = audience.timeline
-      .map<TimelineItem & { date_de_decision: string }>((event) => ({
-        ...event,
-        date_de_decision: event.date_de_decision ?? '2199-12-31',
-      }))
-      // Sorting dates (ASC)
-      .sort(
-        (a, b) => new Date(a.date_de_decision).getTime() - new Date(b.date_de_decision).getTime()
-      )
+    const eventsWithDate: (TimelineItem & { date_de_decision: string })[] = []
+    const eventsWithoutDate: TimelineItem[] = []
+
+    for (const item of audience.timeline) {
+      if (item.date_de_decision) {
+        eventsWithDate.push(item as TimelineItem & { date_de_decision: string })
+      } else {
+        eventsWithoutDate.push(item)
+      }
+    }
+
+    eventsWithDate.sort(
+      (a, b) => new Date(a.date_de_decision).getTime() - new Date(b.date_de_decision).getTime()
+    )
+
+    eventsWithoutDate.sort((a, b) => Number(a.id) - Number(b.id))
+
+    const sortedTimeline = [...eventsWithDate, ...eventsWithoutDate]
 
     // When total events < maximum number of events, early return of sorted dates
     if (sortedTimeline.length <= this.maximumNumberOfEvents) {
       return sortedTimeline
     }
 
-    // Splitting data into 3 groups (pasts, current, futures)
+    // Splitting sortedTimeline into 3 groups (pasts, current, futures)
     const currentIndex = sortedTimeline.findIndex((t) => Number(t.id) === audience.id)
 
     if (currentIndex === -1) {
