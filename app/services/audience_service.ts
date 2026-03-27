@@ -13,22 +13,6 @@ type SearchAudiencesQuery = {
   page?: number
 }
 
-type TimelineItem = {
-  id: number
-  date_de_decision?: string
-  degre_de_juridiction?: string
-  decision_pour_les_infractions_principales?: string
-  type_de_peine_pour_les_infractions_principales?: string
-}
-
-type NormalisedTimelineItem = {
-  id: number
-  date_de_decision: string
-  degre_de_juridiction?: string
-  decision_pour_les_infractions_principales?: string
-  type_de_peine_pour_les_infractions_principales?: string
-}
-
 export class AudienceService {
   /**
    * Get an audience if both the audience and its procedure are published.
@@ -120,77 +104,7 @@ export class AudienceService {
       query.andWhere('procedures.collectif_d_action_ou_lutte', searchQuery.collectif)
     }
 
-    const results = await query.paginate(searchQuery.page ?? 1, 50)
-
-    results.map((row) => {
-      row.timeline = this.filterTimeline(row.timeline, row.id)
-    })
-
-    return results
-  }
-
-  /**
-   * Filters out timeline for a given maximum number of events,
-   * and sorting it ascendant with a preferred position for current audience's date
-   * @param timeline
-   * @param audienceId
-   * @returns
-   */
-  private filterTimeline(timeline: TimelineItem[], audienceId: number) {
-    // Algorithm parameters
-    const maximumNumberOfEvents = 4
-    const preferredPositionForCurrentAudience = 1
-
-    // Inserting future date for unavailable dates
-    const normalisedTimeline: NormalisedTimelineItem[] = []
-    timeline.forEach((event) => {
-      normalisedTimeline.push({
-        ...event,
-        date_de_decision: event.date_de_decision ?? '2199-12-31',
-      })
-    })
-
-    // Sorting dates (ASC)
-    const sortedTimeline = [...normalisedTimeline].sort((a, b) => {
-      return new Date(a.date_de_decision).getTime() - new Date(b.date_de_decision).getTime()
-    })
-
-    // When total events < maximum number of events, early return of sorted dates
-    if (sortedTimeline.length <= maximumNumberOfEvents) {
-      return sortedTimeline
-    }
-
-    // Splitting data into 3 groups (pasts, current, futures)
-    const currentIndex = sortedTimeline.findIndex((t) => Number(t.id) === audienceId)
-
-    if (currentIndex === -1) {
-      return sortedTimeline.slice(0, maximumNumberOfEvents)
-    }
-
-    const currentEvent = sortedTimeline[currentIndex]
-    const pastEvents = sortedTimeline.slice(0, currentIndex)
-    const futureEvents = sortedTimeline.slice(currentIndex + 1)
-
-    // Defining number of items per group according to preferences
-    let numberOfPastEvents = Math.min(preferredPositionForCurrentAudience, pastEvents.length)
-    const numberOfFutureEvents = Math.min(
-      futureEvents.length,
-      maximumNumberOfEvents - (1 + numberOfPastEvents)
-    )
-    if (numberOfPastEvents + numberOfFutureEvents !== maximumNumberOfEvents - 1) {
-      numberOfPastEvents = Math.min(
-        pastEvents.length,
-        maximumNumberOfEvents - 1 - numberOfFutureEvents
-      )
-    }
-
-    // Building the filtered array
-    const filteredArray = []
-    filteredArray.push(...pastEvents.slice(pastEvents.length - numberOfPastEvents))
-    filteredArray.push(currentEvent)
-    filteredArray.push(...futureEvents.slice(0, numberOfFutureEvents))
-
-    return filteredArray
+    return query.paginate(searchQuery.page ?? 1, 50)
   }
 
   async getVilles(): Promise<Array<{ nom: string }>> {
