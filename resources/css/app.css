@@ -7,7 +7,7 @@
   flex: 1;
 }
 
-.timeline > a > .timeline-node {
+.timeline-node {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -16,10 +16,9 @@
   font-size: 0.8rem;
 }
 
-.timeline > a > .timeline-node > .timeline-pin {
+.timeline-node > .timeline-pin {
   width: 8px;
   height: 8px;
-  background-color: black;
   border-color: black;
   border-style: solid;
   border-radius: 10px;
@@ -27,7 +26,11 @@
   z-index: 2;
 }
 
-.timeline > a > .timeline-node > .timeline-link {
+.timeline-node > .timeline-pin.pin-fill {
+  background-color: black;
+}
+
+.timeline-node > .timeline-link {
   position: relative;
   width: calc(100% - 8px);
   height: 1px;
@@ -38,25 +41,25 @@
   left: 12px;
 }
 
-.timeline > a > .timeline-node.current > .timeline-pin {
+.timeline-node.current > .timeline-pin {
   background-color: #0d6efd;
   border-color: #0d6efd;
 }
 
-.timeline > a > .timeline-node.current > .label {
+.timeline-node.current > .label {
   color: #0d6efd;
 }
 
-.timeline > a > .timeline-node > .label.conclusion {
+.timeline-node > .label.conclusion {
   background-color: white;
   border-radius: 4px;
   padding: 4px;
 }
 
-.timeline > a > .timeline-node > .label.acquittal {
+.timeline-node > .label.acquittal {
   color: #28a745;
 }
 
-.timeline > a > .timeline-node > .label.conviction {
+.timeline-node > .label.conviction {
   color: #dc3545;
 }
