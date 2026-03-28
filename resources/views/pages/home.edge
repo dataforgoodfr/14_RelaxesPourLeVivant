@@ -84,19 +84,12 @@
             </select>
           </div>
           <div class="col">
-            <select name="chefDePrevention[]" class="form-select" multiple>
-              <option value="" disabled>
-                Chef de prévention
-              </option>
-              @each(chefDePrevention in chefDePreventionCategories)
-                <option
-                  value="{{ chefDePrevention.intitule }}"
-                  {{ searchQuery.chefDePrevention?.includes(chefDePrevention.intitule) ? "selected" : "" }}
-                >
-                  {{ chefDePrevention.intitule }}
-                </option>
-              @end
-            </select>
+            @!component('components/multi_select', {
+            name: 'chefDePrevention',
+            label: 'Chef de prévention',
+            options: chefDePreventionCategories.map(c => c.intitule),
+            selected: searchQuery.chefDePrevention ?? ''
+            })
           </div>
           <div class="col">
             <select name="ville" class="form-select">
