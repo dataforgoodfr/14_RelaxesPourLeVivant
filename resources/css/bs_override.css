@@ -13,10 +13,19 @@
 @font-face {
   font-family: 'Poppins';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-display: swap;
   src: url('/resources/fonts/Poppins-Medium.ttf');
-  /*src: url('/fonts/devOnly.ttf');*/
+  /*src: url('/resources/fonts/devOnly.ttf');*/
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-Regular.ttf');
+  /*src: url('/resources/fonts/devOnly.ttf');*/
 }
 
 @font-face {
@@ -54,6 +63,10 @@
   --msde-yellow-rgb: 247, 197, 2;
   --msde-orange: #faa200;
   --msde-orange-rgb: 250, 162, 0;
+
+  --relx-gray-background: #f8f9fa;
+  --relx-purple-background: #ebe5fc;
+  --relx-purple-text: #5227cc;
 }
 
 /*
@@ -89,6 +102,22 @@
   &.nav-underline {
     --bs-nav-underline-gap: 3.5rem;
   }
+}
+
+/*
+  Adding colour classes
+*/
+.text-bg-purple {
+  color: var(--relx-purple-text);
+  background-color: var(--relx-purple-background);
+}
+
+.text-purple {
+  color: var(--relx-purple-text);
+}
+
+.bg-gray {
+  background-color: var(--relx-gray-background);
 }
 
 /*
@@ -208,9 +237,8 @@ form button.btn-primary {
 */
 .badge {
   --bs-badge-padding-x: 0.75rem;
-  --bs-badge-padding-y: 0.25rem;
+  --bs-badge-padding-y: 0.375rem;
   --bs-badge-font-weight: 500;
-  line-height: 1.25rem;
 
   &.badge-collectif {
     background-color: #eef4ff;
@@ -220,4 +248,21 @@ form button.btn-primary {
     background-color: #fdf2fa;
     color: #c11574;
   }
+}
+
+/*
+  Custom icons to replace phosphor items
+*/
+.msde-leaf-icon {
+  height: 0.875em;
+  width: 0.875em;
+  vertical-align: baseline;
+  flex-shrink: 0;
+}
+
+.summary-icon {
+  height: 0.875em;
+  width: 0.875em;
+  vertical-align: center;
+  flex-shrink: 0;
 }

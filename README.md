@@ -75,7 +75,19 @@ Le service `mailpit` du Docker Compose File est un serveur mail de développemen
 
 ## Tester
 
-Étant donné que le projet suit une architecture MVC, les tests reposent actuellement sur une stratégie e2e avec [PlayWright](https://docs.adonisjs.com/guides/testing/browser-tests)
+Sur ce projet, il y a deux stratégies de tests: tests unitaires appliqués à certaines méthodes et des tests d'intégration en e2e.
+
+### Tests unitaires
+
+Les tests unitaires sont placés dans le répertoire `tests/unit/'.
+
+Ils sont créés avec la commande `node ace make:test <Nom du test>`, en choisissant `unit` dans le prompt.
+
+Ils sont lancés avec `node ace test`.
+
+### Tests d'intégration
+
+Étant donné que le projet suit une architecture MVC, les autres tests reposent sur une stratégie e2e avec [PlayWright](https://docs.adonisjs.com/guides/testing/browser-tests). Les tests d'intégrations sont placés dans le répertoire `tests/browser/`.
 
 Initialiser PlayWright en installant les binaires des navigateurs headless:
 
@@ -86,7 +98,7 @@ npx playwright install
 Lancer les tests
 
 ```bash
-npm run test
+node ace test
 ```
 
 Si vous utiliser **Podman** vous aurez besoin de configurer [testcontainer](https://node.testcontainers.org/) pour fonctionner avec

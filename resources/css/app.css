@@ -5,35 +5,63 @@
   flex-direction: row;
 }
 
-.timeline > a > .timeline-node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
+.timeline .flex-1 {
+  flex: 1;
 }
 
-.timeline > a > .timeline-node > .timeline-pin {
-  width: 20px;
-  height: 20px;
-  background-color: white;
+.timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 0.8rem;
+}
+
+.timeline-node > .timeline-pin {
+  width: 8px;
+  height: 8px;
   border-color: black;
   border-style: solid;
   border-radius: 10px;
-  border-width: 2px;
+  border-width: 1px;
   z-index: 2;
 }
 
-.timeline > a > .timeline-node > .timeline-link {
+.timeline-node > .timeline-pin.pin-fill {
+  background-color: black;
+}
+
+.timeline-node > .timeline-link {
   position: relative;
-  width: calc(100% + 20px);
+  width: calc(100% - 8px);
   height: 1px;
   border-width: 1px;
   border-style: solid;
-  border-color: black;
-  top: 11px;
+  border-color: #ced4da;
+  top: 5px;
+  left: 12px;
 }
 
-.timeline > a > .timeline-node > .timeline-pin.current {
-  background-color: aqua;
+.timeline-node.current > .timeline-pin {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.timeline-node.current > .label {
+  color: #0d6efd;
+}
+
+.timeline-node > .label.conclusion {
+  background-color: white;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.timeline-node > .label.acquittal {
+  color: #28a745;
+}
+
+.timeline-node > .label.conviction {
+  color: #dc3545;
 }

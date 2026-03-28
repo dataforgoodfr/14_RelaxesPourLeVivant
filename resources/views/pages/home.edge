@@ -12,6 +12,7 @@
 
   <body class="bg-light">
     @include('partials/navbar')
+    @let (dateFormat = 'dd.MM.yyyy')
 
     <div class="container mt-3">
       <form class="mb-3" method="GET">
@@ -127,38 +128,122 @@
         </div>
       </form>
 
-      <ul class="list-group">
+      @if (audiences.length > 1 )
+        <p>
+          {{ audiences.length }} résultats trouvés:
+        </p>
+      @else
+        <p>
+          {{ audiences.length === 1 ? "1 résultat trouvé:" : "Aucun résultat trouvé." }}
+        </p>
+      @endif
+        
+      <div class="vstack gap-4">
         @each(audience in audiences)
-          <li class="list-group-item">
-            <p>
-              <b>Juridiction:</b>{{ audience.juridiction }}
-            </p>
-            <p>
-              <b>Ville:</b>{{ audience.ville_de_l_audience }}
-            </p>
-            <p>
-              <b>Collectif d'action:</b>{{ audience.collectif_d_action_ou_lutte }}
-            </p>
-            <p>
-              <b>Date de l'audience:</b>{{ audience.date_de_l_audience }}
-            </p>
-            <p>
-              <b>Decision pour les faits:</b>{{ audience.decision_pour_les_faits }}
-            </p>
-            <p>
-              {{ audience.courte_description }}
-            </p>
-            <details class="mb-3">
-              <summary>
-                Description
-              </summary>
-              {{ audience.description }}
-            </details>
-            @!component('components/timeline', { data: audience.timeline, current: audience.id })
-            <a href="/audiences/{{ audience.id }}">Details</a>
-          </li>
+          <div class="card rounded-5">
+            <div class="card-body">
+              <div class="row m-1 gy-3 gy-lg-0">
+                <div class="col-lg-5 vstack gap-4 justify-content-center align-items-start">
+                  <h2 class="card-title fs-4">
+                    {{ audience.titre }}
+                  </h2>
+                  @if(audience.decision_pour_les_infractions_principales)
+                    <span class="badge rounded-pill text-bg-purple">
+                      {{ audience.decision_pour_les_infractions_principales }}
+                    </span>
+                  @endif
+                  <div class="row">
+                    <p class="mb-1 d-flex align-items-center gap-1">
+                      @svg('ph:calendar-dot-fill')
+                      Audience : {{ DateTime.fromJSDate(audience.date_de_l_audience).toFormat(dateFormat) }}
+                    </p>
+                    @if(audience.juridiction && audience.ville_de_l_audience)
+                      <p class="mb-1 d-flex align-items-center gap-1">
+                        @svg('ph:bank-fill')
+                        {{ audience.juridiction }} de <span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
+                      </p>
+                    @elseif(audience.juridiction || audience.ville_de_l_audience)
+                      <p class="mb-1 d-flex align-items-center gap-1">
+                        @svg('ph:bank-fill')
+                        {{ audience.juridiction }}<span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
+                      </p>
+                    @endif
+                    @if(audience.chefs_de_prevention_categorie)
+                      <p class="mb-1 d-flex align-items-center gap-1">
+                        @svg('ph:scales-fill')
+                        {{ audience.chefs_de_prevention_categorie }}
+                      </p>
+                    @endif
+                    @if(audience.type_de_peine_pour_les_infractions_principales)
+                      <p class="mb-1 d-flex align-items-center gap-1">
+                        @svg('ph:gavel-fill')
+                        {{ audience.type_de_peine_pour_les_infractions_principales }}
+                      </p>
+                    @endif
+                  </div>
+                  <div class="d-flex flex-column align-items-start gap-2">
+                    <span class="badge rounded-pill border text-secondary">
+                      {{ audience.fondement_de_la_relaxe }}
+                    </span>
+                    <span class="badge rounded-pill border text-secondary">
+                      {{ audience.collectif_d_action_ou_lutte }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-lg-7 d-flex flex-column gap-2">
+                  <div class="row bg-gray rounded-3 p-3">
+                    <div class="col-lg-5 d-flex flex-column gap-1 px-0 mb-3 mb-lg-0">
+                      <h3 class="text-purple small d-flex align-items-center gap-1">
+                        @svg('ph:gavel-fill')
+                        Faits et chronologie
+                      </h3>
+                      <p class="small fw-normal mb-0">
+                        @if(audience.resume_de_l_audience)
+                          <em>"{{ audience.resume_de_l_audience }}"</em>
+                        @else
+                          Aucune information
+                        @endif
+                      </p>
+                    </div>
+                    <div class="col-lg-7 d-flex justify-content-center justify-content-lg-end align-items-center">
+                      @!component('components/timeline', { data: audience.timeline, current: audience.id })
+                    </div>
+                  </div>
+                  <div class="row bg-gray rounded-3 p-3">
+                    <div class="col-12 d-flex flex-column gap-1 px-0">
+                      <h3 class="text-purple small d-flex align-items-center gap-1">
+                        <img class="summary-icon" src="/resources/images/summary_icon.svg" alt="summary icon" />Extrait de la décision
+                      </h3>
+                      <p class="small fw-normal mb-0">
+                        @if(audience.extrait_de_la_decision)
+                          <em>"{{ audience.extrait_de_la_decision }}"</em>
+                        @else
+                          Aucune information
+                        @endif
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row bg-gray rounded-3 p-3">
+                    <div class="col-12 d-flex flex-column gap-1 px-0">
+                      <h3 class="text-purple small d-flex align-items-center gap-1">
+                        <img class="msde-leaf-icon me-1" src="/resources/images/msde_icon_purple.svg" alt="msde leaf" />Commentaire MSDE
+                      </h3>
+                      <p class="small fw-normal mb-0">
+                        @if(audience.commentaire_msde)
+                          {{ audience.commentaire_msde }}
+                        @else
+                          Aucune information
+                        @endif
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         @end
-      </ul>
+      </div>
 
       <nav class="mt-3">
         <ul class="pagination">
