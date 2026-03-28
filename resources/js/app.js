@@ -1,5 +1,7 @@
 import '../css/app.css'
 import '../css/bs_override.css'
-import './multi_select.js'
+import MultiSelect from './multi_select'
+
+MultiSelect.init(document)
 
 import.meta.glob(['../images/**', '../fonts/**'])

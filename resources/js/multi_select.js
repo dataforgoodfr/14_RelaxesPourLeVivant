@@ -1,36 +1,110 @@
-/**
- * Initializes a multi-select token component on a given DOM element.
- *
- * @param {HTMLElement} wrapper     - The .token-input-wrapper element
- * @param {string[]}    options     - The full list of available options
- * @param {string[]}    preselected - Already selected values (e.g. when editing)
- * @param {string}      fieldName   - The field name used for form submit (e.g. "languages")
- */
-function initTokenSelect(wrapper, options, preselected = [], fieldName = 'select') {
-  // Prevent double initialization
-  if (wrapper.dataset.initialized) return
-  wrapper.dataset.initialized = 'true'
+export default class MultiSelect {
+  #wrapper
+  #input
+  #dropdown
+  #options
+  #selected
+  #activeIdx
+  #preventClose
+  #fieldName
 
-  // Internal DOM elements
-  const input = wrapper.querySelector('.token-input')
-  const dropdown = wrapper.querySelector('.token-dropdown')
+  constructor(wrapper, options, preselected = [], fieldName = 'select') {
+    this.#wrapper = wrapper
+    this.#input = wrapper.querySelector('.token-input')
+    this.#dropdown = wrapper.querySelector('.token-dropdown')
+    this.#options = options
+    this.#selected = [...preselected]
+    this.#activeIdx = -1
+    this.#preventClose = false
+    this.#fieldName = fieldName
 
-  // Local state
-  let selected = [...preselected]
-  let activeIdx = -1
-  let preventClose = false
+    this.#bind()
+  }
 
-  // Render tokens (badge chips inside the input field)
-  function renderTokens() {
-    // Remove existing tokens and hidden inputs
-    wrapper.querySelectorAll('.token').forEach((t) => t.remove())
-    wrapper.parentElement
-      .querySelectorAll(`input[type=hidden][name="${fieldName}[]"]`)
+  static init(document) {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('[data-token-select]').forEach((wrapper) => {
+        if (wrapper.dataset.initialized) return
+        wrapper.dataset.initialized = 'true'
+
+        const options = JSON.parse(wrapper.dataset.options || '[]')
+        const selected = JSON.parse(wrapper.dataset.selected || '[]')
+        const name = wrapper.dataset.name || 'select'
+        new MultiSelect(wrapper, options, selected, name)
+      })
+    })
+  }
+
+  #bind() {
+    this.#wrapper.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.token-remove')) return
+      if (e.target === this.#input) return
+      e.preventDefault()
+      this.#input.focus()
+      this.#openDropdown()
+    })
+
+    this.#input.addEventListener('focus', this.#openDropdown.bind(this))
+
+    this.#input.addEventListener('input', () => {
+      this.#renderDropdown(this.#input.value)
+      if (!this.#dropdown.classList.contains('show')) this.#openDropdown()
+    })
+
+    this.#input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        if (!this.#dropdown.classList.contains('show')) this.#openDropdown()
+        this.#moveActive(1)
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        this.#moveActive(-1)
+      } else if (e.key === 'Enter') {
+        e.preventDefault()
+        const items = this.#dropdown.querySelectorAll('.token-dropdown-item')
+        if (this.#activeIdx >= 0 && items[this.#activeIdx]) {
+          this.#toggleOption(items[this.#activeIdx].dataset.value)
+        }
+      } else if (e.key === 'Escape') {
+        this.#closeDropdown()
+      } else if (e.key === 'Backspace' && this.#input.value === '' && this.#selected.length > 0) {
+        this.#removeToken(selected[selected.length - 1])
+      }
+    })
+
+    this.#dropdown.addEventListener('mousedown', (e) => {
+      this.#preventClose = true
+      e.preventDefault()
+      const item = e.target.closest('.token-dropdown-item')
+      if (item) this.#toggleOption(item.dataset.value)
+    })
+
+    this.#wrapper.addEventListener('mousedown', (e) => {
+      const btn = e.target.closest('.token-remove')
+      if (btn) {
+        e.preventDefault()
+        this.#removeToken(btn.dataset.value)
+      }
+    })
+
+    document.addEventListener('mousedown', (e) => {
+      if (this.#preventClose) {
+        this.#preventClose = false
+        return
+      }
+      if (!this.#wrapper.contains(e.target)) this.#closeDropdown()
+    })
+
+    this.#renderTokens()
+  }
+
+  #renderTokens() {
+    this.#wrapper.querySelectorAll('.token').forEach((t) => t.remove())
+    this.#wrapper.parentElement
+      .querySelectorAll(`input[type=hidden][name="${this.#fieldName}[]"]`)
       .forEach((i) => i.remove())
 
-    // Create one token + one hidden input per selected value
-    selected.forEach((val) => {
-      // Visual token
+    this.#selected.forEach((val) => {
       const token = document.createElement('span')
       token.className = 'token'
       token.dataset.value = val
@@ -38,46 +112,44 @@ function initTokenSelect(wrapper, options, preselected = [], fieldName = 'select
         ${val}
         <button class="token-remove" data-value="${val}" tabindex="-1" title="Remove">✕</button>
       `
-      wrapper.insertBefore(token, input)
+      this.#wrapper.insertBefore(token, this.#input)
 
       // Hidden input for form submission
       const hidden = document.createElement('input')
       hidden.type = 'hidden'
-      hidden.name = `${fieldName}[]`
+      hidden.name = `${this.#fieldName}[]`
       hidden.value = val
-      wrapper.parentElement.appendChild(hidden)
+      this.#wrapper.parentElement.appendChild(hidden)
     })
   }
 
-  // Render options in the dropdown
-  function renderDropdown(filter = '') {
+  #renderDropdown(filter = '') {
     const q = filter.trim().toLowerCase()
-    const filtered = options.filter((o) => o.toLowerCase().includes(q))
+    const filtered = this.#options.filter((o) => o.toLowerCase().includes(q))
 
-    dropdown.innerHTML = ''
-    activeIdx = -1
+    this.#dropdown.innerHTML = ''
+    this.#activeIdx = -1
 
     if (filtered.length === 0) {
-      dropdown.innerHTML = `<div class="token-dropdown-empty">Aucun résultat trouvée pour « ${filter} »</div>`
+      this.#dropdown.innerHTML = `<div class="token-dropdown-empty">Aucun résultat trouvée pour « ${filter} »</div>`
       return
     }
 
     filtered.forEach((opt, i) => {
-      const isSelected = selected.includes(opt)
+      const isSelected = this.#selected.includes(opt)
       const item = document.createElement('div')
       item.className = 'token-dropdown-item' + (isSelected ? ' selected' : '')
       item.dataset.value = opt
       item.dataset.idx = i
       item.innerHTML = `
         <input type="checkbox" class="me-1" ${isSelected ? 'checked' : ''} tabindex="-1" style="pointer-events:none">
-        <span>${highlight(opt, q)}</span>
+        <span>${this.#highlight(opt, q)}</span>
       `
-      dropdown.appendChild(item)
+      this.#dropdown.appendChild(item)
     })
   }
 
-  // Highlight the searched term inside the option text
-  function highlight(text, q) {
+  #highlight(text, q) {
     if (!q) return text
     const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
     return text.replace(
@@ -86,133 +158,43 @@ function initTokenSelect(wrapper, options, preselected = [], fieldName = 'select
     )
   }
 
-  // Open / close the dropdown
-  function openDropdown() {
-    renderDropdown(input.value)
-    dropdown.classList.add('show')
+  #openDropdown() {
+    this.#renderDropdown(this.#input.value)
+    this.#dropdown.classList.add('show')
   }
 
-  function closeDropdown() {
-    dropdown.classList.remove('show')
-    input.value = ''
-    activeIdx = -1
+  #closeDropdown() {
+    this.#dropdown.classList.remove('show')
+    this.#input.value = ''
+    this.#activeIdx = -1
   }
 
-  // Select or deselect an option
-  function toggleOption(val) {
-    if (selected.includes(val)) {
-      selected = selected.filter((v) => v !== val)
+  #toggleOption(val) {
+    if (this.#selected.includes(val)) {
+      this.#selected = this.#selected.filter((v) => v !== val)
     } else {
-      selected.push(val)
+      this.#selected.push(val)
     }
-    input.value = ''
-    renderTokens()
-    renderDropdown('')
-    dropdown.classList.add('show')
-    input.focus()
+    this.#input.value = ''
+    this.#renderTokens()
+    this.#renderDropdown('')
+    this.#dropdown.classList.add('show')
+    this.#input.focus()
   }
 
-  // Remove a token
-  function removeToken(val) {
-    selected = selected.filter((v) => v !== val)
-    renderTokens()
-    if (dropdown.classList.contains('show')) renderDropdown(input.value)
+  #removeToken(val) {
+    this.#selected = this.#selected.filter((v) => v !== val)
+    this.#renderTokens()
+    if (this.#dropdown.classList.contains('show')) this.#renderDropdown(this.#input.value)
   }
 
-  // Keyboard navigation inside the dropdown list
-  function moveActive(dir) {
-    const items = dropdown.querySelectorAll('.token-dropdown-item')
+  #moveActive(dir) {
+    const items = this.#dropdown.querySelectorAll('.token-dropdown-item')
     if (!items.length) return
-    items[activeIdx]?.classList.remove('active')
-    activeIdx = Math.max(0, Math.min(items.length - 1, activeIdx + dir))
-    const el = items[activeIdx]
+    items[this.#activeIdx]?.classList.remove('active')
+    this.#activeIdx = Math.max(0, Math.min(items.length - 1, this.#activeIdx + dir))
+    const el = items[this.#activeIdx]
     el.classList.add('active')
     el.scrollIntoView({ block: 'nearest' })
   }
-
-  // Events
-
-  // Click anywhere in the wrapper for focus input and open dropdown
-  wrapper.addEventListener('mousedown', (e) => {
-    if (e.target.closest('.token-remove')) return
-    if (e.target === input) return
-    e.preventDefault()
-    input.focus()
-    openDropdown()
-  })
-
-  // Input focus for open dropdown
-  input.addEventListener('focus', openDropdown)
-
-  // Typing open filter the list
-  input.addEventListener('input', () => {
-    renderDropdown(input.value)
-    if (!dropdown.classList.contains('show')) openDropdown()
-  })
-
-  // Keyboard: arrows, Enter, Escape, Backspace
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault()
-      if (!dropdown.classList.contains('show')) openDropdown()
-      moveActive(1)
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault()
-      moveActive(-1)
-    } else if (e.key === 'Enter') {
-      e.preventDefault()
-      const items = dropdown.querySelectorAll('.token-dropdown-item')
-      if (activeIdx >= 0 && items[activeIdx]) {
-        toggleOption(items[activeIdx].dataset.value)
-      }
-    } else if (e.key === 'Escape') {
-      closeDropdown()
-    } else if (e.key === 'Backspace' && input.value === '' && selected.length > 0) {
-      // Backspace on empty input removes the last token
-      removeToken(selected[selected.length - 1])
-    }
-  })
-
-  // Click on a dropdown option for toggle selection
-  // preventClose avoids the document mousedown closing the dropdown before this handler fires
-  dropdown.addEventListener('mousedown', (e) => {
-    preventClose = true
-    e.preventDefault()
-    const item = e.target.closest('.token-dropdown-item')
-    if (item) toggleOption(item.dataset.value)
-  })
-
-  // Click on a token's cross button for remove it
-  wrapper.addEventListener('mousedown', (e) => {
-    const btn = e.target.closest('.token-remove')
-    if (btn) {
-      e.preventDefault()
-      removeToken(btn.dataset.value)
-    }
-  })
-
-  // Click outside the component for close dropdown
-  document.addEventListener('mousedown', (e) => {
-    if (preventClose) {
-      preventClose = false
-      return
-    }
-    if (!wrapper.contains(e.target)) closeDropdown()
-  })
-
-  // Initialize with pre-selected values
-  renderTokens()
 }
-
-// Expose globally so Edge component inline scripts can call it
-window.initTokenSelect = initTokenSelect
-
-// Auto-init on page load: find all token-select wrappers and initialize them
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-token-select]').forEach((wrapper) => {
-    const options = JSON.parse(wrapper.dataset.options || '[]')
-    const selected = JSON.parse(wrapper.dataset.selected || '[]')
-    const name = wrapper.dataset.name || 'select'
-    initTokenSelect(wrapper, options, selected, name)
-  })
-})
