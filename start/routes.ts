@@ -55,7 +55,7 @@ router
   .use(middleware.admin())
 
 if (env.get('NODE_ENV') === 'development') {
-  router.on('/dev/design').render('designSystem/design_system')
+  router.on('/dev/design').render('design_system/design_system')
 }
 
 router.on('*').redirectToPath('/welcome')
