@@ -68,7 +68,7 @@ export class AudienceService {
       .andWhere('procedures.publiee', true)
 
     if (searchQuery.search) {
-      query.andWhereRaw("procedures.faits_detailles_searchable @@ to_tsquery('french', ?)", [
+      query.andWhereRaw("procedures.faits_detailles_searchable @@ plainto_tsquery('french', ?)", [
         searchQuery.search,
       ])
     }
