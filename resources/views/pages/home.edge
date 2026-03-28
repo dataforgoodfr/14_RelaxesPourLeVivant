@@ -111,19 +111,12 @@
             </select>
           </div>
           <div class="col">
-            <select name="collectif[]" class="form-select" multiple>
-              <option value="" disabled>
-                Collectif d'action
-              </option>
-              @each(collectif in collectifs)
-                <option
-                  value="{{ collectif.nom }}"
-                  {{ searchQuery.collectif?.includes(collectif.nom) ? "selected" : "" }}
-                >
-                  {{ collectif.nom }}
-                </option>
-              @end
-            </select>
+            @!component('components/multi_select', {
+            name: "collectif",
+            label: "Collectif d'action",
+            options: collectifs.map(c => c.nom),
+            selected: searchQuery.collectif ?? ''
+            })
           </div>
         </div>
       </form>
