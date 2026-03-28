@@ -93,11 +93,19 @@ export class AudienceService {
     }
 
     if (searchQuery.chefDePrevention) {
-      query.andWhereIn('audiences.chefs_de_prevention_categorie', searchQuery.chefDePrevention)
+      query.andWhere(
+        'audiences.chefs_de_prevention_categorie_searchable',
+        '&&',
+        searchQuery.chefDePrevention
+      )
     }
 
     if (searchQuery.collectif) {
-      query.andWhereIn('procedures.collectif_d_action_ou_lutte', searchQuery.collectif)
+      query.andWhere(
+        'procedures.collectif_d_action_ou_lutte_searchable',
+        '&&',
+        searchQuery.collectif
+      )
     }
 
     return query.paginate(searchQuery.page ?? 1, 50)
