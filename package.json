@@ -74,7 +74,8 @@
     "edge.js": "^6.2.1",
     "luxon": "^3.7.2",
     "pg": "^8.16.3",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "wc-datepicker": "^0.9.4"
   },
   "hotHook": {
     "boundaries": [

@@ -1,0 +1,12 @@
+<div data-datepicker data-value="{{ JSON.stringify(value) }}">
+  <input class="input-datepicker form-control" type="text" placeholder="{{ label }}" />
+  <wc-datepicker
+    style="visibility: hidden; position: absolute; z-index: 99"
+    range
+    first-day-of-week="1"
+    show-clear-button
+  >
+  </wc-datepicker>
+  <input class="input-datepicker-startdate" type="hidden" disabled name="{{ name }}[0]" />
+  <input class="input-datepicker-enddate" type="hidden" disabled name="{{ name }}[1]" />
+</div>
