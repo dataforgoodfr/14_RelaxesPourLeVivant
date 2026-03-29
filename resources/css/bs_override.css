@@ -67,6 +67,7 @@
   --relx-gray-background: #f8f9fa;
   --relx-purple-background: #ebe5fc;
   --relx-purple-text: #5227cc;
+  --relx-accent-subtle: #f2efcb;
 }
 
 /*
@@ -118,6 +119,24 @@
 
 .bg-gray {
   background-color: var(--relx-gray-background);
+}
+
+.text-bg-accent {
+  color: var(--msde-white);
+  background-color: var(--msde-green);
+}
+
+.bg-accent {
+  background-color: var(--msde-green);
+}
+
+.text-bg-accent-subtle {
+  color: var(--bs-body-color);
+  background-color: var(--relx-accent-subtle);
+}
+
+.bg-accent-subtle {
+  background-color: var(--relx-accent-subtle);
 }
 
 /*
@@ -177,6 +196,25 @@ a {
   --bs-btn-disabled-border-color: var(--bs-btn-border-color);
 
   --bs-border-radius: 100px;
+}
+
+/*
+ * Custom accent button using msde-green as background.
+*/
+.btn-accent {
+  --bs-btn-color: var(--msde-white);
+  --bs-btn-bg: var(--msde-green);
+  --bs-btn-border-color: var(--msde-green);
+
+  --bs-btn-hover-color: var(--bs-btn-color);
+  --bs-btn-hover-bg: color-mix(in srgb, rgb(var(--msde-green-rgb)) 90%, black);
+  --bs-btn-hover-border-color: color-mix(in srgb, rgb(var(--msde-green-rgb)) 90%, black);
+
+  --bs-btn-focus-shadow-rgb: var(--msde-green-rgb);
+
+  --bs-btn-active-color: var(--bs-btn-color);
+  --bs-btn-active-bg: color-mix(in srgb, rgb(var(--msde-green-rgb)) 80%, black);
+  --bs-btn-active-border-color: color-mix(in srgb, rgb(var(--msde-green-rgb)) 80%, black);
 }
 
 /*
