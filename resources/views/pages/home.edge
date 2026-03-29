@@ -199,7 +199,7 @@
                   <div class="row bg-gray rounded-3 p-3">
                     <div class="col-12 d-flex flex-column gap-1 px-0">
                       <h3 class="text-purple small d-flex align-items-center gap-1">
-                        <img class="summary-icon" src="/resources/images/summary_icon.svg" alt="summary icon" />Extrait de la décision
+                        <img class="summary-icon" src="{{ asset('resources/images/summary_icon.svg') }}" alt=summary icon />Extrait de la décision
                       </h3>
                       <p class="small fw-normal mb-0">
                         @if(audience.extrait_de_la_decision)
@@ -213,7 +213,11 @@
                   <div class="row bg-gray rounded-3 p-3">
                     <div class="col-12 d-flex flex-column gap-1 px-0">
                       <h3 class="text-purple small d-flex align-items-center gap-1">
-                        <img class="msde-leaf-icon me-1" src="/resources/images/msde_icon_purple.svg" alt="msde leaf" />Commentaire MSDE
+                        <img
+                          class="msde-leaf-icon me-1"
+                          src="{{ asset('resources/images/msde_icon_purple.svg') }}"
+                          alt="msde leaf"
+                        />Commentaire MSDE
                       </h3>
                       <p class="small fw-normal mb-0">
                         @if(audience.commentaire_msde)
