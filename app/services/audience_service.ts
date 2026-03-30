@@ -3,8 +3,9 @@ import db from '@adonisjs/lucid/services/db'
 
 type SearchAudiencesQuery = {
   search?: string
-  startDate?: string
-  endDate?: string
+  dateDesFaits?: string[]
+  dateDeLaDecision?: string[]
+  dateAudience?: string[]
   decision?: string
   juridiction?: string
   chefDePrevention?: string[]
@@ -73,10 +74,24 @@ export class AudienceService {
       ])
     }
 
-    if (searchQuery.startDate && searchQuery.endDate) {
+    if (searchQuery.dateAudience && searchQuery.dateAudience.length === 2) {
       query.andWhereBetween('audiences.date_de_l_audience', [
-        searchQuery.startDate,
-        searchQuery.endDate,
+        searchQuery.dateAudience[0],
+        searchQuery.dateAudience[1],
+      ])
+    }
+
+    if (searchQuery.dateDeLaDecision && searchQuery.dateDeLaDecision.length === 2) {
+      query.andWhereBetween('audiences.date_de_decision', [
+        searchQuery.dateDeLaDecision[0],
+        searchQuery.dateDeLaDecision[1],
+      ])
+    }
+
+    if (searchQuery.dateDesFaits && searchQuery.dateDesFaits.length === 2) {
+      query.andWhereBetween('procedures.date_des_faits', [
+        searchQuery.dateDesFaits[0],
+        searchQuery.dateDesFaits[1],
       ])
     }
 
