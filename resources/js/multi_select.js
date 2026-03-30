@@ -23,7 +23,7 @@ export default class MultiSelect {
 
   static init(document) {
     document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('[data-token-select]').forEach((wrapper) => {
+      document.querySelectorAll('[data-multi-select]').forEach((wrapper) => {
         if (wrapper.dataset.initialized) return
         wrapper.dataset.initialized = 'true'
 
@@ -96,6 +96,7 @@ export default class MultiSelect {
     })
 
     this.#renderTokens()
+    this.#emitChange()
   }
 
   #renderTokens() {
@@ -180,12 +181,16 @@ export default class MultiSelect {
     this.#renderDropdown('')
     this.#dropdown.classList.add('show')
     this.#input.focus()
+    this.#emitChange()
   }
 
   #removeToken(val) {
     this.#selected = this.#selected.filter((v) => v !== val)
     this.#renderTokens()
-    if (this.#dropdown.classList.contains('show')) this.#renderDropdown(this.#input.value)
+    if (this.#dropdown.classList.contains('show')) {
+      this.#renderDropdown(this.#input.value)
+    }
+    this.#emitChange()
   }
 
   #moveActive(dir) {
@@ -196,5 +201,10 @@ export default class MultiSelect {
     const el = items[this.#activeIdx]
     el.classList.add('active')
     el.scrollIntoView({ block: 'nearest' })
+  }
+
+  #emitChange() {
+    this.#wrapper.value = this.#selected.join(', ')
+    this.#wrapper.dispatchEvent(new CustomEvent('change'))
   }
 }

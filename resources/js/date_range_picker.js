@@ -61,6 +61,8 @@ export default class DateRangePicker {
         this.#inputStardDate.setAttribute('disabled', 'disabled')
         this.#inputEndDate.setAttribute('disabled', 'disabled')
       }
+
+      this.#emitChange()
     })
 
     this.#input.addEventListener('focus', () => {
@@ -89,6 +91,8 @@ export default class DateRangePicker {
       this.#inputStardDate.setAttribute('disabled', 'disabled')
       this.#inputEndDate.setAttribute('disabled', 'disabled')
     }
+
+    this.#emitChange()
   }
 
   #openPicker() {
@@ -97,5 +101,10 @@ export default class DateRangePicker {
 
   #closePicker() {
     this.#picker.style.visibility = 'hidden'
+  }
+
+  #emitChange() {
+    this.#wrapper.value = this.#input.value
+    this.#wrapper.dispatchEvent(new CustomEvent('change'))
   }
 }
