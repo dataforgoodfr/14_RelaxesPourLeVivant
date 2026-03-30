@@ -21,100 +21,31 @@
 
     <div class="container my-5">
       <form class="mb-3" method="GET">
-        <div class="row">
-          <div class="col-10">
+        <div class="row gx-2">
+          <div class="col-5">
             <input
               name="search"
               value="{{ searchQuery.search ?? '' }}"
               class="form-control"
-              placeholder="Faits"
+              placeholder="Faits, chef de prévention..."
               type="text"
               autocomplete="off"
             />
           </div>
-          <div class="col">
-            <input class="btn btn-primary" type="submit" value="Rechercher" />
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col">
-            <input
-              name="startDate"
-              value="{{ searchQuery.startDate ?? '' }}"
-              id="startDate"
-              class="form-control"
-              type="date"
-            />
-          </div>
-          <div class="col-auto">
-            <label class="col-form-label">➜</label>
-          </div>
-          <div class="col">
-            <input
-              name="endDate"
-              value="{{ searchQuery.endDate ?? '' }}"
-              id="endDate"
-              class="form-control"
-              type="date"
-            />
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col">
-            <select name="decision" class="form-select">
-              <option value="" {{ searchQuery.decision==="" ? "selected" : "" }}>
-                Décision
-              </option>
-              <option value="Condamnable" {{ searchQuery.decision==="Condamnable" ? "selected" : "" }}>
-                Condamnable
-              </option>
-              <option value="Relaxe" {{ searchQuery.decision==="Relaxe" ? "selected" : "" }}>
-                Relaxe
-              </option>
-            </select>
-          </div>
-          <div class="col">
-            <select name="juridiction" class="form-select">
-              <option value="" {{ searchQuery.juridiction==="" ? "selected" : "" }}>
-                Juridiction
-              </option>
-              @each(juridiction in juridictions)
-                <option
-                  value="{{ juridiction.intitule }}"
-                  {{ searchQuery.juridiction===juridiction.intitule ? "selected" : "" }}
-                >
-                  {{ juridiction.intitule }}
-                </option>
-              @end
-            </select>
-          </div>
-          <div class="col">
-            @!component('components/multi_select', {
-            name: 'chefDePrevention',
-            label: 'Chef de prévention',
-            options: chefDePreventionCategories.map(c => c.intitule),
-            selected: searchQuery.chefDePrevention ?? ''
+          <div class="col-4">
+            @!component('components/date_range_picker', {
+            name: 'dateDeLaDecision',
+            label: 'Date de la décision',
+            value: searchQuery.dateDeLaDecision ?? []
             })
           </div>
-          <div class="col">
-            <select name="ville" class="form-select">
-              <option value="" {{ searchQuery.ville==="" ? "selected" : "" }}>
-                Ville
-              </option>
-              @each(ville in villes)
-                <option value="{{ ville.nom }}" {{ searchQuery.ville===ville.nom ? "selected" : "" }}>
-                  {{ ville.nom }}
-                </option>
-              @end
-            </select>
+          <div class="col-2">
+            @!component('components/more_filters', { searchQuery, villes, juridictions, collectifs, chefDePreventionCategories })
           </div>
-          <div class="col">
-            @!component('components/multi_select', {
-            name: "collectif",
-            label: "Collectif d'action",
-            options: collectifs.map(c => c.nom),
-            selected: searchQuery.collectif ?? ''
-            })
+          <div class="col-1">
+            <button class="btn btn-primary" type="submit" style="background-color: #0d6efd; height: 38px;">
+              {{ svg('ph:magnifying-glass') }}
+            </button>
           </div>
         </div>
       </form>
