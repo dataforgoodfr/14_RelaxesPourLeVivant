@@ -1,0 +1,39 @@
+@let(classAttributes = $props.only(['class'])
+  .merge({
+    class: ['hstack flex-wrap flex-md-nowrap bg-accent-subtle rounded-4']
+  })
+  .toAttrs()
+)
+
+@let (allowedTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+@let (headingTag = allowedTags.includes( $props.get('headingTag') ) ? $props.get('headingTag') : 'h2')
+@let (buildHeader = (content) => `<${headingTag} class="h4">${content}</${headingTag}>`)
+
+<div {{ classAttributes }}>
+  <section class="vstack p-5 gap-3 justify-content-center">
+    {{{ buildHeader('Elle nous aurait échappé ?') }}}
+    <p class="lead">
+      Aucun résultat n'a été trouvé ! Si vous aviez en tête une décision ou une procédure intéressante à connaître pour la défense de militant.es, merci de nous en parler via le contact ci-dessous.
+    </p>
+    <a href="mailto:{{ env.get('CONTACT_EMAIL') }}" class="btn btn-accent align-self-start">
+      {{ env.get('CONTACT_EMAIL') }}
+    </a>
+  </section>
+  <div role="presentation" class="flex-shrink-0 p-5 mx-auto position-relative overflow-visible">
+    <img
+      src="{{ asset('resources/images/empty_result_part1.svg') }}"
+      alt=""
+      class="img-fluid"
+      width="202"
+      height="272"
+      style="transform: rotate(-15deg)"
+    />
+    <img
+      src="{{ asset('resources/images/empty_result_part2.svg') }}"
+      alt=""
+      class="img-fluid position-absolute top-50"
+      width="169"
+      height="68"
+    />
+  </div>
+</div>
