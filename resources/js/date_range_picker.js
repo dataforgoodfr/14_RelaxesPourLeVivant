@@ -16,6 +16,18 @@ export default class DateRangePicker {
     this.#inputStardDate = wrapper.querySelector('.input-date-range-picker-start-date')
     this.#inputEndDate = wrapper.querySelector('.input-date-range-picker-end-date')
 
+    this.#picker.labels = {
+      clearButton: 'Effacer',
+      monthSelect: 'Choisir un mois',
+      nextMonthButton: 'Mois suivant',
+      nextYearButton: 'Année suivante',
+      picker: 'Choisir une dates',
+      previousMonthButton: 'Moi précédent',
+      previousYearButton: 'Année précédente',
+      todayButton: "Aujourd'hui",
+      yearSelect: 'Choisir une années',
+    }
+
     this.#bind(value)
   }
 
