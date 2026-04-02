@@ -12,6 +12,7 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 import Procedure from '#models/procedure'
 import Audience from '#models/audience'
+const AnalyzesController = () => import('#controllers/analyzes_controller')
 const ImportsController = () => import('#controllers/imports_controller')
 const HomeController = () => import('#controllers/home_controller')
 const AuthController = () => import('#controllers/auth_controller')
@@ -36,6 +37,7 @@ router.on('/forgotten-password').render('pages/auth/forgotten_password')
 router
   .get('/reset-password/:token/:email', [AuthController, 'showResetPassword'])
   .as('auth.show_reset_password')
+router.get('/analyze', [AnalyzesController, 'get'])
 
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])
