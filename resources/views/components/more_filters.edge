@@ -75,20 +75,26 @@ You can display the values by adding `data-more-filters-value` on a html element
       constructor(refElment, initialStep) {
         this.#refElment = refElment;
         this.#currentStep = initialStep;
-        refElment.querySelectorAll("[data-more-filters-goto]").forEach(elem => {
+        this.#badge = refElment.querySelector(".badge");
+        this.#refElment.querySelectorAll("[data-more-filters-goto]").forEach(elem => {
           elem.addEventListener("click", () => {
             this.#currentStep = elem.dataset.moreFiltersGoto;
             this.#renderStep();
           });
         });
-        refElment.querySelectorAll("[data-more-filters-step]").forEach(elem => {
+        this.#refElment.querySelectorAll("[data-more-filters-step]").forEach(elem => {
           const step = elem.dataset.moreFiltersStep;
           if (step !== initialStep) {
             elem.style.setProperty("display", "none");
           }
           this.#steps.push(elem);
         });
-        this.#badge = refElment.querySelector(".badge");
+        this.#refElment.querySelectorAll("[data-more-filters-input]").forEach(elem => {
+          const type = elem.dataset.moreFiltersInput;
+          const value = elem.value;
+          this.#refElment.querySelector(`[data-more-filters-value=${type}]`).innerText = value ? ` : ${value}` : "";
+          this.#renderBadge();
+        });
         this.#bind();
       }
       #renderStep() {
@@ -116,7 +122,7 @@ You can display the values by adding `data-more-filters-value` on a html element
       #bind() {
         this.#refElment.querySelectorAll("[data-more-filters-input]").forEach(elem => {
           elem.addEventListener("change", event => {
-            const type = elem.dataset.moreFiltersInput;
+            const type = event.target.dataset.moreFiltersInput;
             const value = event.target.value;
             this.#refElment.querySelector(`[data-more-filters-value=${type}]`).innerText = value ? ` : ${value}` : "";
             this.#renderBadge();
@@ -155,7 +161,7 @@ You can display the values by adding `data-more-filters-value` on a html element
         Ville <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="ville"
-        >{{ searchQuery.ville ? ` : ${searchQuery.ville }` : '' }}</span>
+        ></span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
 
@@ -163,7 +169,7 @@ You can display the values by adding `data-more-filters-value` on a html element
         Juridiction <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="juridiction"
-        >{{ searchQuery.juridiction ? ` : ${searchQuery.juridiction}` : '' }}</span>
+        ></span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
 
@@ -171,7 +177,7 @@ You can display the values by adding `data-more-filters-value` on a html element
         Décision <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="decision"
-        >{{ searchQuery.decision ? ` : ${searchQuery.decision}` : '' }}</span>
+        ></span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
 
@@ -179,7 +185,7 @@ You can display the values by adding `data-more-filters-value` on a html element
         Collectif <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="collectif"
-        >{{ searchQuery.collectif ? ` : ${searchQuery.collectif?.join(', ')}` : '' }}</span>
+        ></span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
 
@@ -187,7 +193,7 @@ You can display the values by adding `data-more-filters-value` on a html element
         Chef de prévention <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="chefDePrevention"
-        >{{ searchQuery.chefDePrevention ? ` : ${searchQuery.chefDePrevention?.join(', ')}` : '' }}</span>
+        ></span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
 
