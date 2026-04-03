@@ -37,7 +37,7 @@ router.on('/forgotten-password').render('pages/auth/forgotten_password')
 router
   .get('/reset-password/:token/:email', [AuthController, 'showResetPassword'])
   .as('auth.show_reset_password')
-router.get('/analyze', [AnalyzesController, 'get'])
+router.get('/analyze/:id', [AnalyzesController, 'get'])
 
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])
