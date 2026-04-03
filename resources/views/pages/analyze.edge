@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Analyses - {{ env.get('APP_NAME') }}
+    </title>
+    @include('partials/bootstrap')
+    <script defer src="{{ env.get('METABASE_URL') }}/app/embed.js">
+
+    </script>
+    <script>
+      function defineMetabaseConfig(config) {
+        window.metabaseConfig = config;
+      }
+    </script>
+
+    <script>
+      defineMetabaseConfig({
+        theme: {
+          preset: "light"
+        },
+        isGuest: true,
+        instanceUrl: "{{ env.get('METABASE_URL') }}"
+      });
+    </script>
+  </head>
+
+  <body class="bg-light">
+    @include('partials/navbar')
+    <div class="container-fluid">
+      <metabase-dashboard style="height: 100vh" with-title="false" with-downloads="false" token="{{ token }}">
+      </metabase-dashboard>
+    </div>
+  </div>
+</body>
+</html>

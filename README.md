@@ -62,7 +62,7 @@ Suivez les instructions pour créer un premier compte, puis allez dans _Ajoutez 
 
 Pour gagner du temps vous pouvez renseigner la _Connection string_
 
-- Connection string : jdbc:postgresql://db:5423/le_nom_de_votre_base_de_donnee (cf. .env ou database/postgres-init/create-database.sql)
+- Connection string : jdbc:postgresql://db:5432/le_nom_de_votre_base_de_donnee (cf. .env ou database/postgres-init/create-database.sql)
 - Nom d'utilisateur : la valeur de POSTGRES_USER dans `.env`
 - Mot de passe : la valeur de POSTGRES_PASSWORD dans `.env`
 

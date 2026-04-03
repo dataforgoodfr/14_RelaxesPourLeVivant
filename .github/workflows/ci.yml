@@ -29,6 +29,8 @@ env:
   NC_API_URL: http://localhost:3333
   ADMIN_EMAIL: info@example.org
   CONTACT_EMAIL: contact@mail.org
+  METABASE_URL: http://localhost:3000
+  METABASE_SECRET_KEY: generated-token
 
 jobs:
   tests:

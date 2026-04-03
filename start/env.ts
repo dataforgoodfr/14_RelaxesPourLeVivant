@@ -23,6 +23,11 @@ export default await Env.create(new URL('../', import.meta.url), {
   }),
   LOG_LEVEL: Env.schema.string(),
   NC_API_TOKEN: Env.schema.string(),
+  METABASE_URL: Env.schema.string({
+    format: 'url',
+    tld: process.env.NODE_ENV === 'production' ? true : false,
+  }),
+  METABASE_SECRET_KEY: Env.schema.string(),
 
   /*
   |----------------------------------------------------------
