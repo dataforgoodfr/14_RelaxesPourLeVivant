@@ -22,6 +22,13 @@
   outline: none;
 }
 
+.token-line-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+}
+
 .token {
   display: inline-flex;
   align-items: center;
@@ -35,6 +42,7 @@
   line-height: 1.6;
   white-space: nowrap;
   animation: tokenIn 0.12s ease;
+  max-width: 100%;
 }
 
 @keyframes tokenIn {
@@ -95,6 +103,14 @@
 
 .token-dropdown.show {
   display: block;
+}
+
+.token-dropdown-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px;
 }
 
 .token-dropdown-item {
