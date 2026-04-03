@@ -22,7 +22,7 @@
     <div class="container my-5">
       <form class="mb-3" method="GET">
         <div class="row gx-2">
-          <div class="col-5">
+          <div class="col-3">
             <input
               name="search"
               value="{{ searchQuery.search ?? '' }}"
@@ -32,15 +32,24 @@
               autocomplete="off"
             />
           </div>
-          <div class="col-4">
+          <div class="col-3">
             @!component('components/date_range_picker', {
             name: 'dateDeLaDecision',
             label: 'Date de la décision',
             value: searchQuery.dateDeLaDecision ?? []
             })
           </div>
+          <div class="col-3">
+            @!component('components/multi_select', {
+              name: 'chefDePrevention',
+              label: 'Chef de prévention',
+              options: chefDePreventionCategories.map(c => c.intitule),
+              selected: searchQuery.chefDePrevention ?? '',
+              data: { ['data-more-filters-input']: "chefDePrevention" }
+            })
+          </div>
           <div class="col-2">
-            @!component('components/more_filters', { searchQuery, villes, juridictions, collectifs, chefDePreventionCategories })
+            @!component('components/more_filters', { searchQuery, villes, juridictions, collectifs })
           </div>
           <div class="col-1">
             <button class="btn btn-primary" type="submit" style="background-color: #0d6efd; height: 38px;">
