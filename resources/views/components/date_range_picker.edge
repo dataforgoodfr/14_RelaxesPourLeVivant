@@ -1,4 +1,8 @@
-<div data-date-range-picker data-value="{{ JSON.stringify(value) }}">
+<div
+  data-date-range-picker
+  data-value="{{ JSON.stringify(value) }}"
+  {{ $props.get('data') ? html.attrs($props.get('data')) : '' }}
+>
   <input class="input-date-range-picker form-control" type="text" placeholder="{{ label }}" />
   <wc-datepicker
     style="visibility: hidden; position: absolute; z-index: 99"
