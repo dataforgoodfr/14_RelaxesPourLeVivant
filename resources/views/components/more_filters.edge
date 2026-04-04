@@ -189,14 +189,6 @@ You can display the values by adding `data-more-filters-value` on a html element
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
 
-      <button type="button" class="dropdown-item" data-more-filters-goto="chefDePrevention">
-        Chef de prévention <span
-          class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
-          data-more-filters-value="chefDePrevention"
-        ></span>
-        <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
-      </button>
-
       <button type="button" class="dropdown-item" data-more-filters-goto="dateAudience">
         Date d'audience <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
@@ -283,21 +275,6 @@ You can display the values by adding `data-more-filters-value` on a html element
           options: collectifs.map(c => c.nom),
           selected: searchQuery.collectif ?? '',
           data: { ['data-more-filters-input']: "collectif" }
-        })
-      </div>
-    </div>
-
-    <div data-more-filters-step="chefDePrevention">
-      <button type="button" class="dropdown-item" data-more-filters-goto="menu">
-        {{ svg('ph:caret-left') }} Chef de prevention
-      </button>
-      <div class="p-2">
-        @!component('components/multi_select', {
-          name: 'chefDePrevention',
-          label: 'Chef de prévention',
-          options: chefDePreventionCategories.map(c => c.intitule),
-          selected: searchQuery.chefDePrevention ?? '',
-          data: { ['data-more-filters-input']: "chefDePrevention" }
         })
       </div>
     </div>

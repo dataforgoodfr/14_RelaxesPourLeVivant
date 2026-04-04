@@ -21,11 +21,11 @@ export default class DateRangePicker {
       monthSelect: 'Choisir un mois',
       nextMonthButton: 'Mois suivant',
       nextYearButton: 'Année suivante',
-      picker: 'Choisir une dates',
+      picker: 'Choisir une date',
       previousMonthButton: 'Moi précédent',
       previousYearButton: 'Année précédente',
       todayButton: "Aujourd'hui",
-      yearSelect: 'Choisir une années',
+      yearSelect: 'Choisir une année',
     }
 
     this.#bind(value)
