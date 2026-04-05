@@ -100,28 +100,52 @@ export default class MultiSelect {
   }
 
   #renderTokens() {
-    this.#wrapper.querySelectorAll('.token').forEach((t) => t.remove())
+    // Update selected tokens
+    // Add a line-wrapper to avoid the "more count token" to wrap to a new line
+    this.#wrapper.querySelector('.token-line-wrapper')?.remove()
+
+    const selectedCount = this.#selected.length
+    // render only first token + "more" count
+    if (selectedCount > 0) {
+      const lineWrapper = document.createElement('div')
+      lineWrapper.className = 'token-line-wrapper'
+
+      const token = this.#renderToken(this.#selected[0])
+      lineWrapper.appendChild(token)
+
+      if (selectedCount > 1) {
+        const more = document.createElement('span')
+        more.className = 'token token-more'
+        more.textContent = `+${selectedCount - 1}`
+        lineWrapper.appendChild(more)
+      }
+
+      this.#wrapper.insertBefore(lineWrapper, this.#input)
+    }
+
+    // Update hidden inputs for form submission
     this.#wrapper.parentElement
       .querySelectorAll(`input[type=hidden][name="${this.#fieldName}[]"]`)
       .forEach((i) => i.remove())
 
-    this.#selected.forEach((val) => {
-      const token = document.createElement('span')
-      token.className = 'token'
-      token.dataset.value = val
-      token.innerHTML = `
-        ${val}
-        <button class="token-remove" data-value="${val}" tabindex="-1" title="Remove">✕</button>
-      `
-      this.#wrapper.insertBefore(token, this.#input)
-
-      // Hidden input for form submission
+    this.#selected.forEach((value) => {
       const hidden = document.createElement('input')
       hidden.type = 'hidden'
       hidden.name = `${this.#fieldName}[]`
-      hidden.value = val
+      hidden.value = value
       this.#wrapper.parentElement.appendChild(hidden)
     })
+  }
+
+  #renderToken(value) {
+    const token = document.createElement('span')
+    token.className = 'token'
+    token.dataset.value = value
+    token.innerHTML = `
+        <span class="text-truncate" title="${value}">${value}</span>
+        <button class="token-remove" data-value="${value}" tabindex="-1" title="Supprimer">✕</button>
+      `
+    return token
   }
 
   #renderDropdown(filter = '') {
@@ -129,6 +153,8 @@ export default class MultiSelect {
     const filtered = this.#options.filter((o) => o.toLowerCase().includes(q))
 
     this.#dropdown.innerHTML = ''
+    this.#renderSelectedInDropdown()
+
     this.#activeIdx = -1
 
     if (filtered.length === 0) {
@@ -148,6 +174,18 @@ export default class MultiSelect {
       `
       this.#dropdown.appendChild(item)
     })
+  }
+
+  #renderSelectedInDropdown() {
+    const selected = this.#selected
+    if (selected.length > 0) {
+      const wrapper = document.createElement('div')
+      wrapper.className = 'token-dropdown-selection'
+      selected.forEach((val) => {
+        wrapper.appendChild(this.#renderToken(val))
+      })
+      this.#dropdown.appendChild(wrapper)
+    }
   }
 
   #highlight(text, q) {
