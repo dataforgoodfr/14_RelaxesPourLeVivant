@@ -134,16 +134,20 @@
                         </p>
                       @endif
                     </div>
-                    <div class="d-flex flex-column align-items-start gap-2">
-                      <span class="badge rounded-pill border text-secondary">
-                        {{ audience.fondement_de_la_relaxe }}
-                      </span>
-                      @each(collectif in audience.collectif_d_action_ou_lutte)
-                        <span class="badge rounded-pill border text-secondary">
-                          {{ collectif }}
+                    @if (audience.fondement_de_la_relaxe || audience.collectif_d_action_ou_lutte?.length)
+                      <div class="d-flex flex-column align-items-start gap-2">
+                        @if (audience.fondement_de_la_relaxe)
+                          <span class="badge rounded-pill border text-secondary">
+                            {{ audience.fondement_de_la_relaxe }}
+                          </span>
+                        @endif
+                        @each(collectif in audience.collectif_d_action_ou_lutte)
+                          <span class="badge rounded-pill border text-secondary">
+                            {{ collectif }}
                         </span>
-                      @end
-                    </div>
+                        @end
+                      </div>
+                    @endif
                   </div>
 
                   <div class="col-lg-7 d-flex flex-column gap-2">
