@@ -7,11 +7,11 @@
 |
 */
 
+import Audience from '#models/audience'
+import Procedure from '#models/procedure'
 import env from '#start/env'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
-import Procedure from '#models/procedure'
-import Audience from '#models/audience'
 const AnalyzesController = () => import('#controllers/analyzes_controller')
 const ImportsController = () => import('#controllers/imports_controller')
 const HomeController = () => import('#controllers/home_controller')
@@ -21,10 +21,6 @@ const WebhooksController = () => import('#controllers/webhooks_controller')
 
 router.on('/welcome').render('pages/welcome').use(middleware.guest())
 router.get('/audiences', [HomeController, 'home']).use(middleware.auth())
-router
-  .get('/audiences/:id/recits/:recitId', [AudiencesController, 'getRecitFile'])
-  .as('audiences.recits')
-  .use(middleware.auth())
 router
   .get('/audiences/:id/jugements/:jugementId', [AudiencesController, 'getJugementFile'])
   .as('audiences.jugements')
