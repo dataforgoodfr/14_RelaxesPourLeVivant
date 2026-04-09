@@ -121,10 +121,10 @@
                           {{ audience.juridiction }}<span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
                         </p>
                       @endif
-                      @if(audience.chefs_de_prevention_categorie)
+                      @if(audience.chefs_de_prevention_categorie?.length)
                         <p class="mb-1 d-flex align-items-center gap-1">
                           @svg('ph:scales-fill')
-                          {{ audience.chefs_de_prevention_categorie }}
+                          {{ audience.chefs_de_prevention_categorie.join(', ') }}
                         </p>
                       @endif
                       @if(audience.type_de_peine_pour_les_infractions_principales)
@@ -138,9 +138,11 @@
                       <span class="badge rounded-pill border text-secondary">
                         {{ audience.fondement_de_la_relaxe }}
                       </span>
-                      <span class="badge rounded-pill border text-secondary">
-                        {{ audience.collectif_d_action_ou_lutte }}
-                      </span>
+                      @each(collectif in audience.collectif_d_action_ou_lutte)
+                        <span class="badge rounded-pill border text-secondary">
+                          {{ collectif }}
+                        </span>
+                      @end
                     </div>
                   </div>
 

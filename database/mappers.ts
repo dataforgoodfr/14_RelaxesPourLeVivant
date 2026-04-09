@@ -10,7 +10,7 @@ import { ColumnOptions } from '@adonisjs/lucid/types/model'
  * @param separator
  * @returns
  */
-function multiSelectToStringList(
+export function multiSelectToStringList(
   multiSelect: string | null | undefined,
   separator = ','
 ): string[] {
@@ -26,7 +26,7 @@ function multiSelectToStringList(
  * @param separator
  * @returns
  */
-function stringListToMultiSelect(stringList: string[], separator = ','): string {
+export function stringListToMultiSelect(stringList: string[], separator = ','): string {
   return stringList.join(separator)
 }
 
@@ -37,7 +37,7 @@ function stringListToMultiSelect(stringList: string[], separator = ','): string 
  * @param attachment
  * @returns
  */
-function attachmentToFiles(attachment: string | null | undefined): AppFile[] {
+export function attachmentToFiles(attachment: string | null | undefined): AppFile[] {
   return attachment
     ? JSON.parse(attachment).map((recit: AttachmentRecord) => ({
         ...recit,
@@ -51,7 +51,7 @@ function attachmentToFiles(attachment: string | null | undefined): AppFile[] {
  * @param files
  * @returns
  */
-function filesToAttachment(files: AppFile[]): string {
+export function filesToAttachment(files: AppFile[]): string {
   return JSON.stringify(files)
 }
 
