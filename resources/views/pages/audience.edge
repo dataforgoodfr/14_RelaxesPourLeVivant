@@ -153,6 +153,18 @@
                               @end
                             @end
                           </div>
+                          @if (audience.recit_d_audience?.length > 0)
+                            <div class="mt-2">
+                              <span class="small fst-italic">Un récit d'audience est disponible mais nécessite une demande d'accès :</span>
+                              <a
+                                href="mailto:{{ env.get('CONTACT_EMAIL') }}"
+                                class="btn btn-sm btn-accent align-self-start d-inline-flex gap-1"
+                              >
+                                @svg('ph:envelope-simple')
+                                Demande d'accès
+                              </a>
+                            </div>
+                          @end
                         </div>
                       </section>
                     </div>
@@ -288,8 +300,8 @@
                         <div class="hstack flex-wrap gap-2">
                           @each (laPresseParleDuProces in audience.la_presse_parle_du_proces)
                             @link({
-                            url: laPresseParleDuProces.url,
-                            external: true
+                              url: laPresseParleDuProces.url,
+                              external: true
                             })
                               {{ laPresseParleDuProces.titre }}
                             @end
