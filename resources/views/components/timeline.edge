@@ -20,10 +20,12 @@
         <span class="timeline-pin {{ timelinePinClass }}"></span>
         <span class="label mt-1">{{ t.date_de_decision === null ? "À venir" : DateTime.fromISO(t.date_de_decision).toFormat(dateFormat) }}</span>
         <span class="label mt-1">{{ t.degre_de_juridiction || "\u00A0" }}</span>
-        <span class="label mt-1 conclusion d-flex align-items-center gap-1 {{ decisionClass }}">
-          @svg('ph:gavel-fill', { class:"flex-shrink-0" })
-          {{ t.type_de_peine_pour_les_infractions_principales }} 
-        </span>
+        @if (t.type_de_peine_pour_les_infractions_principales)
+          <span class="label mt-1 conclusion d-flex align-items-center gap-1 {{ decisionClass }}">
+            @svg('ph:gavel-fill', { class:"flex-shrink-0" })
+            {{ t.type_de_peine_pour_les_infractions_principales }}
+          </span>
+        @endif
       </div>
     </a>
   @end
