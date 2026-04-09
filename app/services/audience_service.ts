@@ -1,3 +1,5 @@
+import { TimelineDataMapper } from '#controllers/mappers/timeline_mapper'
+import { multiSelectToStringList } from '#database/mappers'
 import Audience from '#models/audience'
 import db from '@adonisjs/lucid/services/db'
 
@@ -123,7 +125,18 @@ export class AudienceService {
       )
     }
 
-    return query.paginate(searchQuery.page ?? 1, 50)
+    return query.paginate(searchQuery.page ?? 1, 50).then((page) => {
+      const timelineDataMapper = new TimelineDataMapper()
+      return page.map((audience) => ({
+        ...audience,
+        mots_cles: multiSelectToStringList(audience.mots_cles),
+        chefs_de_prevention_categorie: multiSelectToStringList(
+          audience.chefs_de_prevention_categorie
+        ),
+        collectif_d_action_ou_lutte: multiSelectToStringList(audience.collectif_d_action_ou_lutte),
+        timeline: timelineDataMapper.map(audience),
+      }))
+    }) as ReturnType<typeof query.paginate>
   }
 
   async getVilles(): Promise<Array<{ nom: string }>> {

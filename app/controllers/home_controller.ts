@@ -1,9 +1,7 @@
-import { multiSelectToStringList } from '#database/mappers'
 import { AudienceService } from '#services/audience_service'
 import { searchQueryValidator } from '#validators/search_query'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
-import { TimelineDataMapper } from './mappers/timeline_mapper.js'
 
 @inject()
 export default class HomeController {
@@ -27,22 +25,10 @@ export default class HomeController {
       return { url: `?${url}`, page: anchor.page }
     })
 
-    const timelineDataMapper = new TimelineDataMapper()
-
     return view.render('pages/home', {
       villes,
       collectifs,
-      audiences: audiences.map((audience) => {
-        audience.mots_cles = multiSelectToStringList(audience.mots_cles)
-        audience.chefs_de_prevention_categorie = multiSelectToStringList(
-          audience.chefs_de_prevention_categorie
-        )
-        audience.collectif_d_action_ou_lutte = multiSelectToStringList(
-          audience.collectif_d_action_ou_lutte
-        )
-        audience.timeline = timelineDataMapper.map(audience)
-        return audience
-      }),
+      audiences,
       paginations,
       searchQuery,
       chefDePreventionCategories,
