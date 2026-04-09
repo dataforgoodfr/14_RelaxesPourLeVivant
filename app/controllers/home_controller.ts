@@ -1,3 +1,4 @@
+import { multiSelectToStringList } from '#database/mappers'
 import { AudienceService } from '#services/audience_service'
 import { searchQueryValidator } from '#validators/search_query'
 import { inject } from '@adonisjs/core'
@@ -32,6 +33,13 @@ export default class HomeController {
       villes,
       collectifs,
       audiences: audiences.map((audience) => {
+        audience.mots_cles = multiSelectToStringList(audience.mots_cles)
+        audience.chefs_de_prevention_categorie = multiSelectToStringList(
+          audience.chefs_de_prevention_categorie
+        )
+        audience.collectif_d_action_ou_lutte = multiSelectToStringList(
+          audience.collectif_d_action_ou_lutte
+        )
         audience.timeline = timelineDataMapper.map(audience)
         return audience
       }),
