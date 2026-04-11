@@ -1,12 +1,12 @@
-import env from '#start/env'
-import jwt from 'jsonwebtoken'
-import type { HttpContext } from '@adonisjs/core/http'
 import Dashboard from '#models/dashboard'
+import env from '#start/env'
+import type { HttpContext } from '@adonisjs/core/http'
+import jwt from 'jsonwebtoken'
 
-export default class AnalyzesController {
+export default class AnalysesController {
   async get({ view, request }: HttpContext) {
     const dashboard = await Dashboard.findByOrFail({
-      metabaseId: request.param('id'),
+      id: request.param('id'),
       publiee: true,
     })
 
@@ -18,6 +18,6 @@ export default class AnalyzesController {
       },
       env.get('METABASE_SECRET_KEY')
     )
-    return view.render('pages/analyze', { token })
+    return view.render('pages/analyse', { token })
   }
 }

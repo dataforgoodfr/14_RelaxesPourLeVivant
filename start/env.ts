@@ -28,6 +28,7 @@ export default await Env.create(new URL('../', import.meta.url), {
     tld: process.env.NODE_ENV === 'production' ? true : false,
   }),
   METABASE_SECRET_KEY: Env.schema.string(),
+  SUPPORT_MSDE_URL: Env.schema.string({ format: 'url' }),
 
   /*
   |----------------------------------------------------------

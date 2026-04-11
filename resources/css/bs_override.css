@@ -67,7 +67,9 @@
   --relx-gray-background: #f8f9fa;
   --relx-purple-background: #ebe5fc;
   --relx-purple-text: #5227cc;
+  --relx-purple-text-rgb: 82, 39, 204;
   --relx-accent-subtle: #f2efcb;
+  --relx-accent-subtle-rgb: 242, 239, 203;
 }
 
 /*
@@ -218,6 +220,25 @@ a {
 }
 
 /*
+ * Custom accent button using relx-accent-subtle as background.
+*/
+.btn-accent-subtle {
+  --bs-btn-color: var(--bs-body-color);
+  --bs-btn-bg: var(--relx-accent-subtle);
+  --bs-btn-border-color: var(--relx-accent-subtle);
+
+  --bs-btn-hover-color: var(--bs-btn-color);
+  --bs-btn-hover-bg: color-mix(in srgb, rgb(var(--relx-accent-subtle-rgb)) 90%, black);
+  --bs-btn-hover-border-color: color-mix(in srgb, rgb(var(--relx-accent-subtle-rgb)) 90%, black);
+
+  --bs-btn-focus-shadow-rgb: var(--relx-accent-subtle);
+
+  --bs-btn-active-color: var(--bs-btn-color);
+  --bs-btn-active-bg: color-mix(in srgb, rgb(var(--relx-accent-subtle-rgb)) 80%, black);
+  --bs-btn-active-border-color: color-mix(in srgb, rgb(var(--relx-accent-subtle-rgb)) 80%, black);
+}
+
+/*
   Custom submit button
 */
 form button.btn-primary {
@@ -303,4 +324,31 @@ form button.btn-primary {
   width: 0.875em;
   vertical-align: center;
   flex-shrink: 0;
+}
+
+/*
+  Navbar links
+*/
+/* Temporary override, should be removed when menu v4 will be implemented */
+.navbar-nav .nav-link {
+  --bs-nav-link-hover-color: var(--relx-purple-text);
+
+  &.active {
+    color: var(--relx-purple-text);
+    background-color: var(--relx-purple-background);
+    border-radius: var(--bs-border-radius);
+  }
+}
+
+/* Temporary override, should be removed when menu v4 will be implemented */
+.navbar-nav .dropdown-item {
+  &:hover {
+    color: var(--relx-purple-text);
+    background-color: var(--relx-purple-background);
+  }
+
+  &.active {
+    color: var(--relx-purple-text);
+    background-color: var(--relx-purple-background);
+  }
 }
