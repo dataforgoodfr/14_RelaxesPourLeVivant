@@ -118,7 +118,7 @@
                       @elseif(audience.juridiction || audience.ville_de_l_audience)
                         <p class="mb-1 d-flex align-items-center gap-1">
                           @svg('ph:bank-fill')
-                          {{ audience.juridiction }}<span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
+                          {{ audience.juridiction ?? "" }}<span class="text-capitalize">{{ audience.ville_de_l_audience?.toLowerCase() ?? "" }}</span>
                         </p>
                       @endif
                       @if(audience.chefs_de_prevention_categorie?.length)
