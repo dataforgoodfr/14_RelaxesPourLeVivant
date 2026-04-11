@@ -75,6 +75,7 @@
     "edge-iconify": "^2.0.2",
     "edge.js": "^6.2.1",
     "jsonwebtoken": "^9.0.3",
+    "hucre": "^0.3.0",
     "luxon": "^3.7.2",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2"
