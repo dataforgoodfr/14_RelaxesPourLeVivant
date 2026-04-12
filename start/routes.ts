@@ -9,6 +9,7 @@
 
 import Audience from '#models/audience'
 import Procedure from '#models/procedure'
+import PresseArticle from '#models/presse_article'
 import env from '#start/env'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
@@ -49,8 +50,8 @@ router
   .group(() => {
     router.post('/webhooks/user', [WebhooksController, 'user'])
     router
-      .post('/imports/:table', [ImportsController, 'import'])
-      .where('table', `^(${Procedure.table}|${Audience.table})$`)
+      .post('/imports/:table', [ImportsController, 'execute'])
+      .where('table', `^(${Procedure.table}|${Audience.table}|${PresseArticle.table})$`)
   })
   .prefix('/_')
   .use(middleware.admin())

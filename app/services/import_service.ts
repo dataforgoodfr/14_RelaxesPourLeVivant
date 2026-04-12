@@ -1,5 +1,7 @@
 import db from '@adonisjs/lucid/services/db'
 import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
+import { parseCsvObjects } from 'hucre'
+import { readFile } from 'node:fs/promises'
 
 export class ImportService {
   async introspect(tableName: string, ignore: string[] = []): Promise<string[] | null> {
@@ -58,5 +60,15 @@ export class ImportService {
     const maxId = resultMaxIdQuery.rows.at(0).maxid
 
     await trx.knexRawQuery(`ALTER SEQUENCE ${seqName} RESTART WITH ${maxId + 1}`)
+  }
+
+  async readCsv(path: string) {
+    const file = await readFile(path, { encoding: 'utf-8' })
+    return parseCsvObjects(file, {
+      // map empty string to null value, because by default parseCsv set empty string for empty cell
+      transformValue: (value) => (value === '' ? null : value),
+      typeInference: true,
+      header: true,
+    })
   }
 }
