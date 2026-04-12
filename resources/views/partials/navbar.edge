@@ -33,7 +33,7 @@
                 aria-expanded="false"
               >
                 Analyses
-            </a>
+              </a>
               <ul class="dropdown-menu">
                 @each(analyse in navbar.analyses)
                   <li>
@@ -61,20 +61,37 @@
             rel="noopener noreferrer"
           >Soutenir la plateforme</a>
         </li>
-        <!-- Desktop User Burger menu : only visible on lg+ screens, when the main burger menu is hidden -->
-        <li class="nav-item d-none d-lg-block">
-          <div class="dropdown">
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              aria-label="Menu utilisateur"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="dropdown-menu">
-              @if (auth.user)
+      </ul>
+
+      <!-- Separator visible only on mobile screens, to separate the main navigation links from the user menu -->
+      <hr class="d-lg-none" />
+      <ul class="navbar-nav gap-2 ms-2">
+        @if (auth.user)
+          <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
+          <li class="nav-item d-lg-none">
+            @menuLink({ route: route('auth.change_password') })
+              Changer de mot de passe
+            @end
+          </li>
+          <li class="nav-item d-lg-none">
+            <form action="/logout" method="POST">
+              {{ csrfField() }}
+                    <button class="nav-link" type="submit">Déconnexion</button>
+            </form>
+          </li>
+          <!-- Desktop User Burger menu : only visible on lg+ screens, when the main burger menu is hidden -->
+          <li class="nav-item d-none d-lg-block">
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-label="Menu utilisateur"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <ul class="dropdown-menu">
                 <li>
                   <a class="dropdown-item" href="{{ route('auth.change_password') }}">Changer de mot de passe</a>
                 </li>
@@ -84,51 +101,23 @@
                     <button type="submit" class="dropdown-item">Déconnexion</button>
                   </form>
                 </li>
-              @else
-                <li>
-                  @menuLink({ route: '/sign-in', asDropdown: true })
-                    Se connecter
-                  @end
-                </li>
-                <li>
-                  @menuLink({ route: '/sign-up', asDropdown: true })
-                    Demander un accès
-                  @end
-                </li>
-              @endif
-            </ul>
+              </ul>
+            </div>
           </li>
-        </ul>
-
-        <!-- Mobile User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
-        <hr class="d-lg-none" />
-        <ul class="navbar-nav d-lg-none">
-          @if (auth.user)
-            <li class="nav-item">
-              @menuLink({ route: route('auth.change_password') })
-                Changer de mot de passe
-              @end
-            </li>
-            <li class="nav-item">
-              <form action="/logout" method="POST">
-                {{ csrfField() }}
-                    <button class="nav-link" type="submit">Déconnexion</button>
-              </form>
-            </li>
-          @else
-            <li class="nav-item">
-              @menuLink({ route: '/sign-in' })
-                Se connecter
-              @end
-            </li>
-            <li class="nav-item">
-              @menuLink({ route: '/sign-up' })
-                Demander un accès
-              @end
-            </li>
-          @endif
-        </ul>
-      </div>
+        @else
+          <li class="nav-item">
+            @menuLink({ route: '/sign-in' })
+              Se connecter
+            @end
+          </li>
+          <li class="nav-item">
+            @menuLink({ route: '/sign-up' })
+              Demander un accès
+              {{ svg('ph:arrow-up-right')}}
+            @end
+          </li>
+        @endif
+      </ul>
     </div>
   </div>
 </nav>
