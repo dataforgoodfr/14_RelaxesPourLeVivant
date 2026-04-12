@@ -69,7 +69,7 @@
                 <input
                   type="hidden"
                   name="targetPath"
-                  value="{{ (flashMessages.get('targetPath') || '/audiences') + request.parsedUrl.search }}"
+                  value="{{ (flashMessages.get('targetPath') || '/audiences') + (request.parsedUrl.search ?? '') }}"
                 />
                 <div class="text-center">
                   <p>
