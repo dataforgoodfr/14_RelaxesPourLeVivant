@@ -9,11 +9,13 @@ test
 
       const page = await visit('/sign-up')
 
-      await page.getByLabel('Adresse email').fill(user.email)
-      await page.getByLabel('Mot de passe *', { exact: true }).fill(user.password)
-      await page.getByLabel('Confirmer le mot de passe').fill(user.password)
-      await page.getByLabel('Motivation de la demande').fill(user.motivation)
-      await page.getByRole('button').click()
+      const form = page.locator('form[action="/sign-up"]')
+
+      await form.getByLabel('Adresse email').fill(user.email)
+      await form.getByLabel('Mot de passe *', { exact: true }).fill(user.password)
+      await form.getByLabel('Confirmer le mot de passe').fill(user.password)
+      await form.getByLabel('Motivation de la demande').fill(user.motivation)
+      await form.getByRole('button').click()
 
       await page.assertVisible(
         page.getByText(
@@ -27,11 +29,13 @@ test
 
       const page = await visit('/sign-up')
 
-      await page.getByLabel('Adresse email').fill(user.email)
-      await page.getByLabel('Mot de passe *', { exact: true }).fill(user.password)
-      await page.getByLabel('Confirmer le mot de passe').fill(user.password)
-      await page.getByLabel('Motivation de la demande').fill(user.motivation)
-      await page.getByRole('button').click()
+      const form = page.locator('form[action="/sign-up"]')
+
+      await form.getByLabel('Adresse email').fill(user.email)
+      await form.getByLabel('Mot de passe *', { exact: true }).fill(user.password)
+      await form.getByLabel('Confirmer le mot de passe').fill(user.password)
+      await form.getByLabel('Motivation de la demande').fill(user.motivation)
+      await form.getByRole('button').click()
 
       await page.assertVisible(
         page.getByText('Un compte semble déjà associé à cette adresse e-mail.')
@@ -43,11 +47,13 @@ test
 
       const page = await visit('/sign-up')
 
-      await page.getByLabel('Adresse email').fill(user.email)
-      await page.getByLabel('Mot de passe *', { exact: true }).fill(user.password)
-      await page.getByLabel('Confirmer le mot de passe').fill(user.password + 'mistaketypo')
-      await page.getByLabel('Motivation de la demande').fill(user.motivation)
-      await page.getByRole('button').click()
+      const form = page.locator('form[action="/sign-up"]')
+
+      await form.getByLabel('Adresse email').fill(user.email)
+      await form.getByLabel('Mot de passe *', { exact: true }).fill(user.password)
+      await form.getByLabel('Confirmer le mot de passe').fill(user.password + 'mistaketypo')
+      await form.getByLabel('Motivation de la demande').fill(user.motivation)
+      await form.getByRole('button').click()
 
       await page.assertVisible(page.getByText('Vos mots de passe ne sont pas identiques.'))
     })
