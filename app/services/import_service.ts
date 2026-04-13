@@ -1,7 +1,8 @@
 import db from '@adonisjs/lucid/services/db'
 import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
-import { parseCsvObjects } from 'hucre'
-import { readFile } from 'node:fs/promises'
+import { readFileSync } from 'node:fs'
+import { dsvFormat, autoType } from 'd3-dsv'
+import stripBom from 'strip-bom'
 
 export class ImportService {
   async introspect(tableName: string, ignore: string[] = []): Promise<string[] | null> {
@@ -62,13 +63,9 @@ export class ImportService {
     await trx.knexRawQuery(`ALTER SEQUENCE ${seqName} RESTART WITH ${maxId + 1}`)
   }
 
-  async readCsv(path: string) {
-    const file = await readFile(path, { encoding: 'utf-8' })
-    return parseCsvObjects(file, {
-      // map empty string to null value, because by default parseCsv set empty string for empty cell
-      transformValue: (value) => (value === '' ? null : value),
-      typeInference: true,
-      header: true,
-    })
+  readCsv(path: string) {
+    const file = readFileSync(path, { encoding: 'utf-8' })
+    const result = dsvFormat(';').parse(stripBom(file), autoType)
+    return { data: result as Record<string, any>[], headers: result.columns as string[] }
   }
 }

@@ -2,7 +2,6 @@ import { importCsvValidator } from '#validators/import_csv'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
-import { type CellValue } from 'hucre'
 import { ImportService } from '#services/import_service'
 import logger from '@adonisjs/core/services/logger'
 import PresseArticle from '#models/presse_article'
@@ -10,7 +9,7 @@ import PresseArticle from '#models/presse_article'
 interface ImportStategie {
   (
     table: { name: string; columns: string[] },
-    csv: { data: Record<string, CellValue>[]; headers: string[] }
+    csv: { data: Record<string, any>[]; headers: string[] }
   ): Promise<{ validationErrors: string[] } | undefined>
 }
 
@@ -55,7 +54,7 @@ export default class ImportsController {
   private importStategies: Record<string, ImportStategie> = {
     presseArticles: async (
       table: { name: string; columns: string[] },
-      csv: { data: Record<string, CellValue>[]; headers: string[] }
+      csv: { data: Record<string, any>[]; headers: string[] }
     ) => {
       // specials headers in CSV to define links between presse_artilces and procedures or audiences
       table.columns.push('procedure_id')
@@ -67,9 +66,9 @@ export default class ImportsController {
 
       const { presseArticles, audiencesPresseArticles, proceduresPresseArticles } =
         csv.data.reduce<{
-          presseArticles: Record<string, CellValue>[]
-          proceduresPresseArticles: Array<{ presse_article_id: CellValue; procedure_id: CellValue }>
-          audiencesPresseArticles: Array<{ presse_article_id: CellValue; audience_id: CellValue }>
+          presseArticles: Record<string, any>[]
+          proceduresPresseArticles: Array<{ presse_article_id: any; procedure_id: any }>
+          audiencesPresseArticles: Array<{ presse_article_id: any; audience_id: any }>
         }>(
           (acc, row) => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -161,7 +160,7 @@ export default class ImportsController {
     },
     default: async (
       table: { name: string; columns: string[] },
-      csv: { data: Record<string, CellValue>[]; headers: string[] }
+      csv: { data: Record<string, any>[]; headers: string[] }
     ) => {
       const validation = this.validateHeaders({ actual: csv.headers, expected: table.columns })
       if (!validation.ok) {
