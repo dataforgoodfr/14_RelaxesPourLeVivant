@@ -1,0 +1,8 @@
+@let (isCurrentRoute = request.url() === route)
+@let(classAttributes = $props.only(['class'])
+  .merge({
+    class: [asDropdown ? 'dropdown-item': 'nav-link', isCurrentRoute ? 'active' : '']
+  })
+  .toAttrs()
+)
+<a href="{{ route }}" {{ classAttributes }} {{{ isCurrentRoute ? 'aria-current="page"' : '' }}}>{{{ await $slots.main() }}}</a>

@@ -1,24 +1,123 @@
 @eval(await auth.check())
-<nav class="navbar">
+<nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand fw-bold" href="/">
       <img src="{{ asset('resources/images/msde_logo.svg') }}" />
     </a>
-    <div class="d-flex gap-2">
-      @if(auth.user)
-        <span class="navbar-text">
-          {{ auth.user.email }} -
-          ({{ auth.user.approved ? 'Compte approuvé' : 'En attente d\'approbation' }}) -
-          <a href="/change-password">Changer le mot de passe</a>
-        </span>
-        <form action="/logout" method="POST">
-          {{ csrfField() }}
-        <button type="submit" class="btn btn-outline-danger">Se déconnecter</button>
-        </form>
-      @else
-        <a href="/sign-in" class="btn btn-outline-primary">Se connecter</a>
-        <a href="/sign-up" class="btn btn-primary">Demander un accès</a>
-      @endif
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar"
+      aria-expanded="false"
+      aria-label="Afficher/masquer la navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      @if (auth.user)
+        <ul class="navbar-nav gap-2">
+          <li class="nav-item">
+            @menuLink({ route: route('audiences.search') })
+              Audiences
+            @end
+          </li>
+          @if (navbar?.analyses?.length > 0)
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Analyses
+              </a>
+              <ul class="dropdown-menu">
+                @each(analyse in navbar.analyses)
+                  <li>
+                    @menuLink({ route: route('analyses.show', { id: analyse.id }), asDropdown: true })
+                      {{ analyse.titre }}
+                    @end
+                  </li>
+                @end
+              </ul>
+            </li>
+          @end
+        </ul>
+      @end
+      <ul class="navbar-nav ms-auto gap-2">
+        <li class="nav-item">
+          @menuLink({ route: route('landing') })
+            À propos
+          @end
+        </li>
+        <li class="nav-item">
+          <a
+            class="btn btn-accent-subtle h-100"
+            href="{{ env.get('SUPPORT_US_URL') }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Soutenir la plateforme</a>
+        </li>
+      </ul>
+
+      <!-- Separator visible only on mobile screens, to separate the main navigation links from the user menu -->
+      <hr class="d-lg-none" />
+      <ul class="navbar-nav gap-2 ms-2">
+        @if (auth.user)
+          <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
+          <li class="nav-item d-lg-none">
+            @menuLink({ route: route('auth.change_password') })
+              Changer de mot de passe
+            @end
+          </li>
+          <li class="nav-item d-lg-none">
+            <form action="/logout" method="POST">
+              {{ csrfField() }}
+                    <button class="nav-link" type="submit">Déconnexion</button>
+            </form>
+          </li>
+          <!-- Desktop User Burger menu : only visible on lg+ screens, when the main burger menu is hidden -->
+          <li class="nav-item d-none d-lg-block">
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-label="Menu utilisateur"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="{{ route('auth.change_password') }}">Changer de mot de passe</a>
+                </li>
+                <li>
+                  <form action="/logout" method="POST">
+                    {{ csrfField() }}
+                    <button type="submit" class="dropdown-item">Déconnexion</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </li>
+        @else
+          <li class="nav-item">
+            @menuLink({ route: '/sign-in' })
+              Se connecter
+            @end
+          </li>
+          <li class="nav-item">
+            @menuLink({ route: '/sign-up' })
+              Demander un accès
+              {{ svg('ph:arrow-up-right')}}
+            @end
+          </li>
+        @endif
+      </ul>
     </div>
   </div>
 </nav>

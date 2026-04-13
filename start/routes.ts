@@ -12,15 +12,15 @@ import Procedure from '#models/procedure'
 import env from '#start/env'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
-const AnalyzesController = () => import('#controllers/analyzes_controller')
+const AnalysesController = () => import('#controllers/analyses_controller')
 const ImportsController = () => import('#controllers/imports_controller')
 const HomeController = () => import('#controllers/home_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const AudiencesController = () => import('#controllers/audiences_controller')
 const WebhooksController = () => import('#controllers/webhooks_controller')
 
-router.on('/welcome').render('pages/welcome').use(middleware.guest())
-router.get('/audiences', [HomeController, 'home']).use(middleware.auth())
+router.on('/welcome').render('pages/welcome').as('landing')
+router.get('/audiences', [HomeController, 'home']).as('audiences.search').use(middleware.auth())
 router
   .get('/audiences/:id/jugements/:jugementId', [AudiencesController, 'getJugementFile'])
   .as('audiences.jugements')
@@ -34,14 +34,18 @@ router
   .get('/reset-password/:token/:email', [AuthController, 'showResetPassword'])
   .as('auth.show_reset_password')
 router
-  .get('/analyze/:id', [AnalyzesController, 'get'])
+  .get('/analyses/:id', [AnalysesController, 'get'])
   .where('id', router.matchers.number())
+  .as('analyses.show')
   .use(middleware.auth())
 
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])
 router.post('/logout', [AuthController, 'signout'])
-router.post('/change-password', [AuthController, 'changePassword']).use(middleware.auth())
+router
+  .post('/change-password', [AuthController, 'changePassword'])
+  .as('auth.change_password')
+  .use(middleware.auth())
 router.post('/forgotten-password', [AuthController, 'forgottenPassword'])
 router.post('/reset-password', [AuthController, 'handleResetPassword'])
 
