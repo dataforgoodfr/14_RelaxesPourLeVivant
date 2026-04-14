@@ -10,12 +10,112 @@
     @include('partials/public_bootstrap')
   </head>
 
-  <body class="bg-light d-flex flex-column min-vh-100">
-    <header>
+  <body>
+    <header class="mx-3 relx-bg-beige">
+      {{-- TODO à changer  --}}
       @include('partials/navbar')
     </header>
 
-    <main class="d-flex flex-column flex-grow-1 justify-content-center">
+    <main class="mx-3">
+      <h1 class="visually-hidden">
+        Bienvenue sur {{ env.get('APP_NAME') }}
+      </h1>
+      <section class="relx-bg-beige">
+        <h2 class="visually-hidden">
+          Comment accéder à la plateforme ?
+        </h2>
+        <p class="m-0">
+          Décisions de justice, analyses de la répression, récits d’audience, arguments du parquet...
+        </p>
+        <p class="m-0">
+          Retrouvez toutes les ressources indispensables pour aider les militant·es en procès pour avoir défendu le vivant à se défendre.
+        </p>
+        <a href="#" class="btn dev-bg">Demander un accès</a>
+        <p class="m-0">
+          Cette plateforme est destinée aux avocat·es qui défendent les militant·es dans les prétoires, aux équipes juridiques des collectifs d’action, aux militant·es et aux chercheur·ses qui travaillent sur ces sujets.
+        </p>
+      </section>
+      <section class="relx-bg-white">
+        <h2>
+          Pourquoi le MSDE a-t-il construit une base de données ?
+        </h2>
+        <p class="m-0">
+          Le travail de défense dans les tribunaux se base sur la loi mais aussi beaucoup sur les décisions précédents, dits aussi "jurisprudences". Et plus les équipes juridiques et avocat⋅es ont des précédents, mieux les militant⋅es sont défendu⋅es dans les tribunaux.
+        </p>
+        <p class="m-0">
+          Le MSDE compile donc des informations sur toutes les audiences de militant⋅es écologistes et les met à disposition de celle⋅ux qui les défendent.
+        </p>
+      </section>
+      <section class="relx-bg-green">
+        <h2>
+          Que contient cette base de données ?
+        </h2>
+        <p class="m-0">
+          Nous y mettons à disposition des informations détaillées sur chaque audience.Lorsque nous avons le jugement, il est inclus dans une version anonymisée.
+        </p>
+        <p class="m-0">
+          Une partie documentation et analyse est en cours de développement.
+        </p>
+      </section>
+      <section class="relx-bg-beige">
+        <h2>
+          Qui peut accéder à Relaxes pour le vivant ?
+        </h2>
+        <p class="m-0">
+          Principalement des avocat⋅es et des équipes juridiques.
+        </p>
+        <p class="m-0">
+          Cette base de données permet de lutter contre la répression judiciaire des militant⋅es et analyser la répression.
+        </p>
+        <a href="#" class="btn dev-bg">Demander un accès</a>
+        <p class="m-0">
+          Vous vous demandez ce qu'est une équipe juridique ?
+        </p>
+        <p class="m-0">
+          D'abord les militant⋅es ielles-mêmes qui rédigent leurs déclarations, prennent du temps pour se préparer et de l'énergie pour faire face au stress, souvent avec le soutien de leurs proches.
+        </p>
+        <p class="m-0">
+          Les avocat⋅es dans ces affaires sont des professionnel⋅les qui, typiquemment, prennent des honoraires très réduits par engagement politique. Ielles font généralement la démarche de diminuer leur position d'expert⋅e pour mener un travail collectif avec les prévenu⋅es et les équipes juridiques.
+        </p>
+        <p class="m-0">
+          On pourrait citer aussi d'autres soutiens dans les collectifs militants (notamment en soin, communication, finance) et les témoins qui prennent sur leur temps pour faire comprendre au tribunaux le contexte des actions et leur nécessité.
+        </p>
+      </section>
+      <section class="relx-bg-white">
+        <h2>
+          Qui porte le projet ?
+        </h2>
+        <p class="m-0">
+          Ce projet est coordonné par des membres du MSDE qui font un travail continu de recueil des données. Ces informations sont souvent transmises par des avocat⋅es, des équipes juridiques et des prévenu⋅es qui nous font confiance.
+        </p>
+        <p class="m-0">
+          Le financement est assuré par des dons de particuliers mais a été porté largement par 1 % pour la planète et Patagonia.
+        </p>
+        <p class="m-0">
+          Et le développement a été fait avec joie et professionnalisme par une magnifique équipe issue de Data for Good 💚
+        </p>
+      </section>
+      <section class="relx-bg-yellow">
+        <h2>
+          Nous soutenir
+        </h2>
+        <p class="m-0">
+          Ce travail est collectif, fragile, et nécessaire. Si vous voulez qu'il continue, deux façons de nous aider : soutenir financièrement le projet, ou enrichir la base en partageant des données.
+        </p>
+        <a href="#" class="btn dev-bg">Soutenez nous !</a>
+        <a href="#">Contribuez à la plateforme</a>
+      </section>
+    </main>
+
+    <footer class="mx-3 relx-bg-white">
+      <p class="m-0">
+        2026 ©MSDE
+      </p>
+      <a href="#">Conditions d’utilisation</a>
+      <a href="#">Mentions légales</a>
+    </footer>
+
+    <main class="mx-3 bg-secondary d-flex flex-column flex-grow-1 justify-content-center">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-6 vstack gap-5">

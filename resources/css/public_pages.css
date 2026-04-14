@@ -1,3 +1,49 @@
 * {
-  color: aquamarine;
+  color: black;
+}
+
+/* Colour system */
+:root {
+  /* according to figma MSDE color styles */
+  --relx-green-dark: #004449;
+  --relx-green-base: #027f5f;
+  --relx-orange-base: #ff9d02;
+  --relx-yellow-base: #ffc300;
+  --relx-green-900: #1e1f24;
+  --relx-green-800: #083438;
+  --relx-green-300: #cbf2e3;
+  --relx-green-200: #e1f9ef;
+  --relx-green-100: #f2fbf8;
+  --relx-default-black: #000000;
+  --relx-default-white: #ffffff;
+  /* unnamed colours used in figma */
+  --relx-custom-beige: #fcf9f0;
+  --relx-custom-green: #007f5f;
+  /* development colours*/
+  --dev-magenta: magenta;
+}
+
+/* devOnly */
+.dev-bg {
+  background-color: var(--dev-magenta);
+}
+
+body {
+  background-color: aqua;
+}
+
+.relx-bg-white {
+  background-color: var(--relx-default-white);
+}
+
+.relx-bg-beige {
+  background-color: var(--relx-custom-beige);
+}
+
+.relx-bg-yellow {
+  background-color: var(--relx-yellow-base);
+}
+
+.relx-bg-green {
+  background-color: var(--relx-custom-green);
 }
