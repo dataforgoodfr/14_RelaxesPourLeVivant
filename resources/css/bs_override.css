@@ -68,8 +68,12 @@
   --relx-purple-background: #ebe5fc;
   --relx-purple-text: #5227cc;
   --relx-purple-text-rgb: 82, 39, 204;
+  --relx-accent-dark: #073437;
+  --relx-accent-dark-rgb: 7, 52, 55;
   --relx-accent-subtle: #f2efcb;
   --relx-accent-subtle-rgb: 242, 239, 203;
+  --relx-petrol-3: #161b2e;
+  --relx-petrol-3-rgb: 22, 27, 46;
 }
 
 /*
@@ -130,6 +134,15 @@
 
 .bg-accent {
   background-color: var(--msde-green);
+}
+
+.text-bg-accent-dark {
+  color: var(--msde-white);
+  background-color: var(--relx-accent-dark);
+}
+
+.bg-accent-dark {
+  background-color: var(--relx-accent-dark);
 }
 
 .text-bg-accent-subtle {
@@ -238,6 +251,22 @@ a {
   --bs-btn-active-border-color: color-mix(in srgb, rgb(var(--relx-accent-subtle-rgb)) 80%, black);
 }
 
+.btn-navbar {
+  --bs-btn-color: var(--bs-nav-link-color);
+  --bs-btn-bg: var(--msde-white);
+  --bs-btn-border-color: var(--bs-gray-900);
+
+  --bs-btn-hover-color: var(--relx-purple-text);
+  --bs-btn-hover-bg: var(--bs-btn-bg);
+  --bs-btn-hover-border-color: var(--bs-btn-border-color);
+
+  --bs-btn-focus-shadow-rgb: var(--relx-purple-text-rgb);
+
+  --bs-btn-active-color: var(--relx-purple-text);
+  --bs-btn-active-bg: var(--relx-purple-background);
+  --bs-btn-active-border-color: var(--bs-btn-border-color);
+}
+
 /*
   Custom submit button
 */
@@ -327,28 +356,63 @@ form button.btn-primary {
 }
 
 /*
-  Navbar links
+  Navbar
+  Three types of button :
+  - nav-link (default)
+  - btn-navbar (green background in dark mode / grey in light mode)
+  - TODO: full height button (should be implemented in menu v4)
 */
-/* Temporary override, should be removed when menu v4 will be implemented */
-.navbar-nav .nav-link {
-  --bs-nav-link-hover-color: var(--relx-purple-text);
+.navbar {
+  &[data-bs-theme='light'] {
+    --bs-navbar-brand-color: var(--msde-green);
 
-  &.active {
-    color: var(--relx-purple-text);
-    background-color: var(--relx-purple-background);
-    border-radius: var(--bs-border-radius);
+    /* Temporary override, should be removed when menu v4 will be implemented */
+    .navbar-nav .nav-link {
+      --bs-nav-link-hover-color: var(--relx-purple-text);
+
+      &.active {
+        color: var(--relx-purple-text);
+        background-color: var(--relx-purple-background);
+        border-radius: var(--bs-border-radius);
+      }
+    }
+
+    /* Temporary override, should be removed when menu v4 will be implemented */
+    .navbar-nav .dropdown-item {
+      &:hover {
+        color: var(--relx-purple-text);
+        background-color: var(--relx-purple-background);
+      }
+
+      &.active {
+        color: var(--relx-purple-text);
+        background-color: var(--relx-purple-background);
+      }
+    }
   }
-}
 
-/* Temporary override, should be removed when menu v4 will be implemented */
-.navbar-nav .dropdown-item {
-  &:hover {
-    color: var(--relx-purple-text);
-    background-color: var(--relx-purple-background);
-  }
+  &[data-bs-theme='dark'] {
+    --bs-navbar-color: var(--msde-white);
 
-  &.active {
-    color: var(--relx-purple-text);
-    background-color: var(--relx-purple-background);
+    .dropdown-menu {
+      --bs-dropdown-bg: var(--msde-white);
+      --bs-dropdown-link-color: var(--msde-black);
+    }
+
+    .btn-navbar {
+      --bs-btn-color: var(--msde-white);
+      --bs-btn-bg: var(--relx-accent-dark);
+      --bs-btn-border-color: var(--relx-petrol-3);
+
+      --bs-btn-hover-color: var(--bs-nav-link-hover-color);
+      --bs-btn-hover-bg: color-mix(in srgb, rgb(var(--relx-accent-dark-rgb)) 90%, black);
+      --bs-btn-hover-border-color: var(--bs-btn-border-color);
+
+      --bs-btn-focus-shadow-rgb: var(--relx-accent-dark-rgb);
+
+      --bs-btn-active-color: var(--bs-btn-color);
+      --bs-btn-active-bg: color-mix(in srgb, rgb(var(--relx-accent-dark-rgb)) 80%, black);
+      --bs-btn-active-border-color: var(--bs-btn-border-color);
+    }
   }
 }
