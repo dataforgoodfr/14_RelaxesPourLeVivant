@@ -6,5 +6,6 @@ export const importCsvValidator = vine.compile(
       size: '10mb',
       extnames: ['csv'],
     }),
+    ignore: vine.array(vine.string()).optional(),
   })
 )
