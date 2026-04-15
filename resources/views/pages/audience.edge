@@ -98,7 +98,7 @@
                   aria-selected="{{ currentAudience.id === audience.id ? 'true' : 'false' }}"
                 >
                   {{ audience.degre_de_juridiction }}
-                  <small class="text-secondary">{{ audience.date_de_l_audience.toFormat(dateFormat) }}</small>
+                  <small class="text-secondary">{{ audience.date_de_l_audience ? audience.date_de_l_audience.toFormat(dateFormat) : 'date non disponible' }}</small>
                 </button>
               </li>
             @end
@@ -114,7 +114,7 @@
               >
                 {{-- For better accessibility hierarchy --}}
                 <h2 class="visually-hidden">
-                  Détails de l'audience {{ audience.degre_de_juridiction }} du {{ audience.date_de_l_audience.toFormat(dateFormat) }}
+                  Détails de l'audience {{ audience.degre_de_juridiction }} {{ audience.date_de_l_audience ? `du ${audience.date_de_l_audience.toFormat(dateFormat)}` : '' }}
                 </h2>
                 <div class="d-flex flex-column gap-5">
                   <div class="row g-3 align-items-stretch">

@@ -3,29 +3,43 @@ import {
   TimelineAudienceItem,
   TimelineDataMapper,
 } from '#controllers/mappers/timeline_mapper'
+import type { SearchAudiencesResponse } from '#services/audience_service'
 import { test } from '@japa/runner'
+import { DateTime } from 'luxon'
 
 test.group('Timeline mapper algorithm', () => {
   const timelineDataMapper = new TimelineDataMapper()
 
-  const mockEvent = (id: number, date?: string, testProperty?: string) => ({
+  const mockEvent = (
+    id: number,
+    date_de_decision: DateTime | null = null,
+    degre_de_juridiction: string | null = null,
+    decision_pour_les_infractions_principales: string | null = null,
+    type_de_peine_pour_les_infractions_principales: string | null = null
+  ): SearchAudiencesResponse[0]['timeline']['0'] => ({
     id,
-    date_de_decision: date,
-    degre_de_juridiction: testProperty,
+    date_de_decision,
+    degre_de_juridiction,
+    decision_pour_les_infractions_principales,
+    type_de_peine_pour_les_infractions_principales,
+    publiee: true,
   })
 
   test('should return unaltered event data', async ({ assert }) => {
     const text = 'This text should remain unaltered'
-    const timeline = [mockEvent(1, '2020-01-01', text)]
+    const timeline = [mockEvent(1, DateTime.fromISO('2020-01-01'), text)]
     const result = timelineDataMapper.map({ timeline, id: 1, date_des_faits: null })
     assert.equal(result[0].type, 'audience')
     assert.equal((result[0] as TimelineAudienceItem).id, 1)
     assert.equal((result[0] as TimelineAudienceItem).degre_de_juridiction, text)
-    assert.equal((result[0] as TimelineAudienceItem).date, '2020-01-01')
+    assert.isTrue((result[0] as TimelineAudienceItem).date.equals(DateTime.fromISO('2020-01-01')))
   })
 
   test('should return all events when they are less than maximumNumberOfEvents', ({ assert }) => {
-    const timeline = [mockEvent(1, '2024-01-10'), mockEvent(2, '2024-01-20')]
+    const timeline = [
+      mockEvent(1, DateTime.fromISO('2024-01-10')),
+      mockEvent(2, DateTime.fromISO('2024-01-20')),
+    ]
     const result = timelineDataMapper.map({ timeline, id: 1, date_des_faits: null })
     assert.lengthOf(result, 2)
     assert.equal((result[0] as TimelineAudienceItem).id, 1)
@@ -33,11 +47,11 @@ test.group('Timeline mapper algorithm', () => {
 
   test('should move the current audience at prefered index (#1)', ({ assert }) => {
     const timeline = [
-      mockEvent(1, '2024-01-01'),
-      mockEvent(2, '2024-02-01'),
-      mockEvent(3, '2024-03-01'),
-      mockEvent(4, '2024-04-01'),
-      mockEvent(5, '2024-05-01'),
+      mockEvent(1, DateTime.fromISO('2024-01-01')),
+      mockEvent(2, DateTime.fromISO('2024-02-01')),
+      mockEvent(3, DateTime.fromISO('2024-03-01')),
+      mockEvent(4, DateTime.fromISO('2024-04-01')),
+      mockEvent(5, DateTime.fromISO('2024-05-01')),
     ]
 
     const result = timelineDataMapper.map({ timeline, id: 3, date_des_faits: null })
@@ -71,11 +85,11 @@ test.group('Timeline mapper algorithm', () => {
 
   test('should handle when current date is the first event', ({ assert }) => {
     const timeline = [
-      mockEvent(1, '2024-01-01'),
-      mockEvent(2, '2024-02-01'),
-      mockEvent(3, '2024-03-01'),
-      mockEvent(4, '2024-04-01'),
-      mockEvent(5, '2024-05-01'),
+      mockEvent(1, DateTime.fromISO('2024-01-01')),
+      mockEvent(2, DateTime.fromISO('2024-02-01')),
+      mockEvent(3, DateTime.fromISO('2024-03-01')),
+      mockEvent(4, DateTime.fromISO('2024-04-01')),
+      mockEvent(5, DateTime.fromISO('2024-05-01')),
     ]
     const result = timelineDataMapper.map({ timeline, id: 1, date_des_faits: null })
     assert.lengthOf(result, 4)
@@ -89,7 +103,11 @@ test.group('Timeline mapper algorithm', () => {
   })
 
   test('should handle correctly empty dates', ({ assert }) => {
-    const timeline = [mockEvent(1, '2024-01-01'), mockEvent(2), mockEvent(3, '2023-01-01')]
+    const timeline = [
+      mockEvent(1, DateTime.fromISO('2024-01-01')),
+      mockEvent(2),
+      mockEvent(3, DateTime.fromISO('2023-01-01')),
+    ]
     const result = timelineDataMapper.map({ timeline, id: 1, date_des_faits: null })
     assert.lengthOf(result, 3)
     assert.equal(result[0].type, 'audience', 'First item should be a TimelineAudienceItem')
@@ -104,44 +122,55 @@ test.group('Timeline mapper algorithm', () => {
 
   test('should return 4 events even if current is the last one', ({ assert }) => {
     const timeline = [
-      mockEvent(1, '2024-01-01'),
-      mockEvent(2, '2024-02-01'),
-      mockEvent(3, '2024-03-01'),
-      mockEvent(4, '2024-04-01'),
-      mockEvent(5, '2024-05-01'),
+      mockEvent(1, DateTime.fromISO('2024-01-01')),
+      mockEvent(2, DateTime.fromISO('2024-02-01')),
+      mockEvent(3, DateTime.fromISO('2024-03-01')),
+      mockEvent(4, DateTime.fromISO('2024-04-01')),
+      mockEvent(5, DateTime.fromISO('2024-05-01')),
     ]
     const result = timelineDataMapper.map({ timeline, id: 5, date_des_faits: null })
     assert.lengthOf(result, 4, 'Should fill with past events if no future events left')
   })
 
   test('should return 1 event there is only one event and no date des faits', ({ assert }) => {
-    const timeline = [mockEvent(1, '2024-01-01')]
+    const timeline = [mockEvent(1, DateTime.fromISO('2024-01-01'))]
     const result = timelineDataMapper.map({ timeline, id: 1, date_des_faits: null })
     assert.lengthOf(result, 1)
   })
 
   test('should add date des faits at first position if provided', ({ assert }) => {
-    const timeline = [mockEvent(1, '2024-01-10')]
-    const result = timelineDataMapper.map({ timeline, id: 1, date_des_faits: '2019-01-01' })
+    const timeline = [mockEvent(1, DateTime.fromISO('2024-01-10'))]
+    const result = timelineDataMapper.map({
+      timeline,
+      id: 1,
+      date_des_faits: DateTime.fromISO('2019-01-01'),
+    })
     assert.lengthOf(result, 2)
     assert.equal(result[0].type, 'faits')
-    assert.equal(result[0].date, '2019-01-01')
+    assert.isTrue(result[0].date!.equals(DateTime.fromISO('2019-01-01')))
     assert.equal(result[1].type, 'audience')
     assert.equal((result[1] as TimelineAudienceItem).id, 1)
   })
 
   test('should return 4 events max when date des faits is provided', ({ assert }) => {
     const timeline = [
-      mockEvent(1, '2024-01-01'),
-      mockEvent(2, '2024-02-01'),
-      mockEvent(3, '2024-03-01'),
-      mockEvent(4, '2024-04-01'),
-      mockEvent(5, '2024-05-01'),
+      mockEvent(1, DateTime.fromISO('2024-01-01')),
+      mockEvent(2, DateTime.fromISO('2024-02-01')),
+      mockEvent(3, DateTime.fromISO('2024-03-01')),
+      mockEvent(4, DateTime.fromISO('2024-04-01')),
+      mockEvent(5, DateTime.fromISO('2024-05-01')),
     ]
-    const result = timelineDataMapper.map({ timeline, id: 4, date_des_faits: '2019-01-01' })
+    const result = timelineDataMapper.map({
+      timeline,
+      id: 4,
+      date_des_faits: DateTime.fromISO('2019-01-01'),
+    })
     assert.lengthOf(result, 4, 'Should trim to maximumNumberOfEvents')
     assert.equal(result[0].type, 'faits', 'First item should be date des faits')
-    assert.equal(result[0].date, '2019-01-01', 'Date des faits should be correct')
+    assert.isTrue(
+      result[0].date!.equals(DateTime.fromISO('2019-01-01')),
+      'Date des faits should be correct'
+    )
     assert.equal(result[1].type, 'audience', 'Second item should be a past TimelineAudienceItem')
     assert.equal(
       (result[1] as TimelineAudienceItem).id,
@@ -170,16 +199,20 @@ test.group('Timeline mapper algorithm', () => {
     assert,
   }) => {
     const timeline = [
-      mockEvent(1, '2024-01-01'),
-      mockEvent(2, '2024-02-01'),
-      mockEvent(3, '2024-03-01'),
-      mockEvent(4, '2024-04-01'), //current audience
-      mockEvent(5, '2024-05-01'),
-      mockEvent(6, '2024-06-01'),
-      mockEvent(7, '2024-07-01'),
-      mockEvent(8, '2024-08-01'),
+      mockEvent(1, DateTime.fromISO('2024-01-01')),
+      mockEvent(2, DateTime.fromISO('2024-02-01')),
+      mockEvent(3, DateTime.fromISO('2024-03-01')),
+      mockEvent(4, DateTime.fromISO('2024-04-01')), //current audience
+      mockEvent(5, DateTime.fromISO('2024-05-01')),
+      mockEvent(6, DateTime.fromISO('2024-06-01')),
+      mockEvent(7, DateTime.fromISO('2024-07-01')),
+      mockEvent(8, DateTime.fromISO('2024-08-01')),
     ]
-    const result = timelineDataMapper.map({ timeline, id: 4, date_des_faits: '2019-01-01' })
+    const result = timelineDataMapper.map({
+      timeline,
+      id: 4,
+      date_des_faits: DateTime.fromISO('2019-01-01'),
+    })
     assert.lengthOf(result, 4, 'Should trim to maximumNumberOfEvents')
     assert.equal(result[0].type, 'faits', 'First item should be date des faits')
     assert.equal(result[1].type, 'audience', 'Second item should be a past TimelineAudienceItem')
@@ -212,13 +245,17 @@ test.group('Timeline mapper algorithm', () => {
 
   test('should return older events first if current audience is not present', ({ assert }) => {
     const timeline = [
-      mockEvent(1, '2024-01-01'),
-      mockEvent(2, '2025-05-01'),
-      mockEvent(3, '2024-03-01'),
-      mockEvent(4, '2026-02-01'),
-      mockEvent(5, '2024-04-01'),
+      mockEvent(1, DateTime.fromISO('2024-01-01')),
+      mockEvent(2, DateTime.fromISO('2025-05-01')),
+      mockEvent(3, DateTime.fromISO('2024-03-01')),
+      mockEvent(4, DateTime.fromISO('2026-02-01')),
+      mockEvent(5, DateTime.fromISO('2024-04-01')),
     ]
-    const result = timelineDataMapper.map({ timeline, id: 99, date_des_faits: '2019-01-01' })
+    const result = timelineDataMapper.map({
+      timeline,
+      id: 99,
+      date_des_faits: DateTime.fromISO('2019-01-01'),
+    })
     assert.lengthOf(result, 4, 'Should trim to maximumNumberOfEvents')
     assert.equal(result[0].type, 'faits', 'First item should be date des faits')
     assert.equal(result[1].type, 'audience', 'Second item should be a TimelineAudienceItem')

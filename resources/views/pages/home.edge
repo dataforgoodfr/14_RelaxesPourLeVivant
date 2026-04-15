@@ -71,24 +71,24 @@
 
       <!-- Hidden - Accessibilité : Annonce du nombre de résultats trouvés -->
       <div aria-live="polite" aria-atomic="true" class="visually-hidden">
-        @if (audiences.length === 0)
+        @if (total === 0)
           Aucun résultat trouvé.
-        @elseif (audiences.length === 1)
+        @elseif (total === 1)
           1 résultat trouvé.
         @else
-          {{ audiences.length }} résultats trouvés.
+          {{ total }} résultats trouvés.
         @endif
       </div>
 
-      @if (audiences.length > 0)
+      @if (total > 0)
         <div class="vstack gap-4">
-          @if (audiences.length === 1)
+          @if (total === 1)
             <p class="h4 mb-0">
               1 résultat trouvé
             </p>
-          @elseif (audiences.length > 1)
+          @elseif (total > 1)
             <p class="h4 mb-0">
-              {{ audiences.length }} résultats trouvés
+              {{ total }} résultats trouvés
             </p>
           @endif
           @each(audience in audiences)
@@ -112,7 +112,7 @@
                       <div class="row">
                         <p class="mb-1 d-flex align-items-center gap-1">
                           @svg('ph:calendar-dot-fill')
-                          Audience : {{ DateTime.fromJSDate(audience.date_de_l_audience).toFormat(dateFormat) }}
+                          Audience : {{ audience.date_de_l_audience ? audience.date_de_l_audience.toFormat(dateFormat) : 'date non disponible' }}
                         </p>
                         @if(audience.juridiction && audience.ville_de_l_audience)
                           <p class="mb-1 d-flex align-items-center gap-1">

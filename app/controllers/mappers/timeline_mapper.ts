@@ -1,13 +1,5 @@
-/**
- * Resulting type of the `searchAudiences` query.
- */
-export type TimelineDbResultItem = {
-  id: number
-  date_de_decision?: string
-  degre_de_juridiction?: string
-  decision_pour_les_infractions_principales?: string
-  type_de_peine_pour_les_infractions_principales?: string
-}
+import type { SearchAudiencesResponse } from '#services/audience_service'
+import { DateTime } from 'luxon'
 
 /*
  * Timeline item to be rendered in the view, with or without date.
@@ -23,16 +15,16 @@ export type TimelineItem =
 
 type BaseAudienceItem = {
   id: number
-  degre_de_juridiction?: string
-  decision_pour_les_infractions_principales?: string
-  type_de_peine_pour_les_infractions_principales?: string
+  degre_de_juridiction: string | null
+  decision_pour_les_infractions_principales: string | null
+  type_de_peine_pour_les_infractions_principales: string | null
   skipped_before?: number
   skipped_after?: number
 }
 
 export type TimelineAudienceItem = BaseAudienceItem & {
   type: 'audience'
-  date: string
+  date: DateTime
 }
 
 export type TimelineAudienceAVenirItem = BaseAudienceItem & {
@@ -42,7 +34,7 @@ export type TimelineAudienceAVenirItem = BaseAudienceItem & {
 
 export type TimelineDateDesFaitsItem = {
   type: 'faits'
-  date: string
+  date: DateTime
 }
 
 /**
@@ -57,8 +49,8 @@ export class TimelineDataMapper {
 
   map(audience: {
     id: number
-    date_des_faits: string | null
-    timeline: TimelineDbResultItem[]
+    date_des_faits: DateTime | null
+    timeline: SearchAudiencesResponse[0]['timeline']
   }): TimelineItem[] {
     const eventsWithDate: TimelineAudienceItem[] = []
     const eventsWithoutDate: TimelineAudienceAVenirItem[] = []
@@ -102,9 +94,9 @@ export class TimelineDataMapper {
       }
     }
 
-    eventsWithDate.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    eventsWithDate.sort((a, b) => a.date.toMillis() - b.date.toMillis())
 
-    eventsWithoutDate.sort((a, b) => Number(a.id) - Number(b.id))
+    eventsWithoutDate.sort((a, b) => a.id - b.id)
 
     const sortedTimeline = [...eventsWithDate, ...eventsWithoutDate]
 
@@ -114,7 +106,7 @@ export class TimelineDataMapper {
     }
 
     // Splitting sortedTimeline into 3 groups (pasts, current, futures)
-    const currentIndex = sortedTimeline.findIndex((t) => Number(t.id) === audience.id)
+    const currentIndex = sortedTimeline.findIndex((t) => t.id === audience.id)
 
     // Maximum number of events > complete timeline, audience is not present in the timeline, we return the most recent events trimmed to the maximum number of events
     if (currentIndex === -1) {
