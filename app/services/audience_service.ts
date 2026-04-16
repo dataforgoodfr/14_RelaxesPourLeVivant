@@ -61,6 +61,7 @@ export class AudienceService {
         'procedures.faits_detailles',
         'procedures.faits_concis',
         'procedures.collectif_d_action_ou_lutte',
+        'procedures.date_des_faits',
         'timeline.audiences as timeline'
       )
       .from('audiences')

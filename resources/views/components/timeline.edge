@@ -1,6 +1,14 @@
 @let (dateFormat = 'dd.MM.yy')
 
 <div class="timeline d-flex">
+  <!-- Date des faits -->
+  <div class="timeline-node flex-1">
+    <span class="timeline-link"></span>
+    <span class="timeline-pin pin-fill"></span>
+    <span class="label mt-1">{{ DateTime.fromISO(date_des_faits).toFormat(dateFormat) }}</span>
+    <span class="label mt-1 fw-bold">Faits</span>
+  </div>
+  <!-- Audiences -->
   @each(t in data)
     @let(decisionClass = html.classNames({
       'conviction': t.decision_pour_les_infractions_principales === 'Condamnation',

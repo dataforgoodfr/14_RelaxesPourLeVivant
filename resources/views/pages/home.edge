@@ -156,7 +156,7 @@
 
                     <div class="col-lg-7 d-flex flex-column gap-2">
                       <div class="row bg-gray rounded-3 p-3">
-                        <div class="col-lg-5 d-flex flex-column gap-1 px-0 mb-3 mb-lg-0">
+                        <div class="col-lg-5 d-flex flex-column gap-1 mb-3 mb-lg-0">
                           <h3 class="text-purple small d-flex align-items-center gap-1">
                             @svg('ph:gavel-fill')
                             Faits et chronologie
@@ -170,11 +170,11 @@
                           </p>
                         </div>
                         <div class="col-lg-7 d-flex justify-content-center justify-content-lg-end align-items-center">
-                          @!component('components/timeline', { data: audience.timeline, current: audience.id })
+                          @!component('components/timeline', { data: audience.timeline, current: audience.id, date_des_faits: audience.date_des_faits })
                         </div>
                       </div>
                       <div class="row bg-gray rounded-3 p-3">
-                        <div class="col-12 d-flex flex-column gap-1 px-0">
+                        <div class="col-12 d-flex flex-column gap-1">
                           <h3 class="text-purple small d-flex align-items-center gap-1">
                             <img class="summary-icon" src="{{ asset('resources/images/summary_icon.svg') }}" alt="summary icon" />Extrait de la décision
                           </h3>
@@ -188,7 +188,7 @@
                         </div>
                       </div>
                       <div class="row bg-gray rounded-3 p-3">
-                        <div class="col-12 d-flex flex-column gap-1 px-0">
+                        <div class="col-12 d-flex flex-column gap-1">
                           <h3 class="text-purple small d-flex align-items-center gap-1">
                             <img
                               class="msde-leaf-icon me-1"

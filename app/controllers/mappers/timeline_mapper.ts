@@ -12,7 +12,7 @@ type TimelineItem = {
  */
 export class TimelineDataMapper {
   constructor(
-    private readonly maximumNumberOfEvents = 4,
+    private readonly maximumNumberOfEvents = 3,
     private readonly preferredPositionForCurrentAudience = 1
   ) {}
 
