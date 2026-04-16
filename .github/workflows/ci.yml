@@ -31,7 +31,6 @@ env:
   CONTACT_EMAIL: contact@mail.org
   METABASE_URL: http://localhost:3000
   METABASE_SECRET_KEY: generated-token
-  SUPPORT_US_URL: https://example.com/support
 
 jobs:
   tests:
