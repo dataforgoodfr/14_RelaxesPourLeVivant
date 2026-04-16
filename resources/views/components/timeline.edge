@@ -1,14 +1,6 @@
 @let (dateFormat = 'dd.MM.yy')
 
 <div class="timeline d-flex">
-  <!-- Date des faits -->
-  <div class="timeline-node flex-1">
-    <span class="timeline-link"></span>
-    <span class="timeline-pin pin-fill"></span>
-    <span class="label mt-1">{{ DateTime.fromISO(date_des_faits).toFormat(dateFormat) }}</span>
-    <span class="label mt-1 fw-bold">Faits</span>
-  </div>
-  <!-- Audiences -->
   @each(t in data)
     @let(decisionClass = html.classNames({
       'conviction': t.decision_pour_les_infractions_principales === 'Condamnation',
@@ -16,20 +8,29 @@
     }))
 
     @let(timelinePinClass = html.classNames({
-      'pin-fill': t.date_de_decision !== null,
-      'pin-stroke': t.date_de_decision === null
+      'pin-fill': t.date !== null,
+      'pin-stroke': t.date === null
     }))
-
-    <div class="timeline-node flex-1 {{ html.classNames({ 'current': t.id == current }) }}">
+    <div
+      class="timeline-node flex-1 {{ html.classNames({ 'current': t.id == current, 'timeline-node-skipped': t.skipped_before || t.skipped_after }) }}"
+      {{ html.attrs(t.skipped_before ? { 'data-skipped-before': t.skipped_before } : {}) }}
+      {{ html.attrs(t.skipped_after ? { 'data-skipped-after': t.skipped_after } : {}) }}
+    >
       <span class="timeline-link"></span>
       <span class="timeline-pin {{ timelinePinClass }}"></span>
-      <span class="label mt-1">{{ t.date_de_decision === null ? "À venir" : DateTime.fromISO(t.date_de_decision).toFormat(dateFormat) }}</span>
-      <span class="label mt-1">{{ t.degre_de_juridiction || "\u00A0" }}</span>
-      @if (t.type_de_peine_pour_les_infractions_principales)
-        <span class="label mt-1 conclusion d-flex align-items-center gap-1 {{ decisionClass }}">
-          @svg('ph:gavel-fill', { class:"flex-shrink-0" })
-          {{ t.type_de_peine_pour_les_infractions_principales }}
-          </span>
+      <span class="label mt-2">{{ t.date === null ? "À venir" : DateTime.fromISO(t.date).toFormat(dateFormat) }}</span>
+      @if (t.type ==='faits')
+        <span class="label mt-1 fw-bold">Faits</span>
+      @else
+        @if (t.degre_de_juridiction)
+          <span class="label mt-1">{{ t.degre_de_juridiction }}</span>
+        @end
+        @if (t.type_de_peine_pour_les_infractions_principales)
+          <span class="label mt-1 conclusion d-flex align-items-center gap-1 {{ decisionClass }}">
+            @svg('ph:gavel-fill', { class:"flex-shrink-0" })
+            {{ t.type_de_peine_pour_les_infractions_principales }}
+            </span>
+        @endif
       @endif
     </div>
   @end
