@@ -3,23 +3,10 @@
 .timeline {
   display: flex;
   flex-direction: row;
-  margin-inline-start: 8px;
 }
 
 .timeline .flex-1 {
   flex: 1;
-}
-
-.timeline .timeline-node:first-child::before {
-  content: '';
-  position: absolute;
-  width: 8px;
-  height: 1px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ced4da;
-  top: 5px;
-  left: -8px;
 }
 
 .timeline-node {
@@ -30,7 +17,11 @@
   padding-left: 4px;
   padding-right: 4px;
   font-size: 0.8rem;
-  min-width: 80px;
+  min-width: 60px;
+
+  &.timeline-node-start:not(.timeline-node-start--skipped) {
+    min-width: 25px;
+  }
 }
 
 .timeline-node > .timeline-pin {

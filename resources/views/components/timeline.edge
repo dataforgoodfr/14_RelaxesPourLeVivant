@@ -1,7 +1,7 @@
 @let (dateFormat = 'dd.MM.yy')
 
 <div class="timeline d-flex">
-  @each(t in data)
+  @each((t, index) in data)
     @let(decisionClass = html.classNames({
       'conviction': t.decision_pour_les_infractions_principales === 'Condamnation',
       'acquittal': t.decision_pour_les_infractions_principales === 'Relaxe'
@@ -11,6 +11,15 @@
       'pin-fill': t.date !== null,
       'pin-stroke': t.date === null
     }))
+    <!-- Add a special node at the start of the timeline to display a continued line toward past -->
+    @if (index === 0)
+      <div
+        class="timeline-node timeline-node-start {{ html.classNames({ 'timeline-node-start--skipped': t.skipped_before }) }}"
+      >
+        <span class="timeline-link"></span>
+      </div>
+    @endif
+    
     <div
       class="timeline-node flex-1 {{ html.classNames({ 'current': t.id == current, 'timeline-node-skipped': t.skipped_before || t.skipped_after }) }}"
       {{ html.attrs(t.skipped_before ? { 'data-skipped-before': t.skipped_before } : {}) }}
