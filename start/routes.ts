@@ -26,7 +26,10 @@ router
   .get('/audiences/:id/jugements/:jugementId', [AudiencesController, 'getJugementFile'])
   .as('audiences.jugements')
   .use(middleware.auth())
-router.get('/audiences/:id', [AudiencesController, 'get']).use(middleware.auth())
+router
+  .get('/audiences/:id', [AudiencesController, 'get'])
+  .as('audiences.show')
+  .use(middleware.auth())
 router.on('/sign-up').render('pages/auth/sign_up')
 router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest()).as('auth.sign_in')
 router.on('/change-password').render('pages/auth/change_password').use(middleware.auth())

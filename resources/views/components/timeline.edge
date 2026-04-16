@@ -12,21 +12,17 @@
       'pin-stroke': t.date_de_decision === null
     }))
 
-    @let(href = html.attrs({ href: t.publiee ? `/audiences/${t.id}` : null }))
-
-    <a class="flex-1" {{ href }}>
-      <div class="timeline-node {{ html.classNames({ 'current': t.id == current }) }}">
-        <span class="timeline-link"></span>
-        <span class="timeline-pin {{ timelinePinClass }}"></span>
-        <span class="label mt-1">{{ t.date_de_decision === null ? "À venir" : DateTime.fromISO(t.date_de_decision).toFormat(dateFormat) }}</span>
-        <span class="label mt-1">{{ t.degre_de_juridiction || "\u00A0" }}</span>
-        @if (t.type_de_peine_pour_les_infractions_principales)
-          <span class="label mt-1 conclusion d-flex align-items-center gap-1 {{ decisionClass }}">
-            @svg('ph:gavel-fill', { class:"flex-shrink-0" })
-            {{ t.type_de_peine_pour_les_infractions_principales }}
+    <div class="timeline-node flex-1 {{ html.classNames({ 'current': t.id == current }) }}">
+      <span class="timeline-link"></span>
+      <span class="timeline-pin {{ timelinePinClass }}"></span>
+      <span class="label mt-1">{{ t.date_de_decision === null ? "À venir" : DateTime.fromISO(t.date_de_decision).toFormat(dateFormat) }}</span>
+      <span class="label mt-1">{{ t.degre_de_juridiction || "\u00A0" }}</span>
+      @if (t.type_de_peine_pour_les_infractions_principales)
+        <span class="label mt-1 conclusion d-flex align-items-center gap-1 {{ decisionClass }}">
+          @svg('ph:gavel-fill', { class:"flex-shrink-0" })
+          {{ t.type_de_peine_pour_les_infractions_principales }}
           </span>
-        @endif
-      </div>
-    </a>
+      @endif
+    </div>
   @end
 </div>
