@@ -28,6 +28,7 @@
   /* unnamed colours used in figma */
   --relx-custom-beige: #fcf9f0;
   --relx-custom-green: #007f5f;
+  --relx-custom-drop-shadow: #0a0d1226;
   /* development colours*/
   --dev-magenta: magenta;
 }
@@ -128,4 +129,25 @@ body {
   border-color: var(--relx-gray-900);
   font-weight: 300;
   font-size: 22px;
+  box-shadow: 0 4px var(--relx-custom-drop-shadow);
+}
+
+.relx-accroche-p {
+  padding: 112px 64px 112px 64px;
+}
+
+.relx-legende-part-lr {
+  flex: 0 0 40px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 7px,
+    var(--relx-default-black) 7px,
+    var(--relx-default-black) 8px
+  );
+}
+
+.relx-legende-part-bottom {
+  background-color: magenta;
+  height: 48px;
 }
