@@ -16,7 +16,7 @@ test.group('Timeline mapper algorithm', () => {
     degre_de_juridiction: string | null = null,
     decision_pour_les_infractions_principales: string | null = null,
     type_de_peine_pour_les_infractions_principales: string | null = null
-  ): SearchAudiencesResponse[0]['timeline']['0'] => ({
+  ): SearchAudiencesResponse[number]['timeline'][number] => ({
     id,
     date_de_decision,
     degre_de_juridiction,

@@ -50,7 +50,7 @@ export class TimelineDataMapper {
   map(audience: {
     id: number
     date_des_faits: DateTime | null
-    timeline: SearchAudiencesResponse[0]['timeline']
+    timeline: SearchAudiencesResponse[number]['timeline']
   }): TimelineItem[] {
     const eventsWithDate: TimelineAudienceItem[] = []
     const eventsWithoutDate: TimelineAudienceAVenirItem[] = []
