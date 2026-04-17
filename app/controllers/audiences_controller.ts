@@ -15,6 +15,8 @@ export default class AudiencesController {
 
   /**
    * Returns the page for an audience if both audience and its procedure are published.
+   * - Regroup unique audiences mots_cles
+   * - Regroup every liens presse and sort them alphabetically.
    * @param HttpContext
    * @returns
    */
@@ -31,11 +33,16 @@ export default class AudiencesController {
       }
       return acc
     }, new Set<string>())
+    const liensPresse = [
+      ...(procedureWithAudiences.la_presse_parle_des_faits ?? []),
+      ...procedureWithAudiences.audiences.flatMap((a) => a.la_presse_parle_du_proces ?? []),
+    ].sort((a, b) => a.titre.localeCompare(b.titre))
 
     return view.render('pages/audience', {
       procedure: procedureWithAudiences,
       currentAudience: audience,
       motsCles: Array.from(motsCles),
+      liensPresse,
     })
   }
 

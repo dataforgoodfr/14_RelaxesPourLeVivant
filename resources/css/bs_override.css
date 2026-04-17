@@ -74,6 +74,10 @@
   --relx-accent-subtle-rgb: 242, 239, 203;
   --relx-petrol-3: #161b2e;
   --relx-petrol-3-rgb: 22, 27, 46;
+  --relx-yellow-1: #ffe16f;
+  --relx-yellow-1-rgb: 255, 225, 111;
+  --relx-green-3: #00805f;
+  --relx-green-3-rgb: 0, 128, 95;
 }
 
 /*
@@ -154,6 +158,10 @@
   background-color: var(--relx-accent-subtle);
 }
 
+.text-yellow-1 {
+  color: var(--relx-yellow-1);
+}
+
 /*
   Overriding a markup
 */
@@ -211,6 +219,12 @@ a {
   --bs-btn-disabled-border-color: var(--bs-btn-border-color);
 
   --bs-border-radius: 100px;
+}
+
+.btn-link {
+  --bs-link-color: var(--msde-white);
+  --bs-link-hover-color: var(--msde-light-green);
+  text-decoration: none;
 }
 
 /*
@@ -329,12 +343,17 @@ form button.btn-primary {
   --bs-badge-font-weight: 500;
 
   &.badge-collectif {
-    background-color: #eef4ff;
-    color: #3538cd;
+    --bs-badge-padding-x: 1.25rem;
+    --bs-badge-padding-y: 0.5rem;
+    background-color: transparent;
+    color: var(--msde-white);
+    border: 2px solid var(--relx-green-3);
   }
   &.badge-mot-clef {
-    background-color: #fdf2fa;
-    color: #c11574;
+    --bs-badge-padding-x: 1.25rem;
+    --bs-badge-padding-y: 0.5rem;
+    background-color: var(--relx-green-3);
+    color: var(--msde-white);
   }
 }
 
