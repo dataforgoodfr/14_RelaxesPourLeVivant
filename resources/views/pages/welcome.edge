@@ -11,29 +11,44 @@
   </head>
 
   <body>
-    <header class="mx-3 relx-bg-beige">
+    <header class="mx-4 relx-bg-beige border border-dark">
       {{-- TODO à changer  --}}
       @include('partials/navbar')
     </header>
 
-    <main class="mx-3">
+    <main class="mx-4">
       <h1 class="visually-hidden">
         Bienvenue sur {{ env.get('APP_NAME') }}
       </h1>
-      <section class="relx-bg-beige">
+
+      <section class="relx-bg-beige border border-top-0 border-dark">
         <h2 class="visually-hidden">
           Comment accéder à la plateforme ?
         </h2>
-        <p class="m-0">
-          Décisions de justice, analyses de la répression, récits d’audience, arguments du parquet...
-        </p>
-        <p class="m-0">
-          Retrouvez toutes les ressources indispensables pour aider les militant·es en procès pour avoir défendu le vivant à se défendre.
-        </p>
-        <a href="#" class="btn dev-bg">Demander un accès</a>
-        <p class="m-0">
-          Cette plateforme est destinée aux avocat·es qui défendent les militant·es dans les prétoires, aux équipes juridiques des collectifs d’action, aux militant·es et aux chercheur·ses qui travaillent sur ces sujets.
-        </p>
+        <div class="container-fluid p-0">
+          <div class="row m-0">
+            <div class="col-6">
+              <p class="m-0 relx-text-display-light">
+                Décisions de justice, analyses de la répression, récits d’audience, arguments du parquet...
+              </p>
+              <p class="m-0 relx-text-display">
+                Retrouvez toutes les ressources indispensables pour aider les militant·es en procès pour avoir défendu le vivant à se défendre.
+              </p>
+              <a href="#" class="btn relx-cta relx-bg-yellow">Demander un accès</a>
+              <p class="m-0">
+                Cette plateforme est destinée aux avocat·es qui défendent les militant·es dans les prétoires, aux équipes juridiques des collectifs d’action, aux militant·es et aux chercheur·ses qui travaillent sur ces sujets.
+              </p>
+            </div>
+            <div class="col-6 relx-bg-yellow">
+              <img
+                src="{{ asset('resources/images/welcome_illustration.png') }}"
+                class=""
+                alt="Militants en manifestation pacifique"
+              />
+            </div>
+          </div>
+        </div>
+
       </section>
       <section class="relx-bg-white">
         <h2>
@@ -107,7 +122,7 @@
       </section>
     </main>
 
-    <footer class="mx-3 relx-bg-white">
+    <footer class="mx-4 relx-bg-white">
       <p class="m-0">
         2026 ©MSDE
       </p>

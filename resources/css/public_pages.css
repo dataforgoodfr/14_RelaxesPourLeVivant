@@ -16,6 +16,15 @@
   --relx-green-100: #f2fbf8;
   --relx-default-black: #000000;
   --relx-default-white: #ffffff;
+  --relx-gray-100: #f8f9fa;
+  --relx-gray-200: #e9ecef;
+  --relx-gray-300: #dee2e6;
+  --relx-gray-400: #ced4da;
+  --relx-gray-500: var(--relx-gray-400);
+  --relx-gray-600: #6c757d;
+  --relx-gray-700: #495057;
+  --relx-gray-800: #343a40;
+  --relx-gray-900: #212529;
   /* unnamed colours used in figma */
   --relx-custom-beige: #fcf9f0;
   --relx-custom-green: #007f5f;
@@ -28,8 +37,62 @@
   background-color: var(--dev-magenta);
 }
 
+@font-face {
+  font-family: 'Poppins';
+  font-style: medium;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: light;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-Light.ttf');
+}
+
+/* fonts */
+@font-face {
+  font-family: 'Gelica';
+  font-style: bold;
+  font-weight: 700;
+  font-display: block;
+  src: url('https://typographer.io/1/fonts/drt:gelica::bold@1.0.0/woff2?token=1654b22ac1');
+}
+
+@font-face {
+  font-family: 'Gelica';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('https://typographer.io/1/fonts/drt:gelica::regular@1.0.0/woff2?token=cae9c278da');
+}
+
+@font-face {
+  font-family: 'Gelica';
+  font-style: light;
+  font-weight: 300;
+  font-display: block;
+  src: url('https://typographer.io/1/fonts/drt:gelica::light@1.0.0/woff2?token=2098236b94');
+}
+
 body {
-  background-color: aqua;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* override bs variables */
+:root {
+  --bs-dark-rgb: var(--relx-default-black);
 }
 
 .relx-bg-white {
@@ -46,4 +109,23 @@ body {
 
 .relx-bg-green {
   background-color: var(--relx-custom-green);
+}
+
+.relx-text-display {
+  font-family: Gelica;
+  font-weight: 400;
+  font-size: 32px;
+}
+
+.relx-text-display-light {
+  font-family: Gelica;
+  font-weight: 300;
+  font-size: 24px;
+}
+
+.relx-cta {
+  border-radius: 0;
+  border-color: var(--relx-gray-900);
+  font-weight: 300;
+  font-size: 22px;
 }
