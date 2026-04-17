@@ -32,9 +32,12 @@ export default class HomeController {
       villes,
       collectifs,
       audiences: audiences.map((audience) => {
-        audience.timeline = timelineDataMapper.map(audience)
-        return audience
+        return {
+          ...audience,
+          timeline: timelineDataMapper.map(audience),
+        }
       }),
+      total: audiences.total,
       paginations,
       searchQuery,
       chefDePreventionCategories,
