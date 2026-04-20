@@ -1,0 +1,13 @@
+{{-- Hero section component for displaying principal informations as block --}}
+<section class="vstack gap-4 ps-4 py-4 pe-5 text-bg-accent-dark rounded-1">
+  <div
+    class="text-bg-dark d-flex justify-content-center align-items-center rounded-2"
+    style="width: 64px; height: 64px;"
+  >
+    @svg(icon, { width: 24, height: 24   })
+  </div>
+  <h2 class="h4 mb-0 text-bg-accent-dark">
+    {{ titre }}
+  </h2>
+  {{{ await $slots.main() }}}
+</section>
