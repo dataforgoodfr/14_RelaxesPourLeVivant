@@ -109,6 +109,10 @@
   color: var(--relx-gray-2);
   font-weight: 500;
 
+  &:hover {
+    color: var(--msde-green);
+  }
+
   .nav-audiences-footer {
     font-weight: 400;
   }

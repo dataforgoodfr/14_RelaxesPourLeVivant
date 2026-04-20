@@ -105,7 +105,7 @@
               >
                 {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
                   <span class="nav-audiences-footer">
-                  <small>{{ audienceHelper.dateDecisionLabel(audience.date_de_decision) }}</small>
+                  <small>{{ audienceHelper.dateLabel(audience.date_de_decision) }}</small>
                   @if (isCurrent)
                     <span class="nav-link-indicator"></span>
                   @endif
@@ -127,7 +127,7 @@
             >
               <span class="vstack gap-1 align-items-start">
                 {{ audienceHelper.juridictionLabel(currentAudience.juridiction, currentAudience.ville_de_l_audience, currentAudience.degre_de_juridiction) }}
-                  <small>{{ audienceHelper.dateDecisionLabel(currentAudience.date_de_decision) }}</small>
+                  <small>{{ audienceHelper.dateLabel(currentAudience.date_de_decision) }}</small>
               </span>
             </button>
             <ul class="dropdown-menu">
@@ -140,7 +140,7 @@
                     {{{ isCurrent ? 'aria-current="page"' : '' }}}
                   >
                     {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
-                  <small>{{ audienceHelper.dateDecisionLabel(audience.date_de_decision) }}</small>
+                  <small>{{ audienceHelper.dateLabel(audience.date_de_decision) }}</small>
                   </a>
                 </li>
               @end
@@ -151,7 +151,7 @@
           @let (audience = currentAudience)
           {{-- For better accessibility hierarchy --}}
           <h2 class="visually-hidden">
-            Détails de l'audience {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }} {{ audienceHelper.dateDecisionLabel(audience.date_de_decision)  }}
+            Détails de l'audience {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }} {{ audienceHelper.dateLabel(audience.date_de_decision)  }}
           </h2>
           <div class="d-flex flex-column gap-5">
             <div class="row g-3 align-items-stretch">
