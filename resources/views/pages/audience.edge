@@ -89,358 +89,385 @@
       </div>
     </div>
     <div class="container-md px-4 px-md-0 my-5">
-      <div class="card px-4 py-2">
-        <div class="card-body d-flex flex-column gap-5">
-          <ul class="nav nav-underline" id="audienceTab" role="tablist">
+      <section class="row gy-4">
+        <div class="col-lg-4">
+          <!-- Desktop menu -->
+          <nav
+            class="nav nav-audiences flex-column d-none d-lg-flex"
+            aria-label="Liste des audiences de la procédure"
+          >
             @each (audience in procedure.audiences)
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link {{ currentAudience.id === audience.id ? 'active' : '' }} vstack gap-1"
-                  id="audience-{{ audience.id }}-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#audience-{{ audience.id }}-tab-pane"
-                  type="button"
-                  role="tab"
-                  aria-controls="audience-{{ audience.id }}-tab-pane"
-                  aria-selected="{{ currentAudience.id === audience.id ? 'true' : 'false' }}"
-                >
-                  {{ audience.degre_de_juridiction }}
-                  <small class="text-secondary">{{ audience.date_de_l_audience ? audience.date_de_l_audience.toFormat(dateFormat) : 'date non disponible' }}</small>
-                </button>
-              </li>
-            @end
-          </ul>
-          <div class="tab-content" id="audienceTabContent">
-            @each (audience in procedure.audiences)
-              <div
-                class="tab-pane fade {{ currentAudience.id === audience.id ? 'show active' : '' }}"
-                id="audience-{{ audience.id }}-tab-pane"
-                role="tabpanel"
-                aria-labelledby="audience-{{ audience.id }}-tab"
-                tabindex="0"
+              @let (isCurrent = currentAudience.id === audience.id)
+              <a
+                class="nav-link {{ isCurrent ? 'active' : '' }} vstack gap-1 align-items-start w-100"
+                href="{{ route('audiences.show', { id: audience.id }) }}#audienceInformation"
+                {{{ isCurrent ? 'aria-current="page"' : '' }}}
               >
-                {{-- For better accessibility hierarchy --}}
-                <h2 class="visually-hidden">
-                  Détails de l'audience {{ audience.degre_de_juridiction }} {{ audience.date_de_l_audience ? `du ${audience.date_de_l_audience.toFormat(dateFormat)}` : '' }}
-                </h2>
-                <div class="d-flex flex-column gap-5">
-                  <div class="row g-3 align-items-stretch">
-                    <div class="col-lg-4">
-                      <section class="card text-bg-primary p-2 h-100" aria-labelledby="section-decision-heading">
-                        <div class="card-body d-flex flex-column">
-                          <h3 class="card-title h6" id="section-decision-heading">
-                            {{ audience.decision_pour_les_infractions_principales }}
-                          </h3>
-                          <p class="card-text fs-4">
-                            {{ audience.details_de_la_decision_pour_les_infractions_principales }}
-                          </p>
-                          <footer class="mt-auto text-center">
-                            {{ audience.reference_de_la_decision }}
-                          </footer>
-                        </div>
-                      </section>
-                    </div>
-                    <div class="col-lg-8">
-                      <section class="card text-bg-light p-2 h-100" aria-labelledby="section-resume-jugement-heading">
-                        <div class="card-body d-flex flex-column">
-                          <h3 class="card-title" id="section-resume-jugement-heading">
-                            Résumé du jugement
-                          </h3>
-                          <p class="card-text">
-                            {{ audience.resume_du_jugement_ou_arret }}
-                          </p>
-                          <div class="mt-auto d-flex gap-2 flex-wrap">
-                            @let (jugementFiles = audience.jugement_ou_arret)
-                            @each((jugement, index) in (jugementFiles))
-                              @downloadButton({
-                                file: jugement,
-                                filePosition: (jugementFiles.length > 1) ? index+1 : undefined,
-                                url:  route('audiences.jugements', [audience.id, jugement.id])
-                              })
-                                Télécharger le jugement
-                              @end
-                            @end
-                          </div>
-                          @if (audience.recit_d_audience?.length > 0)
-                            <div class="mt-2">
-                              <span class="small fst-italic">Un récit d'audience est disponible mais nécessite une demande d'accès :</span>
-                              <a
-                                href="mailto:{{ env.get('CONTACT_EMAIL') }}"
-                                class="btn btn-sm btn-accent align-self-start d-inline-flex gap-1"
-                              >
-                                @svg('ph:envelope-simple')
-                                Demande d'accès
-                              </a>
-                            </div>
-                          @end
-                        </div>
-                      </section>
-                    </div>
-                  </div>
-
-                  <section aria-labelledby="section-audience-heading">
-                    <h3 class="mb-4" id="section-audience-heading">
-                      L'audience
-                    </h3>
-                    <dl class="row g-4">
-                      <dt class="col-sm-3">
-                        Juridiction
-                      </dt>
-                      <dd class="col-sm-9">
-                        @let (juridiction = [audience.juridiction, audience.ville_de_l_audience].filter(Boolean).join(" / "))
-                        @if (juridiction)
-                          {{ juridiction }}
-                        @else
-                          @!emptyData()
-                        @end
-                      </dd>
-                      <dt class="col-sm-3">
-                        Composition du Tribunal
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.composition_du_tribunal)
-                          {{ audience.composition_du_tribunal }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Numéro de chambre
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.numero_de_chambre)
-                          {{ audience.numero_de_chambre }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Nombre de prévenu·es
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.nombre_de_prevenus)
-                          {{ audience.nombre_de_prevenus }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Nom des parties civiles
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.noms_des_parties_civiles)
-                          {{ audience.noms_des_parties_civiles }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Demande des parties civiles
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.demande_des_parties_civiles)
-                          {{ audience.demande_des_parties_civiles }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Chefs de prévention
-                      </dt>
-                      <dd class="col-sm-9">
-                        @let (chefsCategories = audience.chefs_de_prevention_categorie ? audience.chefs_de_prevention_categorie.join(', ') : null)
-                        @if (chefsCategories)
-                          {{ chefsCategories }}
-                        @endif
-                        @let (chefsSousCategories = audience.chefs_de_prevention_sous_categorie ? audience.chefs_de_prevention_sous_categorie.join(', ') : null)
-                        @if (chefsSousCategories)
-                          {{{ chefsCategories ? '<br />' : null }}}
-                          {{ chefsSousCategories }}
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Réquisitions
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.requisitions)
-                          {{ audience.requisitions }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Date de l'audience
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.date_de_l_audience)
-                          {{ audience.date_de_l_audience.toFormat(dateFormat) }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Plaidoirie de la défense
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.plaidoirie_de_la_defense)
-                          {{ audience.plaidoirie_de_la_defense }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Résumé de l’audience
-                      </dt>
-                      <dd class="col-sm-9 fst-italic">
-                        @if (audience.resume_de_l_audience)
-                          "{{ audience.resume_de_l_audience }}"
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                    </dl>
-                  </section>
-
-                  <section aria-labelledby="section-decision-heading">
-                    <h3 class="mb-4" id="section-decision-heading">
-                      Détails de la décision
-                    </h3>
-                    <dl class="row g-4">
-                      <dt class="col-sm-3">
-                        Date de la décision
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.date_de_decision)
-                          {{ audience.date_de_decision.toFormat('dd/MM/yyyy') }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Décision pour les infractions principales
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.details_de_la_decision_pour_les_infractions_principales)
-                          {{ audience.details_de_la_decision_pour_les_infractions_principales }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Fondement de la relaxe
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.fondement_de_la_relaxe)
-                          {{ audience.fondement_de_la_relaxe }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Peine pour les infractions principales
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.details_des_peines_pour_les_infractions_principales)
-                          {{ audience.details_des_peines_pour_les_infractions_principales }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Peine complémentaire
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes)
-                          {{ audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Dommages et intérêts
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.detail_des_dommages_et_interets)
-                          {{ audience.detail_des_dommages_et_interets }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Inscription au casier
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.inscription_au_casier_judiciaire)
-                          {{ audience.inscription_au_casier_judiciaire }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Extrait de la décision
-                      </dt>
-                      <dd class="col-sm-9 fst-italic">
-                        @if (audience.extrait_de_la_decision)
-                          "{{ audience.extrait_de_la_decision }}"
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Commentaires MSDE
-                      </dt>
-                      <dd class="col-sm-9 fst-italic">
-                        @if (audience.commentaire_msde)
-                          "{{ audience.commentaire_msde }}"
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                    </dl>
-                  </section>
-
-                  <section aria-labelledby="section-appel-heading">
-                    <h3 class="mb-4" id="section-appel-heading">
-                      Appel
-                    </h3>
-                    <dl class="row g-4">
-                      <dt class="col-sm-3">
-                        Appel d'une des parties
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.appel_d_une_des_parties)
-                          {{ audience.appel_d_une_des_parties ? 'Oui' : 'Non' }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Partie de l'appel principal
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.partie_de_l_appel_principal)
-                          {{ audience.partie_de_l_appel_principal }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                      <dt class="col-sm-3">
-                        Partie de l'appel incident
-                      </dt>
-                      <dd class="col-sm-9">
-                        @if (audience.partie_de_l_appel_incident)
-                          {{ audience.partie_de_l_appel_incident }}
-                        @else
-                          @!emptyData()
-                        @endif
-                      </dd>
-                    </dl>
-                  </section>
-                </div>
-              </div>
+                {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
+                  <span class="nav-audiences-footer">
+                  <small>{{ audienceHelper.dateDecisionLabel(audience.date_de_decision) }}</small>
+                  @if (isCurrent)
+                    <span class="nav-link-indicator"></span>
+                  @endif
+                </span>
+              </a>
             @end
+          </nav>
+          <!-- Mobile menu -->
+          <div
+            class="dropdown d-block d-lg-none"
+            role="navigation"
+            aria-label="Liste des audiences de la procédure"
+          >
+            <button
+              class="btn btn-outline-dark dropdown-toggle w-100"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="vstack gap-1 align-items-start">
+                {{ audienceHelper.juridictionLabel(currentAudience.juridiction, currentAudience.ville_de_l_audience, currentAudience.degre_de_juridiction) }}
+                  <small>{{ audienceHelper.dateDecisionLabel(currentAudience.date_de_decision) }}</small>
+              </span>
+            </button>
+            <ul class="dropdown-menu">
+              @each (audience in procedure.audiences)
+                @let (isCurrent = currentAudience.id === audience.id)
+                <li>
+                  <a
+                    class="dropdown-item {{ isCurrent ? 'active' : '' }} vstack gap-1 align-items-start"
+                    href="{{ route('audiences.show', { id: audience.id }) }}#audienceInformation"
+                    {{{ isCurrent ? 'aria-current="page"' : '' }}}
+                  >
+                    {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
+                  <small>{{ audienceHelper.dateDecisionLabel(audience.date_de_decision) }}</small>
+                  </a>
+                </li>
+              @end
+            </ul>
           </div>
         </div>
+        <div class="col-lg-8" id="audienceInformation">
+          @let (audience = currentAudience)
+          {{-- For better accessibility hierarchy --}}
+          <h2 class="visually-hidden">
+            Détails de l'audience {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }} {{ audienceHelper.dateDecisionLabel(audience.date_de_decision)  }}
+          </h2>
+          <div class="d-flex flex-column gap-5">
+            <div class="row g-3 align-items-stretch">
+              <div class="col-lg-4">
+                <section class="card text-bg-primary p-2 h-100" aria-labelledby="section-decision-heading">
+                  <div class="card-body d-flex flex-column">
+                    <h3 class="card-title h6" id="section-decision-heading">
+                      {{ audience.decision_pour_les_infractions_principales }}
+                    </h3>
+                    <p class="card-text fs-4">
+                      {{ audience.details_de_la_decision_pour_les_infractions_principales }}
+                    </p>
+                    <footer class="mt-auto text-center">
+                      {{ audience.reference_de_la_decision }}
+                    </footer>
+                  </div>
+                </section>
+              </div>
+              <div class="col-lg-8">
+                <section class="card text-bg-light p-2 h-100" aria-labelledby="section-resume-jugement-heading">
+                  <div class="card-body d-flex flex-column">
+                    <h3 class="card-title" id="section-resume-jugement-heading">
+                      Résumé du jugement
+                    </h3>
+                    <p class="card-text">
+                      {{ audience.resume_du_jugement_ou_arret }}
+                    </p>
+                    <div class="mt-auto d-flex gap-2 flex-wrap">
+                      @let (jugementFiles = audience.jugement_ou_arret)
+                      @each((jugement, index) in (jugementFiles))
+                        @downloadButton({
+                                  file: jugement,
+                                  filePosition: (jugementFiles.length > 1) ? index+1 : undefined,
+                                  url:  route('audiences.jugements', [audience.id, jugement.id])
+                        })
+                          Télécharger le jugement
+                        @end
+                      @end
+                    </div>
+                    @if (audience.recit_d_audience?.length > 0)
+                      <div class="mt-2">
+                        <span class="small fst-italic">Un récit d'audience est disponible mais nécessite une demande d'accès :</span>
+                        <a
+                          href="mailto:{{ env.get('CONTACT_EMAIL') }}"
+                          class="btn btn-sm btn-accent align-self-start d-inline-flex gap-1"
+                        >
+                          @svg('ph:envelope-simple')
+                          Demande d'accès
+                              </a>
+                      </div>
+                    @end
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <section aria-labelledby="section-audience-heading">
+              <h3 class="mb-4" id="section-audience-heading">
+                L'audience
+              </h3>
+              <dl class="row g-4">
+                <dt class="col-sm-3">
+                  Juridiction
+                </dt>
+                <dd class="col-sm-9">
+                  @let (juridiction = audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience))
+                  @if (juridiction)
+                    {{ juridiction }}
+                  @else
+                    @!emptyData()
+                  @end
+                </dd>
+                <dt class="col-sm-3">
+                  Composition du Tribunal
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.composition_du_tribunal)
+                    {{ audience.composition_du_tribunal }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Numéro de chambre
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.numero_de_chambre)
+                    {{ audience.numero_de_chambre }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Nombre de prévenu·es
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.nombre_de_prevenus)
+                    {{ audience.nombre_de_prevenus }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Nom des parties civiles
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.noms_des_parties_civiles)
+                    {{ audience.noms_des_parties_civiles }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Demande des parties civiles
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.demande_des_parties_civiles)
+                    {{ audience.demande_des_parties_civiles }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Chefs de prévention
+                </dt>
+                <dd class="col-sm-9">
+                  @let (chefsCategories = audience.chefs_de_prevention_categorie ? audience.chefs_de_prevention_categorie.join(', ') : null)
+                  @if (chefsCategories)
+                    {{ chefsCategories }}
+                  @endif
+                  @let (chefsSousCategories = audience.chefs_de_prevention_sous_categorie ? audience.chefs_de_prevention_sous_categorie.join(', ') : null)
+                  @if (chefsSousCategories)
+                    {{{ chefsCategories ? '<br />' : null }}}
+                          {{ chefsSousCategories }}
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Réquisitions
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.requisitions)
+                    {{ audience.requisitions }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Date de l'audience
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.date_de_l_audience)
+                    {{ audience.date_de_l_audience.toFormat(dateFormat) }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Plaidoirie de la défense
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.plaidoirie_de_la_defense)
+                    {{ audience.plaidoirie_de_la_defense }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Résumé de l’audience
+                </dt>
+                <dd class="col-sm-9 fst-italic">
+                  @if (audience.resume_de_l_audience)
+                    "{{ audience.resume_de_l_audience }}"
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+              </dl>
+            </section>
+
+            <section aria-labelledby="section-decision-heading">
+              <h3 class="mb-4" id="section-decision-heading">
+                Détails de la décision
+              </h3>
+              <dl class="row g-4">
+                <dt class="col-sm-3">
+                  Date de la décision
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.date_de_decision)
+                    {{ audience.date_de_decision.toFormat('dd/MM/yyyy') }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Décision pour les infractions principales
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.details_de_la_decision_pour_les_infractions_principales)
+                    {{ audience.details_de_la_decision_pour_les_infractions_principales }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Fondement de la relaxe
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.fondement_de_la_relaxe)
+                    {{ audience.fondement_de_la_relaxe }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Peine pour les infractions principales
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.details_des_peines_pour_les_infractions_principales)
+                    {{ audience.details_des_peines_pour_les_infractions_principales }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Peine complémentaire
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes)
+                    {{ audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Dommages et intérêts
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.detail_des_dommages_et_interets)
+                    {{ audience.detail_des_dommages_et_interets }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Inscription au casier
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.inscription_au_casier_judiciaire)
+                    {{ audience.inscription_au_casier_judiciaire }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Extrait de la décision
+                </dt>
+                <dd class="col-sm-9 fst-italic">
+                  @if (audience.extrait_de_la_decision)
+                    "{{ audience.extrait_de_la_decision }}"
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Commentaires MSDE
+                </dt>
+                <dd class="col-sm-9 fst-italic">
+                  @if (audience.commentaire_msde)
+                    "{{ audience.commentaire_msde }}"
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+              </dl>
+            </section>
+
+            <section aria-labelledby="section-appel-heading">
+              <h3 class="mb-4" id="section-appel-heading">
+                Appel
+              </h3>
+              <dl class="row g-4">
+                <dt class="col-sm-3">
+                  Appel d'une des parties
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.appel_d_une_des_parties)
+                    {{ audience.appel_d_une_des_parties ? 'Oui' : 'Non' }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Partie de l'appel principal
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.partie_de_l_appel_principal)
+                    {{ audience.partie_de_l_appel_principal }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+                <dt class="col-sm-3">
+                  Partie de l'appel incident
+                </dt>
+                <dd class="col-sm-9">
+                  @if (audience.partie_de_l_appel_incident)
+                    {{ audience.partie_de_l_appel_incident }}
+                  @else
+                    @!emptyData()
+                  @endif
+                </dd>
+              </dl>
+            </section>
+          </div>
+        </section>
       </div>
     </div>
   </div>

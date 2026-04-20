@@ -72,12 +72,16 @@
   --relx-accent-dark-rgb: 7, 52, 55;
   --relx-accent-subtle: #f2efcb;
   --relx-accent-subtle-rgb: 242, 239, 203;
+  --relx-blue-green: #00444a;
+  --relx-blue-green-rgb: 0, 68, 74;
   --relx-petrol-3: #161b2e;
   --relx-petrol-3-rgb: 22, 27, 46;
   --relx-yellow-1: #ffe16f;
   --relx-yellow-1-rgb: 255, 225, 111;
   --relx-green-3: #00805f;
   --relx-green-3-rgb: 0, 128, 95;
+  --relx-gray-2: #504f53;
+  --relx-gray-2-rgb: 80, 79, 83;
 }
 
 /*

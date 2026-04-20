@@ -114,17 +114,11 @@
                           @svg('ph:calendar-dot-fill')
                           Audience : {{ audience.date_de_l_audience ? audience.date_de_l_audience.toFormat(dateFormat) : 'date non disponible' }}
                         </p>
-                        @if(audience.juridiction && audience.ville_de_l_audience)
-                          <p class="mb-1 d-flex align-items-center gap-1">
-                            @svg('ph:bank-fill')
-                            {{ audience.juridiction }} de <span class="text-capitalize">{{ audience.ville_de_l_audience.toLowerCase() }}</span>
-                          </p>
-                        @elseif(audience.juridiction || audience.ville_de_l_audience)
-                          <p class="mb-1 d-flex align-items-center gap-1">
-                            @svg('ph:bank-fill')
-                            {{ audience.juridiction ?? "" }}<span class="text-capitalize">{{ audience.ville_de_l_audience?.toLowerCase() ?? "" }}</span>
-                          </p>
-                        @endif
+                        @let (juridictionLabel = audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience))
+                        <p class="mb-1 d-flex align-items-center gap-1">
+                          @svg('ph:bank-fill')
+                          {{ juridictionLabel }}
+                        </p>
                         @if(audience.chefs_de_prevention_categorie?.length)
                           <p class="mb-1 d-flex align-items-center gap-1">
                             @svg('ph:scales-fill')
