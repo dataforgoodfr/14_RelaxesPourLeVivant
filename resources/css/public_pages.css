@@ -131,6 +131,12 @@ body {
   font-size: 1.5rem;
 }
 
+.relx-serif-text {
+  font-family: Gelica;
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+
 .relx-cta {
   border-radius: 0;
   border-color: var(--relx-gray-900);
@@ -189,5 +195,18 @@ body {
     &.relx-sticker-title-line-2 {
       transform: rotate(-1deg);
     }
+  }
+}
+
+.relx-section-pourquoi {
+  padding-top: 80px;
+  padding-bottom: 120px;
+
+  .relx-screenshot {
+    margin: 0 150px;
+  }
+
+  .relx-section-pourquoi-text {
+    max-width: 500px;
   }
 }
