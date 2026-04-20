@@ -253,6 +253,16 @@ body {
   }
 }
 
+.relx-header-links {
+  padding: 12px 24px;
+
+  a {
+    color: var(--relx-default-black);
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+}
+
 footer {
   padding: 80px 40px;
 
