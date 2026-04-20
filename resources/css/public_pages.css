@@ -252,3 +252,12 @@ body {
     color: var(--relx-green-dark);
   }
 }
+
+footer {
+  padding: 80px 40px;
+
+  a {
+    color: var(--relx-default-black);
+    text-decoration: underline;
+  }
+}
