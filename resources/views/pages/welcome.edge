@@ -82,7 +82,7 @@
               <img src="{{ asset('resources/images/hands.png') }}" alt="mains qui collaborent" />
             </div>
             <div class="col-6 d-flex flex-column align-items-start justify-content-center gap-5">
-              <h2 class="relx-sticker-title my-2">
+              <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
                 <span class="relx-sticker-title-line-1 py-2 px-3">Pourquoi le MSDE a-t-il</span>
                 <span class="relx-sticker-title-line-2 py-2 px-3">construit une base de données ?</span>
               </h2>
@@ -124,17 +124,31 @@
           </div>
         </div>
       </section>
-      <section class="relx-bg-beige">
-        <h2>
-          Qui peut accéder à Relaxes pour le vivant ?
-        </h2>
-        <p class="m-0">
-          Principalement des avocat⋅es et des équipes juridiques.
-        </p>
-        <p class="m-0">
-          Cette base de données permet de lutter contre la répression judiciaire des militant⋅es et analyser la répression.
-        </p>
-        <a href="#" class="btn dev-bg">Demander un accès</a>
+      <section class="relx-bg-beige relx-section-acces">
+        <div class="row">
+          <div class="col-12 d-flex flex-column align-items-center gap-3">
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-center fs-1 mb-5">
+              <span class="relx-sticker-title-line-1 py-2 px-3">Qui peut accéder à</span>
+              <span class="relx-sticker-title-line-2 py-2 px-3">Relaxes pour le vivant ?</span>
+            </h2>
+
+            <p class="m-0 relx-text-display fw-bold text-center">
+              Principalement des avocat⋅es et des équipes juridiques.
+            </p>
+            <p class="m-0 relx-serif-text fs-2 text-center mb-5">
+              Cette base de données permet de lutter contre la répression judiciaire des militant⋅es et analyser la répression.
+            </p>
+            <a
+              href="{{ route('sign-up') }}"
+              class="btn relx-cta relx-bg-yellow p-4 d-inline-flex align-items-center gap-3 mt-5"
+            >
+              <p class="m-0 text-nowrap">
+                Demander un accès
+              </p>
+              <img src="{{ asset('resources/images/cta_arrow.svg') }}" alt="flèche pointant en haut à droite" />
+            </a>
+          </div>
+        </div>
         <p class="m-0">
           Vous vous demandez ce qu'est une équipe juridique ?
         </p>
