@@ -93,7 +93,6 @@ body {
 :root {
   --bs-dark-rgb: var(--relx-default-black);
   --bs-secondary-rgb: var(--relx-text-neutral-secondary-rgb);
-  --bs-btn-hover-border-color: var(--relx-default-black);
 }
 
 .relx-bg-white {
@@ -130,6 +129,7 @@ body {
   font-weight: 300;
   font-size: 1.5rem;
   box-shadow: 0 4px var(--relx-custom-drop-shadow);
+  --bs-btn-hover-border-color: var(--relx-default-black);
 }
 
 .relx-accroche-p {
