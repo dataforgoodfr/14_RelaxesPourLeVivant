@@ -121,8 +121,8 @@ body {
 
 .relx-text-display-bigger {
   font-family: Gelica;
-  font-weight: 2.75rem;
-  font-size: 2rem;
+  font-weight: 400;
+  font-size: 2.75rem;
 }
 
 .relx-text-display {
@@ -239,4 +239,16 @@ body {
 
 .relx-section-fonctionnement {
   padding: 112px 48px;
+}
+
+.relx-section-soutien {
+  padding: 80px 80px 0 80px;
+
+  .relx-section-soutien-text p {
+    max-width: 520px;
+  }
+
+  a.relx-contribution {
+    color: var(--relx-green-dark);
+  }
 }
