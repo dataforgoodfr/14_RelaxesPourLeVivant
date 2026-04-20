@@ -37,6 +37,14 @@
 
 @font-face {
   font-family: 'Poppins';
+  font-style: semi-bold;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
   font-style: medium;
   font-weight: 500;
   font-display: swap;
@@ -163,4 +171,23 @@ body {
   object-fit: cover;
   object-position: center bottom;
   border-radius: 0 !important;
+}
+
+.relx-sticker-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  & span {
+    background-color: var(--relx-green-900);
+    color: var(--relx-default-white);
+
+    &.relx-sticker-title-line-1 {
+      transform: rotate(2deg);
+    }
+
+    &.relx-sticker-title-line-2 {
+      transform: rotate(-1deg);
+    }
+  }
 }
