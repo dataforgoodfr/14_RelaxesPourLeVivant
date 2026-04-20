@@ -207,8 +207,8 @@ export class AudienceService {
    * @returns
    */
   getLastDecision(audiences: Audience[]) {
-    const sortedAudiencesWithDecision = [...audiences]
-      .filter((a) => a.decision_pour_les_infractions_principales !== null)
+    const sortedAudiencesWithDecision = audiences
+      .filter((a) => Boolean(a.decision_pour_les_infractions_principales))
       .sort((a, b) => {
         if (a.date_de_l_audience && b.date_de_l_audience) {
           return b.date_de_l_audience.toMillis() - a.date_de_l_audience.toMillis()
@@ -219,7 +219,6 @@ export class AudienceService {
         }
         return 0
       })
-    return sortedAudiencesWithDecision[sortedAudiencesWithDecision.length - 1]
-      .decision_pour_les_infractions_principales
+    return sortedAudiencesWithDecision.at(-1)?.decision_pour_les_infractions_principales
   }
 }
