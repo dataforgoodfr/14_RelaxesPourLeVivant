@@ -342,18 +342,19 @@ form button.btn-primary {
   --bs-badge-padding-y: 0.375rem;
   --bs-badge-font-weight: 500;
 
-  &.badge-collectif {
+  &.badge-outline-green {
     --bs-badge-padding-x: 1.25rem;
     --bs-badge-padding-y: 0.5rem;
     background-color: transparent;
     color: var(--msde-white);
     border: 2px solid var(--relx-green-3);
   }
-  &.badge-mot-clef {
+  &.badge-green {
     --bs-badge-padding-x: 1.25rem;
     --bs-badge-padding-y: 0.5rem;
     background-color: var(--relx-green-3);
     color: var(--msde-white);
+    border: 2px solid var(--relx-green-3);
   }
 }
 

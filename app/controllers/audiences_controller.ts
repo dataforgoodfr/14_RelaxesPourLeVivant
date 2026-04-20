@@ -15,8 +15,8 @@ export default class AudiencesController {
 
   /**
    * Returns the page for an audience if both audience and its procedure are published.
-   * - Regroup unique audiences mots_cles
    * - Regroup every liens presse and sort them alphabetically.
+   * - Get the last decision of the procedure audiences.
    * @param HttpContext
    * @returns
    */
@@ -27,22 +27,18 @@ export default class AudiencesController {
     const audience = procedureWithAudiences.audiences.find(
       (a) => a.id === Number(request.param('id'))
     )
-    const motsCles = procedureWithAudiences.audiences.reduce((acc, item) => {
-      if (item.mots_cles) {
-        item.mots_cles.forEach((motCle) => acc.add(motCle))
-      }
-      return acc
-    }, new Set<string>())
     const liensPresse = [
       ...(procedureWithAudiences.la_presse_parle_des_faits ?? []),
       ...procedureWithAudiences.audiences.flatMap((a) => a.la_presse_parle_du_proces ?? []),
     ].sort((a, b) => a.titre.localeCompare(b.titre))
 
+    const lastDecision = this.audienceService.getLastDecision(procedureWithAudiences.audiences)
+
     return view.render('pages/audience', {
       procedure: procedureWithAudiences,
       currentAudience: audience,
-      motsCles: Array.from(motsCles),
       liensPresse,
+      lastDecision,
     })
   }
 

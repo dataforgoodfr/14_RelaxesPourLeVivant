@@ -24,16 +24,16 @@
               {{ procedure.titre }}
             </h1>
             <div class="vstack gap-2">
-              @if (motsCles.length > 0)
+              @if (lastDecision)
                 <div>
-                  @each(motCle in motsCles)
-                    <span class="badge badge-mot-clef rounded-pill fw-medium">{{ motCle }}</span>
-                  @end
+                  <span class="badge badge-green rounded-pill fw-medium lh-lg">{{ lastDecision }}</span>
                 </div>
               @endif
               <div class="d-flex flex-column align-items-start gap-2">
                 @each(collectif in procedure.collectif_d_action_ou_lutte)
-                  <span class="d-inline-flex align-items-center gap-2 badge badge-collectif rounded-pill fw-medium">
+                  <span
+                    class="d-inline-flex align-items-center gap-2 badge badge-outline-green rounded-pill fw-medium lh-lg"
+                  >
                     @svg('ph:flag-banner-fold', { width: 20, height: 20 })
                     {{ collectif }}</span>
                 @end
