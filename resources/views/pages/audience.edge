@@ -9,6 +9,23 @@
     </title>
     @let (navbarTheme = 'dark')
     @include('partials/bootstrap')
+    <script defer src="{{ env.get('METABASE_URL') }}/app/embed.js">
+
+    </script>
+    <script>
+      function defineMetabaseConfig(config) {
+        window.metabaseConfig = config;
+      }
+    </script>
+    <script>
+      defineMetabaseConfig({
+        theme: {
+          preset: "light"
+        },
+        isGuest: true,
+        instanceUrl: "{{ env.get('METABASE_URL') }}"
+      });
+    </script>
   </head>
 
   <body class="bg-light">
@@ -284,6 +301,26 @@
                   </hgroup>
                 </section>
               </div>
+            </div>
+            <div class="row g-5">
+              <section class="col-lg-12" aria-labelledby="graph-evolution-condamnations-heading">
+                <h3 class="small" id="graph-evolution-condamnations-heading">
+                  Évolution des condamnations pour ce chef de prévention
+                </h3>
+                <p class="small">
+                  En france, entre 2014 et 2026 <span class="small text-muted">Le score de gravité est un indice MSDE. En savoir plus</span>
+                </p>
+                @let(initialParameters = {
+                chefs_de_prevention_categorie: currentAudience.chefs_de_prevention_categorie
+                })
+                <metabase-question
+                  token="{{ metabaseToken }}"
+                  with-title="false"
+                  initial-sql-parameters='{{{ JSON.stringify(initialParameters) }}}'
+                  {{-- initial-sql-parameters='{"chefs_de_prevention_categorie":["Entrave à la circulation"]}' --}}
+                >
+                </metabase-question>
+              </section>
             </div>
             <div class="row g-5">
               <section class="col-12 vstack gap-3" aria-labelledby="section-informations-generales-heading">
