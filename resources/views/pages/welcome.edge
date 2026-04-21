@@ -21,7 +21,7 @@
       @include('partials/navbar')
     </header>
 
-    <main class="mx-4">
+    <main class="mx-md-4">
       <h1 class="visually-hidden">
         Bienvenue sur {{ env.get('APP_NAME') }}
       </h1>
@@ -32,7 +32,7 @@
         </h2>
         <div class="container-fluid p-0">
           <div class="row m-0">
-            <div class="col-6 d-flex flex-column p-0 border-end border-dark">
+            <div class="col-12 col-lg-6 d-flex flex-column p-0">
               <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-start relx-accroche-p">
                 <p class="m-0 relx-text-display-light mb-3">
                   Décisions de justice, analyses de la répression, récits d’audience, arguments du parquet...
@@ -42,7 +42,7 @@
                 </p>
                 <a
                   href="{{ route('sign-up') }}"
-                  class="btn relx-cta relx-bg-yellow p-4 d-inline-flex align-items-center gap-3"
+                  class="btn relx-cta relx-bg-yellow p-3 p-lg-4 d-inline-flex align-items-center gap-3"
                 >
                   <p class="m-0 text-nowrap">
                     Demander un accès
@@ -54,7 +54,7 @@
                 <div class="relx-legende-part-x">
                 </div>
                 <div class="flex-grow-1 d-flex justify-content-center align-items-center p-4">
-                  <p class="m-0 text-secondary">
+                  <p class="m-0 text-secondary relx-legende-text">
                     Cette plateforme est destinée aux avocat·es qui défendent les militant·es dans les prétoires, aux équipes juridiques des collectifs d’action, aux militant·es et aux chercheur·ses qui travaillent sur ces sujets.
                   </p>
                 </div>
@@ -69,7 +69,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-6 relx-bg-yellow p-4 d-flex">
+            <div class="d-none col-lg-6 d-lg-flex relx-bg-yellow p-4 d-flex border-start border-dark">
               <img
                 src="{{ asset('resources/images/welcome_illustration.png') }}"
                 class="img-thumbnail border border-dark flex-grow-1 p-0 relx-full-size-cropped-image"
@@ -78,8 +78,8 @@
             </div>
           </div>
         </div>
-
       </section>
+
       <section class="border border-dark border-top-0 relx-bg-white relx-section-pourquoi">
         <div class="container-fluid p-0">
           <div class="row m-0 mb-5">
