@@ -295,7 +295,7 @@ body {
         object-fit: contain;
       }
 
-      @media (min-width: 768px) {
+      @media (min-width: 992px) {
         flex: 1 0 120px;
         min-height: 140px;
         display: flex;
@@ -304,7 +304,7 @@ body {
       }
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       & > div {
         border-bottom: none;
         border-right: solid 1px var(--relx-default-black);
@@ -314,7 +314,11 @@ body {
 }
 
 .relx-section-fonctionnement {
-  padding: 112px 48px;
+  padding: 40px 16px 80px 16px;
+
+  @media (min-width: 768px) {
+    padding: 112px 48px;
+  }
 }
 
 .relx-section-soutien {
