@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Poppins';
+  font-style: semi-bold;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: medium;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: light;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/resources/fonts/Poppins-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Gelica';
+  font-style: bold;
+  font-weight: 700;
+  font-display: block;
+  src: url('https://typographer.io/1/fonts/drt:gelica::bold@1.0.0/woff2?token=1654b22ac1');
+}
+
+@font-face {
+  font-family: 'Gelica';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('https://typographer.io/1/fonts/drt:gelica::regular@1.0.0/woff2?token=cae9c278da');
+}
+
+@font-face {
+  font-family: 'Gelica';
+  font-style: light;
+  font-weight: 300;
+  font-display: block;
+  src: url('https://typographer.io/1/fonts/drt:gelica::light@1.0.0/woff2?token=2098236b94');
+}

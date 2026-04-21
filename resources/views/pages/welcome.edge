@@ -27,14 +27,16 @@
       </h1>
 
       {{-- Figma template section named: "accroche" --}}
-      <section class="relx-bg-beige border border-top-0 border-dark">
+      <section class="relx-bg-beige border border-top-0 border-dark relx-section-accroche">
         <h2 class="visually-hidden">
           Comment accéder à la plateforme ?
         </h2>
         <div class="container-fluid p-0">
           <div class="row m-0">
             <div class="col-12 col-lg-6 d-flex flex-column p-0">
-              <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-start relx-accroche-p">
+              <div
+                class="flex-grow-1 d-flex flex-column justify-content-center align-items-start relx-section-accroche-text"
+              >
                 <p class="m-0 relx-text-display-light mb-3">
                   Décisions de justice, analyses de la répression, récits d’audience, arguments du parquet...
                 </p>
@@ -52,10 +54,10 @@
                 </a>
               </div>
               <div class="d-flex border-top border-dark">
-                <div class="relx-legende-part-x">
+                <div class="relx-section-accroche-legende-part-x">
                 </div>
                 <div class="flex-grow-1 d-flex justify-content-center align-items-center p-4">
-                  <p class="m-0 text-secondary relx-legende-text">
+                  <p class="m-0 text-secondary relx-section-accroche-legende-text">
                     Cette plateforme est destinée aux avocat·es qui défendent les militant·es dans les prétoires, aux équipes juridiques des collectifs d’action, aux militant·es et aux chercheur·ses qui travaillent sur ces sujets.
                   </p>
                 </div>
@@ -63,17 +65,17 @@
                   <div class="p-4 flex-grow-1 d-flex flex-column justify-content-center">
                     <img src="{{ asset('resources/images/book.svg') }}" alt="flèche pointant en haut à droite" />
                   </div>
-                  <div class="relx-legende-part-y">
+                  <div class="relx-section-accroche-legende-part-y">
                   </div>
                 </div>
-                <div class="relx-legende-part-x border-start border-dark">
+                <div class="relx-section-accroche-legende-part-x border-start border-dark">
                 </div>
               </div>
             </div>
             <div class="d-none col-lg-6 d-lg-flex relx-bg-yellow p-4 d-flex border-start border-dark">
               <img
                 src="{{ asset('resources/images/welcome_illustration.png') }}"
-                class="img-thumbnail border border-dark flex-grow-1 p-0 relx-full-size-cropped-image"
+                class="img-thumbnail border border-dark flex-grow-1 p-0 relx-section-accroche-image"
                 alt="Militants en manifestation pacifique"
               />
             </div>

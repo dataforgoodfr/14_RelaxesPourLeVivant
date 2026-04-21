@@ -1,108 +1,16 @@
-/* Colour system */
-:root {
-  /* according to figma MSDE color styles */
-  --relx-green-dark: #004449;
-  --relx-green-base: #027f5f;
-  --relx-orange-base: #ff9d02;
-  --relx-yellow-base: #ffc300;
-  --relx-green-900: #1e1f24;
-  --relx-green-800: #083438;
-  --relx-green-300: #cbf2e3;
-  --relx-green-200: #e1f9ef;
-  --relx-green-100: #f2fbf8;
-  --relx-default-black: #000000;
-  --relx-default-black-rgb: 0, 0, 0;
-  --relx-default-white: #ffffff;
-  --relx-gray-100: #f8f9fa;
-  --relx-gray-200: #e9ecef;
-  --relx-gray-300: #dee2e6;
-  --relx-gray-400: #ced4da;
-  --relx-gray-500: var(--relx-gray-400);
-  --relx-gray-600: #6c757d;
-  --relx-gray-700: #495057;
-  --relx-gray-800: #343a40;
-  --relx-gray-900: #212529;
-  /* unnamed colours used in figma */
-  --relx-custom-beige: #fcf9f0;
-  --relx-custom-green: #007f5f;
-  --relx-custom-drop-shadow: #0a0d1226;
-  --relx-text-neutral-secondary: #5a5a5a;
-  --relx-text-neutral-secondary-rgb: 90, 90, 90;
-}
-
-/* devOnly */
-.dev-bg {
-  background-color: magenta;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: semi-bold;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/resources/fonts/Poppins-SemiBold.ttf');
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: medium;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/resources/fonts/Poppins-Medium.ttf');
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/resources/fonts/Poppins-Regular.ttf');
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: light;
-  font-weight: 300;
-  font-display: swap;
-  src: url('/resources/fonts/Poppins-Light.ttf');
-}
-
-/* fonts */
-@font-face {
-  font-family: 'Gelica';
-  font-style: bold;
-  font-weight: 700;
-  font-display: block;
-  src: url('https://typographer.io/1/fonts/drt:gelica::bold@1.0.0/woff2?token=1654b22ac1');
-}
-
-@font-face {
-  font-family: 'Gelica';
-  font-style: normal;
-  font-weight: 400;
-  font-display: block;
-  src: url('https://typographer.io/1/fonts/drt:gelica::regular@1.0.0/woff2?token=cae9c278da');
-}
-
-@font-face {
-  font-family: 'Gelica';
-  font-style: light;
-  font-weight: 300;
-  font-display: block;
-  src: url('https://typographer.io/1/fonts/drt:gelica::light@1.0.0/woff2?token=2098236b94');
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  color: var(--relx-default-black);
-}
-
 /* override bs variables */
 :root {
   --bs-dark-rgb: var(--relx-default-black);
   --bs-secondary-rgb: var(--relx-text-neutral-secondary-rgb);
 }
 
+/* default body styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--relx-default-black);
+}
+
+/* background styles */
 .relx-bg-white {
   background-color: var(--relx-default-white);
 }
@@ -119,6 +27,7 @@ body {
   background-color: var(--relx-custom-green);
 }
 
+/* font styles */
 .relx-text-display-bigger {
   font-family: Gelica;
   font-weight: 400;
@@ -143,6 +52,7 @@ body {
   font-size: clamp(1.125rem, 1.03rem + 0.37vw, 1.3125rem);
 }
 
+/* Components */
 .relx-cta {
   border-radius: 0;
   border-color: var(--relx-gray-900);
@@ -152,52 +62,7 @@ body {
   --bs-btn-hover-border-color: var(--relx-default-black);
 }
 
-.relx-accroche-p {
-  padding: 80px 16px 80px 16px;
-
-  @media (min-width: 992px) {
-    padding: 112px 64px 112px 64px;
-  }
-}
-
-.relx-legende-part-x {
-  flex: 0 0 40px;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 7px,
-    var(--relx-default-black) 7px,
-    var(--relx-default-black) 8px
-  );
-}
-
-.relx-legende-part-y {
-  flex: 0 0 72px;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 7px,
-    var(--relx-default-black) 7px,
-    var(--relx-default-black) 8px
-  );
-
-  @media (min-width: 992px) {
-    flex: 0 0 48px;
-  }
-}
-
-.relx-legende-text {
-  font-size: clamp(0.8125rem, 0.72rem + 0.37vw, 1rem);
-}
-
-.relx-full-size-cropped-image {
-  object-fit: cover;
-  object-position: center bottom;
-  border-radius: 0 !important;
-}
-
 .relx-sticker-title {
-  /*font-size: clamp(1.25rem, 0.89rem + 1.48vw, 2rem);*/
   font-size: clamp(1.125rem, 0.73rem + 1.63vw, 2rem);
 
   & span {
@@ -230,6 +95,64 @@ body {
   }
 }
 
+.relx-header-links {
+  padding: 12px 24px;
+
+  a {
+    color: var(--relx-default-black);
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+}
+
+/* Figma template section named: "accroche" */
+.relx-section-accroche {
+  .relx-section-accroche-text {
+    padding: 80px 16px 80px 16px;
+
+    @media (min-width: 992px) {
+      padding: 112px 64px 112px 64px;
+    }
+  }
+
+  .relx-section-accroche-legende-part-x {
+    flex: 0 0 40px;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 7px,
+      var(--relx-default-black) 7px,
+      var(--relx-default-black) 8px
+    );
+  }
+
+  .relx-section-accroche-legende-part-y {
+    flex: 0 0 72px;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 7px,
+      var(--relx-default-black) 7px,
+      var(--relx-default-black) 8px
+    );
+
+    @media (min-width: 992px) {
+      flex: 0 0 48px;
+    }
+  }
+
+  .relx-section-accroche-legende-text {
+    font-size: clamp(0.8125rem, 0.72rem + 0.37vw, 1rem);
+  }
+
+  .relx-section-accroche-image {
+    object-fit: cover;
+    object-position: center bottom;
+    border-radius: 0 !important;
+  }
+}
+
+/* Figma template section named: "Pourquoi" */
 .relx-section-pourquoi {
   padding: 56px 16px 80px 16px;
 
@@ -246,6 +169,7 @@ body {
   }
 }
 
+/* Figma template section named: "ContenuBDD" */
 .relx-section-contenu-bdd {
   overflow: hidden;
 
@@ -269,6 +193,7 @@ body {
   }
 }
 
+/* Figma template section named: "Acces" */
 .relx-section-acces {
   padding-top: 120px;
 
@@ -313,6 +238,7 @@ body {
   }
 }
 
+/* Figma template section named: "Fonctionnement" */
 .relx-section-fonctionnement {
   padding: 40px 16px 80px 16px;
 
@@ -321,6 +247,7 @@ body {
   }
 }
 
+/* Figma template section named: "Soutient" */
 .relx-section-soutien {
   padding: 80px 16px 0 16px;
 
@@ -337,16 +264,7 @@ body {
   }
 }
 
-.relx-header-links {
-  padding: 12px 24px;
-
-  a {
-    color: var(--relx-default-black);
-    text-decoration: none;
-    font-size: 0.8rem;
-  }
-}
-
+/* Footer */
 footer {
   padding: 24px;
 

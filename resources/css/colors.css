@@ -1,0 +1,30 @@
+:root {
+  /* according to figma MSDE color styles */
+  --relx-green-dark: #004449;
+  --relx-green-base: #027f5f;
+  --relx-orange-base: #ff9d02;
+  --relx-yellow-base: #ffc300;
+  --relx-green-900: #1e1f24;
+  --relx-green-800: #083438;
+  --relx-green-300: #cbf2e3;
+  --relx-green-200: #e1f9ef;
+  --relx-green-100: #f2fbf8;
+  --relx-default-black: #000000;
+  --relx-default-black-rgb: 0, 0, 0;
+  --relx-default-white: #ffffff;
+  --relx-gray-100: #f8f9fa;
+  --relx-gray-200: #e9ecef;
+  --relx-gray-300: #dee2e6;
+  --relx-gray-400: #ced4da;
+  --relx-gray-500: var(--relx-gray-400);
+  --relx-gray-600: #6c757d;
+  --relx-gray-700: #495057;
+  --relx-gray-800: #343a40;
+  --relx-gray-900: #212529;
+  /* unnamed colours used in figma */
+  --relx-custom-beige: #fcf9f0;
+  --relx-custom-green: #007f5f;
+  --relx-custom-drop-shadow: #0a0d1226;
+  --relx-text-neutral-secondary: #5a5a5a;
+  --relx-text-neutral-secondary-rgb: 90, 90, 90;
+}
