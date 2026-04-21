@@ -322,7 +322,7 @@ body {
 }
 
 .relx-section-soutien {
-  padding: 80px 80px 0 80px;
+  padding: 80px 16px 0 16px;
 
   .relx-section-soutien-text p {
     max-width: 520px;
@@ -330,6 +330,10 @@ body {
 
   a.relx-contribution {
     color: var(--relx-green-dark);
+  }
+
+  @media (min-width: 768px) {
+    padding: 80px 80px 0 80px;
   }
 }
 
