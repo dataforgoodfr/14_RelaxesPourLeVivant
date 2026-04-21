@@ -122,7 +122,7 @@ body {
 .relx-text-display-bigger {
   font-family: Gelica;
   font-weight: 400;
-  font-size: 2.75rem;
+  font-size: clamp(2rem, 1.64rem + 1.48vw, 2.75rem);
 }
 
 .relx-text-display {
@@ -230,16 +230,14 @@ body {
 }
 
 .relx-section-pourquoi {
-  padding-top: 56px;
-  padding-bottom: 80px;
+  padding: 56px 16px 80px 16px;
 
   .relx-section-pourquoi-text {
     max-width: 500px;
   }
 
   @media (min-width: 992px) {
-    padding-top: 80px;
-    padding-bottom: 120px;
+    padding: 80px 0 120px 0;
 
     .relx-screenshot {
       padding: 0 150px;
@@ -251,10 +249,17 @@ body {
   overflow: hidden;
 
   .relx-section-contenu-bdd-text {
-    padding: 120px;
-    padding-right: 180px;
+    padding: 40px 16px 40px 16px;
     overflow: hidden;
     color: var(--relx-default-white);
+    border-bottom: solid 1px var(--relx-default-black);
+
+    @media (min-width: 768px) {
+      padding: 120px;
+      padding-right: 180px;
+      border-bottom: none;
+      border-right: solid 1px var(--relx-default-black);
+    }
   }
   .relx-section-contenu-bdd-illustration {
     object-fit: cover;
