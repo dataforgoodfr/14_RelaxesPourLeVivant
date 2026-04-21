@@ -26,6 +26,7 @@
         Bienvenue sur {{ env.get('APP_NAME') }}
       </h1>
 
+      {{-- Figma template section named: "accroche" --}}
       <section class="relx-bg-beige border border-top-0 border-dark">
         <h2 class="visually-hidden">
           Comment accéder à la plateforme ?
@@ -80,30 +81,34 @@
         </div>
       </section>
 
+      {{-- Figma template section named: "Pourquoi" --}}
       <section class="border border-dark border-top-0 relx-bg-white relx-section-pourquoi">
-        <div class="container-fluid p-0">
-          <div class="row m-0 mb-5">
-            <div class="col-6 d-flex align-items-center justify-content-center">
+        <div class="container-fluid p-0 d-flex flex-column d-lg-block gap-5">
+          <div class="row m-0 order-2 order-lg-1">
+            <div class="d-none d-lg-flex col-6 d-flex align-items-center justify-content-center">
               <img src="{{ asset('resources/images/hands.png') }}" alt="mains qui collaborent" />
             </div>
-            <div class="col-6 d-flex flex-column align-items-start justify-content-center gap-5">
+            <div
+              class="col-12 col-lg-6 d-flex flex-column align-items-start justify-content-center gap-3 gap-md-5"
+            >
               <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
-                <span class="relx-sticker-title-line-1 py-2 px-3">Pourquoi le MSDE a-t-il</span>
-                <span class="relx-sticker-title-line-2 py-2 px-3">construit une base de données ?</span>
+                <span class="relx-ro-1 py-2 px-3 mb-1">Pourquoi le MSDE a-t-il</span>
+                <span class="relx-ro-3 py-2 px-3">construit une base de données ?</span>
               </h2>
-              <p class="m-0 relx-serif-text relx-section-pourquoi-text">
+              <p class="m-0 relx-serif-text relx-section-pourquoi-text text-secondary">
                 Le travail de défense dans les tribunaux se base beaucoup sur les décisions de justice, la jurisprudence.
               </p>
-              <p class="m-0 relx-serif-text relx-section-pourquoi-text">
+              <p class="m-0 relx-serif-text relx-section-pourquoi-text text-secondary">
                 Le MSDE compile donc des informations sur toutes les audiences de militant.es écologistes et les met à disposition de celles et ceux qui les défendent.
               </p>
             </div>
           </div>
-          <div class="row relx-screenshot pt-5">
+          <div class="row m-0 relx-screenshot pt-0 pt-lg-5 order-1 order-lg-2">
             <img src="{{ asset('resources/images/platform_screenshot.png') }}" alt="mains qui collaborent" />
           </div>
         </div>
       </section>
+
       <section class="border border-dark border-top-0 relx-bg-green relx-section-contenu-bdd">
         <div class="row">
           <div

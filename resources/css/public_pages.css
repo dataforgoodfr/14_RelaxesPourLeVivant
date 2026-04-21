@@ -27,7 +27,7 @@
   --relx-custom-green: #007f5f;
   --relx-custom-drop-shadow: #0a0d1226;
   --relx-text-neutral-secondary: #5a5a5a;
-  --relx-text-neutral-secondary-rgb: 108, 117, 125;
+  --relx-text-neutral-secondary-rgb: 90, 90, 90;
 }
 
 /* devOnly */
@@ -140,7 +140,7 @@ body {
 .relx-serif-text {
   font-family: Gelica;
   font-weight: 400;
-  font-size: 1.25rem;
+  font-size: clamp(1.125rem, 1.03rem + 0.37vw, 1.3125rem);
 }
 
 .relx-cta {
@@ -197,30 +197,53 @@ body {
 }
 
 .relx-sticker-title {
+  font-size: clamp(1.25rem, 0.89rem + 1.48vw, 2rem);
+
   & span {
     background-color: var(--relx-green-900);
     color: var(--relx-default-white);
 
-    &.relx-sticker-title-line-1 {
+    &.relx-ro-1 {
+      transform: rotate(3deg);
+    }
+
+    &.relx-ro-2 {
+      transform: rotate(2deg);
+    }
+
+    &.relx-ro-3 {
+      transform: rotate(1deg);
+    }
+
+    &.relx-ro-4 {
+      transform: rotate(-1deg);
+    }
+
+    /*&.relx-sticker-title-line-1 {
       transform: rotate(2deg);
     }
 
     &.relx-sticker-title-line-2 {
       transform: rotate(-1deg);
-    }
+    }*/
   }
 }
 
 .relx-section-pourquoi {
-  padding-top: 80px;
-  padding-bottom: 120px;
-
-  .relx-screenshot {
-    margin: 0 150px;
-  }
+  padding-top: 56px;
+  padding-bottom: 80px;
 
   .relx-section-pourquoi-text {
     max-width: 500px;
+  }
+
+  @media (min-width: 992px) {
+    padding-top: 80px;
+    padding-bottom: 120px;
+
+    .relx-screenshot {
+      padding: 0 150px;
+    }
   }
 }
 
