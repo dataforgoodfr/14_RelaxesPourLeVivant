@@ -72,16 +72,24 @@
   --relx-accent-dark-rgb: 7, 52, 55;
   --relx-accent-subtle: #f2efcb;
   --relx-accent-subtle-rgb: 242, 239, 203;
-  --relx-blue-green: #00444a;
-  --relx-blue-green-rgb: 0, 68, 74;
+  --relx-blue-green-2: #2f7477;
+  --relx-blue-green-2-rgb: 47, 116, 119;
+  --relx-blue-green-3: #00444a;
+  --relx-blue-green-3-rgb: 0, 68, 74;
+  --relx-petrol-2: #515363;
+  --relx-petrol-2-rgb: 81, 83, 99;
   --relx-petrol-3: #161b2e;
   --relx-petrol-3-rgb: 22, 27, 46;
   --relx-yellow-1: #ffe16f;
   --relx-yellow-1-rgb: 255, 225, 111;
   --relx-green-3: #00805f;
   --relx-green-3-rgb: 0, 128, 95;
+  --relx-gray-1: #8a898d;
+  --relx-gray-1-rgb: 138, 137, 141;
   --relx-gray-2: #504f53;
   --relx-gray-2-rgb: 80, 79, 83;
+  --relx-gray-3: #15141c;
+  --relx-gray-3-rgb: 21, 20, 28;
 }
 
 /*
@@ -135,6 +143,15 @@
   background-color: var(--relx-gray-background);
 }
 
+.text-bg-gray {
+  color: var(--relx-gray-2);
+  background-color: var(--relx-gray-background);
+}
+
+.text-gray-2 {
+  color: var(--relx-gray-2);
+}
+
 .text-bg-accent {
   color: var(--msde-white);
   background-color: var(--msde-green);
@@ -164,6 +181,35 @@
 
 .text-yellow-1 {
   color: var(--relx-yellow-1);
+}
+
+.text-bg-yellow-1 {
+  color: var(--relx-gray-3);
+  background-color: var(--relx-yellow-1);
+}
+
+.bg-petrol-3 {
+  background-color: var(--relx-petrol-3);
+}
+
+.text-bg-petrol-3 {
+  color: var(--msde-white);
+  background-color: var(--relx-petrol-3);
+}
+
+.text-petrol-2 {
+  color: var(--relx-petrol-2);
+}
+
+.text-blue-green-3 {
+  color: var(--relx-blue-green-3);
+}
+
+/*
+ Add border color utilities.
+ */
+.border-blue-green-2 {
+  --bs-border-color: var(--relx-blue-green-2);
 }
 
 /*

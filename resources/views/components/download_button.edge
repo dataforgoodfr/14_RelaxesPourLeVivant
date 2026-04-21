@@ -1,4 +1,16 @@
-@let (fileInfo = `${file.extension ? file.extension +" - " : ''}${stringHelper.bytes.format(file.size)}`)
+@let(classAttributes = $props.only(['class'])
+  .merge({
+    class: ['btn btn-dark btn-sm px-4 py-3 rounded hstack gap-1 fw-medium']
+  })
+  .toAttrs()
+)
+
+@let (fileInfo = `${file.extension ? `${file.extension.toUpperCase()} - ` : ''}${stringHelper.bytes.format(file.size)}`)
 {{-- Display file number if more than 1 file --}}
-@let (fileNumberOrEmpty = fileNumber !== undefined ? `#${fileNumber} - ` : '')
-<a href="{{ url }}" class="btn btn-sm btn-dark" download>> {{{ await $slots.main() }}} {{fileNumberOrEmpty}}({{fileInfo}})</a>
+@let (fileNumberOrEmpty = fileNumber !== undefined ? `#${fileNumber} ` : '')
+
+<a href="{{ url }}" download {{ classAttributes }}>
+  @svg('ph:download-simple', {width: 16, height: 16, class: 'flex-shrink-0'})
+  {{{ await $slots.main() }}}<br />
+  {{ fileNumberOrEmpty }}({{fileInfo}})
+</a>
