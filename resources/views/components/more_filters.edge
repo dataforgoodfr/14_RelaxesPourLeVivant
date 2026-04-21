@@ -147,14 +147,14 @@ You can display the values by adding `data-more-filters-value` on a html element
 
 <div id="more-filters" class="dropdown">
   <button
-    class="btn btn-light dropdown-toggle"
+    class="btn btn-light d-inline-flex gap-1"
     type="button"
     data-bs-toggle="dropdown"
     data-bs-config='{ "autoClose":"outside" }'
   >
     <span class="ms-1">Plus de filtres</span>
+    <span class="badge text-bg-primary rounded-pill"></span>
   </button>
-  <span class="badge text-bg-primary rounded-pill"></span>
   <div class="dropdown-menu dropdown-menu-end" style="min-width: 20rem">
     <div data-more-filters-step="menu">
       <button type="button" class="dropdown-item" data-more-filters-goto="ville">
@@ -208,7 +208,7 @@ You can display the values by adding `data-more-filters-value` on a html element
 
     <div data-more-filters-step="ville">
       <button type="button" class="dropdown-item" data-more-filters-goto="menu">
-        {{ svg('ph:caret-left') }} Ville 
+        {{ svg('ph:caret-left') }} Ville
       </button>
       <div class="p-2">
         <select name="ville" class="form-select" data-more-filters-input="ville">

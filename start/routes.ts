@@ -9,6 +9,7 @@
 
 import Audience from '#models/audience'
 import Procedure from '#models/procedure'
+import PresseArticle from '#models/presse_article'
 import env from '#start/env'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
@@ -25,7 +26,10 @@ router
   .get('/audiences/:id/jugements/:jugementId', [AudiencesController, 'getJugementFile'])
   .as('audiences.jugements')
   .use(middleware.auth())
-router.get('/audiences/:id', [AudiencesController, 'get']).use(middleware.auth())
+router
+  .get('/audiences/:id', [AudiencesController, 'get'])
+  .as('audiences.show')
+  .use(middleware.auth())
 router.on('/sign-up').render('pages/auth/sign_up').as('sign-up')
 router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest()).as('auth.sign_in')
 router.on('/change-password').render('pages/auth/change_password').use(middleware.auth())
@@ -53,8 +57,8 @@ router
   .group(() => {
     router.post('/webhooks/user', [WebhooksController, 'user'])
     router
-      .post('/imports/:table', [ImportsController, 'import'])
-      .where('table', `^(${Procedure.table}|${Audience.table})$`)
+      .post('/imports/:table', [ImportsController, 'execute'])
+      .where('table', `^(${Procedure.table}|${Audience.table}|${PresseArticle.table})$`)
   })
   .prefix('/_')
   .use(middleware.admin())

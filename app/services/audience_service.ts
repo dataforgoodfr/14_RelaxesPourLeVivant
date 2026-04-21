@@ -1,6 +1,9 @@
 import { multiSelectToStringList } from '#database/mappers'
 import Audience from '#models/audience'
+import type Procedure from '#models/procedure'
 import db from '@adonisjs/lucid/services/db'
+import type { SimplePaginatorContract } from '@adonisjs/lucid/types/querybuilder'
+import { DateTime } from 'luxon'
 
 type SearchAudiencesQuery = {
   search?: string
@@ -14,6 +17,31 @@ type SearchAudiencesQuery = {
   collectif?: string[]
   page?: number
 }
+
+/**
+ * This is declarative type, if search method change  then it might need to be updated !
+ * This type is reinforced by unit tests, feel free to improve them.
+ */
+export type SearchAudiencesResponse = SimplePaginatorContract<
+  Audience &
+    Pick<
+      Procedure,
+      | 'titre'
+      | 'faits_detailles'
+      | 'faits_concis'
+      | 'collectif_d_action_ou_lutte'
+      | 'date_des_faits'
+    > & {
+      timeline: Array<{
+        id: number
+        date_de_decision: DateTime | null
+        degre_de_juridiction: string | null
+        decision_pour_les_infractions_principales: string | null
+        type_de_peine_pour_les_infractions_principales: string | null
+        publiee: boolean
+      }>
+    }
+>
 
 export class AudienceService {
   /**
@@ -33,7 +61,7 @@ export class AudienceService {
       .firstOrFail()
   }
 
-  async searchAudiences(searchQuery: SearchAudiencesQuery) {
+  async searchAudiences(searchQuery: SearchAudiencesQuery): Promise<SearchAudiencesResponse> {
     const query = db
       .query()
       .with('timeline', (q) => {
@@ -61,6 +89,7 @@ export class AudienceService {
         'procedures.faits_detailles',
         'procedures.faits_concis',
         'procedures.collectif_d_action_ou_lutte',
+        'procedures.date_des_faits',
         'timeline.audiences as timeline'
       )
       .from('audiences')
@@ -68,6 +97,7 @@ export class AudienceService {
       .join('timeline', 'timeline.reference_procedure', 'audiences.reference_procedure')
       .where('audiences.publiee', true)
       .andWhere('procedures.publiee', true)
+      .orderBy('audiences.date_de_l_audience', 'desc')
 
     if (searchQuery.search) {
       query.andWhereRaw("procedures.faits_detailles_searchable @@ plainto_tsquery('french', ?)", [
@@ -124,16 +154,35 @@ export class AudienceService {
       )
     }
 
-    return query.paginate(searchQuery.page ?? 1, 50).then((page) => {
-      return page.map((audience) => ({
-        ...audience,
-        mots_cles: multiSelectToStringList(audience.mots_cles),
-        chefs_de_prevention_categorie: multiSelectToStringList(
-          audience.chefs_de_prevention_categorie
-        ),
-        collectif_d_action_ou_lutte: multiSelectToStringList(audience.collectif_d_action_ou_lutte),
-      }))
-    }) as ReturnType<typeof query.paginate>
+    const pagination = await query.paginate(searchQuery.page ?? 1, 50)
+
+    // Perform audiences mutation. A simple `.map()` lose the pagination metadata
+    pagination.forEach((audience) => {
+      audience.date_des_faits = audience.date_des_faits
+        ? DateTime.fromJSDate(audience.date_des_faits)
+        : null
+      audience.date_de_l_audience = audience.date_de_l_audience
+        ? DateTime.fromJSDate(audience.date_de_l_audience)
+        : null
+      audience.date_de_decision = audience.date_de_decision
+        ? DateTime.fromJSDate(audience.date_de_decision)
+        : null
+      audience.mots_cles = multiSelectToStringList(audience.mots_cles)
+      audience.chefs_de_prevention_categorie = multiSelectToStringList(
+        audience.chefs_de_prevention_categorie
+      )
+      audience.collectif_d_action_ou_lutte = multiSelectToStringList(
+        audience.collectif_d_action_ou_lutte
+      )
+      audience.timeline = audience.timeline.map((t: Record<string, any>) => {
+        return {
+          ...t,
+          date_de_decision: t.date_de_decision ? DateTime.fromISO(t.date_de_decision) : null,
+        }
+      })
+    })
+
+    return pagination as SearchAudiencesResponse
   }
 
   async getVilles(): Promise<Array<{ nom: string }>> {
@@ -150,5 +199,27 @@ export class AudienceService {
 
   async getJuridictions(): Promise<Array<{ intitule: string }>> {
     return db.query().select('*').from('juridictions')
+  }
+
+  /**
+   * Return the last decision of the audiences.
+   * We first sort by date_de_l_audience, then we take the last one with a non null decision_pour_les_infractions_principales.
+   * @param audiences
+   * @returns
+   */
+  getLastDecision(audiences: Audience[]) {
+    const sortedAudiencesWithDecision = audiences
+      .filter((a) => Boolean(a.decision_pour_les_infractions_principales))
+      .sort((a, b) => {
+        if (a.date_de_l_audience && b.date_de_l_audience) {
+          return b.date_de_l_audience.toMillis() - a.date_de_l_audience.toMillis()
+        } else if (a.date_de_l_audience) {
+          return -1
+        } else if (b.date_de_l_audience) {
+          return 1
+        }
+        return 0
+      })
+    return sortedAudiencesWithDecision.at(-1)?.decision_pour_les_infractions_principales
   }
 }
