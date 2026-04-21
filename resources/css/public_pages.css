@@ -197,7 +197,8 @@ body {
 }
 
 .relx-sticker-title {
-  font-size: clamp(1.25rem, 0.89rem + 1.48vw, 2rem);
+  /*font-size: clamp(1.25rem, 0.89rem + 1.48vw, 2rem);*/
+  font-size: clamp(1.125rem, 0.73rem + 1.63vw, 2rem);
 
   & span {
     background-color: var(--relx-green-900);
@@ -273,6 +274,42 @@ body {
 
   p {
     max-width: 800px;
+  }
+
+  .relx-section-acces-miniature-borders {
+    & > div {
+      border-bottom: solid 1px var(--relx-default-black);
+    }
+
+    & > div:last-child {
+      border: none;
+    }
+
+    .relx-section-acces-miniature-logo {
+      flex: 0 0 64px;
+      overflow: hidden;
+
+      & img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      @media (min-width: 768px) {
+        flex: 1 0 120px;
+        min-height: 140px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+    }
+
+    @media (min-width: 768px) {
+      & > div {
+        border-bottom: none;
+        border-right: solid 1px var(--relx-default-black);
+      }
+    }
   }
 }
 
