@@ -348,10 +348,14 @@ body {
 }
 
 footer {
-  padding: 80px 40px;
+  padding: 24px;
 
   a {
     color: var(--relx-default-black);
     text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    padding: 80px 40px;
   }
 }
