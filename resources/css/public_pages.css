@@ -60,6 +60,7 @@ body {
   font-size: clamp(1.25rem, 1.13rem + 0.49vw, 1.5rem);
   box-shadow: 0 4px var(--relx-custom-drop-shadow);
   --bs-btn-hover-border-color: var(--relx-default-black);
+  color: var(--relx-cta-text);
 }
 
 .relx-sticker-title {
@@ -101,6 +102,10 @@ body {
 .relx-section-accroche {
   .relx-section-accroche-text {
     padding: 80px 16px 80px 16px;
+
+    & > p {
+      color: var(--relx-green-dark);
+    }
 
     @media (min-width: 992px) {
       padding: 112px 64px 112px 64px;
@@ -247,7 +252,8 @@ body {
     max-width: 520px;
   }
 
-  a.relx-contribution {
+  a.relx-contribution,
+  .relx-cta {
     color: var(--relx-green-dark);
   }
 
