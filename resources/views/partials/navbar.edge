@@ -15,133 +15,155 @@
         Relaxes<br />
         Pour le vivant
       </div>
-    </span>
-  </a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#mainNavbar"
-    aria-controls="mainNavbar"
-    aria-expanded="false"
-    aria-label="Afficher/masquer la navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="mainNavbar">
-    @if (!auth.user)
-      <ul class="navbar-nav me-auto gap-2">
-        <li class="nav-item">
-          @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link' })
-            Qui sommes nous ?
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar"
+      aria-expanded="false"
+      aria-label="Afficher/masquer la navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      @if (!auth.user)
+        <ul class="navbar-nav me-auto gap-2">
+          <li class="nav-item">
+            @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link' })
+              Qui sommes nous ?
+            @end
+          </li>
+          <!-- Contribuer is displayed here for unauthenticated users, and in the right-aligned section for authenticated users -->
+          <li class="nav-item">
+            <!-- TODO: update to internal link when available -->
+            @menuLink({ route: content.support_us_url, isExternal: true, class: 'nav-link' })
+              Contribuer
+            @end
+          </li>
+        </ul>
+      @endif
+      @if (auth.user)
+        <ul class="navbar-nav gap-2 mx-auto">
+          @if (navbar?.analyses?.length > 0)
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Analyses
+        </a>
+              <ul class="dropdown-menu">
+                @each(analyse in navbar.analyses)
+                  <li>
+                    @menuLink({ route: route('analyses.show', { id: analyse.id }), class: 'dropdown-item' })
+                      {{ analyse.titre }}
+                    @end
+                  </li>
+                @end
+              </ul>
+            </li>
           @end
-        </li>
-        <!-- Contribuer is displayed here for unauthenticated users, and in the right-aligned section for authenticated users -->
-        <li class="nav-item">
-          <!-- TODO: update to internal link when available -->
-          @menuLink({ route: content.support_us_url, isExternal: true, class: 'nav-link' })
-            Contribuer
-          @end
-        </li>
-      </ul>
-    @endif
-    @if (auth.user)
-      <ul class="navbar-nav gap-2 mx-auto">
-        @if (navbar?.analyses?.length > 0)
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Analyses
-              </a>
-            <ul class="dropdown-menu">
-              @each(analyse in navbar.analyses)
+          <li class="nav-item">
+            @menuLink({ route: route('audiences.search'), class: 'nav-link' })
+              Rechercher une audience
+            @end
+          </li>
+        </ul>
+      @end
+      
+      <ul class="navbar-nav gap-2">
+        @if (auth.user)
+          <!-- Contribuer is displayed here for authenticated users, and in the left-aligned section for unauthenticated users -->
+          <li class="nav-item">
+            @menuLink({ route: content.support_us_url, class: 'btn btn-navbar', isExternal: true })
+              Contribuer
+            @end
+          </li>
+        @endif
+        <!-- Separator visible only on mobile screens, to separate the main navigation links from the user menu -->
+        <hr class="d-lg-none" />
+        @if (auth.user)
+          <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
+          <li class="nav-item d-lg-none">
+            @menuLink({ route: route('auth.change_password'), class: 'nav-link' })
+              Changer de mot de passe
+            @end
+          </li>
+          <li class="nav-item d-lg-none">
+            <form action="/logout" method="POST">
+              {{ csrfField() }}
+           <button class="nav-link" type="submit">Déconnexion</button>
+            </form>
+          </li>
+          <!-- Desktop User Burger menu : only visible on lg+ screens, when the main burger menu is hidden -->
+          <li class="nav-item d-none d-lg-block">
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-label="Menu utilisateur"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <ul class="dropdown-menu">
                 <li>
-                  @menuLink({ route: route('analyses.show', { id: analyse.id }), class: 'dropdown-item' })
-                    {{ analyse.titre }}
+                  @menuLink({ route: route('auth.change_password'), class: 'dropdown-item'})
+                    Changer de mot de passe
                   @end
                 </li>
-              @end
-            </ul>
+                <li>
+                  <form action="/logout" method="POST">
+                    {{ csrfField() }}
+           <button type="submit" class="dropdown-item">Déconnexion</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
           </li>
-        @end
-        <li class="nav-item">
-          @menuLink({ route: route('audiences.search'), class: 'nav-link' })
-            Rechercher une audience
+        @else
+          <li class="nav-item">
+            @menuLink({ route: '/sign-up', class: 'nav-link' })
+              Demander un accès
+        {{ svg('ph:arrow-up-right')}}
+            @end
+          </li>
+        @endif
+        <hr class="d-md-none" />
+        <li class="nav-item d-md-none">
+          @menuLink({ route: 'mailto:' + env.get('CONTACT_EMAIL'), class: 'nav-link' })
+            Contactez-nous
           @end
         </li>
+        <li class="nav-item d-md-none">
+          @menuLink({ route: content.msde_url, isExternal: true , class: 'nav-link' })
+            Le site MSDE
+          @end
+        </li>
+        <hr class="d-lg-none" />
+        <li class="nav-item d-lg-none">
+          2026 ©MSDE
+        </li>
+        {{-- TODO intégrer le lien lorsque page prête --}}
+        <li class="nav-item d-lg-none">
+          @menuLink({ route: '/', class: 'nav-link' })
+            Conditions d'utilisation
+          @end
+        </li>
+        {{-- TODO intégrer le lien lorsque page prête --}}
+        <li class="nav-item d-lg-none">
+          @menuLink({ route: '/', class: 'nav-link' })
+            Mentions légales
+          @end
+        </li>
+
       </ul>
-    @end
-    
-    <ul class="navbar-nav gap-2">
-      @if (auth.user)
-        <!-- Contribuer is displayed here for authenticated users, and in the left-aligned section for unauthenticated users -->
-        <li class="nav-item">
-          @menuLink({ route: content.support_us_url, class: 'btn btn-navbar', isExternal: true })
-            Contribuer
-          @end
-        </li>
-      @endif
-      <!-- Separator visible only on mobile screens, to separate the main navigation links from the user menu -->
-      <hr class="d-lg-none" />
-      @if (auth.user)
-        <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
-        <li class="nav-item d-lg-none">
-          @menuLink({ route: route('auth.change_password'), class: 'nav-link' })
-            Changer de mot de passe
-          @end
-        </li>
-        <li class="nav-item d-lg-none">
-          <form action="/logout" method="POST">
-            {{ csrfField() }}
-                    <button class="nav-link" type="submit">Déconnexion</button>
-          </form>
-        </li>
-        <!-- Desktop User Burger menu : only visible on lg+ screens, when the main burger menu is hidden -->
-        <li class="nav-item d-none d-lg-block">
-          <div class="dropdown">
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              aria-label="Menu utilisateur"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                @menuLink({ route: route('auth.change_password'), class: 'dropdown-item'})
-                  Changer de mot de passe
-                @end
-              </li>
-              <li>
-                <form action="/logout" method="POST">
-                  {{ csrfField() }}
-                    <button type="submit" class="dropdown-item">Déconnexion</button>
-                </form>
-              </li>
-            </ul>
-          </div>
-        </li>
-      @else
-        <li class="nav-item">
-          @menuLink({ route: '/sign-in', class: 'nav-link' })
-            Se connecter
-          @end
-        </li>
-        <li class="nav-item">
-          @menuLink({ route: '/sign-up', class: 'nav-link' })
-            Demander un accès
-              {{ svg('ph:arrow-up-right')}}
-          @end
-        </li>
-      @endif
-    </ul>
+    </div>
   </div>
-</div>
 </nav>
