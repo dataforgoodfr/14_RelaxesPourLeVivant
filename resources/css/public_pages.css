@@ -84,14 +84,6 @@ body {
     &.relx-ro-4 {
       transform: rotate(-1deg);
     }
-
-    /*&.relx-sticker-title-line-1 {
-      transform: rotate(2deg);
-    }
-
-    &.relx-sticker-title-line-2 {
-      transform: rotate(-1deg);
-    }*/
   }
 }
 
