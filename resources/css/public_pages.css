@@ -53,6 +53,10 @@ body {
 }
 
 /* Components */
+nav {
+  background-color: magenta;
+}
+
 .relx-cta {
   border-radius: 0;
   border-color: var(--relx-gray-900);

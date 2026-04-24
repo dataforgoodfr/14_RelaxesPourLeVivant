@@ -17,7 +17,7 @@
       </div>
     </a>
     <button
-      class="navbar-toggler"
+      class="navbar-toggler border-0"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#mainNavbar"
@@ -30,13 +30,13 @@
     <div class="collapse navbar-collapse" id="mainNavbar">
       @if (!auth.user)
         <ul class="navbar-nav me-auto gap-2">
-          <li class="nav-item">
+          <li class="nav-item order-3 order-lg-1">
             @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link' })
               Qui sommes nous ?
             @end
           </li>
           <!-- Contribuer is displayed here for unauthenticated users, and in the right-aligned section for authenticated users -->
-          <li class="nav-item">
+          <li class="nav-item order-4 order-lg-2">
             <!-- TODO: update to internal link when available -->
             @menuLink({ route: content.support_us_url, isExternal: true, class: 'nav-link' })
               Contribuer
@@ -80,7 +80,7 @@
         @if (auth.user)
           <!-- Contribuer is displayed here for authenticated users, and in the left-aligned section for unauthenticated users -->
           <li class="nav-item">
-            @menuLink({ route: content.support_us_url, class: 'btn btn-navbar', isExternal: true })
+            @menuLink({ route: content.support_us_url, class: 'btn btn-navbar order-4 order-lg-2', isExternal: true })
               Contribuer
             @end
           </li>
@@ -90,7 +90,7 @@
         @if (auth.user)
           <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
           <li class="nav-item d-lg-none">
-            @menuLink({ route: route('auth.change_password'), class: 'nav-link' })
+            @menuLink({ route: route('auth.change_password'), class: 'nav-link order-2 order-lg-3' })
               Changer de mot de passe
             @end
           </li>
@@ -114,7 +114,7 @@
               </button>
               <ul class="dropdown-menu">
                 <li>
-                  @menuLink({ route: route('auth.change_password'), class: 'dropdown-item'})
+                  @menuLink({ route: route('auth.change_password'), class: 'dropdown-item order-2 order-lg-3'})
                     Changer de mot de passe
                   @end
                 </li>
@@ -129,36 +129,36 @@
           </li>
         @else
           <li class="nav-item">
-            @menuLink({ route: '/sign-up', class: 'nav-link' })
+            @menuLink({ route: '/sign-up', class: 'nav-link order-1 order-lg-4' })
               Demander un accès
         {{ svg('ph:arrow-up-right')}}
             @end
           </li>
         @endif
         <hr class="d-md-none" />
-        <li class="nav-item d-md-none">
+        <li class="nav-item d-md-none order-5">
           @menuLink({ route: 'mailto:' + env.get('CONTACT_EMAIL'), class: 'nav-link' })
             Contactez-nous
           @end
         </li>
-        <li class="nav-item d-md-none">
+        <li class="nav-item d-md-none order-6">
           @menuLink({ route: content.msde_url, isExternal: true , class: 'nav-link' })
             Le site MSDE
           @end
         </li>
-        <hr class="d-lg-none" />
-        <li class="nav-item d-lg-none">
+        <hr class="d-md-none" />
+        <li class="nav-item d-md-none order-7">
           2026 ©MSDE
         </li>
         {{-- TODO intégrer le lien lorsque page prête --}}
-        <li class="nav-item d-lg-none">
-          @menuLink({ route: '/', class: 'nav-link' })
+        <li class="nav-item d-md-none">
+          @menuLink({ route: '/', class: 'nav-link order-8' })
             Conditions d'utilisation
           @end
         </li>
         {{-- TODO intégrer le lien lorsque page prête --}}
-        <li class="nav-item d-lg-none">
-          @menuLink({ route: '/', class: 'nav-link' })
+        <li class="nav-item d-md-none">
+          @menuLink({ route: '/', class: 'nav-link order-9' })
             Mentions légales
           @end
         </li>
