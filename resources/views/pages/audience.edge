@@ -302,26 +302,28 @@
                 </section>
               </div>
             </div>
-            <div class="row g-5">
-              <section class="col-lg-12" aria-labelledby="graph-evolution-condamnations-heading">
-                <h3 class="small" id="graph-evolution-condamnations-heading">
-                  Évolution des condamnations pour ce chef de prévention
-                </h3>
-                <p class="small">
-                  En france, entre 2014 et 2026 <span class="small text-muted">Le score de gravité est un indice MSDE. En savoir plus</span>
-                </p>
-                @let(initialParameters = {
-                chefs_de_prevention_categorie: currentAudience.chefs_de_prevention_categorie
-                })
-                <metabase-question
-                  token="{{ metabaseToken }}"
-                  with-title="false"
-                  initial-sql-parameters='{{{ JSON.stringify(initialParameters) }}}'
-                  {{-- initial-sql-parameters='{"chefs_de_prevention_categorie":["Entrave à la circulation"]}' --}}
-                >
-                </metabase-question>
-              </section>
-            </div>
+            @if(metabaseToken)
+              <div class="row g-5">
+                <section class="col-lg-12" aria-labelledby="graph-evolution-condamnations-heading">
+                  <h3 class="small" id="graph-evolution-condamnations-heading">
+                    Évolution des condamnations pour ce chef de prévention
+                  </h3>
+                  <p class="small">
+                    En france, entre 2014 et 2026 <span class="small text-muted">Le score de gravité est un indice MSDE. En savoir plus</span>
+                  </p>
+                  @let(initialParameters = {
+                  chefs_de_prevention_categorie: currentAudience.chefs_de_prevention_categorie
+                  })
+                  <metabase-question
+                    token="{{ metabaseToken }}"
+                    with-title="false"
+                    initial-sql-parameters='{{{ JSON.stringify(initialParameters) }}}'
+                    {{-- initial-sql-parameters='{"chefs_de_prevention_categorie":["Entrave à la circulation"]}' --}}
+                  >
+                  </metabase-question>
+                </section>
+              </div>
+            @endif
             <div class="row g-5">
               <section class="col-12 vstack gap-3" aria-labelledby="section-informations-generales-heading">
                 <h3 id="section-informations-generales-heading" class="h5 fw-semibold mb-0">
