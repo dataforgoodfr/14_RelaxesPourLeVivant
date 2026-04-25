@@ -275,3 +275,52 @@ footer {
     padding: 80px 40px;
   }
 }
+
+/* 
+  page contribution - section accroche
+*/
+.relx-contribution-section-accroche {
+  padding-top: 120px;
+
+  h2 > span {
+    background-color: var(--relx-green-3);
+  }
+
+  p {
+    max-width: 800px;
+  }
+
+  @media (max-width: 992px) {
+    padding: 40px 16px;
+  }
+}
+
+/* 
+  page contribution - sections aide
+*/
+.relx-contribution-section-aide {
+  padding: 80px 40px;
+
+  @media (max-width: 992px) {
+    padding: 40px 16px;
+  }
+}
+
+/* 
+  page contribution - section qui porte le projet
+*/
+.relx-contribution-section-projet {
+  padding: 112px 40px;
+
+  @media (max-width: 992px) {
+    padding: 40px 16px;
+  }
+}
+
+.relx-contribution-section-last {
+  padding: 80px 80px 0 80px;
+
+  @media (max-width: 992px) {
+    padding: 40px 40px 0 40px;
+  }
+}
