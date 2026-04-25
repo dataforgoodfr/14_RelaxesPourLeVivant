@@ -1,3 +1,11 @@
+/*
+  Embedded font
+  The brand identity uses Gelica (commercial) and Poppins (free) fonts
+  For the moment we don't have access to Gelica license and files
+  Poppins is available only as static files and must be embedded sperately.
+  "devOnly" font (which is Unifraktur Maguntia font) is just used to verify if file are correctly embedded and should not be a part of production code
+*/
+
 @font-face {
   font-family: 'Poppins';
   font-style: semi-bold;
