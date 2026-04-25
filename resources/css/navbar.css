@@ -122,6 +122,10 @@ nav {
 
     .relx-navbar-contribute {
       background-color: var(--relx-accent-dark);
+
+      @media (max-width: 992px) {
+        background-color: transparent;
+      }
     }
   }
 }
