@@ -26,8 +26,8 @@
         Bienvenue sur {{ env.get('APP_NAME') }}
       </h1>
 
-      <section class="relx-bg-white relx-contribution-section-accroche border border-dark border-top-0">
-        <div class="row m-0 pb-5 mb-5">
+      <section class="relx-bg-white relx-default-section-first border border-dark border-top-0">
+        <div class="row m-0">
           <div class="col-12 d-flex flex-column align-items-center gap-3">
             <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-center fs-1 mb-5">
               <span class="relx-ro-2 py-2 px-3 mb-1">Contribuer à</span>
@@ -168,7 +168,7 @@
         </div>
       </section>
 
-      <section class="relx-bg-yellow relx-contribution-section-last border border-top-0 border-dark">
+      <section class="relx-bg-yellow relx-default-section-last border border-top-0 border-dark">
         <div class="container-fluid p-0">
           <div class="row m-0">
             <img src="{{ asset('resources/images/team.png') }}" alt="équipe" />
@@ -187,7 +187,7 @@
         <div class="col-6 p-0 d-flex justify-content-end gap-5">
           {{-- TODO pages à implémenter --}}
           <a href="#">Conditions d’utilisation</a>
-          <a href="#">Mentions légales</a>
+          <a href=route legal>Mentions légales</a>
         </div>
       </div>
     </footer>

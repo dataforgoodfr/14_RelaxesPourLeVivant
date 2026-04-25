@@ -44,6 +44,9 @@ router
   .as('analyses.show')
   .use(middleware.auth())
 
+router.on('/legal').render('pages/legal').as('legal')
+router.on('/terms-of-use').render('pages/terms_of_use').as('terms_of_use')
+
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])
 router.post('/logout', [AuthController, 'signout'])
