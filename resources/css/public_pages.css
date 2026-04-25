@@ -54,7 +54,35 @@ body {
 
 /* Components */
 nav {
-  background-color: magenta;
+  /*background-color: magenta;*/
+
+  .relx-navbar-logo {
+    background-color: magenta;
+  }
+
+  .relx-navbar-logo {
+    background-color: aqua;
+  }
+
+  .relx-navbar-about {
+    background-color: crimson;
+  }
+
+  .relx-navbar-app {
+    background-color: sienna;
+  }
+
+  .relx-navbar-contribute {
+    background-color: purple;
+  }
+
+  .relx-navbar-account {
+    background-color: springgreen;
+  }
+
+  .relx-navbar-external {
+    background-color: greenyellow;
+  }
 }
 
 .relx-cta {
