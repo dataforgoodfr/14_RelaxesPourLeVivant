@@ -28,53 +28,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse d-lg-flex flex-column flex-lg-row" id="mainNavbar">
-      @if (!auth.user)
-        <ul class="navbar-nav me-auto gap-2 relx-navbar-about order-lg-1">
-          <li class="nav-item">
-            @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link' })
-              Qui sommes nous ?
-            @end
-          </li>
-        </ul>
-      @endif
-      @if (auth.user)
-        <ul class="navbar-nav gap-2 mx-auto relx-navbar-app order-lg-2">
-          @if (navbar?.analyses?.length > 0)
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Analyses
-        </a>
-              <ul class="dropdown-menu">
-                @each(analyse in navbar.analyses)
-                  <li>
-                    @menuLink({ route: route('analyses.show', { id: analyse.id }), class: 'dropdown-item' })
-                      {{ analyse.titre }}
-                    @end
-                  </li>
-                @end
-              </ul>
-            </li>
-          @end
-          <li class="nav-item">
-            @menuLink({ route: route('audiences.search'), class: 'nav-link' })
-              Rechercher une audience
-            @end
-          </li>
-        </ul>
-      @end
-      <ul class="navbar-nav gap-2 relx-navbar-contribute order-lg-3">
-        <li class="nav-item">
-          @menuLink({ route: content.support_us_url, class: 'btn btn-navbar', isExternal: true })
-            Contribuer
-          @end
-        </li>
-      </ul>
       <ul class="navbar-nav gap-2 relx-navbar-account order-lg-4">
         @if (auth.user)
           <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
@@ -129,6 +82,53 @@
             @end
           </li>
         @endif
+      </ul>
+      @if (!auth.user)
+        <ul class="navbar-nav me-auto gap-2 relx-navbar-about order-lg-1">
+          <li class="nav-item">
+            @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link' })
+              Qui sommes nous ?
+            @end
+          </li>
+        </ul>
+      @endif
+      @if (auth.user)
+        <ul class="navbar-nav gap-2 mx-auto relx-navbar-app order-lg-2">
+          @if (navbar?.analyses?.length > 0)
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Analyses
+        </a>
+              <ul class="dropdown-menu">
+                @each(analyse in navbar.analyses)
+                  <li>
+                    @menuLink({ route: route('analyses.show', { id: analyse.id }), class: 'dropdown-item' })
+                      {{ analyse.titre }}
+                    @end
+                  </li>
+                @end
+              </ul>
+            </li>
+          @end
+          <li class="nav-item">
+            @menuLink({ route: route('audiences.search'), class: 'nav-link' })
+              Rechercher une audience
+            @end
+          </li>
+        </ul>
+      @end
+      <ul class="navbar-nav gap-2 relx-navbar-contribute order-lg-3">
+        <li class="nav-item">
+          @menuLink({ route: content.support_us_url, class: 'btn btn-navbar', isExternal: true })
+            Contribuer
+          @end
+        </li>
       </ul>
       <ul class="navbar-nav gap-2 relx-navbar-external">
         <li class="nav-item d-md-none">
