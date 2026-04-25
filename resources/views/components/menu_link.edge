@@ -8,6 +8,6 @@
 <a
   href="{{ route }}"
   {{ classAttributes }}
-  {{ isExternal ? 'target="_blank" rel="noopener noreferrer"' : '' }}
+  {{{ isExternal ? 'target="_blank" rel="noopener noreferrer"' : '' }}}
   {{{ isCurrentRoute ? 'aria-current="page"' : '' }}}
 >{{{ await $slots.main() }}}</a>
