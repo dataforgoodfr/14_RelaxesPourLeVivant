@@ -2,10 +2,6 @@ nav {
   /* to override for consistency for demo day – to fix afterwards...*/
   --relx-purple-text: var(--bs-nav-link-color);
 
-  .relx-navbar-app {
-    background-color: sienna;
-  }
-
   .relx-navbar-contribute {
     @media (min-width: 992px) {
       background-color: var(--relx-custom-beige);
@@ -74,16 +70,16 @@ nav {
     .navbar-nav .nav-link {
       --bs-nav-link-hover-color: var(--relx-purple-text);
 
-      &.active {
-        /* 
-          Commented lines: intentional
-          deactivate without deleting previous work for next iteration
-          active links by bootstrap's defaults, are bold (sufficent for demo day)
-        */
-        /*color: var(--relx-purple-text);
+      /* 
+        Commented lines: intentional
+        deactivate without deleting previous work for next iteration
+        active links by bootstrap's defaults, are bold (sufficent for demo day)
+      */
+      /*&.active {
+        color: var(--relx-purple-text);
         background-color: var(--relx-purple-background);
-        border-radius: var(--bs-border-radius);*/
-      }
+        border-radius: var(--bs-border-radius);
+      }*/
     }
 
     /* Temporary override, should be removed when menu v4 will be implemented */
@@ -122,6 +118,10 @@ nav {
       --bs-btn-active-color: var(--bs-btn-color);
       --bs-btn-active-bg: color-mix(in srgb, rgb(var(--relx-accent-dark-rgb)) 80%, black);
       --bs-btn-active-border-color: var(--bs-btn-border-color);
+    }
+
+    .relx-navbar-contribute {
+      background-color: var(--relx-accent-dark);
     }
   }
 }
