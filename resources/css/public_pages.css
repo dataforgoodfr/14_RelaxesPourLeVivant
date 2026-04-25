@@ -27,6 +27,10 @@ body {
   background-color: var(--relx-custom-green);
 }
 
+.relx-bg-gray {
+  background-color: var(--relx-gray-400);
+}
+
 /* font styles */
 .relx-text-display-bigger {
   font-family: Gelica;
