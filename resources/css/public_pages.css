@@ -53,24 +53,6 @@ body {
 }
 
 /* Components */
-nav {
-  .relx-navbar-app {
-    background-color: sienna;
-  }
-
-  .relx-navbar-contribute {
-    background-color: purple;
-  }
-
-  .relx-navbar-account {
-    background-color: springgreen;
-  }
-
-  .relx-navbar-external {
-    background-color: greenyellow;
-  }
-}
-
 .relx-cta {
   border-radius: 0;
   border-color: var(--relx-gray-900);

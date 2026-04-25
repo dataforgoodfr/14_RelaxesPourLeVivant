@@ -1,3 +1,6 @@
+import '../css/colors.css'
+import '../css/fonts.css'
+import '../css/navbar.css'
 import '../css/app.css'
 import '../css/bs_override.css'
 import 'wc-datepicker/dist/themes/light.css'

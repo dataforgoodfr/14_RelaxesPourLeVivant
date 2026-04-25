@@ -29,3 +29,45 @@
   --relx-text-neutral-secondary-rgb: 90, 90, 90;
   --relx-cta-text: #0d3436;
 }
+/*
+FROM bs_override
+*/
+/*
+  Brand colour scheme
+  According to Identité Visuelle MSDE document
+*/
+:root {
+  --msde-white: #ffffff;
+  --msde-white-rgb: 255, 255, 255;
+  --msde-black: #14141a;
+  --msde-black-rgb: 20, 20, 26;
+  --msde-blue: #181a2e;
+  --msde-blue-rgb: 24, 26, 46;
+  --msde-green: #004348;
+  --msde-green-rgb: 0, 67, 72;
+  --msde-light-green: #017d61;
+  --msde-light-green-rgb: 1, 125, 97;
+  --msde-yellow: #f7c502;
+  --msde-yellow-rgb: 247, 197, 2;
+  --msde-orange: #faa200;
+  --msde-orange-rgb: 250, 162, 0;
+
+  --relx-gray-background: #f8f9fa;
+  --relx-purple-background: #ebe5fc;
+  --relx-purple-text: #5227cc;
+  --relx-purple-text-rgb: 82, 39, 204;
+  --relx-accent-dark: #073437;
+  --relx-accent-dark-rgb: 7, 52, 55;
+  --relx-accent-subtle: #f2efcb;
+  --relx-accent-subtle-rgb: 242, 239, 203;
+  --relx-blue-green: #00444a;
+  --relx-blue-green-rgb: 0, 68, 74;
+  --relx-petrol-3: #161b2e;
+  --relx-petrol-3-rgb: 22, 27, 46;
+  --relx-yellow-1: #ffe16f;
+  --relx-yellow-1-rgb: 255, 225, 111;
+  --relx-green-3: #00805f;
+  --relx-green-3-rgb: 0, 128, 95;
+  --relx-gray-2: #504f53;
+  --relx-gray-2-rgb: 80, 79, 83;
+}

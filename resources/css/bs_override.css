@@ -4,87 +4,6 @@
 */
 
 /*
-  Embedded font
-  The brand identity uses Gelica (commercial) and Poppins (free) fonts
-  For the moment we don't have access to Gelica license and files
-  Poppins is available only as static files and must be embedded sperately.
-  "devOnly" font (which is Unifraktur Maguntia font) is just used to verify if file are correctly embedded and should not be a part of ptroduction code
-*/
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/resources/fonts/Poppins-Medium.ttf');
-  /*src: url('/resources/fonts/devOnly.ttf');*/
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/resources/fonts/Poppins-Regular.ttf');
-  /*src: url('/resources/fonts/devOnly.ttf');*/
-}
-
-@font-face {
-  font-family: 'Gelica';
-  font-style: bold;
-  font-weight: 700;
-  font-display: block;
-  src: url('https://typographer.io/1/fonts/drt:gelica::bold@1.0.0/woff2?token=1654b22ac1');
-}
-
-@font-face {
-  font-family: 'Gelica';
-  font-style: light;
-  font-weight: 300;
-  font-display: block;
-  src: url('https://typographer.io/1/fonts/drt:gelica::light@1.0.0/woff2?token=2098236b94');
-}
-
-/*
-  Brand colour scheme
-  According to Identité Visuelle MSDE document
-*/
-:root {
-  --msde-white: #ffffff;
-  --msde-white-rgb: 255, 255, 255;
-  --msde-black: #14141a;
-  --msde-black-rgb: 20, 20, 26;
-  --msde-blue: #181a2e;
-  --msde-blue-rgb: 24, 26, 46;
-  --msde-green: #004348;
-  --msde-green-rgb: 0, 67, 72;
-  --msde-light-green: #017d61;
-  --msde-light-green-rgb: 1, 125, 97;
-  --msde-yellow: #f7c502;
-  --msde-yellow-rgb: 247, 197, 2;
-  --msde-orange: #faa200;
-  --msde-orange-rgb: 250, 162, 0;
-
-  --relx-gray-background: #f8f9fa;
-  --relx-purple-background: #ebe5fc;
-  --relx-purple-text: #5227cc;
-  --relx-purple-text-rgb: 82, 39, 204;
-  --relx-accent-dark: #073437;
-  --relx-accent-dark-rgb: 7, 52, 55;
-  --relx-accent-subtle: #f2efcb;
-  --relx-accent-subtle-rgb: 242, 239, 203;
-  --relx-blue-green: #00444a;
-  --relx-blue-green-rgb: 0, 68, 74;
-  --relx-petrol-3: #161b2e;
-  --relx-petrol-3-rgb: 22, 27, 46;
-  --relx-yellow-1: #ffe16f;
-  --relx-yellow-1-rgb: 255, 225, 111;
-  --relx-green-3: #00805f;
-  --relx-green-3-rgb: 0, 128, 95;
-  --relx-gray-2: #504f53;
-  --relx-gray-2-rgb: 80, 79, 83;
-}
-
-/*
   Overriding root Bootstrap's root variables
 */
 
@@ -97,26 +16,6 @@
   --bs-body-color: var(--bs-gray-900);
   --bs-secondary-color: var(--bs-gray-600);
   --bs-link-color-rgb: var(--msde-green-rgb);
-}
-
-/*
-  Overriding Bootstrap's navbar
-*/
-.navbar {
-  --bs-navbar-padding-y: 1rem;
-  /* Next lines commented because appears in current v1 (in-progress) */
-  /*border-bottom: solid 1px var(--bs-gray-100);*/
-}
-
-/*
-  Overriding Bootstrap's nav
-*/
-.nav {
-  --bs-nav-link-color: var(--bs-gray-600);
-  --bs-nav-link-hover-color: var(--bs-primary);
-  &.nav-underline {
-    --bs-nav-underline-gap: 3.5rem;
-  }
 }
 
 /*
@@ -269,22 +168,6 @@ a {
   --bs-btn-active-border-color: color-mix(in srgb, rgb(var(--relx-accent-subtle-rgb)) 80%, black);
 }
 
-.btn-navbar {
-  --bs-btn-color: var(--bs-nav-link-color);
-  --bs-btn-bg: var(--msde-white);
-  --bs-btn-border-color: var(--bs-gray-900);
-
-  --bs-btn-hover-color: var(--relx-purple-text);
-  --bs-btn-hover-bg: var(--bs-btn-bg);
-  --bs-btn-hover-border-color: var(--bs-btn-border-color);
-
-  --bs-btn-focus-shadow-rgb: var(--relx-purple-text-rgb);
-
-  --bs-btn-active-color: var(--relx-purple-text);
-  --bs-btn-active-bg: var(--relx-purple-background);
-  --bs-btn-active-border-color: var(--bs-btn-border-color);
-}
-
 /*
   Custom submit button
 */
@@ -377,66 +260,4 @@ form button.btn-primary {
   width: 0.875em;
   vertical-align: center;
   flex-shrink: 0;
-}
-
-/*
-  Navbar
-  Three types of button :
-  - nav-link (default)
-  - btn-navbar (green background in dark mode / grey in light mode)
-  - TODO: full height button (should be implemented in menu v4)
-*/
-.navbar {
-  &[data-bs-theme='light'] {
-    --bs-navbar-brand-color: var(--msde-green);
-
-    /* Temporary override, should be removed when menu v4 will be implemented */
-    .navbar-nav .nav-link {
-      --bs-nav-link-hover-color: var(--relx-purple-text);
-
-      &.active {
-        color: var(--relx-purple-text);
-        background-color: var(--relx-purple-background);
-        border-radius: var(--bs-border-radius);
-      }
-    }
-
-    /* Temporary override, should be removed when menu v4 will be implemented */
-    .navbar-nav .dropdown-item {
-      &:hover {
-        color: var(--relx-purple-text);
-        background-color: var(--relx-purple-background);
-      }
-
-      &.active {
-        color: var(--relx-purple-text);
-        background-color: var(--relx-purple-background);
-      }
-    }
-  }
-
-  &[data-bs-theme='dark'] {
-    --bs-navbar-color: var(--msde-white);
-
-    .dropdown-menu {
-      --bs-dropdown-bg: var(--msde-white);
-      --bs-dropdown-link-color: var(--msde-black);
-    }
-
-    .btn-navbar {
-      --bs-btn-color: var(--msde-white);
-      --bs-btn-bg: var(--relx-accent-dark);
-      --bs-btn-border-color: var(--relx-petrol-3);
-
-      --bs-btn-hover-color: var(--bs-nav-link-hover-color);
-      --bs-btn-hover-bg: color-mix(in srgb, rgb(var(--relx-accent-dark-rgb)) 90%, black);
-      --bs-btn-hover-border-color: var(--bs-btn-border-color);
-
-      --bs-btn-focus-shadow-rgb: var(--relx-accent-dark-rgb);
-
-      --bs-btn-active-color: var(--bs-btn-color);
-      --bs-btn-active-bg: color-mix(in srgb, rgb(var(--relx-accent-dark-rgb)) 80%, black);
-      --bs-btn-active-border-color: var(--bs-btn-border-color);
-    }
-  }
 }
