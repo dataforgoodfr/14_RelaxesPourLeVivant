@@ -1,18 +1,24 @@
 nav {
+  /* to override for consistency for demo day – to fix afterwards...*/
+  --relx-purple-text: var(--bs-nav-link-color);
+
   .relx-navbar-app {
     background-color: sienna;
   }
 
   .relx-navbar-contribute {
-    background-color: purple;
+    @media (min-width: 992px) {
+      background-color: var(--relx-custom-beige);
+      margin: 6px 0px;
+      border: solid 1px var(--relx-default-black);
+      border-right: none;
+    }
   }
 
   .relx-navbar-account {
-    background-color: springgreen;
-  }
-
-  .relx-navbar-external {
-    background-color: greenyellow;
+    @media (min-width: 992px) {
+      border-left: solid 1px var(--relx-default-black);
+    }
   }
 }
 
@@ -69,9 +75,14 @@ nav {
       --bs-nav-link-hover-color: var(--relx-purple-text);
 
       &.active {
-        color: var(--relx-purple-text);
+        /* 
+          Commented lines: intentional
+          deactivate without deleting previous work for next iteration
+          active links by bootstrap's defaults, are bold (sufficent for demo day)
+        */
+        /*color: var(--relx-purple-text);
         background-color: var(--relx-purple-background);
-        border-radius: var(--bs-border-radius);
+        border-radius: var(--bs-border-radius);*/
       }
     }
 

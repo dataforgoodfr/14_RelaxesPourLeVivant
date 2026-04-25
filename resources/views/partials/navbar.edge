@@ -5,11 +5,11 @@
 @let(navbarBrandFileName = navbarTheme === 'dark' ? 'msde_brand_dark.svg' : 'msde_brand.svg')
 
 <nav
-  class="navbar navbar-expand-lg {{ navbarThemeClass }} py-0"
+  class="navbar navbar-expand-lg {{ navbarThemeClass }} py-0 border border-dark"
   data-bs-theme="{{ navbarTheme ?? 'light' }}"
 >
-  <div class="container-fluid ps-5 py-3">
-    <a class="navbar-brand gelica-display relx-navbar-logo p-0 me-5" href="/">
+  <div class="container-fluid ps-5 py-0">
+    <a class="navbar-brand gelica-display relx-navbar-logo p-0 me-0 my-4 my-lg-0" href="/">
       <img src="{{ asset(`resources/images/${navbarBrandFileName}`) }}" alt="Relaxes pour le vivant" />
     </a>
     <button
@@ -24,7 +24,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse d-lg-flex flex-column flex-lg-row" id="mainNavbar">
-      <ul class="navbar-nav gap-2 relx-navbar-account order-lg-4">
+      <ul class="navbar-nav gap-4 relx-navbar-account order-lg-4 p-4 pt-0 pt-lg-4">
         @if (auth.user)
           <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
           <li class="nav-item d-lg-none">
@@ -80,7 +80,7 @@
         @endif
       </ul>
       @if (!auth.user)
-        <ul class="navbar-nav me-auto gap-2 relx-navbar-about order-lg-1">
+        <ul class="navbar-nav me-auto gap-2 relx-navbar-about order-lg-1 p-4 pt-0 pt-lg-4">
           <li class="nav-item">
             @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link' })
               Qui sommes nous ?
@@ -119,14 +119,14 @@
           </li>
         </ul>
       @end
-      <ul class="navbar-nav gap-2 relx-navbar-contribute order-lg-3">
+      <ul class="navbar-nav gap-2 relx-navbar-contribute order-lg-3 p-4 pt-0 p-lg-3">
         <li class="nav-item">
           @menuLink({ route: content.support_us_url, class: 'nav-link', isExternal: true })
             Contribuer
           @end
         </li>
       </ul>
-      <ul class="navbar-nav gap-2 relx-navbar-external">
+      <ul class="navbar-nav gap-2 relx-navbar-external p-4 pt-0 gap-4">
         <li class="nav-item d-md-none">
           @menuLink({ route: 'mailto:' + env.get('CONTACT_EMAIL'), class: 'nav-link' })
             Contactez-nous

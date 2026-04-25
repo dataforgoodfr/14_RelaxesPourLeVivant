@@ -1,7 +1,10 @@
 @let (isCurrentRoute = request.url() === route)
 @let(classAttributes = $props.only(['class'])
   .merge({
-    class: [isCurrentRoute ? 'active' : '']
+    class: [
+      isCurrentRoute ? 'active' : '',
+      'p-0'
+    ]
   })
   .toAttrs()
 )
