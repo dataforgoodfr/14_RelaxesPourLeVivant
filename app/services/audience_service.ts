@@ -97,7 +97,7 @@ export class AudienceService {
       .join('timeline', 'timeline.reference_procedure', 'audiences.reference_procedure')
       .where('audiences.publiee', true)
       .andWhere('procedures.publiee', true)
-      .orderBy('audiences.date_de_l_audience', 'desc')
+      .orderByRaw('audiences.date_de_l_audience DESC NULLS LAST')
 
     if (searchQuery.search) {
       query.andWhereRaw("procedures.faits_detailles_searchable @@ plainto_tsquery('french', ?)", [

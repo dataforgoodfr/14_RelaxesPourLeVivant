@@ -34,6 +34,15 @@
   background-color: var(--relx-gray-background);
 }
 
+.text-bg-gray {
+  color: var(--relx-gray-2);
+  background-color: var(--relx-gray-background);
+}
+
+.text-gray-2 {
+  color: var(--relx-gray-2);
+}
+
 .text-bg-accent {
   color: var(--msde-white);
   background-color: var(--msde-green);
@@ -63,6 +72,35 @@
 
 .text-yellow-1 {
   color: var(--relx-yellow-1);
+}
+
+.text-bg-yellow-1 {
+  color: var(--relx-gray-3);
+  background-color: var(--relx-yellow-1);
+}
+
+.bg-petrol-3 {
+  background-color: var(--relx-petrol-3);
+}
+
+.text-bg-petrol-3 {
+  color: var(--msde-white);
+  background-color: var(--relx-petrol-3);
+}
+
+.text-petrol-2 {
+  color: var(--relx-petrol-2);
+}
+
+.text-blue-green-3 {
+  color: var(--relx-blue-green-3);
+}
+
+/*
+ Add border color utilities.
+ */
+.border-blue-green-2 {
+  --bs-border-color: var(--relx-blue-green-2);
 }
 
 /*
