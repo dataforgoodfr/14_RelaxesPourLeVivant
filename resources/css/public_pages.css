@@ -1,0 +1,277 @@
+/* override bs variables */
+:root {
+  --bs-dark-rgb: var(--relx-default-black);
+  --bs-secondary-rgb: var(--relx-text-neutral-secondary-rgb);
+}
+
+/* default body styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--relx-default-black);
+}
+
+/* background styles */
+.relx-bg-white {
+  background-color: var(--relx-default-white);
+}
+
+.relx-bg-beige {
+  background-color: var(--relx-custom-beige);
+}
+
+.relx-bg-yellow {
+  background-color: var(--relx-yellow-base);
+}
+
+.relx-bg-green {
+  background-color: var(--relx-custom-green);
+}
+
+/* font styles */
+.relx-text-display-bigger {
+  font-family: Gelica;
+  font-weight: 400;
+  font-size: clamp(2rem, 1.64rem + 1.48vw, 2.75rem);
+}
+
+.relx-text-display {
+  font-family: Gelica;
+  font-weight: 400;
+  font-size: clamp(1.375rem, 1.07rem + 1.23vw, 2rem);
+}
+
+.relx-text-display-light {
+  font-family: Gelica;
+  font-weight: 300;
+  font-size: clamp(1.125rem, 0.94rem + 0.74vw, 1.5rem);
+}
+
+.relx-serif-text {
+  font-family: Gelica;
+  font-weight: 400;
+  font-size: clamp(1.125rem, 1.03rem + 0.37vw, 1.3125rem);
+}
+
+/* Components */
+.relx-cta {
+  border-radius: 0;
+  border-color: var(--relx-gray-900);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 1.13rem + 0.49vw, 1.5rem);
+  box-shadow: 0 4px var(--relx-custom-drop-shadow);
+  --bs-btn-hover-border-color: var(--relx-default-black);
+  color: var(--relx-cta-text);
+}
+
+.relx-sticker-title {
+  font-size: clamp(1.125rem, 0.73rem + 1.63vw, 2rem);
+
+  & span {
+    background-color: var(--relx-green-900);
+    color: var(--relx-default-white);
+
+    &.relx-ro-1 {
+      transform: rotate(3deg);
+    }
+
+    &.relx-ro-2 {
+      transform: rotate(2deg);
+    }
+
+    &.relx-ro-3 {
+      transform: rotate(1deg);
+    }
+
+    &.relx-ro-4 {
+      transform: rotate(-1deg);
+    }
+  }
+}
+
+.relx-header-links {
+  padding: 12px 24px;
+
+  a {
+    color: var(--relx-default-black);
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+}
+
+/* Figma template section named: "accroche" */
+.relx-section-accroche {
+  .relx-section-accroche-text {
+    padding: 80px 16px 80px 16px;
+
+    & > p {
+      color: var(--relx-green-dark);
+    }
+
+    @media (min-width: 992px) {
+      padding: 112px 64px 112px 64px;
+    }
+  }
+
+  .relx-section-accroche-legende-part-x {
+    flex: 0 0 40px;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 7px,
+      var(--relx-default-black) 7px,
+      var(--relx-default-black) 8px
+    );
+  }
+
+  .relx-section-accroche-legende-part-y {
+    flex: 0 0 72px;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 7px,
+      var(--relx-default-black) 7px,
+      var(--relx-default-black) 8px
+    );
+
+    @media (min-width: 992px) {
+      flex: 0 0 48px;
+    }
+  }
+
+  .relx-section-accroche-legende-text {
+    font-size: clamp(0.8125rem, 0.72rem + 0.37vw, 1rem);
+  }
+
+  .relx-section-accroche-image {
+    object-fit: cover;
+    object-position: center bottom;
+    border-radius: 0 !important;
+  }
+}
+
+/* Figma template section named: "Pourquoi" */
+.relx-section-pourquoi {
+  padding: 56px 16px 80px 16px;
+
+  .relx-section-pourquoi-text {
+    max-width: 500px;
+  }
+
+  @media (min-width: 992px) {
+    padding: 80px 0 120px 0;
+
+    .relx-screenshot {
+      padding: 0 150px;
+    }
+  }
+}
+
+/* Figma template section named: "ContenuBDD" */
+.relx-section-contenu-bdd {
+  overflow: hidden;
+
+  .relx-section-contenu-bdd-text {
+    padding: 40px 16px 40px 16px;
+    overflow: hidden;
+    color: var(--relx-default-white);
+    border-bottom: solid 1px var(--relx-default-black);
+
+    @media (min-width: 768px) {
+      padding: 120px;
+      padding-right: 180px;
+      border-bottom: none;
+      border-right: solid 1px var(--relx-default-black);
+    }
+  }
+  .relx-section-contenu-bdd-illustration {
+    object-fit: cover;
+    min-height: 100%;
+    min-width: 100%;
+  }
+}
+
+/* Figma template section named: "Acces" */
+.relx-section-acces {
+  padding-top: 120px;
+
+  p {
+    max-width: 800px;
+  }
+
+  .relx-section-acces-miniature-borders {
+    & > div {
+      border-bottom: solid 1px var(--relx-default-black);
+    }
+
+    & > div:last-child {
+      border: none;
+    }
+
+    .relx-section-acces-miniature-logo {
+      flex: 0 0 64px;
+      overflow: hidden;
+
+      & img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      @media (min-width: 992px) {
+        flex: 1 0 120px;
+        min-height: 140px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+    }
+
+    @media (min-width: 992px) {
+      & > div {
+        border-bottom: none;
+        border-right: solid 1px var(--relx-default-black);
+      }
+    }
+  }
+}
+
+/* Figma template section named: "Fonctionnement" */
+.relx-section-fonctionnement {
+  padding: 40px 16px 80px 16px;
+
+  @media (min-width: 768px) {
+    padding: 112px 48px;
+  }
+}
+
+/* Figma template section named: "Soutient" */
+.relx-section-soutien {
+  padding: 80px 16px 0 16px;
+
+  .relx-section-soutien-text p {
+    max-width: 520px;
+  }
+
+  a.relx-contribution,
+  .relx-cta {
+    color: var(--relx-green-dark);
+  }
+
+  @media (min-width: 768px) {
+    padding: 80px 80px 0 80px;
+  }
+}
+
+/* Footer */
+footer {
+  padding: 24px;
+
+  a {
+    color: var(--relx-default-black);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    padding: 80px 40px;
+  }
+}

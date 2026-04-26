@@ -11,7 +11,7 @@ export default defineConfig({
        * Entrypoints of your application. Each entrypoint will
        * result in a separate bundle.
        */
-      entrypoints: ['resources/js/app.js'],
+      entrypoints: ['resources/js/app.js', 'resources/js/public_pages.js'],
 
       /**
        * Paths to watch and reload the browser on file change

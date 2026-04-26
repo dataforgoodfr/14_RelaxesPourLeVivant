@@ -1,0 +1,131 @@
+nav {
+  /* to override for consistency for demo day – to fix afterwards...*/
+  --relx-purple-text: var(--bs-nav-link-color);
+
+  .relx-navbar-contribute {
+    @media (min-width: 992px) {
+      background-color: var(--relx-custom-beige);
+      margin: 6px 0px;
+      border: solid 1px var(--relx-default-black);
+      border-right: none;
+    }
+  }
+
+  .relx-navbar-account {
+    @media (min-width: 992px) {
+      border-left: solid 1px var(--relx-default-black);
+    }
+  }
+}
+
+/*FROM BS_OVERRIDES*/
+/*
+  Overriding Bootstrap's navbar
+*/
+.navbar {
+  --bs-navbar-padding-y: 1rem;
+  /* Next lines commented because appears in current v1 (in-progress) */
+  /*border-bottom: solid 1px var(--bs-gray-100);*/
+}
+
+/*
+  Overriding Bootstrap's nav
+*/
+.nav {
+  --bs-nav-link-color: var(--bs-gray-600);
+  --bs-nav-link-hover-color: var(--bs-primary);
+  &.nav-underline {
+    --bs-nav-underline-gap: 3.5rem;
+  }
+}
+
+.btn-navbar {
+  --bs-btn-color: var(--bs-nav-link-color);
+  --bs-btn-bg: var(--msde-white);
+  --bs-btn-border-color: var(--bs-gray-900);
+
+  --bs-btn-hover-color: var(--relx-purple-text);
+  --bs-btn-hover-bg: var(--bs-btn-bg);
+  --bs-btn-hover-border-color: var(--bs-btn-border-color);
+
+  --bs-btn-focus-shadow-rgb: var(--relx-purple-text-rgb);
+
+  --bs-btn-active-color: var(--relx-purple-text);
+  --bs-btn-active-bg: var(--relx-purple-background);
+  --bs-btn-active-border-color: var(--bs-btn-border-color);
+}
+
+/*
+  Navbar
+  Three types of button :
+  - nav-link (default)
+  - btn-navbar (green background in dark mode / grey in light mode)
+  - TODO: full height button (should be implemented in menu v4)
+*/
+.navbar {
+  &[data-bs-theme='light'] {
+    --bs-navbar-brand-color: var(--msde-green);
+
+    /* Temporary override, should be removed when menu v4 will be implemented */
+    .navbar-nav .nav-link {
+      --bs-nav-link-hover-color: var(--relx-purple-text);
+
+      /* 
+        Commented lines: intentional
+        deactivate without deleting previous work for next iteration
+        active links by bootstrap's defaults, are bold (sufficent for demo day)
+      */
+      /*&.active {
+        color: var(--relx-purple-text);
+        background-color: var(--relx-purple-background);
+        border-radius: var(--bs-border-radius);
+      }*/
+    }
+
+    /* Temporary override, should be removed when menu v4 will be implemented */
+    .navbar-nav .dropdown-item {
+      &:hover {
+        color: var(--relx-purple-text);
+        background-color: var(--relx-purple-background);
+      }
+
+      &.active {
+        color: var(--relx-purple-text);
+        background-color: var(--relx-purple-background);
+      }
+    }
+  }
+
+  &[data-bs-theme='dark'] {
+    --bs-navbar-color: var(--msde-white);
+
+    .dropdown-menu {
+      --bs-dropdown-bg: var(--msde-white);
+      --bs-dropdown-link-color: var(--msde-black);
+    }
+
+    .btn-navbar {
+      --bs-btn-color: var(--msde-white);
+      --bs-btn-bg: var(--relx-accent-dark);
+      --bs-btn-border-color: var(--relx-petrol-3);
+
+      --bs-btn-hover-color: var(--bs-nav-link-hover-color);
+      --bs-btn-hover-bg: color-mix(in srgb, rgb(var(--relx-accent-dark-rgb)) 90%, black);
+      --bs-btn-hover-border-color: var(--bs-btn-border-color);
+
+      --bs-btn-focus-shadow-rgb: var(--relx-accent-dark-rgb);
+
+      --bs-btn-active-color: var(--bs-btn-color);
+      --bs-btn-active-bg: color-mix(in srgb, rgb(var(--relx-accent-dark-rgb)) 80%, black);
+      --bs-btn-active-border-color: var(--bs-btn-border-color);
+    }
+
+    .relx-navbar-contribute {
+      background-color: var(--relx-accent-dark);
+
+      @media (max-width: 992px) {
+        background-color: transparent;
+      }
+    }
+  }
+}

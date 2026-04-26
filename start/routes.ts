@@ -30,7 +30,7 @@ router
   .get('/audiences/:id', [AudiencesController, 'get'])
   .as('audiences.show')
   .use(middleware.auth())
-router.on('/sign-up').render('pages/auth/sign_up')
+router.on('/sign-up').render('pages/auth/sign_up').as('sign-up')
 router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest()).as('auth.sign_in')
 router.on('/change-password').render('pages/auth/change_password').use(middleware.auth())
 router.on('/forgotten-password').render('pages/auth/forgotten_password')
