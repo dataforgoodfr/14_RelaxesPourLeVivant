@@ -103,3 +103,78 @@
 .timeline-node > .label.conviction {
   color: #dc3545;
 }
+
+/* Audience page specific styles */
+.nav-audiences .nav-link {
+  color: var(--relx-gray-2);
+  font-weight: 500;
+
+  &:hover {
+    color: var(--msde-green);
+  }
+
+  .nav-audiences-footer {
+    font-weight: 400;
+  }
+
+  &.active {
+    font-weight: 700;
+
+    .nav-audiences-footer {
+      position: relative;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+
+      .nav-link-indicator {
+        flex: 1;
+        height: 1px;
+        background-color: var(--relx-blue-green-3);
+      }
+
+      .nav-link-indicator::after {
+        content: '';
+        display: block;
+        position: absolute;
+        inset-inline-end: -2px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 4px;
+        border-color: var(--relx-blue-green-3);
+        background-color: var(--relx-blue-green-3);
+        border-style: solid;
+        border-radius: 10px;
+        border-width: 1px;
+        z-index: 2;
+      }
+    }
+  }
+}
+
+.jugement-section {
+  --jugement-section-padding: 1.5rem;
+  padding: var(--jugement-section-padding);
+  overflow: hidden;
+
+  img {
+    position: relative;
+    mix-blend-mode: multiply;
+    inset-block-start: -2.5rem;
+    inset-inline-end: calc(var(--jugement-section-padding) * -1);
+  }
+}
+
+dl {
+  dt {
+    color: var(--relx-gray-1);
+  }
+
+  dd {
+    color: var(--relx-gray-2);
+    font-weight: 500;
+  }
+}

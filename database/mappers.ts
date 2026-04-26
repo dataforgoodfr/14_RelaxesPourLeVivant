@@ -7,15 +7,11 @@ import { ColumnOptions } from '@adonisjs/lucid/types/model'
 /**
  * Map a nocodb multiselect type to a string array.
  * @param multiSelect
- * @param separator
  * @returns
  */
-export function multiSelectToStringList(
-  multiSelect: string | null | undefined,
-  separator = ','
-): string[] {
+export function multiSelectToStringList(multiSelect: string | null | undefined): string[] {
   if (multiSelect) {
-    return multiSelect.split(separator)
+    return multiSelect.split(',')
   }
   return []
 }
@@ -23,11 +19,10 @@ export function multiSelectToStringList(
 /**
  * Map a string array to a nocodb multiselect type.
  * @param stringList
- * @param separator
  * @returns
  */
-export function stringListToMultiSelect(stringList: string[], separator = ','): string {
-  return stringList.join(separator)
+export function stringListToMultiSelect(stringList: string[]): string {
+  return stringList.join(',')
 }
 
 // ---- Attachment ----

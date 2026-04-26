@@ -1,4 +1,0 @@
-@let (fileInfo = `${file.extension ? file.extension +" - " : ''}${stringHelper.bytes.format(file.size)}`)
-{{-- Display file number if more than 1 file --}}
-@let (fileNumberOrEmpty = fileNumber !== undefined ? `#${fileNumber} - ` : '')
-<a href="{{ url }}" class="btn btn-sm btn-dark" download>> {{{ await $slots.main() }}} {{fileNumberOrEmpty}}({{fileInfo}})</a>

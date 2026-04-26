@@ -97,6 +97,7 @@ export class AudienceService {
       .join('timeline', 'timeline.reference_procedure', 'audiences.reference_procedure')
       .where('audiences.publiee', true)
       .andWhere('procedures.publiee', true)
+      .orderByRaw('audiences.date_de_l_audience DESC NULLS LAST')
 
     if (searchQuery.search) {
       query.andWhereRaw("procedures.faits_detailles_searchable @@ plainto_tsquery('french', ?)", [
@@ -198,5 +199,27 @@ export class AudienceService {
 
   async getJuridictions(): Promise<Array<{ intitule: string }>> {
     return db.query().select('*').from('juridictions')
+  }
+
+  /**
+   * Return the last decision of the audiences.
+   * We first sort by date_de_l_audience, then we take the last one with a non null decision_pour_les_infractions_principales.
+   * @param audiences
+   * @returns
+   */
+  getLastDecision(audiences: Audience[]) {
+    const sortedAudiencesWithDecision = audiences
+      .filter((a) => Boolean(a.decision_pour_les_infractions_principales))
+      .sort((a, b) => {
+        if (a.date_de_l_audience && b.date_de_l_audience) {
+          return b.date_de_l_audience.toMillis() - a.date_de_l_audience.toMillis()
+        } else if (a.date_de_l_audience) {
+          return -1
+        } else if (b.date_de_l_audience) {
+          return 1
+        }
+        return 0
+      })
+    return sortedAudiencesWithDecision.at(-1)?.decision_pour_les_infractions_principales
   }
 }
