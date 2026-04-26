@@ -5,6 +5,7 @@ import db from '@adonisjs/lucid/services/db'
 import { ImportService } from '#services/import_service'
 import logger from '@adonisjs/core/services/logger'
 import PresseArticle from '#models/presse_article'
+import Procedure from '#models/procedure'
 
 interface ImportStategie {
   (
@@ -37,6 +38,11 @@ export default class ImportsController {
       case PresseArticle.table:
         result = await this.importStategies.presseArticles(table, csv)
         break
+      case Procedure.table:
+        result = await this.importStategies.default(table, csv, {
+          refColumn: 'reference_procedure',
+        })
+        break
       default:
         result = await this.importStategies.default(table, csv)
         break
@@ -51,13 +57,13 @@ export default class ImportsController {
     return response.created()
   }
 
-  private importStategies: Record<string, ImportStategie> = {
+  private importStategies = {
     presseArticles: async (
       table: { name: string; columns: string[] },
       csv: { data: Record<string, any>[]; headers: string[] }
     ) => {
       // specials headers in CSV to define links between presse_artilces and procedures or audiences
-      table.columns.push('procedure_id')
+      table.columns.push('reference_procedure')
       table.columns.push('audience_id')
       const validation = this.validateHeaders({ actual: csv.headers, expected: table.columns })
       if (!validation.ok) {
@@ -67,16 +73,16 @@ export default class ImportsController {
       const { presseArticles, audiencesPresseArticles, proceduresPresseArticles } =
         csv.data.reduce<{
           presseArticles: Record<string, any>[]
-          proceduresPresseArticles: Array<{ presse_article_id: any; procedure_id: any }>
+          proceduresPresseArticles: Array<{ presse_article_id: any; reference_procedure: any }>
           audiencesPresseArticles: Array<{ presse_article_id: any; audience_id: any }>
         }>(
           (acc, row) => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
-            const { procedure_id, audience_id, ...rest } = row
-            if (procedure_id) {
+            const { reference_procedure, audience_id, ...rest } = row
+            if (reference_procedure) {
               acc.proceduresPresseArticles.push({
                 presse_article_id: rest.id,
-                procedure_id,
+                reference_procedure,
               })
             }
             if (audience_id) {
@@ -160,14 +166,19 @@ export default class ImportsController {
     },
     default: async (
       table: { name: string; columns: string[] },
-      csv: { data: Record<string, any>[]; headers: string[] }
+      csv: { data: Record<string, any>[]; headers: string[] },
+      options: { refColumn: string } = { refColumn: 'id' }
     ) => {
       const validation = this.validateHeaders({ actual: csv.headers, expected: table.columns })
       if (!validation.ok) {
         return { validationErrors: validation.errors }
       }
 
-      const groups = await this.importService.splitNewAndExistingRecords(table.name, csv.data)
+      const groups = await this.importService.splitNewAndExistingRecords(
+        table.name,
+        csv.data,
+        options
+      )
 
       await db.transaction(async (trx) => {
         if (groups.new) {
@@ -182,7 +193,7 @@ export default class ImportsController {
           for (const record of groups.existing) {
             await trx
               .from(table.name)
-              .where('id', record.id as string)
+              .where(options.refColumn, record[options.refColumn] as string)
               .update(record)
           }
 
@@ -192,7 +203,7 @@ export default class ImportsController {
         await this.importService.refreshAutoIncrement(table.name, trx)
       })
     },
-  }
+  } satisfies Record<string, ImportStategie>
 
   private validateHeaders(input: { actual: string[]; expected: string[] }): {
     ok: boolean

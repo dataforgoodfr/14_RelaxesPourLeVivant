@@ -38,6 +38,8 @@ export default class Procedure extends BaseModel {
 
   @manyToMany(() => PresseArticle, {
     pivotTable: 'procedures_presse_articles',
+    pivotForeignKey: 'reference_procedure',
+    localKey: 'reference_procedure',
   })
   declare la_presse_parle_des_faits: ManyToMany<typeof PresseArticle>
 
