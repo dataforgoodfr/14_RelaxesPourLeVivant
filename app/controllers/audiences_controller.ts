@@ -1,16 +1,20 @@
 import { AudienceService } from '#services/audience_service'
+import { ConfigurationService } from '#services/configuration_service'
 import { NocodbService } from '#services/nocodb_service'
 import { ProcedureService } from '#services/procedure_service'
+import env from '#start/env'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
+import jwt from 'jsonwebtoken'
 import { Readable } from 'node:stream'
 
 @inject()
 export default class AudiencesController {
   constructor(
-    public audienceService: AudienceService,
-    public procedureService: ProcedureService,
-    public nocodbService: NocodbService
+    private readonly audienceService: AudienceService,
+    private readonly procedureService: ProcedureService,
+    private readonly nocodbService: NocodbService,
+    private readonly configurationService: ConfigurationService
   ) {}
 
   /**
@@ -27,18 +31,33 @@ export default class AudiencesController {
     const audience = procedureWithAudiences.audiences.find(
       (a) => a.id === Number(request.param('id'))
     )
-    const liensPresse = [
-      ...(procedureWithAudiences.la_presse_parle_des_faits ?? []),
-      ...procedureWithAudiences.audiences.flatMap((a) => a.la_presse_parle_du_proces ?? []),
-    ].sort((a, b) => a.titre.localeCompare(b.titre))
+    const liensPresse = procedureWithAudiences.la_presse_parle_des_faits
+      .concat(procedureWithAudiences.audiences.flatMap((a) => a.la_presse_parle_du_proces))
+      .sort((a, b) => a.titre.localeCompare(b.titre))
 
     const lastDecision = this.audienceService.getLastDecision(procedureWithAudiences.audiences)
+
+    const question = await this.configurationService.audienceGraphique()
+
+    const metabaseToken = question
+      ? jwt.sign(
+          {
+            resource: { question },
+            params: {
+              audience_id: [audience?.id],
+            },
+            exp: Math.round(Date.now() / 1000) + 2 * 60, // 2 minute expiration
+          },
+          env.get('METABASE_SECRET_KEY')
+        )
+      : null
 
     return view.render('pages/audience', {
       procedure: procedureWithAudiences,
       currentAudience: audience,
       liensPresse,
       lastDecision,
+      metabaseToken,
     })
   }
 
