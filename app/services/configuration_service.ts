@@ -6,6 +6,7 @@ export class ConfigurationService {
    */
   async audienceGraphique() {
     const config = await Configuration.findBy('name', 'audience_graphique')
-    return config ? Number(config.value) : null
+    const questionId = config ? Number.parseInt(config.value) : null
+    return Number.isInteger(questionId) ? questionId : null
   }
 }
