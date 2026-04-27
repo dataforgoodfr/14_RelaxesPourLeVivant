@@ -109,21 +109,25 @@ export default class ImportsController {
 
           await trx.table(table.name).multiInsert(groups.new)
 
-          await trx
-            .table('procedures_presse_articles')
-            .multiInsert(
-              proceduresPresseArticles.filter((pivot) =>
-                groups.new!.some((record) => record.id === pivot.presse_article_id)
+          if (proceduresPresseArticles.length) {
+            await trx
+              .table('procedures_presse_articles')
+              .multiInsert(
+                proceduresPresseArticles.filter((pivot) =>
+                  groups.new!.some((record) => record.id === pivot.presse_article_id)
+                )
               )
-            )
+          }
 
-          await trx
-            .table('audiences_presse_articles')
-            .multiInsert(
-              audiencesPresseArticles.filter((pivot) =>
-                groups.new!.some((record) => record.id === pivot.presse_article_id)
+          if (audiencesPresseArticles.length) {
+            await trx
+              .table('audiences_presse_articles')
+              .multiInsert(
+                audiencesPresseArticles.filter((pivot) =>
+                  groups.new!.some((record) => record.id === pivot.presse_article_id)
+                )
               )
-            )
+          }
 
           logger.info(`${groups.new.length} new ${table.name} created`)
         }
