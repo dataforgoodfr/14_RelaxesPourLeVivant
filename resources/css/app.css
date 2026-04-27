@@ -132,7 +132,7 @@
       .nav-link-indicator {
         flex: 1;
         height: 1px;
-        background-color: var(--relx-blue-green-3);
+        background-color: var(--relx-blue-green);
       }
 
       .nav-link-indicator::after {
@@ -144,8 +144,8 @@
         transform: translateY(-50%);
         width: 4px;
         height: 4px;
-        border-color: var(--relx-blue-green-3);
-        background-color: var(--relx-blue-green-3);
+        border-color: var(--relx-blue-green);
+        background-color: var(--relx-blue-green);
         border-style: solid;
         border-radius: 10px;
         border-width: 1px;
