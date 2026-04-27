@@ -62,6 +62,8 @@ FROM bs_override
   --relx-accent-subtle-rgb: 242, 239, 203;
   --relx-blue-green: #00444a;
   --relx-blue-green-rgb: 0, 68, 74;
+  --relx-petrol-2: #515363;
+  --relx-petrol-2-rgb: 81, 83, 99;
   --relx-petrol-3: #161b2e;
   --relx-petrol-3-rgb: 22, 27, 46;
   --relx-yellow-1: #ffe16f;

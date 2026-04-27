@@ -29,7 +29,7 @@
           {{-- burger menu behaviour on large screens deactivated for demo day --}}
           <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
           <li class="nav-item d-flex align-items-center">
-            @menuLink({ route: route('auth.change_password'), class: 'nav-link' })
+            @menuLink({ route: route('auth.change_password'), class: 'nav-link p-0' })
               Changer de mot de passe
             @end
           </li>
@@ -69,12 +69,12 @@
           </li> --}}
         @else
           <li class="nav-item">
-            @menuLink({ route: '/sign-in', class: 'nav-link' })
+            @menuLink({ route: '/sign-in', class: 'nav-link p-0' })
               Se connecter
             @end
           </li>
           <li class="nav-item">
-            @menuLink({ route: '/sign-up', class: 'nav-link' })
+            @menuLink({ route: '/sign-up', class: 'nav-link p-0' })
               Demander un accès
               {{ svg('ph:arrow-up-right')}}
             @end
@@ -84,7 +84,7 @@
       @if (!auth.user)
         <ul class="navbar-nav me-auto gap-2 relx-navbar-about order-lg-1 p-4 pt-0 pt-lg-4">
           <li class="nav-item">
-            @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link' })
+            @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link p-0' })
               Qui sommes nous ?
             @end
           </li>
@@ -93,16 +93,16 @@
       @if (auth.user)
         <ul class="navbar-nav gap-2 mx-auto relx-navbar-app order-lg-2">
           @if (navbar?.analyses?.length > 0)
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown p-4 p-lg-3">
               <a
-                class="nav-link dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
+                class="nav-link p-0 dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Analyses
-        </a>
+              </a>
               <ul class="dropdown-menu">
                 @each(analyse in navbar.analyses)
                   <li>
@@ -115,7 +115,7 @@
             </li>
           @end
           <li class="nav-item p-4 pt-0 p-lg-3">
-            @menuLink({ route: route('audiences.search'), class: 'nav-link' })
+            @menuLink({ route: route('audiences.search'), class: 'nav-link p-0' })
               Rechercher une audience
             @end
           </li>
@@ -123,19 +123,19 @@
       @end
       <ul class="navbar-nav gap-2 relx-navbar-contribute order-lg-3 p-4 pt-0 p-lg-3">
         <li class="nav-item">
-          @menuLink({ route: content.support_us_url, class: 'nav-link', isExternal: true })
+          @menuLink({ route: content.support_us_url, class: 'nav-link p-0', isExternal: true })
             Contribuer
           @end
         </li>
       </ul>
       <ul class="navbar-nav gap-2 relx-navbar-external p-4 pt-0 gap-4">
         <li class="nav-item d-md-none">
-          @menuLink({ route: 'mailto:' + env.get('CONTACT_EMAIL'), class: 'nav-link' })
+          @menuLink({ route: 'mailto:' + env.get('CONTACT_EMAIL'), class: 'nav-link p-0' })
             Contactez-nous
           @end
         </li>
         <li class="nav-item d-md-none">
-          @menuLink({ route: content.msde_url, isExternal: true , class: 'nav-link' })
+          @menuLink({ route: content.msde_url, isExternal: true , class: 'nav-link p-0' })
             Le site MSDE
           @end
         </li>
@@ -144,13 +144,13 @@
         </li>
         {{-- TODO intégrer le lien lorsque page prête --}}
         <li class="nav-item d-md-none">
-          @menuLink({ route: '/', class: 'nav-link' })
+          @menuLink({ route: '/', class: 'nav-link p-0' })
             Conditions d'utilisation
           @end
         </li>
         {{-- TODO intégrer le lien lorsque page prête --}}
         <li class="nav-item d-md-none">
-          @menuLink({ route: '/', class: 'nav-link' })
+          @menuLink({ route: '/', class: 'nav-link p-0' })
             Mentions légales
           @end
         </li>
