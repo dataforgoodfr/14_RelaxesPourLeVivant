@@ -87,9 +87,7 @@
             </a>
             {{-- no efforts for this mailto link: comments on figma tend to make this section disapearing  --}}
             <p class="m-0 relx-serif-text text-lg-end fs-5">
-              Des suggestions de financeurs peuvent nous être envoyés à : <a href="mailto:msde_juridique@proton.me">msde_juridique
-                @proton.me
-              </a>
+              Des suggestions de financeurs peuvent nous être envoyés à : <a href="mailto:{{ env.get('CONTACT_EMAIL') }}">{{ env.get('CONTACT_EMAIL') }}</a>
             </p>
           </div>
         </div>
