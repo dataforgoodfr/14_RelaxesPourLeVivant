@@ -21,20 +21,25 @@ export class ImportService {
 
   async splitNewAndExistingRecords<T extends Record<string, any>>(
     tableName: string,
-    rows: Array<T>
+    rows: Array<T>,
+    options: { refColumn: string } = { refColumn: 'id' }
   ) {
-    const result: Array<{ id: number }> = await db
+    const result: Array<any> = await db
       .from(tableName)
-      .select('id')
+      .select(options.refColumn)
       .whereIn(
-        'id',
-        rows.map((item) => item.id)
+        options.refColumn,
+        rows.map((item) => item[options.refColumn])
       )
 
-    const existingIds = result.map((r) => r.id)
+    const existingRecords = result.map((r) => r[options.refColumn])
 
     return Object.groupBy(rows, (row) =>
-      existingIds.includes(Number(row.id)) ? 'existing' : 'new'
+      existingRecords.includes(
+        options.refColumn === 'id' ? Number(row[options.refColumn]) : row[options.refColumn]
+      )
+        ? 'existing'
+        : 'new'
     )
   }
 
