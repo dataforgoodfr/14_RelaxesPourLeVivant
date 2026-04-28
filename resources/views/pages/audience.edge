@@ -33,9 +33,25 @@
     @let (dateFormat = 'dd/MM/yyyy')
 
     <!-- Procedure information hero section -->
-    <div class="text-bg-accent">
+    <header class="text-bg-accent">
       <div class="container-md px-4 px-md-0 pb-5">
-        <header class="row gy-3">
+        <section class="hstack flex-wrap gap-2 justify-content-between py-4">
+          <a
+            href="{{ route('audiences.search') }}"
+            class="d-inline-flex align-items-center gap-2 text-bg-accent text-decoration-none"
+          >
+            @svg('ph:arrow-left-bold', { width: 24, height: 24, class: 'flex-shrink-0' })
+            Retour
+          </a>
+          <a
+            href="mailto:{{ env.get('CONTACT_EMAIL') }}"
+            class="d-inline-flex align-items-center gap-2 text-bg-accent text-decoration-none"
+          >
+            Compléter la procédure
+            @svg('ph:question', { width: 24, height: 24, class: 'flex-shrink-0' })
+          </a>
+        </section>
+        <section class="row gy-3">
           <section class="col-xl-3 vstack justify-content-between gap-4">
             <h1 class="h4 mb-0 text-yellow-1 fw-semibold">
               {{ procedure.titre }}
@@ -106,9 +122,9 @@
               </div>
             </div>
           </div>
-        </header>
+        </section>
       </div>
-    </div>
+    </header>
     <div class="container-md px-4 px-md-0 my-5">
       <section class="row gy-4">
         <div class="col-lg-3">
@@ -202,7 +218,7 @@
                   </div>
                 </div>
                 <div class="rounded text-bg-gray p-4 vstack gap-4">
-                  <h3 class="mb-0 hstack gap-1 text-blue-green-3 fw-semibold small">
+                  <h3 class="mb-0 hstack gap-1 text-blue-green fw-semibold small">
                     @svg('ph:gavel',{width: 16, height: 16, class: 'flex-shrink-0'})
                     Détails de la décision
                   </h3>
@@ -281,7 +297,7 @@
                   </picture>
 
                   <hgroup class="align-self-start pb-0 pb-sm-4">
-                    <h3 class="hstack gap-1 text-blue-green-3 fw-semibold small">
+                    <h3 class="hstack gap-1 text-blue-green fw-semibold small">
                       <img
                         class="flex-shrink-0"
                         style="width: 1em; height: 1em;"
@@ -321,7 +337,7 @@
                   Informations générales
                 </h3>
                 <div class="rounded border text-gray-2 p-4 vstack gap-4">
-                  <h4 class="mb-0 hstack gap-1 text-blue-green-3 fw-semibold small">
+                  <h4 class="mb-0 hstack gap-1 text-blue-green fw-semibold small">
                     @svg('ph:scales', {width: 16, height: 16, class: 'flex-shrink-0'})
                     Résumé de l’audience
                   </h4>
