@@ -280,7 +280,7 @@ footer {
   }
 }
 
-/* 
+/*
   section accroche des pages statiques par défaut
 */
 .relx-default-section-first {
@@ -299,7 +299,7 @@ footer {
   }
 }
 
-/* 
+/*
   page contribution - sections aide
 */
 .relx-contribution-section-aide {
@@ -310,7 +310,7 @@ footer {
   }
 }
 
-/* 
+/*
   page contribution - section qui porte le projet
 */
 .relx-contribution-section-projet {
@@ -329,7 +329,7 @@ footer {
   }
 }
 
-/* 
+/*
   section statique par défaut – texte
 */
 .relx-default-section-text {
@@ -340,9 +340,10 @@ footer {
   }
 }
 
-/* 
+/*
   dernière section avant footer des pages statiques par défaut
 */
+/* TODO: à supprimer si inutilisé */
 .relx-contribution-section-accroche {
   padding-top: 120px;
 
