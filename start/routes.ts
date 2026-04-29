@@ -21,6 +21,7 @@ const AudiencesController = () => import('#controllers/audiences_controller')
 const WebhooksController = () => import('#controllers/webhooks_controller')
 
 router.on('/welcome').render('pages/welcome').as('landing')
+router.on('/contribution').render('pages/contribution').as('contribution')
 router.get('/audiences', [HomeController, 'home']).as('audiences.search').use(middleware.auth())
 router
   .get('/audiences/:id/jugements/:jugementId', [AudiencesController, 'getJugementFile'])
@@ -42,6 +43,9 @@ router
   .where('id', router.matchers.number())
   .as('analyses.show')
   .use(middleware.auth())
+
+router.on('/legal').render('pages/legal').as('legal')
+router.on('/terms-of-use').render('pages/terms_of_use').as('terms_of_use')
 
 router.post('/sign-up', [AuthController, 'signup'])
 router.post('/sign-in', [AuthController, 'signin'])

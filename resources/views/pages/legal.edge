@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Mentions légales - {{ env.get('APP_NAME') }}
+    </title>
+    @include('partials/public_bootstrap')
+  </head>
+
+  <body>
+    <header class="mx-0 mx-md-4 relx-bg-beige">
+      <div class="row m-0 border border-bottom-0 border-dark d-none d-md-flex">
+        <div class="col-12 d-flex justify-content-end gap-4 relx-header-links">
+          <a href="{{ content.msde_url }}" target="_blank" rel="noopener noreferrer">Le site msde</a>
+          <a href="mailto:{{ env.get('CONTACT_EMAIL') }}">Contactez nous</a>
+        </div>
+      </div>
+      @include('partials/navbar')
+    </header>
+
+    <main class="mx-md-4">
+      <h1 class="visually-hidden">
+        Bienvenue sur {{ env.get('APP_NAME') }}
+      </h1>
+
+      <section class="relx-bg-beige relx-default-section-first border border-dark border-top-0">
+        <div class="row m-0">
+          <div class="col-12 d-flex flex-column align-items-center gap-3">
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-center fs-1 mb-5">
+              <span class="relx-ro-2 py-2 px-3 mb-1">Relaxes pour le vivant</span>
+              <span class="relx-ro-4 py-2 px-3">Mentions légales</span>
+            </h2>
+
+            <p class="m-0 relx-text-display fw-bold text-center">
+              Les présentes mentions légales sont toujours en cours de rédaction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="relx-bg-white border border-top-0 border-dark relx-default-section-text">
+        <div class="row m-0">
+          <div class="col-12 p-0 d-flex flex-column gap-4">
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
+              <span class="relx-ro-1 py-2 px-3">Article 1</span>
+              <span class="relx-ro-4 py-2 px-3">Éditeur du site</span>
+            </h2>
+            <p class="m-0 relx-serif-text">
+              Le site Relaxes pour le vivant est édité par l'association MOUVEMENT DE SOUTIEN AUX DEFENSEUR·ES DE L'ENVIRONNEMENT (association loi 1901, fondée en décembre 2024), dont le siège social est situé au :
+
+              32 RUE D'AUMALE, 60500 CHANTILLY
+
+              SIREN : 990 004 897
+
+              Directeur•ice de la publication : XXXX, en qualité de XXXX.
+            </p>
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
+              <span class="relx-ro-1 py-2 px-3">Article 2</span>
+              <span class="relx-ro-4 py-2 px-3">Hébergeur</span>
+            </h2>
+            <p class="m-0 relx-serif-text">
+              À rédiger
+            </p>
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
+              <span class="relx-ro-1 py-2 px-3">Article 3</span>
+              <span class="relx-ro-4 py-2 px-3">Propriété intellectuelle</span>
+            </h2>
+            <p class="m-0 relx-serif-text">
+              À rédiger
+            </p>
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
+              <span class="relx-ro-1 py-2 px-3">Article 4</span>
+              <span class="relx-ro-4 py-2 px-3">Données personnelles</span>
+            </h2>
+            <p class="m-0 relx-serif-text">
+              À rédiger
+            </p>
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
+              <span class="relx-ro-1 py-2 px-3">Article 5</span>
+              <span class="relx-ro-4 py-2 px-3">Limitation de responsabilité</span>
+            </h2>
+            <p class="m-0 relx-serif-text">
+              À rédiger
+            </p>
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
+              <span class="relx-ro-1 py-2 px-3">Article 6</span>
+              <span class="relx-ro-4 py-2 px-3">Liens externes</span>
+            </h2>
+            <p class="m-0 relx-serif-text">
+              À rédiger
+            </p>
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
+              <span class="relx-ro-1 py-2 px-3">Article 7</span>
+              <span class="relx-ro-4 py-2 px-3">Modification des mentions légales</span>
+            </h2>
+            <p class="m-0 relx-serif-text">
+              À rédiger
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="relx-bg-yellow relx-default-section-last border border-top-0 border-dark">
+        <div class="container-fluid p-0">
+          <div class="row m-0">
+            <img src="{{ asset('resources/images/team.png') }}" alt="équipe" />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @include('components/footer')
+
+  </body>
+
+</html>

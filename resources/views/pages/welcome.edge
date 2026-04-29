@@ -255,8 +255,7 @@
                   </p>
                   <img src="{{ asset('resources/images/cta_arrow.svg') }}" alt="" aria-hidden="true" />
                 </a>
-                {{-- TODO page à implementer --}}
-                <a class="relx-contribution" href="#">Contribuez à la plateforme</a>
+                <a class="relx-contribution" href="{{ route('contribution') }}">Contribuez à la plateforme</a>
               </div>
             </div>
           </div>
@@ -267,20 +266,7 @@
       </section>
     </main>
 
-    <footer class="mx-0 mx-md-4 relx-bg-white border border-top-0 border-dark">
-      <div class="row d-none d-md-flex">
-        <div class="col-6 p-0">
-          <p class="m-0">
-            2026 ©MSDE
-          </p>
-        </div>
-        <div class="col-6 p-0 d-flex justify-content-end gap-5">
-          {{-- TODO pages à implémenter --}}
-          <a href="#">Conditions d’utilisation</a>
-          <a href="#">Mentions légales</a>
-        </div>
-      </div>
-    </footer>
+    @include('components/footer')
 
   </body>
 

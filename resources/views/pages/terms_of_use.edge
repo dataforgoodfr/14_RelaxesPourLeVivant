@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Conditions d'utilisation - {{ env.get('APP_NAME') }}
+    </title>
+    @include('partials/public_bootstrap')
+  </head>
+
+  <body>
+    <header class="mx-0 mx-md-4 relx-bg-beige">
+      <div class="row m-0 border border-bottom-0 border-dark d-none d-md-flex">
+        <div class="col-12 d-flex justify-content-end gap-4 relx-header-links">
+          <a href="{{ content.msde_url }}" target="_blank" rel="noopener noreferrer">Le site msde</a>
+          <a href="mailto:{{ env.get('CONTACT_EMAIL') }}">Contactez nous</a>
+        </div>
+      </div>
+      @include('partials/navbar')
+    </header>
+
+    <main class="mx-md-4">
+      <h1 class="visually-hidden">
+        Bienvenue sur {{ env.get('APP_NAME') }}
+      </h1>
+
+      <section class="relx-bg-beige relx-default-section-first border border-dark border-top-0">
+        <div class="row m-0">
+          <div class="col-12 d-flex flex-column align-items-center gap-3">
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-center fs-1 mb-5">
+              <span class="relx-ro-2 py-2 px-3 mb-1">Relaxes pour le vivant</span>
+              <span class="relx-ro-4 py-2 px-3">Conditions d'utilisation</span>
+            </h2>
+
+            <p class="m-0 relx-text-display fw-bold text-center">
+              Les présentes conditions d'utilisation sont toujours en cours de rédaction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="relx-bg-white border border-top-0 border-dark relx-default-section-text">
+        <div class="row m-0">
+          <div class="col-12 p-0 d-flex flex-column gap-4">
+            <h2 class="relx-sticker-title my-2 d-flex flex-column align-items-start">
+              <span class="relx-ro-1 py-2 px-3">Titre ligne 1</span>
+              <span class="relx-ro-4 py-2 px-3">Titre ligne 2</span>
+            </h2>
+            <p class="m-0 relx-serif-text">
+              À rédiger
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="relx-bg-yellow relx-default-section-last border border-top-0 border-dark">
+        <div class="container-fluid p-0">
+          <div class="row m-0">
+            <img src="{{ asset('resources/images/team.png') }}" alt="équipe" />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @include('components/footer')
+
+  </body>
+
+</html>
