@@ -213,7 +213,7 @@ You can display the values by adding `data-more-filters-value` on a html element
       <div class="p-2">
         <select name="ville" class="form-select" data-more-filters-input="ville">
           <option value="" {{ searchQuery.ville === "" ? "selected" : "" }}>
-            Ville
+            Toutes les villes
           </option>
           @each(ville in villes)
             <option value="{{ ville.nom }}" {{ searchQuery.ville === ville.nom ? "selected" : "" }}>
@@ -231,7 +231,7 @@ You can display the values by adding `data-more-filters-value` on a html element
       <div class="p-2">
         <select name="juridiction" class="form-select" data-more-filters-input="juridiction">
           <option value="" {{ searchQuery.juridiction === "" ? "selected" : "" }}>
-            Juridiction
+            Toutes les juridictions
           </option>
           @each(juridiction in juridictions)
             <option
@@ -252,7 +252,7 @@ You can display the values by adding `data-more-filters-value` on a html element
       <div class="p-2">
         <select name="decision" class="form-select" data-more-filters-input="decision">
           <option value="" {{ searchQuery.decision === "" ? "selected" : "" }}>
-            Décision
+            Toutes les décisions
           </option>
           <option value="Condamnable" {{ searchQuery.decision === "Condamnable" ? "selected" : "" }}>
             Condamnable
