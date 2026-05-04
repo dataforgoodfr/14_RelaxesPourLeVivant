@@ -186,19 +186,19 @@ export class AudienceService {
   }
 
   async getVilles(): Promise<Array<{ nom: string }>> {
-    return db.query().select('*').from('villes')
+    return await db.query().select('*').from('villes').whereNotNull('nom')
   }
 
   async getCollectifs(): Promise<Array<{ nom: string }>> {
-    return db.query().select('*').from('collectifs')
+    return db.query().select('*').from('collectifs').whereNotNull('nom')
   }
 
   async getChefDePreventionCategories(): Promise<Array<{ intitule: string }>> {
-    return db.query().select('*').from('chef_prevention_categories')
+    return db.query().select('*').from('chef_prevention_categories').whereNotNull('intitule')
   }
 
   async getJuridictions(): Promise<Array<{ intitule: string }>> {
-    return db.query().select('*').from('juridictions')
+    return db.query().select('*').from('juridictions').whereNotNull('intitule')
   }
 
   /**
