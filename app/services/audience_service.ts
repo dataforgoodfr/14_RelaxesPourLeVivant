@@ -100,9 +100,26 @@ export class AudienceService {
       .orderByRaw('audiences.date_de_l_audience DESC NULLS LAST')
 
     if (searchQuery.search) {
-      query.andWhereRaw("procedures.faits_detailles_searchable @@ plainto_tsquery('french', ?)", [
-        searchQuery.search,
-      ])
+      query
+        .joinRaw(
+          db.raw(
+            "CROSS JOIN (SELECT plainto_tsquery('french', ?) as search_str) as search_full_text_params",
+            [searchQuery.search]
+          )
+        )
+        .andWhere((q) =>
+          q
+            .whereRaw(
+              'procedures.faits_detailles_searchable @@ "search_full_text_params"."search_str"'
+            )
+            .orWhereRaw('procedures.titre_searchable @@ "search_full_text_params"."search_str"')
+            .orWhereRaw(
+              'audiences.fondement_de_la_relaxe_searchable @@ "search_full_text_params"."search_str"'
+            )
+            .orWhereRaw(
+              'audiences.chefs_de_prevention_categorie_text_searchable @@ "search_full_text_params"."search_str"'
+            )
+        )
     }
 
     if (searchQuery.dateAudience && searchQuery.dateAudience.length === 2) {
