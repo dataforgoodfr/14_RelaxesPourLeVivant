@@ -3,6 +3,8 @@ import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 import { readFileSync } from 'node:fs'
 import { dsvFormat, autoType } from 'd3-dsv'
 import stripBom from 'strip-bom'
+import { Readable } from 'node:stream'
+import { DateTime } from 'luxon'
 
 export class ImportService {
   async introspect(tableName: string, ignore: string[] = []): Promise<string[] | null> {
@@ -72,5 +74,15 @@ export class ImportService {
     const file = readFileSync(path, { encoding: 'utf-8' })
     const result = dsvFormat(';').parse(stripBom(file), autoType)
     return { data: result as Record<string, any>[], headers: result.columns as string[] }
+  }
+
+  writeCsv(data: any[], headers: string[]): Readable {
+    const csv = dsvFormat(';').format(data, headers)
+
+    return Readable.from(csv)
+  }
+
+  formatDateToCsvDate(data?: Date) {
+    return data ? DateTime.fromJSDate(data).toFormat('yyyy-MM-dd') : ''
   }
 }

@@ -6,19 +6,26 @@ import { ImportService } from '#services/import_service'
 import logger from '@adonisjs/core/services/logger'
 import PresseArticle from '#models/presse_article'
 import Procedure from '#models/procedure'
+import Audience from '#models/audience'
+import type { Readable } from 'node:stream'
+import { exportCsvValidator } from '#validators/export_csv'
 
-interface ImportStategie {
+interface ImportStrategie {
   (
     table: { name: string; columns: string[] },
     csv: { data: Record<string, any>[]; headers: string[] }
   ): Promise<{ validationErrors: string[] } | undefined>
 }
 
+interface ExportStrategie {
+  (table: { name: string; columns: string[] }): Promise<Readable>
+}
+
 @inject()
 export default class ImportsController {
   constructor(private readonly importService: ImportService) {}
 
-  async execute({ response, request }: HttpContext) {
+  async import({ response, request }: HttpContext) {
     const { csv: file, ignore = [] } = await request.validateUsing(importCsvValidator)
     const tableName: string = request.param('table')
 
@@ -26,25 +33,25 @@ export default class ImportsController {
 
     const columns = await this.importService.introspect(tableName, ignore)
     if (!columns) {
-      return response.status(400).json({
+      return response.badRequest({
         code: 'E_IMPORT_UNKNOWN_TABLE',
         message: `unknown table ${tableName}`,
       })
     }
 
     const table = { name: tableName, columns }
-    let result: Awaited<ReturnType<ImportStategie>>
+    let result: Awaited<ReturnType<ImportStrategie>>
     switch (table.name) {
       case PresseArticle.table:
-        result = await this.importStategies.presseArticles(table, csv)
+        result = await this.importStrategies.presseArticles(table, csv)
         break
       case Procedure.table:
-        result = await this.importStategies.default(table, csv, {
+        result = await this.importStrategies.default(table, csv, {
           refColumn: 'reference_procedure',
         })
         break
       default:
-        result = await this.importStategies.default(table, csv)
+        result = await this.importStrategies.default(table, csv)
         break
     }
 
@@ -57,7 +64,7 @@ export default class ImportsController {
     return response.created()
   }
 
-  private importStategies = {
+  private importStrategies = {
     presseArticles: async (
       table: { name: string; columns: string[] },
       csv: { data: Record<string, any>[]; headers: string[] }
@@ -201,7 +208,7 @@ export default class ImportsController {
         await this.importService.refreshAutoIncrement(table.name, trx)
       })
     },
-  } satisfies Record<string, ImportStategie>
+  } satisfies Record<string, ImportStrategie>
 
   private validateHeaders(input: { actual: string[]; expected: string[] }): {
     ok: boolean
@@ -215,4 +222,92 @@ export default class ImportsController {
     }
     return { ok: errors.length === 0, errors }
   }
+
+  async export({ response, request }: HttpContext) {
+    const { ignore = [] } = await request.validateUsing(exportCsvValidator)
+    const tableName: string = request.param('table')
+
+    const columns = await this.importService.introspect(tableName, ignore)
+    if (!columns) {
+      return response.badRequest({
+        code: 'E_EXPORT_UNKNOWN_TABLE',
+        message: `unknown table ${tableName}`,
+      })
+    }
+
+    const table = { name: tableName, columns }
+    let csv: Readable | undefined
+    switch (tableName) {
+      case Audience.table:
+        csv = await this.exportStrategies.audience(table)
+        break
+      case Procedure.table: {
+        csv = await this.exportStrategies.procedure(table)
+        break
+      }
+      case PresseArticle.table: {
+        csv = await this.exportStrategies.presseArticle(table)
+        break
+      }
+    }
+
+    if (!csv) {
+      return response.badRequest({
+        code: 'E_EXPORT_UNKNOWN_TABLE',
+        message: `unknown table ${tableName}`,
+      })
+    }
+
+    return response.type('.csv').stream(csv)
+  }
+
+  private exportStrategies = {
+    audience: async (table: { name: string; columns: string[] }) => {
+      const audiences = await db.query().select().from(table.name)
+      return this.importService.writeCsv(
+        audiences.map((a) => ({
+          ...a,
+          date_de_l_audience: this.importService.formatDateToCsvDate(a.date_de_l_audience),
+          date_de_decision: this.importService.formatDateToCsvDate(a.date_de_decision),
+        })),
+        Array.from(table.columns)
+      )
+    },
+    procedure: async (table: { name: string; columns: string[] }) => {
+      const procedures = await db.query().select().from(table.name)
+      return this.importService.writeCsv(
+        procedures.map((p) => {
+          return {
+            ...p,
+            date_des_faits: this.importService.formatDateToCsvDate(p.date_des_faits),
+          }
+        }),
+        Array.from(table.columns)
+      )
+    },
+    presseArticle: async (table: { name: string; columns: string[] }) => {
+      const presseArticles = await db
+        .query()
+        .select(
+          'presse_articles.*',
+          'audiences_presse_articles.audience_id as audience_id',
+          'procedures_presse_articles.reference_procedure as reference_procedure'
+        )
+        .from(table.name)
+        .leftJoin(
+          'audiences_presse_articles',
+          'audiences_presse_articles.presse_article_id',
+          'presse_articles.id'
+        )
+        .leftJoin(
+          'procedures_presse_articles',
+          'procedures_presse_articles.presse_article_id',
+          'presse_articles.id'
+        )
+      return this.importService.writeCsv(
+        presseArticles,
+        table.columns.concat(['audience_id', 'reference_procedure'])
+      )
+    },
+  } satisfies Record<string, ExportStrategie>
 }

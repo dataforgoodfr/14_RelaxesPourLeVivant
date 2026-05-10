@@ -43,7 +43,6 @@ router
   .where('id', router.matchers.number())
   .as('analyses.show')
   .use(middleware.auth())
-
 router.on('/legal').render('pages/legal').as('legal')
 router.on('/terms-of-use').render('pages/terms_of_use').as('terms_of_use')
 
@@ -61,7 +60,10 @@ router
   .group(() => {
     router.post('/webhooks/user', [WebhooksController, 'user'])
     router
-      .post('/imports/:table', [ImportsController, 'execute'])
+      .post('/imports/:table', [ImportsController, 'import'])
+      .where('table', `^(${Procedure.table}|${Audience.table}|${PresseArticle.table})$`)
+    router
+      .get('/exports/:table', [ImportsController, 'export'])
       .where('table', `^(${Procedure.table}|${Audience.table}|${PresseArticle.table})$`)
   })
   .prefix('/_')
