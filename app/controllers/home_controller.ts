@@ -20,28 +20,22 @@ export default class HomeController {
         this.audienceService.getJuridictions(),
       ])
 
-    const paginations = audiences.getUrlsForRange(1, audiences.lastPage).map((anchor) => {
-      const url = new URLSearchParams(request.qs())
-      url.set('page', anchor.page.toString(10))
-      return { url: `?${url}`, page: anchor.page }
-    })
-
     const timelineDataMapper = new TimelineDataMapper()
+    for (const audience of audiences) {
+      Object.assign(audience, { timeline: timelineDataMapper.map(audience) })
+    }
 
     return view.render('pages/home', {
       villes,
       collectifs,
-      audiences: audiences.map((audience) => {
-        return {
-          ...audience,
-          timeline: timelineDataMapper.map(audience),
-        }
-      }),
-      total: audiences.total,
-      paginations,
+      audiences,
       searchQuery,
       chefDePreventionCategories,
       juridictions,
+      paginations: audiences
+        .baseUrl('/audiences')
+        .queryString(request.qs())
+        .getUrlsForRange(1, audiences.lastPage),
     })
   }
 }
