@@ -12,7 +12,7 @@ services:
       test: 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"'
       timeout: 2s
   app-admin:
-    image: nocodb/nocodb:latest
+    image: nocodb/nocodb:0.265.1
     env_file: .env
     ports:
       - 4444:3333

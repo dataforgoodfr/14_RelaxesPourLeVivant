@@ -75,7 +75,7 @@ export default class AudiencesController {
     }
 
     const result = await this.nocodbService.fetchAttachmentFile(jugement.path)
-    if (result.body) {
+    if (result.ok && result.body) {
       response.header('Content-Type', 'application/octet-stream')
       response.header('Content-Disposition', `inline; filename="${jugement.title}"`)
       return response.stream(Readable.fromWeb(result.body))
