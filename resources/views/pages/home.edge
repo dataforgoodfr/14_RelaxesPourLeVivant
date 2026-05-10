@@ -71,24 +71,24 @@
 
       <!-- Hidden - Accessibilité : Annonce du nombre de résultats trouvés -->
       <div aria-live="polite" aria-atomic="true" class="visually-hidden">
-        @if (total === 0)
+        @if (audiences.total === 0)
           Aucun résultat trouvé.
-        @elseif (total === 1)
+        @elseif (audiences.total === 1)
           1 résultat trouvé.
         @else
-          {{ total }} résultats trouvés.
+          {{ audiences.total }} résultats trouvés.
         @endif
       </div>
 
-      @if (total > 0)
+      @if (audiences.total > 0)
         <div class="vstack gap-4">
-          @if (total === 1)
+          @if (audiences.total === 1)
             <p class="h4 mb-0">
               1 résultat trouvé
             </p>
-          @elseif (total > 1)
+          @elseif (audiences.total > 1)
             <p class="h4 mb-0">
-              {{ total }} résultats trouvés
+              {{ audiences.total }} résultats trouvés
             </p>
           @endif
           @each(audience in audiences)
@@ -210,7 +210,10 @@
           <ul class="pagination">
             @each(pagination in paginations)
               <li class="page-item">
-                <a href="{{ pagination.url }}" class="page-link">{{ pagination.page }}</a>
+                <a
+                  href="{{ pagination.url }}"
+                  class="{{ html.classNames(['page-link', { active: pagination.isActive }]) }}"
+                >{{ pagination.page }}</a>
               </li>
             @end
           </ul>
