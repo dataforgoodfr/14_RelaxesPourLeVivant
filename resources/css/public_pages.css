@@ -339,23 +339,3 @@ footer {
     padding: 40px 16px;
   }
 }
-
-/*
-  dernière section avant footer des pages statiques par défaut
-*/
-/* TODO: à supprimer si inutilisé */
-.relx-contribution-section-accroche {
-  padding-top: 120px;
-
-  h2 > span {
-    background-color: var(--relx-green-3);
-  }
-
-  p {
-    max-width: 800px;
-  }
-
-  @media (max-width: 992px) {
-    padding: 40px 16px;
-  }
-}

@@ -128,60 +128,74 @@
     <div class="container-md px-4 px-md-0 my-5">
       <section class="row gy-4">
         <div class="col-lg-3">
-          <!-- Desktop menu -->
-          <nav
-            class="nav nav-audiences flex-column d-none d-lg-flex"
-            aria-label="Liste des audiences de la procédure"
-          >
-            @each (audience in procedure.audiences)
-              @let (isCurrent = currentAudience.id === audience.id)
-              <a
-                class="nav-link {{ isCurrent ? 'active' : '' }} vstack gap-1 align-items-start w-100"
-                href="{{ route('audiences.show', { id: audience.id }) }}#audienceInformation"
-                {{{ isCurrent ? 'aria-current="page"' : '' }}}
-              >
-                {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
-                  <span class="nav-audiences-footer">
-                  <small>{{ audienceHelper.dateLabel(audience.date_de_decision) }}</small>
-                  @if (isCurrent)
-                    <span class="nav-link-indicator"></span>
-                  @endif
-                </span>
-              </a>
-            @end
-          </nav>
-          <!-- Mobile menu -->
-          <div
-            class="dropdown d-block d-lg-none"
-            role="navigation"
-            aria-label="Liste des audiences de la procédure"
-          >
-            <button
-              class="btn btn-outline-dark dropdown-toggle w-100"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+          <div class="row">
+            <!-- Desktop menu -->
+            <nav
+              class="nav nav-audiences flex-column d-none d-lg-flex"
+              aria-label="Liste des audiences de la procédure"
             >
-              <span class="vstack gap-1 align-items-start">
-                {{ audienceHelper.juridictionLabel(currentAudience.juridiction, currentAudience.ville_de_l_audience, currentAudience.degre_de_juridiction) }}
-                  <small>{{ audienceHelper.dateLabel(currentAudience.date_de_decision) }}</small>
-              </span>
-            </button>
-            <ul class="dropdown-menu">
               @each (audience in procedure.audiences)
                 @let (isCurrent = currentAudience.id === audience.id)
-                <li>
-                  <a
-                    class="dropdown-item {{ isCurrent ? 'active' : '' }} vstack gap-1 align-items-start"
-                    href="{{ route('audiences.show', { id: audience.id }) }}#audienceInformation"
-                    {{{ isCurrent ? 'aria-current="page"' : '' }}}
-                  >
-                    {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
-                  <small>{{ audienceHelper.dateLabel(audience.date_de_decision) }}</small>
-                  </a>
-                </li>
+                <a
+                  class="nav-link {{ isCurrent ? 'active' : '' }} vstack gap-1 align-items-start w-100"
+                  href="{{ route('audiences.show', { id: audience.id }) }}#audienceInformation"
+                  {{{ isCurrent ? 'aria-current="page"' : '' }}}
+                >
+                  {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
+                    <span class="nav-audiences-footer">
+                    <small>{{ audienceHelper.dateLabel(audience.date_de_decision) }}</small>
+                    @if (isCurrent)
+                      <span class="nav-link-indicator"></span>
+                    @endif
+                  </span>
+                </a>
               @end
-            </ul>
+            </nav>
+            <!-- Mobile menu -->
+            <div
+              class="dropdown d-block d-lg-none"
+              role="navigation"
+              aria-label="Liste des audiences de la procédure"
+            >
+              <button
+                class="btn btn-outline-dark dropdown-toggle w-100"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span class="vstack gap-1 align-items-start">
+                  {{ audienceHelper.juridictionLabel(currentAudience.juridiction, currentAudience.ville_de_l_audience, currentAudience.degre_de_juridiction) }}
+                    <small>{{ audienceHelper.dateLabel(currentAudience.date_de_decision) }}</small>
+                </span>
+              </button>
+              <ul class="dropdown-menu">
+                @each (audience in procedure.audiences)
+                  @let (isCurrent = currentAudience.id === audience.id)
+                  <li>
+                    <a
+                      class="dropdown-item {{ isCurrent ? 'active' : '' }} vstack gap-1 align-items-start"
+                      href="{{ route('audiences.show', { id: audience.id }) }}#audienceInformation"
+                      {{{ isCurrent ? 'aria-current="page"' : '' }}}
+                    >
+                      {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
+                    <small>{{ audienceHelper.dateLabel(audience.date_de_decision) }}</small>
+                    </a>
+                  </li>
+                @end
+              </ul>
+            </div>
+          </div>
+          <div
+            class="row d-none d-lg-block relx-contribution-block"
+            style="background-image: url({{ asset('resources/images/fist.png') }});"
+          >
+            <p class="title">
+              Aidez-nous à sourtenir les défenseur.es de l'environnement
+            </p>
+            <p>
+              Aujourd'hui, pour continuer, nous avons besoin d'un coup de pouce financier.
+            </p>
+            <a class="btn btn-primary" href="{{ content.support_us_url }}">Soutenir la plateforme</a>
           </div>
         </div>
         <div class="col-lg-9" id="audienceInformation">
