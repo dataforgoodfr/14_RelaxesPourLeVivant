@@ -157,7 +157,7 @@
                           </h3>
                           <p class="small fw-normal mb-0">
                             @if(audience.faits_concis)
-                              <em>"{{ audience.faits_concis }}"</em>
+                              {{{ nl2br(audience.faits_concis) }}}
                             @else
                               Aucune information
                             @endif
@@ -174,7 +174,7 @@
                           </h3>
                           <p class="small fw-normal mb-0">
                             @if(audience.extrait_de_la_decision)
-                              <em>"{{ audience.extrait_de_la_decision }}"</em>
+                              <em>{{{ nl2br(audience.extrait_de_la_decision) }}}</em>
                             @else
                               Aucune information
                             @endif
@@ -192,7 +192,7 @@
                           </h3>
                           <p class="small fw-normal mb-0">
                             @if(audience.commentaire_msde)
-                              {{ audience.commentaire_msde }}
+                              {{{ nl2br(audience.commentaire_msde) }}}
                             @else
                               Aucune information
                             @endif

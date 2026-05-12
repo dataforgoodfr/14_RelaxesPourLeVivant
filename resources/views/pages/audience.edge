@@ -102,7 +102,7 @@
                 @heroSection({titre: 'Détails des faits', icon: 'ph:folder-open'})
                   <p class="mb-0 small">
                     @if (procedure.faits_detailles)
-                      {{ procedure.faits_detailles }}
+                      {{{ nl2br(procedure.faits_detailles) }}}
                     @else
                       @!emptyData()
                     @endif
@@ -113,7 +113,7 @@
                 @heroSection({titre: 'Poursuites', icon: 'ph:scales'})
                   <p class="mb-0 small">
                     @if (procedure.poursuites)
-                      {{ procedure.poursuites }}
+                      {{{ nl2br(procedure.poursuites) }}}
                     @else
                       @!emptyData()
                     @endif
@@ -224,7 +224,7 @@
                   </h3>
                   <p class="mb-0">
                     @if (audience.details_de_la_decision_pour_les_infractions_principales)
-                      {{ audience.details_de_la_decision_pour_les_infractions_principales }}
+                      {{{ nl2br(audience.details_de_la_decision_pour_les_infractions_principales) }}}
                     @else
                       <span class="fst-italic text-muted">La décision n'a pas encore été rendue publique.</span>
                     @endif
@@ -343,7 +343,7 @@
                   </h4>
                   <p class="mb-0">
                     @if (audience.resume_de_l_audience)
-                      {{ audience.resume_de_l_audience }}
+                      {{{ nl2br(audience.resume_de_l_audience) }}}
                     @else
                       @!emptyData()
                     @endif
@@ -422,7 +422,7 @@
                   </dt>
                   <dd class="col-sm-9">
                     @if (audience.plaidoirie_de_la_defense)
-                      {{ audience.plaidoirie_de_la_defense }}
+                      {{{ nl2br(audience.plaidoirie_de_la_defense) }}}
                     @else
                       @!emptyData()
                     @endif
@@ -439,7 +439,7 @@
                   </dt>
                   <dd class="col-sm-9">
                     @if (audience.requisitions)
-                      {{ audience.requisitions }}
+                      {{{ nl2br(audience.requisitions) }}}
                     @else
                       @!emptyData()
                     @endif
@@ -459,7 +459,7 @@
                   </dt>
                   <dd class="col-sm-9">
                     @if (audience.demande_des_parties_civiles)
-                      {{ audience.demande_des_parties_civiles }}
+                      {{{ nl2br(audience.demande_des_parties_civiles) }}}
                     @else
                       @!emptyData()
                     @endif
@@ -506,7 +506,7 @@
                   </dt>
                   <dd class="col-sm-9">
                     @if (audience.details_de_la_decision_pour_les_infractions_principales)
-                      {{ audience.details_de_la_decision_pour_les_infractions_principales }}
+                      {{{ nl2br(audience.details_de_la_decision_pour_les_infractions_principales) }}}
                     @else
                       @!emptyData()
                     @endif
@@ -516,7 +516,7 @@
                   </dt>
                   <dd class="col-sm-9">
                     @if (audience.details_des_peines_pour_les_infractions_principales)
-                      {{ audience.details_des_peines_pour_les_infractions_principales }}
+                      {{{ nl2br(audience.details_des_peines_pour_les_infractions_principales) }}}
                     @else
                       @!emptyData()
                     @endif
@@ -547,7 +547,7 @@
                   <dd class="col-sm-9">
                     @if (audience.dommages_et_interets === true)
                       @if (audience.detail_des_dommages_et_interets)
-                        {{ audience.detail_des_dommages_et_interets }}
+                        {{{ nl2br(audience.detail_des_dommages_et_interets) }}}
                       @else
                         Oui
                       @endif
