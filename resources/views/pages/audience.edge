@@ -343,10 +343,14 @@
                   </h4>
                   <p class="mb-0">
                     @if (audience.resume_de_l_audience)
-                      @longParagraphe({ id: 'resume_de_l_audience' })
-                        @slot('text')
-                          {{{ nl2br(audience.resume_de_l_audience) }}}
+                      @if(audience.resume_de_l_audience.length >= 1500)
+                        @longParagraphe({ id: 'resume_de_l_audience' })
+                          @slot('text')
+                            {{{ nl2br(audience.resume_de_l_audience) }}}
+                          @end
                         @end
+                      @else
+                        {{{ nl2br(audience.resume_de_l_audience) }}}
                       @end
                     @else
                       @!emptyData()
