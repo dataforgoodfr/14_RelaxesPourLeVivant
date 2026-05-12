@@ -1,0 +1,83 @@
+@pushOnceTo('components')
+  <style>
+    .long-text {
+      --collapse-size: 14em;
+    }
+    
+    .long-text .btn {
+      border-radius: 24px;
+      border: 1px solid var(--relx-green-300);
+      background-color: var(--relx-green-100);
+      color: var(--relx-green-900);
+      font-size: 13px;
+      padding: 8px 20px 8px 20px;
+    }
+    
+    .long-text .blur {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .long-text .blur .btn {
+      align-self: center;
+    }
+    
+    p.collapse:not(.show) {
+      display: inherit;
+      overflow: hidden;
+      height: var(--collapse-size);
+    }
+    
+    p.collapse:not(.show) + .blur {
+      position: absolute;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+      height: 6em;
+      width: 100%;
+      bottom: 0;
+      opacity: 1;
+      transition: opacity .35s ease, bottom .15s ease;
+    }
+    
+    p.collapsing {
+      height: var(--collapse-size);
+    }
+    
+    p.collapsing + .blur {
+      position: absolute;
+      height: 0;
+      width: 100%;
+      bottom: 0px;
+      opacity: 0;
+      transition: opacity .35s ease, bottom .15s ease;
+    }
+    
+    p.collapsing + .blur .btn.reduce,
+    p.collapsing + .blur .btn.expend,
+    p.collapse:not(.show) + .blur .btn.reduce,
+    p.collapse.show + .blur .btn.expend {
+      display: none;
+    }
+  </style>
+@end
+
+<div class="position-relative long-text">
+  <p id="{{ id }}" class="collapse">
+    {{{ await $slots.text() }}}
+  </p>
+  <div class="blur">
+    <button
+      class="btn btn-secondary expend"
+      data-bs-toggle="collapse"
+      data-bs-target="#{{ id }}"
+      aria-controls="{{ id }}"
+      aria-expanded="false"
+    >Voir le résumé complet</button>
+    <button
+      class="btn btn-secondary reduce"
+      data-bs-toggle="collapse"
+      data-bs-target="#{{ id }}"
+      aria-controls="{{ id }}"
+      aria-expanded="false"
+    >Réduire</button>
+  </div>
+</div>
