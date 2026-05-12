@@ -43,14 +43,14 @@
             />
           </div>
           <div class="col-3">
-            @!component('components/date_range_picker', {
-            name: 'dateDeLaDecision',
-            label: 'Date de la décision',
-            value: searchQuery.dateDeLaDecision ?? []
+            @!dateRangePicker({
+              name: 'dateDeLaDecision',
+              label: 'Date de la décision',
+              value: searchQuery.dateDeLaDecision ?? []
             })
           </div>
           <div class="col-3">
-            @!component('components/multi_select', {
+            @!multiSelect({
               name: 'chefDePrevention',
               label: 'Chef de prévention',
               options: chefDePreventionCategories.map(c => c.intitule),
@@ -59,7 +59,7 @@
             })
           </div>
           <div class="col-2">
-            @!component('components/more_filters', { searchQuery, villes, juridictions, collectifs })
+            @!moreFilters({ searchQuery, villes, juridictions, collectifs })
           </div>
           <div class="col-1">
             <button class="btn btn-primary" type="submit" style="background-color: #0d6efd; height: 38px;">
@@ -164,7 +164,8 @@
                           </p>
                         </div>
                         <div class="col-lg-7 d-flex justify-content-center justify-content-lg-end align-items-center">
-                          @!component('components/timeline', { data: audience.timeline, current: audience.id, date_des_faits: audience.date_des_faits })
+                          @timeline({ data: audience.timeline, current: audience.id, date_des_faits: audience.date_des_faits })
+                          @end
                         </div>
                       </div>
                       <div class="row bg-gray rounded-3 p-3">
