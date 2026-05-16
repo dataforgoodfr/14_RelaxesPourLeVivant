@@ -43,14 +43,14 @@
             />
           </div>
           <div class="col-3">
-            @!component('components/date_range_picker', {
-            name: 'dateDeLaDecision',
-            label: 'Date de la décision',
-            value: searchQuery.dateDeLaDecision ?? []
+            @!dateRangePicker({
+              name: 'dateDeLaDecision',
+              label: 'Date de la décision',
+              value: searchQuery.dateDeLaDecision ?? []
             })
           </div>
           <div class="col-3">
-            @!component('components/multi_select', {
+            @!multiSelect({
               name: 'chefDePrevention',
               label: 'Chef de prévention',
               options: chefDePreventionCategories.map(c => c.intitule),
@@ -59,7 +59,7 @@
             })
           </div>
           <div class="col-2">
-            @!component('components/more_filters', { searchQuery, villes, juridictions, collectifs })
+            @!moreFilters({ searchQuery, villes, juridictions, collectifs })
           </div>
           <div class="col-1">
             <button class="btn btn-primary" type="submit" style="background-color: #0d6efd; height: 38px;">
@@ -157,14 +157,15 @@
                           </h3>
                           <p class="small fw-normal mb-0">
                             @if(audience.faits_concis)
-                              <em>"{{ audience.faits_concis }}"</em>
+                              {{{ nl2br(audience.faits_concis) }}}
                             @else
                               Aucune information
                             @endif
                           </p>
                         </div>
                         <div class="col-lg-7 d-flex justify-content-center justify-content-lg-end align-items-center">
-                          @!component('components/timeline', { data: audience.timeline, current: audience.id, date_des_faits: audience.date_des_faits })
+                          @timeline({ data: audience.timeline, current: audience.id, date_des_faits: audience.date_des_faits })
+                          @end
                         </div>
                       </div>
                       <div class="row bg-gray rounded-3 p-3">
@@ -174,7 +175,7 @@
                           </h3>
                           <p class="small fw-normal mb-0">
                             @if(audience.extrait_de_la_decision)
-                              <em>"{{ audience.extrait_de_la_decision }}"</em>
+                              <em>{{{ nl2br(audience.extrait_de_la_decision) }}}</em>
                             @else
                               Aucune information
                             @endif
@@ -192,7 +193,7 @@
                           </h3>
                           <p class="small fw-normal mb-0">
                             @if(audience.commentaire_msde)
-                              {{ audience.commentaire_msde }}
+                              {{{ nl2br(audience.commentaire_msde) }}}
                             @else
                               Aucune information
                             @endif
