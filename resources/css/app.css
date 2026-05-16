@@ -178,3 +178,20 @@ dl {
     font-weight: 500;
   }
 }
+
+.relx-contribution-block {
+  margin-top: 580px;
+  background-repeat: no-repeat;
+  background-position-x: right -12px;
+  background-position-y: top 25px;
+  background-color: var(--relx-green-200);
+  background-size: 6em;
+  padding: 32px;
+  border-radius: 8px;
+
+  .title {
+    font-weight: bold;
+    color: var(--relx-green-3);
+    width: 80%;
+  }
+}
