@@ -1,13 +1,3 @@
-@pushOnceTo('components')
-  <script type="module">
-    // strip wc-datepicker unwanted month and year form values, see: https://github.com/Sqrrl/wc-datepicker/issues/62
-    document.querySelector("form#search").addEventListener("formdata", function(event) {
-      event.formData.delete("month");
-      event.formData.delete("year");
-    });
-  </script>
-@end
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -219,8 +209,7 @@
           </ul>
         </nav>
       @else
-        @search.emptyResult()
-        @end
+        @!search.emptyResult()
       @endif
     </div>
 
