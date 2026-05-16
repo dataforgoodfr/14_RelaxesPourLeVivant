@@ -96,6 +96,16 @@
   color: var(--relx-blue-green);
 }
 
+.text-bg-green {
+  color: var(--relx-custom-green);
+  background-color: var(--relx-green-300);
+}
+
+.text-bg-red {
+  color: var(--relx-text-danger);
+  background-color: var(--relx-bg-danger);
+}
+
 /*
  Add border color utilities.
  */
