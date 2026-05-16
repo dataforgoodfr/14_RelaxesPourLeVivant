@@ -95,7 +95,14 @@
                         {{ audience.titre }}
                       </h2>
                       @if(audience.decision_pour_les_infractions_principales)
-                        <span class="badge rounded-pill text-bg-purple">
+                        @let(
+                          badgeColor = audience.decision_pour_les_infractions_principales === 'Relaxe'
+                            ? 'text-bg-green'
+                            : audience.decision_pour_les_infractions_principales === 'Condamnation'
+                              ? 'text-bg-red'
+                              : 'text-bg-purple'
+                        )
+                        <span class="badge rounded-pill {{ badgeColor }}">
                           {{ audience.decision_pour_les_infractions_principales }}
                       </span>
                       @endif

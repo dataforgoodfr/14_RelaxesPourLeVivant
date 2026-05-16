@@ -28,6 +28,8 @@
   --relx-text-neutral-secondary: #5a5a5a;
   --relx-text-neutral-secondary-rgb: 90, 90, 90;
   --relx-cta-text: #0d3436;
+  --relx-text-danger: #dc3545;
+  --relx-bg-danger: #fce5e5;
 }
 /*
 FROM bs_override
