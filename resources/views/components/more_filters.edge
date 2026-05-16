@@ -104,6 +104,7 @@ You can display the values by adding `data-more-filters-value` on a html element
             elem.style.setProperty("display", "none");
           } else {
             elem.style.removeProperty("display");
+            elem.querySelector("[data-more-filters-input]")?.showPicker?.();
           }
         });
       }
