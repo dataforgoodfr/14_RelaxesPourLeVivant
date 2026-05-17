@@ -35,7 +35,13 @@ export default class MultiSelect {
     })
   }
 
+  showPicker() {
+    this.#openDropdown()
+  }
+
   #bind() {
+    this.#wrapper.showPicker = this.showPicker.bind(this)
+
     this.#wrapper.addEventListener('mousedown', (e) => {
       if (e.target.closest('.token-remove')) return
       if (e.target === this.#input) return

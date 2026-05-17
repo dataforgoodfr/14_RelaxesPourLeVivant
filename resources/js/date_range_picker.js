@@ -31,6 +31,10 @@ export default class DateRangePicker {
     this.#bind(value)
   }
 
+  showPicker() {
+    this.#openPicker()
+  }
+
   static init(document) {
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('[data-date-range-picker]').forEach((wrapper) => {
@@ -44,6 +48,8 @@ export default class DateRangePicker {
   }
 
   #bind(value) {
+    this.#wrapper.showPicker = this.showPicker.bind(this)
+
     this.#picker.addEventListener('selectDate', ({ detail }) => {
       // transform array of "YYYY-MM-DD" to string like "Entre le DD.MM.YYYY et le DD.MM.YYYY"
       this.#input.value = detail
