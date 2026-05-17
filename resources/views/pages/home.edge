@@ -106,40 +106,61 @@
                           {{ audience.decision_pour_les_infractions_principales }}
                       </span>
                       @endif
-                      <div class="row">
-                        <p class="mb-1 d-flex align-items-center gap-1">
-                          @svg('ph:calendar-dot-fill')
-                          Audience : {{ audience.date_de_l_audience ? audience.date_de_l_audience.toFormat(dateFormat) : 'date non disponible' }}
-                        </p>
-                        @let (juridictionLabel = audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience))
-                        <p class="mb-1 d-flex align-items-center gap-1">
-                          @svg('ph:bank-fill')
-                          {{ juridictionLabel }}
-                        </p>
-                        @if(audience.chefs_de_prevention_categorie?.length)
-                          <p class="mb-1 d-flex align-items-center gap-1">
-                            @svg('ph:scales-fill')
-                            {{ audience.chefs_de_prevention_categorie.join(', ') }}
-                          </p>
-                        @endif
-                        @if(audience.type_de_peine_pour_les_infractions_principales)
-                          <p class="mb-1 d-flex align-items-center gap-1">
-                            @svg('ph:gavel-fill')
-                            {{ audience.type_de_peine_pour_les_infractions_principales }}
-                          </p>
-                        @endif
-                      </div>
+                      <table>
+                        <tbody class="align-top">
+                          <tr>
+                            <td class="pe-1">
+                              @svg('ph:calendar-dot-fill')
+                            </td>
+                            <td>
+                              Audience : {{ audience.date_de_l_audience ? audience.date_de_l_audience.toFormat(dateFormat) : 'date non disponible' }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="pe-1">
+                              @svg('ph:bank-fill')
+                            </td>
+                            <td>
+                              {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience) }}
+                            </td>
+                          </tr>
+                          @if(audience.chefs_de_prevention_categorie?.length)
+                            <tr>
+                              <td class="pe-1">
+                                @svg('ph:scales-fill')
+                              </td>
+                              <td>
+                                {{ audience.chefs_de_prevention_categorie.join(', ') }}
+                              </td>
+                            </tr>
+                          @endif
+                          @if(audience.type_de_peine_pour_les_infractions_principales)
+                            <tr>
+                              <td class="pe-1">
+                                @svg('ph:gavel-fill')
+                              </td>
+                              <td>
+                                {{ audience.type_de_peine_pour_les_infractions_principales }}
+                              </td>
+                            </tr>
+                          @endif
+                        </tbody>
+                      </table>
                       @if (audience.fondement_de_la_relaxe || audience.collectif_d_action_ou_lutte?.length)
                         <div class="d-flex flex-column align-items-start gap-2">
                           @if (audience.fondement_de_la_relaxe)
-                            <span class="badge rounded-pill border text-secondary">
-                              {{ audience.fondement_de_la_relaxe }}
-                          </span>
+                            <span
+                              class="badge rounded-pill border text-secondary"
+                              data-bs-toggle="tooltip"
+                              title="{{ audience.fondement_de_la_relaxe }}"
+                            >
+                              {{ truncate(audience.fondement_de_la_relaxe, 50) }}
+                            </span>
                           @endif
                           @each(collectif in audience.collectif_d_action_ou_lutte)
                             <span class="badge rounded-pill border text-secondary">
                               {{ collectif }}
-                        </span>
+                            </span>
                           @end
                         </div>
                       @endif
