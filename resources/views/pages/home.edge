@@ -132,14 +132,18 @@
                       @if (audience.fondement_de_la_relaxe || audience.collectif_d_action_ou_lutte?.length)
                         <div class="d-flex flex-column align-items-start gap-2">
                           @if (audience.fondement_de_la_relaxe)
-                            <span class="badge rounded-pill border text-secondary">
-                              {{ audience.fondement_de_la_relaxe }}
-                          </span>
+                            <span
+                              class="badge rounded-pill border text-secondary"
+                              data-bs-toggle="tooltip"
+                              title="{{ audience.fondement_de_la_relaxe }}"
+                            >
+                              {{ truncate(audience.fondement_de_la_relaxe, 50) }}
+                            </span>
                           @endif
                           @each(collectif in audience.collectif_d_action_ou_lutte)
                             <span class="badge rounded-pill border text-secondary">
                               {{ collectif }}
-                        </span>
+                            </span>
                           @end
                         </div>
                       @endif
