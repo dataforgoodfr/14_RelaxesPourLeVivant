@@ -10,6 +10,10 @@ body {
   color: var(--relx-default-black);
 }
 
+a {
+  color: var(--relx-default-black);
+}
+
 /* background styles */
 .relx-bg-white {
   background-color: var(--relx-default-white);
@@ -96,7 +100,6 @@ body {
   padding: 12px 24px;
 
   a {
-    color: var(--relx-default-black);
     text-decoration: none;
     font-size: 0.8rem;
   }
