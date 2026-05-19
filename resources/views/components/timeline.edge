@@ -35,10 +35,14 @@
           <span class="label mt-1">{{ t.degre_de_juridiction }}</span>
         @end
         @if (t.type_de_peine_pour_les_infractions_principales)
-          <span class="label mt-1 conclusion d-flex align-items-center gap-1 {{ decisionClass }}">
+          <span
+            class="label mt-1 conclusion d-flex align-items-center gap-1 w-100 overflow-hidden {{ decisionClass }}"
+          >
             @svg('ph:gavel-fill', { class:"flex-shrink-0" })
-            {{ t.type_de_peine_pour_les_infractions_principales }}
+            <span class="text-truncate">
+              {{ t.type_de_peine_pour_les_infractions_principales }}
             </span>
+          </span>
         @endif
       @endif
     </div>
