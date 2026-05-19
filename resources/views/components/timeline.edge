@@ -1,6 +1,6 @@
 @let (dateFormat = 'dd.MM.yy')
 
-<div class="timeline d-flex">
+<div class="timeline d-flex w-100">
   @each((t, index) in data)
     @let(decisionClass = html.classNames({
       'conviction': t.decision_pour_les_infractions_principales === 'Condamnation',
@@ -27,23 +27,25 @@
     >
       <span class="timeline-link"></span>
       <span class="timeline-pin {{ timelinePinClass }}"></span>
-      <span class="label mt-2">{{ t.date === null ? "À venir" : DateTime.fromISO(t.date).toFormat(dateFormat) }}</span>
-      @if (t.type ==='faits')
-        <span class="label mt-1 fw-bold">Faits</span>
-      @else
-        @if (t.degre_de_juridiction)
-          <span class="label mt-1">{{ t.degre_de_juridiction }}</span>
-        @end
-        @if (t.type_de_peine_pour_les_infractions_principales)
-          <span
-            class="label mt-1 conclusion d-flex align-items-center gap-1 w-100 overflow-hidden {{ decisionClass }}"
-          >
-            @svg('ph:gavel-fill', { class:"flex-shrink-0" })
-            <span class="text-truncate">
-              {{ t.type_de_peine_pour_les_infractions_principales }}
+      <span class="d-flex flex-column w-100 overflow-hidden">
+        <span class="label mt-2">{{ t.date === null ? "À venir" : DateTime.fromISO(t.date).toFormat(dateFormat) }}</span>
+        @if (t.type ==='faits')
+          <span class="label mt-1 fw-bold">Faits</span>
+        @else
+          @if (t.juridiction)
+            <span class="label mt-1 text-truncate d-block">{{ t.juridiction }}</span>
+          @end
+          @if (t.type_de_peine_pour_les_infractions_principales)
+            <span
+              class="label mt-1 conclusion d-flex align-items-center gap-1 w-100 overflow-hidden {{ decisionClass }}"
+            >
+              @svg('ph:gavel-fill', { class:"flex-shrink-0" })
+              <span class="text-truncate">
+                {{ t.type_de_peine_pour_les_infractions_principales }}
+              </span>
             </span>
-          </span>
-        @endif
+          @endif
+        </span>
       @endif
     </div>
   @end

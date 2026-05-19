@@ -17,6 +17,7 @@ type BaseAudienceItem = {
   id: number
   degre_de_juridiction: string | null
   decision_pour_les_infractions_principales: string | null
+  juridiction: string | null
   type_de_peine_pour_les_infractions_principales: string | null
   skipped_before?: number
   skipped_after?: number

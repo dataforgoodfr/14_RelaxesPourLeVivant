@@ -37,6 +37,7 @@ export type SearchAudiencesResponse = SimplePaginatorContract<
         date_de_decision: DateTime | null
         degre_de_juridiction: string | null
         decision_pour_les_infractions_principales: string | null
+        juridiction: string | null
         type_de_peine_pour_les_infractions_principales: string | null
         publiee: boolean
       }>
@@ -75,6 +76,7 @@ export class AudienceService {
                   'date_de_decision', date_de_decision,
                   'degre_de_juridiction', degre_de_juridiction,
                   'decision_pour_les_infractions_principales', decision_pour_les_infractions_principales,
+                  'juridiction', juridiction,
                   'type_de_peine_pour_les_infractions_principales', type_de_peine_pour_les_infractions_principales,
                   'publiee', publiee
                 )
