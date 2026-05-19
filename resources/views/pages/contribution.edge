@@ -123,19 +123,14 @@
             class="col-12 col-lg-6 ps-lg-5 p-0 d-flex flex-column align-items-center align-items-lg-end justify-content-center justify-content-lg-between  gap-4"
           >
             <a
-              href="#"
-              rel="noopener noreferrer"
-              class="btn relx-cta relx-bg-gray p-3 p-lg-4 d-inline-flex align-items-center gap-3 pe-none"
+              href="mailto:{{ env.get('CONTACT_EMAIL') }}"
+              class="btn relx-cta relx-bg-yellow p-3 p-lg-4 d-inline-flex align-items-center gap-3"
             >
               <p class="m-0 text-nowrap">
                 Compléter les informations
               </p>
               <img src="{{ asset('resources/images/cta_arrow.svg') }}" alt="" aria-hidden="true" />
             </a>
-            {{-- never heard of this feature for the app... personnal appreciation here --}}
-            <p class="m-0 relx-serif-text text-lg-end fs-5">
-              Les fonctionnalités de contribution à la base de données ne sont pas encore disponibles
-            </p>
           </div>
         </div>
       </section>
