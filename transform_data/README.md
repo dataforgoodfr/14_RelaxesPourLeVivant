@@ -42,6 +42,7 @@ In the input csv, there is a line with the name of the final table : "Audiences"
 - Extract date from the text, for columns of type date. In this case only keep the first date in the text.
 - For press articles, put the name of the web domain as the name of the article
 - Fill empty procedures titles by "Action " + name of the collectif, because title is mandatory in the database
+- For multi select columns using ";", replace by ","
 
 ### Values checked
 

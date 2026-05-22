@@ -23,3 +23,7 @@ yarn-error.log
 
 # Platform specific
 .DS_Store
+
+# python
+__pycache__
+transform_data/exported_tables

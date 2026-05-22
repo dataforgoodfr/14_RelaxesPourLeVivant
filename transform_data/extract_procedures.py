@@ -15,7 +15,8 @@ from check_values import check_procedures
 MAPPING_CLEANING_BY_COLUMNS_PROCEDURES = {
     "Collectif d'action ou lutte": clean_multi_select,
     "Date des faits": extract_date,
-    "publiee": txt_to_boolean,
+    # Publiee is always true for procedures, this information is used in the "audiences" level
+    "publiee": lambda x: True,
 }
 
 def hash_text_to_int(text: str) -> int:
