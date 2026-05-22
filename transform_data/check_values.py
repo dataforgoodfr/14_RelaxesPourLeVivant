@@ -22,7 +22,7 @@ LISTED_VALUES_AUDIENCES = {
     ],
     "Type de peine pour les infractions principales" : [
         "Prison ferme", "Prison avec sursis", "Amende", "Amende avec sursis", "Jour-amende",
-        "Travaux d'intérêt général", "Dispense de peine", "Interdiction de territoire", 
+        "Travaux d'intérêt général", "Dispense de peine", "Interdiction de territoire",
         "Interdiction de droits civiques", "Interdiction port d'arme", "Stage de citoyenneté",
         "Retrait de points ou suspension du permis de conduire", "Interdiction d'enceinte sportive",
         "Amende symbolique"
@@ -40,7 +40,7 @@ LISTED_VALUES_AUDIENCES = {
         "Association de malfaiteurs",
         "Outrage à agent",
         "Organisation d'une manifestation non déclarée ou interdite",
-        "Fichage (portable/empreintes/ADN)",
+        "Refus de fichage (portable/empreintes/ADN)",
         "Intrusion dans une centrale nucléaire",
         "Intrusion",
         "Participation délictueuse à un groupement",
@@ -122,7 +122,7 @@ LISTED_VALUES_PROCEDURES = {
         "Mega Canal Non Merci",
         "CCLT (Collectif contre le Lyon-Turin)",
         "Gilets Jaunes"
-    ], 
+    ],
 }
 
 
@@ -140,7 +140,7 @@ def check_listed_values(df, listed_values, debug_mode:bool = False):
         ]
         if issues_in_values:
             print(f"\tIssues in listed values for column {column}: {issues_in_values}")
-    
+
         issues = []
         for i, values in enumerate(df[column]):
             if not pandas.isna(values) and values:

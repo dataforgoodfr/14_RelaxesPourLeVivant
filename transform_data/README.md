@@ -19,7 +19,7 @@ Install requirements (for instance using `pip`)
 pip install -r transform_data/requirements.txt
 ```
 
-Load the raw data on csv format (with separator = ??) and run the script with the location of the file
+Load the raw data on csv format (with separator = "," !) and run the script with the location of the file
 ```
 python transform_data/main.py --file <location_of_the_file>/MSDE_DATA_origin.csv 
 ```
