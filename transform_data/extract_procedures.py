@@ -47,7 +47,7 @@ def extract_procedures(
     if "Référence procédure" not in raw_procedures.columns:
         raise ValueError("WARNING 'Référence procédure' not in procedures tables")
 
-    # Keep one row by "procédure", and keep the first not valid value for each column
+    # Keep one row by "procédure", and keep the first valid value for each column
     deduplicated_procedures = (
         raw_procedures
         .groupby("Référence procédure", sort=False, dropna=False)

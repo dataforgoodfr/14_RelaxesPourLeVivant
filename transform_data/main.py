@@ -96,11 +96,14 @@ def load_transform_and_save_data(filename: str, debug_mode: bool = False):
         column_id_input_name="id",
         column_id_output_name = "audience_id"
     )
+
     # Concat 2 datasets in one with columns : url, procedure_id, audience_id, name
     presse_articles = pandas.concat(
         [procedures_articles, audiences_articles],
         ignore_index=True
     ).fillna("")
+    # convert audience_id to int, if not they are transformed to float as Nan are float
+    presse_articles["audience_id"] = presse_articles["audience_id"].apply(lambda x: int(x) if x else x)
     export_csv(presse_articles, name="presse_articles")
 
 
