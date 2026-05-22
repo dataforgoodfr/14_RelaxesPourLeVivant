@@ -1,11 +1,9 @@
 import pandas
-import hashlib
 from cleaning_functions import (
     clean_data_by_columns,
     fill_empty_titles,
     clean_multi_select,
-    extract_date,
-    txt_to_boolean
+    extract_date
 )
 from export_data_functions import extract_columns_by_table
 from check_values import check_procedures
@@ -18,9 +16,6 @@ MAPPING_CLEANING_BY_COLUMNS_PROCEDURES = {
     # Publiee is always true for procedures, this information is used in the "audiences" level
     "publiee": lambda x: True,
 }
-
-def hash_text_to_int(text: str) -> int:
-    return int(hashlib.md5(text.encode()).hexdigest()[:16], 16)
 
 
 def get_first_valid_value(serie: pandas.Series) -> object:
@@ -68,7 +63,6 @@ def extract_procedures(
 
     # Make sure column title is filled as it is NOT NULL in the database
     df_procedures = fill_empty_titles(df_procedures)
-    df_procedures["id"] = df_procedures["Référence procédure"].apply(hash_text_to_int)
 
     check_procedures(df_procedures)
     return df_procedures

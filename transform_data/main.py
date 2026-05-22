@@ -14,18 +14,31 @@ def get_url_name(url: str) -> str:
     return match.group(1).capitalize() if match else "Article de presse"
 
 
-def get_articles(df: pandas.DataFrame, table_name: str, column_name: str) -> pandas.DataFrame:
-    # Split the list of urls by rows
-    df_articles = df[[column_name, "id"]].explode(column_name).reset_index(drop=True)
+def get_articles(
+      df: pandas.DataFrame,
+      column_name: str,
+      column_id_input_name: str,
+      column_id_output_name: str = "id"
+    ) -> pandas.DataFrame:
+    """
+    Get the articles from df, from the column "column_name". the column can have a list of urls.
 
-    df_articles.columns = ["url", table_name + "_id"]
+    Output : Dataframe only containing the articles with columns
+      - url = url of the article, from column_name
+      - title = Name of the article, the name of the web domain of the url
+      - column_id_output_name
+    """
+    # Split the list of urls by rows to have one row by url
+    df_articles = df[[column_name, column_id_input_name]].explode(column_name).reset_index(drop=True)
+
+    df_articles.columns = ["url", column_id_output_name]
     df_articles = df_articles[df_articles['url'].notna()]
     df_articles["titre"] = df_articles["url"].apply(get_url_name)
     return df_articles
 
 def export_csv(df: pandas.DataFrame, name: str):
     """ Export dataframe to csv """
-    df.to_csv("./exported_tables/" + name + ".csv", index=False, encoding="utf-8-sig", sep=";")
+    df.to_csv("./transform_data/exported_tables/" + name + ".csv", index=False, encoding="utf-8-sig", sep=";")
     print(f"File '{name}' exported to csv : {df.shape[0]} rows, {df.shape[1]} columns")
 
 
@@ -73,13 +86,15 @@ def load_transform_and_save_data(filename: str, debug_mode: bool = False):
         print("\nRunning on presse articles ...")
     procedures_articles = get_articles(
         df_procedures,
-        table_name="procedure",
-        column_name="La presse parle des faits"
+        column_name="La presse parle des faits",
+        column_id_input_name="Référence procédure",
+        column_id_output_name="reference_procedure"
     )
     audiences_articles = get_articles(
         df_audiences,
-        table_name="audience",
-        column_name="La presse parle du procès"
+        column_name="La presse parle du procès",
+        column_id_input_name="id",
+        column_id_output_name = "audience_id"
     )
     # Concat 2 datasets in one with columns : url, procedure_id, audience_id, name
     presse_articles = pandas.concat(
