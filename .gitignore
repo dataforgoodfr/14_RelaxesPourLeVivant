@@ -26,4 +26,4 @@ yarn-error.log
 
 # python
 __pycache__
-transform_data/exported_tables
+scripts/transform_data/exported_tables
