@@ -309,3 +309,8 @@ form button.btn-primary {
   vertical-align: center;
   flex-shrink: 0;
 }
+
+.dropdown-menu {
+  border: 1px solid var(--relx-default-black);
+  border-radius: 0px;
+}

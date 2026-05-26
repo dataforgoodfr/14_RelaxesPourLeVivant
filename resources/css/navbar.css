@@ -5,7 +5,6 @@ nav {
   .relx-navbar-contribute {
     @media (min-width: 992px) {
       background-color: var(--relx-custom-beige);
-      margin: 6px 0px;
       border: solid 1px var(--relx-default-black);
       border-right: none;
     }
