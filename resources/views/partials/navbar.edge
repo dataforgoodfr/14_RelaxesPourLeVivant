@@ -8,152 +8,154 @@
   class="navbar navbar-expand-lg {{ navbarThemeClass }} py-0 border border-dark"
   data-bs-theme="{{ navbarTheme ?? 'light' }}"
 >
-  <div class="container-fluid ps-5 py-0">
-    <a class="navbar-brand gelica-display relx-navbar-logo p-0 me-0 my-4 my-lg-0" href="/">
-      <img src="{{ asset(`resources/images/${navbarBrandFileName}`) }}" alt="Relaxes pour le vivant" />
-    </a>
-    <button
-      class="navbar-toggler border-0 shadow-none"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#mainNavbar"
-      aria-controls="mainNavbar"
-      aria-expanded="false"
-      aria-label="Afficher/masquer la navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse d-lg-flex flex-column flex-lg-row" id="mainNavbar">
-      <ul class="navbar-nav gap-4 relx-navbar-account order-lg-4 p-4 pt-0 pt-lg-4">
-        @if (auth.user)
-          {{-- burger menu behaviour on large screens deactivated for demo day --}}
-          <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
-          <li class="nav-item d-flex align-items-center">
-            @menuLink({ route: route('auth.change_password'), class: 'nav-link p-0' })
-              Changer de mot de passe
-            @end
-          </li>
-          <li class="nav-item">
-            <form action="/logout" method="POST">
-              {{ csrfField() }}
+  <a class="navbar-brand gelica-display relx-navbar-logo ms-5" href="/">
+    <img
+      src="{{ asset(`resources/images/${navbarBrandFileName}`) }}"
+      alt="Relaxes pour le vivant"
+      style="height:36px"
+    />
+  </a>
+  <button
+    class="navbar-toggler border-0 shadow-none"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#mainNavbar"
+    aria-controls="mainNavbar"
+    aria-expanded="false"
+    aria-label="Afficher/masquer la navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse d-lg-flex flex-column flex-lg-row" id="mainNavbar">
+    <ul class="navbar-nav gap-4 relx-navbar-account order-4 p-3 p-lg-3">
+      @if (auth.user)
+        {{-- burger menu behaviour on large screens deactivated for demo day --}}
+        <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
+        <li class="nav-item d-flex align-items-center d-lg-none">
+          @menuLink({ route: route('auth.change_password'), class: 'nav-link p-0' })
+            Changer de mot de passe
+          @end
+        </li>
+        <li class="nav-item d-lg-none">
+          <form action="/logout" method="POST">
+            {{ csrfField() }}
            <button class="nav-link" type="submit">Déconnexion</button>
-            </form>
-          </li>
-          {{-- burger menu behaviour on large screens deactivated for demo day --}}
-          <!-- Desktop User Burger menu : only visible on lg+ screens, when the main burger menu is hidden -->
-          {{-- <li class="nav-item d-none d-lg-block">
-            <div class="dropdown">
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                aria-label="Menu utilisateur"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <ul class="dropdown-menu">
+          </form>
+        </li>
+        {{-- burger menu behaviour on large screens deactivated for demo day --}}
+        <!-- Desktop User Burger menu : only visible on lg+ screens, when the main burger menu is hidden -->
+        <li class="nav-item d-none d-lg-block">
+          <div class="dropdown">
+            <button
+              class="btn border-0 shadow-none p-0"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              aria-label="Menu utilisateur"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                @menuLink({ route: route('auth.change_password'), class: 'dropdown-item'})
+                  Changer de mot de passe
+                @end
+              </li>
+              <li>
+                <form action="/logout" method="POST">
+                  {{ csrfField() }}
+                      <button type="submit" class="dropdown-item">Déconnexion</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </li>
+      @else
+        <li class="nav-item">
+          @menuLink({ route: '/sign-in', class: 'nav-link p-0' })
+            Se connecter
+          @end
+        </li>
+        <li class="nav-item">
+          @menuLink({ route: '/sign-up', class: 'nav-link p-0' })
+            Demander un accès
+              {{ svg('ph:arrow-up-right')}}
+          @end
+        </li>
+      @endif
+    </ul>
+    @if (!auth.user)
+      <ul class="navbar-nav me-auto gap-2 relx-navbar-about order-lg-1 p-3 pt-0 pt-lg-3">
+        <li class="nav-item">
+          @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link p-0' })
+            Qui sommes nous ?
+          @end
+        </li>
+      </ul>
+    @endif
+    @if (auth.user)
+      <ul class="navbar-nav gap-2 mx-auto relx-navbar-app order-lg-2">
+        @if (navbar?.analyses?.length > 0)
+          <li class="nav-item dropdown p-4 p-lg-3">
+            <a
+              class="nav-link p-0 dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Analyses
+              </a>
+            <ul class="dropdown-menu">
+              @each(analyse in navbar.analyses)
                 <li>
-                  @menuLink({ route: route('auth.change_password'), class: 'dropdown-item'})
-                    Changer de mot de passe
+                  @menuLink({ route: route('analyses.show', { id: analyse.id }), class: 'dropdown-item' })
+                    {{ analyse.titre }}
                   @end
                 </li>
-                <li>
-                  <form action="/logout" method="POST">
-                    {{ csrfField() }}
-                      <button type="submit" class="dropdown-item">Déconnexion</button>
-                  </form>
-                </li>
-              </ul>
-            </div>
-          </li> --}}
-        @else
-          <li class="nav-item">
-            @menuLink({ route: '/sign-in', class: 'nav-link p-0' })
-              Se connecter
-            @end
+              @end
+            </ul>
           </li>
-          <li class="nav-item">
-            @menuLink({ route: '/sign-up', class: 'nav-link p-0' })
-              Demander un accès
-              {{ svg('ph:arrow-up-right')}}
-            @end
-          </li>
-        @endif
-      </ul>
-      @if (!auth.user)
-        <ul class="navbar-nav me-auto gap-2 relx-navbar-about order-lg-1 p-4 pt-0 pt-lg-4">
-          <li class="nav-item">
-            @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link p-0' })
-              Qui sommes nous ?
-            @end
-          </li>
-        </ul>
-      @endif
-      @if (auth.user)
-        <ul class="navbar-nav gap-2 mx-auto relx-navbar-app order-lg-2">
-          @if (navbar?.analyses?.length > 0)
-            <li class="nav-item dropdown p-4 p-lg-3">
-              <a
-                class="nav-link p-0 dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Analyses
-              </a>
-              <ul class="dropdown-menu">
-                @each(analyse in navbar.analyses)
-                  <li>
-                    @menuLink({ route: route('analyses.show', { id: analyse.id }), class: 'dropdown-item' })
-                      {{ analyse.titre }}
-                    @end
-                  </li>
-                @end
-              </ul>
-            </li>
-          @end
-          <li class="nav-item p-4 pt-0 p-lg-3">
-            @menuLink({ route: route('audiences.search'), class: 'nav-link p-0' })
-              Rechercher une audience
-            @end
-          </li>
-        </ul>
-      @end
-      <ul class="navbar-nav gap-2 relx-navbar-contribute order-lg-3 p-4 pt-0 p-lg-3">
-        <li class="nav-item">
-          @menuLink({ route: 'contribution', class: 'nav-link p-0' })
-            Contribuer
+        @end
+        <li class="nav-item p-4 pt-0 p-lg-3">
+          @menuLink({ route: route('audiences.search'), class: 'nav-link p-0' })
+            Rechercher une audience
           @end
         </li>
       </ul>
-      <ul class="navbar-nav gap-2 relx-navbar-external p-4 pt-0 gap-4">
-        <li class="nav-item d-md-none">
-          @menuLink({ route: 'mailto:' + env.get('CONTACT_EMAIL'), class: 'nav-link p-0' })
-            Contactez-nous
-          @end
-        </li>
-        <li class="nav-item d-md-none">
-          @menuLink({ route: content.msde_url, isExternal: true , class: 'nav-link p-0' })
-            Le site MSDE
-          @end
-        </li>
-        <li class="nav-item d-md-none">
-          <span class="nav-link pe-none">2026 ©MSDE</span>
-        </li>
-        <li class="nav-item d-md-none">
-          @menuLink({ route: 'terms-of-use', class: 'nav-link p-0' })
-            Conditions d'utilisation
-          @end
-        </li>
-        <li class="nav-item d-md-none">
-          @menuLink({ route: 'legal', class: 'nav-link p-0' })
-            Mentions légales
-          @end
-        </li>
+    @end
+    <ul class="navbar-nav gap-2 relx-navbar-contribute order-lg-3 p-3 pt-0 p-lg-2 px-lg-4">
+      <li class="nav-item">
+        @menuLink({ route: 'contribution', class: 'nav-link p-0' })
+          Contribuer
+        @end
+      </li>
+    </ul>
+    <ul class="navbar-nav gap-2 relx-navbar-external p-3 pt-0 gap-4">
+      <li class="nav-item d-md-none">
+        @menuLink({ route: 'mailto:' + env.get('CONTACT_EMAIL'), class: 'nav-link p-0' })
+          Contactez-nous
+        @end
+      </li>
+      <li class="nav-item d-md-none">
+        @menuLink({ route: content.msde_url, isExternal: true , class: 'nav-link p-0' })
+          Le site MSDE
+        @end
+      </li>
+      <li class="nav-item d-md-none">
+        <span class="nav-link pe-none">2026 ©MSDE</span>
+      </li>
+      <li class="nav-item d-md-none">
+        @menuLink({ route: 'terms-of-use', class: 'nav-link p-0' })
+          Conditions d'utilisation
+        @end
+      </li>
+      <li class="nav-item d-md-none">
+        @menuLink({ route: 'legal', class: 'nav-link p-0' })
+          Mentions légales
+        @end
+      </li>
 
-      </ul>
-    </div>
+    </ul>
   </div>
 </nav>
