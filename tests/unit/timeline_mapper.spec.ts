@@ -15,12 +15,14 @@ test.group('Timeline mapper algorithm', () => {
     date_de_decision: DateTime | null = null,
     degre_de_juridiction: string | null = null,
     decision_pour_les_infractions_principales: string | null = null,
+    juridiction: string | null = null,
     type_de_peine_pour_les_infractions_principales: string | null = null
   ): SearchAudiencesResponse[number]['timeline'][number] => ({
     id,
     date_de_decision,
     degre_de_juridiction,
     decision_pour_les_infractions_principales,
+    juridiction,
     type_de_peine_pour_les_infractions_principales,
     publiee: true,
   })
