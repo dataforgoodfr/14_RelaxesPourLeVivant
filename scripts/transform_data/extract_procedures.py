@@ -14,7 +14,8 @@ MAPPING_CLEANING_BY_COLUMNS_PROCEDURES = {
     "Collectif d'action ou lutte": clean_multi_select,
     "Date des faits": extract_date,
     # Publiee is always true for procedures, this information is used in the "audiences" level
-    "publiee": lambda x: True,
+    # Typescript format expected is lowercase text and not boolean
+    "publiee": lambda x: "true",
 }
 
 
