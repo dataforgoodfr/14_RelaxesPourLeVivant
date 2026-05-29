@@ -126,10 +126,6 @@ LISTED_VALUES_PROCEDURES = {
 }
 
 
-NOT_NULL_COLUMNS_AUDIENCES = ["Référence procédure"]
-NOT_NULL_COLUMNS_PROCEDURES = ["Titre", "Référence procédure"]
-
-
 def check_listed_values(df, listed_values, debug_mode:bool = False):
     """ Check that the values are """
     for column, okay_values in listed_values.items():
@@ -142,33 +138,41 @@ def check_listed_values(df, listed_values, debug_mode:bool = False):
             print(f"\tIssues in listed values for column {column}: {issues_in_values}")
 
         issues = []
+        issue_values = []
         for i, values in enumerate(df[column]):
             if not pandas.isna(values) and values:
                 for value in values.split(","):
                     if value not in okay_values:
                         internal_id = df["Internal ID"].iloc[i]
                         issues.append(f"Issue in row {internal_id}, value : {value}")
+                        issue_values.append(value)
 
         if issues:
-            print(f"""Column "{column}" """)
+            print(f"""Column "{column}" {len(issues)} issues :""")
             print("\t" + "\n\t".join(issues))
+            print(f"\n{len(set(issue_values))} new values : {list(set(issue_values))}")
 
         if not issues and debug_mode:
             print(f"Everything okay for column '{column}'")
 
 
-def check_not_null(df, columns_to_check, debug_mode:bool = False):
-    for column in columns_to_check:
-        issues = []
-        for i, values in enumerate(df[column]):
-            if pandas.isna(values) or not values:
-                internal_id = df["Internal ID"].iloc[i]
-                issues.append(internal_id)
+def check_values_of_a_column(df, column, check_function, msg=""):
+    """ Check that the values of the column `column` respect the `check_function`
+        If not, print the list of the values that are not correct
+    """
+    issues = []
+    for i, cell_value in enumerate(df[column]):
+        if not check_function(cell_value):
+            internal_id = df["Internal ID"].iloc[i]
+            issues.append(f"Issue in row {internal_id}, value : {cell_value}")
 
-        if issues:
-            raise ValueError(f"Issue for column '{column}', empty row(s) : {issues}")
-        elif debug_mode:
-            print(f"Everything okay for column '{column}'")
+    if issues:
+        print(f"""Column "{column}" {msg},{len(issues)} issues :""")
+        print("\t" + "\n\t".join(issues))
+
+
+def check_not_null(cell_value):
+    return not pandas.isna(cell_value) or cell_value
 
 
 def check_audiences(df_audiences, debug_mode:bool = False):
@@ -177,10 +181,10 @@ def check_audiences(df_audiences, debug_mode:bool = False):
         listed_values=LISTED_VALUES_AUDIENCES,
         debug_mode=debug_mode
     )
-    check_not_null(
-        df_audiences,
-        columns_to_check=NOT_NULL_COLUMNS_AUDIENCES,
-        debug_mode=debug_mode
+    check_values_of_a_column(
+      df_audiences,
+      column="Référence procédure",
+      check_function=check_not_null
     )
 
 def check_procedures(df_procedures, debug_mode:bool = False):
@@ -189,8 +193,18 @@ def check_procedures(df_procedures, debug_mode:bool = False):
         listed_values=LISTED_VALUES_PROCEDURES,
         debug_mode=debug_mode
     )
-    check_not_null(
+    # Check columns are not null
+    for not_null_column in ["Titre", "Référence procédure"]:
+        check_values_of_a_column(
+            df_procedures,
+            column=not_null_column,
+            check_function=check_not_null
+        )
+
+    # Check title is not too long
+    check_values_of_a_column(
         df_procedures,
-        columns_to_check=NOT_NULL_COLUMNS_PROCEDURES,
-        debug_mode=debug_mode
+        column="Titre",
+        check_function=lambda title: len(title) < 200,
+        msg="title is too long"
     )
