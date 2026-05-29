@@ -121,36 +121,36 @@ LISTED_VALUES_PROCEDURES = {
         "Faucheurs de chaise",
         "Mega Canal Non Merci",
         "CCLT (Collectif contre le Lyon-Turin)",
-        "Gilets Jaunes"
+        "Gilets Jaunes",
+        "Jardins à défendre d’Aubervilliers"
     ],
 }
 
 
 def check_listed_values(df, listed_values, debug_mode:bool = False):
-    """ Check that the values are """
+    """ Check that the values are in the list of expected values for the columns in listed_values
+        The cell contain a list of values separated by a ","
+        The not valid values are printed, to be able to modify them in the input CSV
+    """
     for column, okay_values in listed_values.items():
 
-        issues_in_values = [
-            val for val in okay_values
-            if val != val.strip() or "," in val
-        ]
-        if issues_in_values:
-            print(f"\tIssues in listed values for column {column}: {issues_in_values}")
-
-        issues = []
-        issue_values = []
+        issues = {}
         for i, values in enumerate(df[column]):
-            if not pandas.isna(values) and values:
+            if check_not_null(values):
                 for value in values.split(","):
+                    # Stock not valid values to print them
                     if value not in okay_values:
                         internal_id = df["Internal ID"].iloc[i]
-                        issues.append(f"Issue in row {internal_id}, value : {value}")
-                        issue_values.append(value)
+                        if value in issues:
+                            issues[value].append(internal_id)
+                        else:
+                            issues[value] = [internal_id]
 
         if issues:
-            print(f"""Column "{column}" {len(issues)} issues :""")
-            print("\t" + "\n\t".join(issues))
-            print(f"\n{len(set(issue_values))} new values : {list(set(issue_values))}")
+            print(f"""\nColumn "{column}" {len(issues)} issues :""")
+            print("\t" + "\n\t".join(
+              [f"Unknown value in {ids} : {issue_value}" for issue_value, ids in issues.items()]
+            ))
 
         if not issues and debug_mode:
             print(f"Everything okay for column '{column}'")
@@ -172,7 +172,7 @@ def check_values_of_a_column(df, column, check_function, msg=""):
 
 
 def check_not_null(cell_value):
-    return not pandas.isna(cell_value) or cell_value
+    return not pandas.isna(cell_value) and cell_value
 
 
 def check_audiences(df_audiences, debug_mode:bool = False):
