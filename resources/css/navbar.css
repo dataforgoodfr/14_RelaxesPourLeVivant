@@ -23,8 +23,7 @@ nav {
 */
 .navbar {
   --bs-navbar-padding-y: 1rem;
-  /* Next lines commented because appears in current v1 (in-progress) */
-  /*border-bottom: solid 1px var(--bs-gray-100);*/
+  border-bottom: 1px solid var(--relx-default-black);
 }
 
 /*
@@ -40,7 +39,7 @@ nav {
 
 .btn-navbar {
   --bs-btn-color: var(--bs-nav-link-color);
-  --bs-btn-bg: var(--msde-white);
+  --bs-btn-bg: var(--relx-default-white);
   --bs-btn-border-color: var(--bs-gray-900);
 
   --bs-btn-hover-color: var(--relx-purple-text);
@@ -59,52 +58,64 @@ nav {
   Three types of button :
   - nav-link (default)
   - btn-navbar (green background in dark mode / grey in light mode)
-  - TODO: full height button (should be implemented in menu v4)
 */
 .navbar {
   &[data-bs-theme='light'] {
     --bs-navbar-brand-color: var(--msde-green);
 
-    /* Temporary override, should be removed when menu v4 will be implemented */
     .navbar-nav .nav-link {
-      --bs-nav-link-hover-color: var(--relx-purple-text);
-
-      /* 
-        Commented lines: intentional
-        deactivate without deleting previous work for next iteration
-        active links by bootstrap's defaults, are bold (sufficent for demo day)
-      */
-      /*&.active {
-        color: var(--relx-purple-text);
-        background-color: var(--relx-purple-background);
-        border-radius: var(--bs-border-radius);
-      }*/
+      &:hover {
+        text-decoration: underline;
+        background-color: transparent;
+      }
     }
 
-    /* Temporary override, should be removed when menu v4 will be implemented */
     .navbar-nav .dropdown-item {
       &:hover {
-        color: var(--relx-purple-text);
-        background-color: var(--relx-purple-background);
+        text-decoration: underline;
+        background-color: transparent;
       }
 
       &.active {
-        color: var(--relx-purple-text);
-        background-color: var(--relx-purple-background);
+        color: var(--bs-dropdown-link-color);
+        background-color: transparent;
       }
     }
   }
 
   &[data-bs-theme='dark'] {
-    --bs-navbar-color: var(--msde-white);
+    --bs-navbar-color: var(--relx-default-white);
+
+    .navbar-nav .nav-link {
+      --bs-nav-link-hover-color: var(--relx-default-white);
+
+      &:hover {
+        text-decoration: underline;
+        background-color: transparent;
+      }
+    }
+
+    .navbar-nav .dropdown-item {
+      --bs-dropdown-link-hover-color: var(--msde-black);
+
+      &:hover {
+        text-decoration: underline;
+        background-color: transparent;
+      }
+
+      &.active {
+        color: var(--bs-dropdown-link-color);
+        background-color: transparent;
+      }
+    }
 
     .dropdown-menu {
-      --bs-dropdown-bg: var(--msde-white);
+      --bs-dropdown-bg: var(--relx-default-white);
       --bs-dropdown-link-color: var(--msde-black);
     }
 
     .btn-navbar {
-      --bs-btn-color: var(--msde-white);
+      --bs-btn-color: var(--relx-default-white);
       --bs-btn-bg: var(--relx-accent-dark);
       --bs-btn-border-color: var(--relx-petrol-3);
 

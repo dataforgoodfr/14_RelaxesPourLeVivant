@@ -11,7 +11,7 @@
   --bs-font-sans-serif: 'Poppins', sans-serif;
   --bs-primary: var(--msde-green);
   --bs-primary-rgb: var(--msde-green-rgb);
-  --bs-light-rgb: var(--msde-white-rgb);
+  --bs-light-rgb: var(--relx-default-white-rgb);
   --bs-heading-color: var(--bs-gray-900);
   --bs-body-color: var(--bs-gray-900);
   --bs-secondary-color: var(--bs-gray-600);
@@ -44,7 +44,7 @@
 }
 
 .text-bg-accent {
-  color: var(--msde-white);
+  color: var(--relx-default-white);
   background-color: var(--msde-green);
 }
 
@@ -53,7 +53,7 @@
 }
 
 .text-bg-accent-dark {
-  color: var(--msde-white);
+  color: var(--relx-default-white);
   background-color: var(--relx-accent-dark);
 }
 
@@ -84,7 +84,7 @@
 }
 
 .text-bg-petrol-3 {
-  color: var(--msde-white);
+  color: var(--relx-default-white);
   background-color: var(--relx-petrol-3);
 }
 
@@ -127,23 +127,21 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 0px;
 }
 
 .btn-primary {
-  --bs-btn-color: var(--msde-white);
-  --bs-btn-bg: var(--msde-black);
+  --bs-btn-color: var(--relx-gray-900);
+  --bs-btn-bg: var(--relx-yellow-1);
   --bs-btn-border-color: var(--msde-green);
 
   --bs-btn-hover-color: var(--bs-btn-color);
   --bs-btn-hover-bg: var(--bs-btn-bg);
   --bs-btn-hover-border-color: var(--bs-btn-border-color);
 
-  /*--bs-btn-focus-shadow-rgb: none;*/
-
   --bs-btn-active-color: var(--bs-btn-color);
   --bs-btn-active-bg: var(--bs-btn-bg);
   --bs-btn-active-border-color: var(--bs-btn-border-color);
-  /*--bs-btn-active-shadow: none;*/
 
   --bs-btn-disabled-color: var(--bs-btn-color);
   --bs-btn-disabled-bg: var(--bs-btn-bg);
@@ -173,7 +171,7 @@ a {
 }
 
 .btn-link {
-  --bs-link-color: var(--msde-white);
+  --bs-link-color: var(--relx-default-white);
   --bs-link-hover-color: var(--msde-light-green);
   text-decoration: none;
 }
@@ -182,7 +180,7 @@ a {
  * Custom accent button using msde-green as background.
 */
 .btn-accent {
-  --bs-btn-color: var(--msde-white);
+  --bs-btn-color: var(--relx-default-white);
   --bs-btn-bg: var(--msde-green);
   --bs-btn-border-color: var(--msde-green);
 
@@ -217,56 +215,55 @@ a {
 }
 
 /*
-  Custom submit button
+  Custom forms
 */
-form button.btn-primary {
-  --bs-btn-color: var(--msde-white);
-  --bs-btn-bg: var(--msde-green);
-  --bs-btn-border-color: transparent;
+.form-control,
+.form-select {
+  border: 1px solid var(--relx-gray-1);
+  border-radius: 0;
+  padding: 1em;
 
-  --bs-btn-hover-color: var(--bs-btn-color);
-  --bs-btn-hover-bg: var(--bs-btn-bg);
-  --bs-btn-hover-border-color: var(--bs-btn-border-color);
-
-  --bs-btn-active-color: var(--bs-btn-color);
-  --bs-btn-active-bg: var(--bs-btn-bg);
-  --bs-btn-active-border-color: var(--bs-btn-border-color);
-
-  --bs-btn-disabled-color: var(--bs-btn-color);
-  --bs-btn-disabled-bg: var(--bs-btn-bg);
-  --bs-btn-disabled-border-color: var(--bs-btn-border-color);
-
-  --bs-border-radius: 8px;
-
-  height: 44px;
+  &:focus {
+    border-color: var(--relx-gray-1);
+    box-shadow: none;
+  }
 }
 
-/*
-  Custom Yellow CTA
-*/
-.yellow-cta {
-  --bs-btn-color: var(--msde-green);
-  --bs-btn-bg: var(--msde-yellow);
-  --bs-btn-border-color: var(--msde-green);
+form > .row > [class*='col']:not(:first-child) {
+  @media (min-width: 768px) {
+    .form-control,
+    .token-input-wrapper {
+      border-left: 0px;
+    }
+  }
 
-  height: 80px;
-  width: 260px;
-}
+  .btn {
+    border: 1px solid var(--relx-gray-1);
+    padding: 1em;
+    @media (min-width: 768px) {
+      border-left: 0px;
+    }
+    @media (max-width: 767.98px) {
+      width: 100%;
+    }
+  }
 
-/*
-  Custom msde guidelines "En-Tête"
-*/
-.gelica-display {
-  font-family: 'Gelica', sans-serif;
-  font-weight: 300;
-}
+  #more-filters {
+    .form-control,
+    .form-select {
+      border-left: 1px solid var(--relx-gray-1);
+      padding: 0.5em;
+    }
 
-/*
-  Custom msde guidelines "Titres"
-*/
-.gelica {
-  font-family: 'Gelica', sans-serif;
-  font-weight: 700;
+    .token-input-wrapper {
+      border-left: 1px solid var(--relx-gray-1);
+
+      .token-input,
+      .token-line-wrapper {
+        padding: 0.5em;
+      }
+    }
+  }
 }
 
 /*
@@ -281,36 +278,28 @@ form button.btn-primary {
     --bs-badge-padding-x: 1.25rem;
     --bs-badge-padding-y: 0.5rem;
     background-color: transparent;
-    color: var(--msde-white);
+    color: var(--relx-default-white);
     border: 2px solid var(--relx-green-3);
   }
   &.badge-green {
     --bs-badge-padding-x: 1.25rem;
     --bs-badge-padding-y: 0.5rem;
     background-color: var(--relx-green-3);
-    color: var(--msde-white);
+    color: var(--relx-default-white);
     border: 2px solid var(--relx-green-3);
   }
 }
 
-/*
-  Custom icons to replace phosphor items
-*/
-.msde-leaf-icon {
-  height: 0.875em;
-  width: 0.875em;
-  vertical-align: baseline;
-  flex-shrink: 0;
-}
-
-.summary-icon {
-  height: 0.875em;
-  width: 0.875em;
-  vertical-align: center;
-  flex-shrink: 0;
-}
-
+/* Custom dropdown */
 .dropdown-menu {
   border: 1px solid var(--relx-default-black);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   border-radius: 0px;
+}
+
+.dropdown > .btn {
+  border: 1px solid var(--relx-gray-1);
+  border-radius: 0px;
+  padding: 1em;
+  width: 100%;
 }

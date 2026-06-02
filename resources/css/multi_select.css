@@ -1,36 +1,17 @@
 /*Main container that mimics a form control*/
 .token-input-wrapper {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 4px;
-  min-height: 38px;
-  padding: 4px 8px 4px 6px;
-  background: var(--msde-white);
-  border: 1px solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
+  background: var(--relx-default-white);
+  border: 1px solid var(--relx-gray-1);
   cursor: text;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
-}
-
-.token-input-wrapper:focus-within {
-  border-color: var(--msde-light-green);
-  box-shadow: 0 0 0 0.2rem rgba(var(--msde-light-green), 0.2);
-  outline: none;
 }
 
 .token-line-wrapper {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  max-width: 100%;
+  padding: 1em;
 }
 
 .token {
-  display: inline-flex;
   align-items: center;
   gap: 4px;
   background: rgba(var(--msde-green-rgb), 0.08);
@@ -38,22 +19,11 @@
   border: 1px solid rgba(var(--msde-green-rgb), 0.2);
   border-radius: var(--bs-border-radius-sm);
   padding: 1px 6px;
+  margin-right: 4px;
   font-size: 13px;
   line-height: 1.6;
   white-space: nowrap;
-  animation: tokenIn 0.12s ease;
   max-width: 100%;
-}
-
-@keyframes tokenIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
 }
 
 .token-remove {
@@ -62,38 +32,27 @@
   padding: 0;
   cursor: pointer;
   color: var(--msde-light-green);
-  font-size: 11px;
   line-height: 1;
-  display: flex;
   align-items: center;
-  transition: color 0.1s;
-}
-.token-remove:hover {
-  color: #c0392b;
 }
 
-/*Invisible input inside*/
 .token-input {
   border: none;
   outline: none;
-  flex: 1 1 80px;
   min-width: 80px;
-  font-size: 14px;
-  padding: 2px 2px;
+  font-size: 1rem;
+  padding: 1em;
   background: transparent;
   color: var(--bs-body-color);
-  font-family: inherit;
 }
 
-/*Dropdown*/
 .token-dropdown {
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  background: var(--msde-white);
-  border: 1px solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
+  background: var(--relx-default-white);
+  border: 1px solid var(--relx-default-black);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   z-index: 1050;
   max-height: 220px;

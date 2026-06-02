@@ -1,5 +1,3 @@
-@import 'multi_select.css';
-
 .timeline {
   display: flex;
   flex-direction: row;
@@ -180,4 +178,28 @@ dl {
     color: var(--relx-green-3);
     width: 80%;
   }
+}
+
+.gelica-display {
+  font-family: 'Gelica', sans-serif;
+  font-weight: 300;
+}
+
+.gelica {
+  font-family: 'Gelica', sans-serif;
+  font-weight: 700;
+}
+
+.msde-leaf-icon {
+  height: 0.875em;
+  width: 0.875em;
+  vertical-align: baseline;
+  flex-shrink: 0;
+}
+
+.summary-icon {
+  height: 0.875em;
+  width: 0.875em;
+  vertical-align: center;
+  flex-shrink: 0;
 }
