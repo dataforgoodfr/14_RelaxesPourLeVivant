@@ -33,8 +33,19 @@
         </p>
       </div>
 
+      <!-- Hidden - Accessibilité : Annonce du nombre de résultats trouvés -->
+      <div aria-live="polite" aria-atomic="true" class="visually-hidden">
+        @if (audiences.total === 0)
+          Aucune audience référencée.
+        @elseif (audiences.total === 1)
+          1 audience référencée.
+        @else
+          {{ audiences.total }} audiences référencées.
+        @endif
+      </div>
+
       <form id="search" class="mb-3" method="GET">
-        <div class="row gx-0 gy-1">
+        <div class="row gx-0">
           <div class="col-md-3 col-sm-12">
             <input
               name="search"
@@ -65,23 +76,12 @@
             @!moreFilters({ searchQuery, villes, juridictions, collectifs })
           </div>
           <div class="col-md-1 col-sm-12">
-            <button class="btn btn-primary" type="submit">
+            <button class="btn btn-primary text-bg-yellow-1" type="submit">
               <span style="width: 1.5em;">{{ svg('ph:magnifying-glass', { width: 20, height: 20 }) }}</span>
             </button>
           </div>
         </div>
       </form>
-
-      <!-- Hidden - Accessibilité : Annonce du nombre de résultats trouvés -->
-      <div aria-live="polite" aria-atomic="true" class="visually-hidden">
-        @if (audiences.total === 0)
-          Aucun audience trouvée.
-        @elseif (audiences.total === 1)
-          1 audience trouvée.
-        @else
-          {{ audiences.total }} audiences trouvées.
-        @endif
-      </div>
 
       @if (audiences.total > 0)
         <div class="vstack gap-4">
@@ -91,10 +91,10 @@
               href="{{ route('audiences.show', { id: audience.id }) }}"
               aria-label="Ouvrir la page de détail de {{ audience.titre }}"
             >
-              <div class="card rounded-5">
-                <div class="card-body">
-                  <div class="row m-1 gy-3 gy-lg-0">
-                    <div class="col-lg-5 vstack gap-4 justify-content-center align-items-start">
+              <div class="card rounded-2">
+                <div class="card-body p-0">
+                  <div class="row m-0 d-flex align-items-stretch">
+                    <div class="col-lg-5 vstack gap-4 py-5 px-4 justify-content-center align-items-start">
                       <h2 class="card-title fs-4">
                         {{ audience.titre }}
                       </h2>
@@ -151,7 +151,7 @@
                         </tbody>
                       </table>
                       @if (audience.fondement_de_la_relaxe || audience.collectif_d_action_ou_lutte?.length)
-                        <div class="d-flex flex-column align-items-start gap-2">
+                        <div class="d-flex flex-wrap align-items-start gap-2">
                           @if (audience.fondement_de_la_relaxe)
                             <span
                               class="badge rounded-pill border text-secondary"
@@ -170,14 +170,14 @@
                       @endif
                     </div>
 
-                    <div class="col-lg-7 d-flex flex-column gap-2">
-                      <div class="row bg-gray rounded-3 p-3">
+                    <div class="col-lg-7 d-flex flex-column">
+                      <div class="row h-100 border-start p-3">
                         <div class="col-lg-5 d-flex flex-column gap-1 mb-3 mb-lg-0">
                           <h3 class="text-purple small d-flex align-items-center gap-1">
                             @svg('ph:gavel-fill')
                             Faits et chronologie
                           </h3>
-                          <p class="small fw-normal mb-0">
+                          <p class="small fw-normal lh-lg mb-0">
                             @if(audience.faits_concis)
                               {{{ nl2br(audience.faits_concis) }}}
                             @else
@@ -190,12 +190,12 @@
                           @end
                         </div>
                       </div>
-                      <div class="row bg-gray rounded-3 p-3">
+                      <div class="row h-100 border-start border-top p-3">
                         <div class="col-12 d-flex flex-column gap-1">
                           <h3 class="text-purple small d-flex align-items-center gap-1">
                             <img class="summary-icon" src="{{ asset('resources/images/summary_icon.svg') }}" alt="summary icon" />Extrait de la décision
                           </h3>
-                          <p class="small fw-normal mb-0">
+                          <p class="small fw-normal lh-lg mb-0">
                             @if(audience.extrait_de_la_decision)
                               <em>{{{ nl2br(audience.extrait_de_la_decision) }}}</em>
                             @else
@@ -204,7 +204,7 @@
                           </p>
                         </div>
                       </div>
-                      <div class="row bg-gray rounded-3 p-3">
+                      <div class="row h-100 border-start border-top p-3">
                         <div class="col-12 d-flex flex-column gap-1">
                           <h3 class="text-purple small d-flex align-items-center gap-1">
                             <img
@@ -213,7 +213,7 @@
                               alt="msde leaf"
                             />Commentaire MSDE
                           </h3>
-                          <p class="small fw-normal mb-0">
+                          <p class="small fw-normal lh-lg mb-0">
                             @if(audience.commentaire_msde)
                               {{{ nl2br(audience.commentaire_msde) }}}
                             @else
