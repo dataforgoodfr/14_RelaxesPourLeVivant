@@ -5,7 +5,7 @@
 @let(navbarBrandFileName = navbarTheme === 'dark' ? 'msde_brand_dark.svg' : 'msde_brand.svg')
 
 <nav
-  class="navbar navbar-expand-lg {{ navbarThemeClass }} py-0 border border-dark"
+  class="navbar navbar-expand-lg {{ navbarThemeClass }} py-0 {{ isWelcomePage ? 'border border-dark' : '' }}"
   data-bs-theme="{{ navbarTheme ?? 'light' }}"
 >
   <a class="navbar-brand gelica-display relx-navbar-logo ms-5" href="/">

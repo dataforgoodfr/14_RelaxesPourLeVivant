@@ -7,7 +7,6 @@
     <title>
       Détails d'audience - {{ env.get('APP_NAME') }}
     </title>
-    @let (navbarTheme = 'dark')
     @include('partials/bootstrap')
     <script defer src="{{ env.get('METABASE_URL') }}/app/embed.js">
 
@@ -29,7 +28,7 @@
   </head>
 
   <body class="bg-light">
-    @include('partials/navbar')
+    @!navbar({ navbarTheme: 'dark' })
     @let (dateFormat = 'dd/MM/yyyy')
 
     <!-- Procedure information hero section -->

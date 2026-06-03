@@ -7,6 +7,7 @@ export default class MultiSelect {
   #activeIdx
   #preventClose
   #fieldName
+  #isClose
 
   constructor(wrapper, options, preselected = [], fieldName = 'select') {
     this.#wrapper = wrapper
@@ -17,6 +18,7 @@ export default class MultiSelect {
     this.#activeIdx = -1
     this.#preventClose = false
     this.#fieldName = fieldName
+    this.#isClose = true
 
     this.#bind()
   }
@@ -98,10 +100,9 @@ export default class MultiSelect {
         this.#preventClose = false
         return
       }
-      if (!this.#wrapper.contains(e.target)) this.#closeDropdown()
+      if (!this.#wrapper.contains(e.target) && !this.#isClose) this.#closeDropdown()
     })
 
-    this.#renderTokens()
     this.#emitChange()
   }
 
@@ -206,12 +207,22 @@ export default class MultiSelect {
   #openDropdown() {
     this.#renderDropdown(this.#input.value)
     this.#dropdown.classList.add('show')
+    this.#isClose = false
+    this.#input.hidden = false
+    this.#input.focus()
+    let lineWrapper = this.#wrapper.querySelector('.token-line-wrapper')
+    if (lineWrapper) lineWrapper.hidden = true
   }
 
   #closeDropdown() {
     this.#dropdown.classList.remove('show')
     this.#input.value = ''
     this.#activeIdx = -1
+    this.#isClose = true
+    this.#input.hidden = !!this.#selected.length
+    let lineWrapper = this.#wrapper.querySelector('.token-line-wrapper')
+    if (lineWrapper) lineWrapper.hidden = false
+    this.#renderTokens()
   }
 
   #toggleOption(val) {
@@ -221,8 +232,7 @@ export default class MultiSelect {
       this.#selected.push(val)
     }
     this.#input.value = ''
-    this.#renderTokens()
-    this.#renderDropdown('')
+    this.#renderDropdown()
     this.#dropdown.classList.add('show')
     this.#input.focus()
     this.#emitChange()
@@ -234,6 +244,7 @@ export default class MultiSelect {
     if (this.#dropdown.classList.contains('show')) {
       this.#renderDropdown(this.#input.value)
     }
+    this.#input.hidden = !!this.#selected.length
     this.#emitChange()
   }
 
