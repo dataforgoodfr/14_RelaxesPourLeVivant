@@ -61,7 +61,7 @@ def extract_procedures(
         mapping_cleaning_by_columns=MAPPING_CLEANING_BY_COLUMNS_PROCEDURES
     )
 
-    # Make sure column title is filled as it is NOT NULL in the database
+    # Make sure column title is filled as there is a NOT NULL constraint in the database
     df_procedures = fill_empty_titles(df_procedures)
 
     check_procedures(df_procedures)
