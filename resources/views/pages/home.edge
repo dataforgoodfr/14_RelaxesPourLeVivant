@@ -11,7 +11,7 @@
   </head>
 
   <body class="bg-light">
-    @include('partials/navbar')
+    @!navbar()
     @let (dateFormat = 'dd.MM.yyyy')
 
     <!-- Hidden - Accessibilité - Titre principal -->
@@ -20,9 +20,22 @@
     </h1>
 
     <div class="container my-5">
+
+      <div class="mb-3">
+        <p class="h3 gelica-display">
+          @if (audiences.total === 0)
+            Aucune audience référencée
+          @elseif (audiences.total === 1)
+            1 audience référencée
+          @else
+            {{ audiences.total }} audiences référencées
+          @endif
+        </p>
+      </div>
+
       <form id="search" class="mb-3" method="GET">
-        <div class="row gx-2">
-          <div class="col-3">
+        <div class="row gx-0 gy-1">
+          <div class="col-md-3 col-sm-12">
             <input
               name="search"
               value="{{ searchQuery.search ?? '' }}"
@@ -32,14 +45,14 @@
               autocomplete="off"
             />
           </div>
-          <div class="col-3">
+          <div class="col-md-3 col-sm-12">
             @!dateRangePicker({
               name: 'dateDeLaDecision',
               label: 'Date de la décision',
               value: searchQuery.dateDeLaDecision ?? []
             })
           </div>
-          <div class="col-3">
+          <div class="col-md-3 col-sm-12">
             @!multiSelect({
               name: 'chefDePrevention',
               label: 'Chef de prévention',
@@ -48,12 +61,12 @@
               data: { ['data-more-filters-input']: "chefDePrevention" }
             })
           </div>
-          <div class="col-2">
+          <div class="col-md-2 col-sm-12">
             @!moreFilters({ searchQuery, villes, juridictions, collectifs })
           </div>
-          <div class="col-1">
-            <button class="btn btn-primary" type="submit" style="background-color: #0d6efd; height: 38px;">
-              {{ svg('ph:magnifying-glass') }}
+          <div class="col-md-1 col-sm-12">
+            <button class="btn btn-primary" type="submit">
+              <span style="width: 1.5em;">{{ svg('ph:magnifying-glass', { width: 20, height: 20 }) }}</span>
             </button>
           </div>
         </div>
@@ -62,25 +75,16 @@
       <!-- Hidden - Accessibilité : Annonce du nombre de résultats trouvés -->
       <div aria-live="polite" aria-atomic="true" class="visually-hidden">
         @if (audiences.total === 0)
-          Aucun résultat trouvé.
+          Aucun audience trouvée.
         @elseif (audiences.total === 1)
-          1 résultat trouvé.
+          1 audience trouvée.
         @else
-          {{ audiences.total }} résultats trouvés.
+          {{ audiences.total }} audiences trouvées.
         @endif
       </div>
 
       @if (audiences.total > 0)
         <div class="vstack gap-4">
-          @if (audiences.total === 1)
-            <p class="h4 mb-0">
-              1 résultat trouvé
-            </p>
-          @elseif (audiences.total > 1)
-            <p class="h4 mb-0">
-              {{ audiences.total }} résultats trouvés
-            </p>
-          @endif
           @each(audience in audiences)
             <a
               class="text-decoration-none"
