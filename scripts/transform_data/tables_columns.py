@@ -47,8 +47,7 @@ AUDIENCES_COLUMNS = {
 }
 
 PROCEDURES_COLUMNS = {
-    "id": "id",
-    "Référence procédure": "reference_procedure",
+    "Référence procédure": "reference_procedure",  # this is the unique key
     "Faits très concis": "faits_concis",
     "Titre": "titre",
     "Date des faits": "date_des_faits",
