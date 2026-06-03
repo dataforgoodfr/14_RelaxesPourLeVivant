@@ -16,6 +16,8 @@
   --bs-body-color: var(--bs-gray-900);
   --bs-secondary-color: var(--bs-gray-600);
   --bs-link-color-rgb: var(--msde-green-rgb);
+  --bs-border-radius-sm: 2px;
+  --bs-border-radius: 4px;
 }
 
 /*
@@ -61,11 +63,6 @@
   background-color: var(--relx-accent-dark);
 }
 
-.text-bg-accent-subtle {
-  color: var(--bs-body-color);
-  background-color: var(--relx-accent-subtle);
-}
-
 .bg-accent-subtle {
   background-color: var(--relx-accent-subtle);
 }
@@ -106,6 +103,10 @@
   background-color: var(--relx-bg-danger);
 }
 
+.lh-lg {
+  line-height: 24px !important;
+}
+
 /*
  Add border color utilities.
  */
@@ -123,16 +124,10 @@ a {
 /*
   Overriding button elements
 */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0px;
-}
 
 .btn-primary {
-  --bs-btn-color: var(--relx-gray-900);
-  --bs-btn-bg: var(--relx-yellow-1);
+  --bs-btn-color: var(--relx-default-white);
+  --bs-btn-bg: var(--relx-gray-3);
   --bs-btn-border-color: var(--msde-green);
 
   --bs-btn-hover-color: var(--bs-btn-color);
@@ -147,7 +142,9 @@ a {
   --bs-btn-disabled-bg: var(--bs-btn-bg);
   --bs-btn-disabled-border-color: var(--bs-btn-border-color);
 
-  --bs-border-radius: 100px;
+  --bs-border-radius: 40px;
+
+  --bs-btn-padding-y: 12px;
 }
 
 .btn-outline-primary {
@@ -167,7 +164,7 @@ a {
   --bs-btn-disabled-bg: var(--bs-btn-bg);
   --bs-btn-disabled-border-color: var(--bs-btn-border-color);
 
-  --bs-border-radius: 100px;
+  --bs-border-radius: 40px;
 }
 
 .btn-link {
@@ -220,7 +217,7 @@ a {
 .form-control,
 .form-select {
   border: 1px solid var(--relx-gray-1);
-  border-radius: 0;
+  border-radius: var(--bs-border-radius-sm);
   padding: 1em;
 
   &:focus {
@@ -229,10 +226,27 @@ a {
   }
 }
 
+form > .row > [class*='col']:first-child {
+  .form-control,
+  .token-input-wrapper,
+  .btn {
+    border-radius: var(--bs-border-radius-sm) 0px 0px var(--bs-border-radius-sm);
+  }
+}
+
+form > .row > [class*='col']:last-child {
+  .form-control,
+  .token-input-wrapper,
+  .btn {
+    border-radius: 0px var(--bs-border-radius-sm) var(--bs-border-radius-sm) 0px;
+  }
+}
+
 form > .row > [class*='col']:not(:first-child) {
   @media (min-width: 768px) {
     .form-control,
     .token-input-wrapper {
+      border-radius: 0px;
       border-left: 0px;
     }
   }
