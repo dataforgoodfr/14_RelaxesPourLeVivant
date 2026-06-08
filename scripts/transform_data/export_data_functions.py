@@ -14,7 +14,7 @@ def get_row_index_from_name(data: pandas.DataFrame, row_name: str) -> int:
         raise ValueError(f"'{row_name}' not found. First column contains: {data.iloc[:, 0].unique()}")
 
     return matches[0]
-    
+
 
 def remove_empty_rows_for_column(df: pandas.DataFrame, column_name: str):
     return df[df[column_name].notna() & (df[column_name] != '')]
@@ -80,8 +80,11 @@ def extract_columns_by_table(
         if isinstance(name, str) and table_name.lower() in name.lower() and not pandas.isna(col)
     ]
 
-    # Remove first lines that are internal comments, first real row begin with "A0001"
-    first_row_index = get_row_index_from_name(data, "A0001")
+    # Remove first lines that are internal comments, first real row begins after the "ID" row
+    first_row_index = get_row_index_from_name(data, "ID") + 1
+    if first_row_index > 10:
+      raise ValueError(f"Issue first valid row from csv is the {first_row_index} th, "
+                       f"please check csv (it should be around the 5th row)")
     if debug_mode:
         print(f"Keep data from first_row_index {first_row_index}")
     data = data[first_row_index:]
@@ -112,5 +115,5 @@ def extract_columns(df: pandas.DataFrame, columns_to_rename: dict) -> pandas.Dat
         if col_issues:
             raise ValueError(f"""Warning columns not in dataset : {col_issues}
             The dataset is made of these columns : {df.columns}""")
-    
+
     return df[list(columns_to_keep)]
