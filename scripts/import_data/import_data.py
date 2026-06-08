@@ -45,7 +45,8 @@ def import_data(table_name, file_location=None):
   print(url)
 
   if not file_location:
-    file_location = table_name + ".csv"
+    # By default files are in scripts/transform_data/exported_tables
+    file_location = "scripts/transform_data/exported_tables/" + table_name + ".csv"
 
   files = [
     ('csv', (table_name + '.csv', open(
