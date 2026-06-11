@@ -13,6 +13,7 @@ import PresseArticle from '#models/presse_article'
 import env from '#start/env'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+const HealthChecksController = () => import('#controllers/health_checks_controller')
 const AnalysesController = () => import('#controllers/analyses_controller')
 const ImportsController = () => import('#controllers/imports_controller')
 const HomeController = () => import('#controllers/home_controller')
@@ -72,5 +73,8 @@ router
 if (env.get('NODE_ENV') === 'development') {
   router.on('/dev/design').render('design_system/design_system')
 }
+
+router.get('/health/live', [HealthChecksController, 'live'])
+router.get('/health/ready', [HealthChecksController, 'ready'])
 
 router.on('*').redirectToPath('/welcome')
