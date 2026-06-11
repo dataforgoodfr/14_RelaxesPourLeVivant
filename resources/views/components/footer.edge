@@ -4,6 +4,11 @@
       <p class="m-0">
         2026 ©MSDE
       </p>
+      @if(env.get('APP_VERSION'))
+        <p class="m-0">
+          version {{ env.get('APP_VERSION') }}
+        </p>
+      @end
     </div>
     <div class="col-6 p-0 d-flex justify-content-end gap-5">
       <a href="{{ route('/terms-of-use') }}">Conditions d’utilisation</a>

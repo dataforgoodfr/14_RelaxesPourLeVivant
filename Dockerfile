@@ -21,7 +21,10 @@ RUN node ace build
 # ----------------------------
 FROM base AS production
 WORKDIR /app
-ENV NODE_ENV=production HUSKY=0
+ARG APP_VERSION
+ENV NODE_ENV=production HUSKY=0 APP_VERSION=$APP_VERSION
+
+LABEL VERSION=$APP_VERSION
 
 COPY --from=build /app/build ./
 RUN npm ci --omit=dev

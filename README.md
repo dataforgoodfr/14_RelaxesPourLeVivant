@@ -149,3 +149,11 @@ AdonisJs fournit une configuration par défaut pour ESlint et Prettier.
 ![schema d'architecture de l'application](https://github.com/dataforgoodfr/14_RelaxesPourLeVivant/blob/main/docs/architecture.svg?raw=true)
 
 ![configuration de NocoDB](https://github.com/dataforgoodfr/14_RelaxesPourLeVivant/blob/main/docs/nocodb_config.svg?raw=true)
+
+## Build container image
+
+```
+podman build --build-arg APP_VERSION=my-version -t relaxes-pour-le-vivant:my-version .
+# OR
+docker build --build-arg APP_VERSION=my-version -t relaxes-pour-le-vivant:my-version .
+```
