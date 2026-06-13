@@ -334,12 +334,48 @@
             @if(metabaseToken)
               <section class="rounded border p-4" aria-labelledby="graph-evolution-condamnations-heading">
                 <h3 class="small" id="graph-evolution-condamnations-heading">
-                  Évolution des condamnations pour ce chef de prévention
+                  Évolution de la sévérité des peines pour les audiences ayant les mêmes chefs de prévention
                 </h3>
-                <p class="small">
-                  <!--TODO: handle En savoir plus link or remove + check if title should remain static -->
-                  En france, entre 2014 et 2026 <span class="small text-muted">Le score de gravité est un indice MSDE. En savoir plus</span>
+                <p class="small mb-1">
+                  Parmi les données de MSDE <span class="small text-muted">Cliquez sur le rond de couleur de chaque chef de prévention pour isoler les données</span>
                 </p>
+                <details class="small text-muted">
+                  <summary>
+                    En savoir plus
+                  </summary>
+                  <ul class="list-unstyled">
+                    <li>
+                      <b>0,5 </b>- Relaxes fondées sur un motif justificatif explicite.
+                    </li>
+                    <li>
+                      <b>1,5 </b>- Relaxes prononcées pour absence de caractérisation de l’infraction ou lorsque le fondement précis de la relaxe n’est pas identifiable dans la décision.
+                    </li>
+                    <li>
+                      <b>4 </b>- Décisions de dispense de peine.
+                    </li>
+                    <li>
+                      <b>4,5 </b>- Sanctions purement symboliques, telles qu’une amende d’un euro.
+                    </li>
+                    <li>
+                      <b>6 </b>- Amendes assorties d’un sursis.
+                    </li>
+                    <li>
+                      <b>7 </b>- Amendes inférieures à 200 euros.
+                    </li>
+                    <li>
+                      <b>8 </b>- Amende comprise entre 200 et 500 euros avec moins de 20 heures de travail d’intérêt général ou un stage de citoyenneté.
+                    </li>
+                    <li>
+                      <b>9 </b>- Amendes supérieures à 500 euros ou peines de travail d’intérêt général excédant 20 heures.
+                    </li>
+                    <li>
+                      <b>13 </b>- Peines privatives de liberté assorties d’un sursis.
+                    </li>
+                    <li>
+                      <b>14 </b>- Peines d’emprisonnement ferme.
+                    </li>
+                  </ul>
+                </details>
                 <metabase-question token="{{ metabaseToken }}" with-title="false">
                 </metabase-question>
               </section>
