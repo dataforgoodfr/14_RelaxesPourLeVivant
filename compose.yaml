@@ -12,15 +12,17 @@ services:
       test: 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"'
       timeout: 2s
   app-admin:
-    image: nocodb/nocodb:0.265.1
+    image: nocodb/nocodb:2026.06.0
     env_file: .env
+    environment:
+      NODE_ENV: production # required even in dev mode, "development" value throw an error
     ports:
       - 4444:3333
     depends_on:
       db:
         condition: service_healthy
   metabase:
-    image: metabase/metabase:latest
+    image: metabase/metabase:v0.62.1.7
     env_file: .env
     ports:
       - 3000:3000
