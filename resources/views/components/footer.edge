@@ -1,18 +1,14 @@
 <footer class="mx-0 mx-md-4 relx-bg-white border border-top-0 border-dark">
   <div class="row d-none d-md-flex">
     <div class="col-6 p-0">
-      <p class="m-0">
-        2026 ©MSDE
-      </p>
+      <p class="m-0">2026 ©MSDE</p>
       @if(env.get('APP_VERSION'))
-        <p class="m-0">
-          version {{ env.get('APP_VERSION') }}
-        </p>
+        <p class="m-0">version {{ env.get('APP_VERSION') }}</p>
       @end
     </div>
     <div class="col-6 p-0 d-flex justify-content-end gap-5">
-      <a href="{{ route('/terms-of-use') }}">Conditions d’utilisation</a>
-      <a href="{{ route('/legal') }}">Mentions légales</a>
+      <a href="{{ urlFor('terms_of_use') }}">Conditions d’utilisation</a>
+      <a href="{{ urlFor('legal') }}">Mentions légales</a>
     </div>
   </div>
 </footer>

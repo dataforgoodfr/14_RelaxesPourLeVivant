@@ -30,16 +30,15 @@ export default class AuthController {
     try {
       const user = await User.verifyCredentials(email, password)
       if (!user.approved) {
-        session.flash(
-          'errors.auth',
-          "Vous n'êtes pas autorisé, si vous pensez que c'est un problème contactez nous."
-        )
+        session.flashErrors({
+          auth: "Vous n'êtes pas autorisé, si vous pensez que c'est un problème contactez nous.",
+        })
         return response.redirect().withQs().back()
       }
       await auth.use('web').login(user, !!request.input('rememberMe'))
       return response.redirect(targetPath)
     } catch {
-      session.flash('errors.auth', 'Mot de passe ou email incorrect.')
+      session.flashErrors({ auth: 'Mot de passe ou email incorrect.' })
       session.flash('email', email)
       return response.redirect().withQs().back()
     }
@@ -97,10 +96,9 @@ export default class AuthController {
       .first()
 
     if (!user) {
-      session.flash(
-        'errors.password_reset',
-        'Lien de changement de mot de passe invalide ou expiré.'
-      )
+      session.flashErrors({
+        password_reset: 'Lien de changement de mot de passe invalide ou expiré.',
+      })
       return response.redirect().toPath('/forgotten-password')
     }
 

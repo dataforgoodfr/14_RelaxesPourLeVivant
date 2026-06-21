@@ -1,5 +1,5 @@
 import string from '@adonisjs/core/helpers/string'
-import { DateTime } from 'luxon'
+import type { DateTime } from 'luxon'
 
 /**
  * Map a juridiction label.

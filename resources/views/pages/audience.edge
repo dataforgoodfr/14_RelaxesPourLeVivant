@@ -36,7 +36,7 @@
       <div class="container-md px-4 px-md-0 pb-5">
         <section class="hstack flex-wrap gap-2 justify-content-between py-4">
           <a
-            href="{{ route('audiences.search') }}"
+            href="{{ urlFor('audiences.search') }}"
             class="d-inline-flex align-items-center gap-2 text-bg-accent text-decoration-none"
           >
             @svg('ph:arrow-left-bold', { width: 24, height: 24, class: 'flex-shrink-0' })
@@ -137,7 +137,7 @@
                 @let (isCurrent = currentAudience.id === audience.id)
                 <a
                   class="nav-link {{ isCurrent ? 'active' : '' }} vstack gap-1 align-items-start w-100"
-                  href="{{ route('audiences.show', { id: audience.id }) }}#audienceInformation"
+                  href="{{ urlFor('audiences.show', { id: audience.id }) }}#audienceInformation"
                   {{{ isCurrent ? 'aria-current="page"' : '' }}}
                 >
                   {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
@@ -173,7 +173,7 @@
                   <li>
                     <a
                       class="dropdown-item {{ isCurrent ? 'active' : '' }} vstack gap-1 align-items-start"
-                      href="{{ route('audiences.show', { id: audience.id }) }}#audienceInformation"
+                      href="{{ urlFor('audiences.show', { id: audience.id }) }}#audienceInformation"
                       {{{ isCurrent ? 'aria-current="page"' : '' }}}
                     >
                       {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience, audience.degre_de_juridiction) }}
@@ -277,7 +277,7 @@
                       @downloadButton({
                                   file: jugement,
                                   filePosition: (jugementFiles.length > 1) ? index+1 : undefined,
-                                  url:  route('audiences.jugements', [audience.id, jugement.id]),
+                                  url:  urlFor('audiences.jugements', [audience.id, jugement.id]),
                                   class: 'align-self-start align-self-lg-center'
                       })
                         Télécharger le jugement

@@ -1,5 +1,4 @@
 @eval(await auth.check())
-
 {{-- Provide navbarTheme variable before including the navbar partial for customization --}}
 @let(navbarThemeClass = navbarTheme === 'dark' ? 'bg-accent' : '')
 @let(navbarBrandFileName = navbarTheme === 'dark' ? 'msde_brand_dark.svg' : 'msde_brand.svg')
@@ -28,22 +27,22 @@
   </button>
   <div class="collapse navbar-collapse d-lg-flex flex-column flex-lg-row" id="mainNavbar">
     <ul class="navbar-nav gap-4 relx-navbar-account order-4 p-3 p-lg-3">
-      @if (auth.user)
+      @if(auth.user)
         {{-- burger menu behaviour on large screens deactivated for demo day --}}
-        <!-- Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible -->
+        <!--Mobile Authenticated User menu : only visible on screens smaller than lg, when the main burger menu is visible-->
         <li class="nav-item d-flex align-items-center d-lg-none">
-          @menuLink({ route: route('auth.change_password'), class: 'nav-link p-0' })
+          @menuLink({ route: urlFor('auth.change_password'), class: 'nav-link p-0' })
             Changer de mot de passe
           @end
         </li>
         <li class="nav-item d-lg-none">
           <form action="/logout" method="POST">
             {{ csrfField() }}
-           <button class="nav-link" type="submit">Déconnexion</button>
+            <button class="nav-link" type="submit">Déconnexion</button>
           </form>
         </li>
         {{-- burger menu behaviour on large screens deactivated for demo day --}}
-        <!-- Desktop User Burger menu : only visible on lg+ screens, when the main burger menu is hidden -->
+        <!--Desktop User Burger menu : only visible on lg+ screens, when the main burger menu is hidden-->
         <li class="nav-item d-none d-lg-block">
           <div class="dropdown">
             <button
@@ -57,14 +56,17 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
-                @menuLink({ route: route('auth.change_password'), class: 'dropdown-item'})
+                @menuLink({
+                  route: urlFor('auth.change_password'),
+                  class: 'dropdown-item',
+                })
                   Changer de mot de passe
                 @end
               </li>
               <li>
                 <form action="/logout" method="POST">
                   {{ csrfField() }}
-                      <button type="submit" class="dropdown-item">Déconnexion</button>
+                  <button type="submit" class="dropdown-item">Déconnexion</button>
                 </form>
               </li>
             </ul>
@@ -79,23 +81,27 @@
         <li class="nav-item">
           @menuLink({ route: '/sign-up', class: 'nav-link p-0' })
             Demander un accès
-              {{ svg('ph:arrow-up-right')}}
+            {{ svg('ph:arrow-up-right') }}
           @end
         </li>
-      @endif
+      @end
     </ul>
-    @if (!auth.user)
+    @if(!auth.user)
       <ul class="navbar-nav me-auto gap-2 relx-navbar-about order-lg-1 p-3 pt-0 pt-lg-3">
         <li class="nav-item">
-          @menuLink({ route: content.about_us_url, isExternal: true, class: 'nav-link p-0' })
+          @menuLink({
+            route: content.about_us_url,
+            isExternal: true,
+            class: 'nav-link p-0',
+          })
             Qui sommes nous ?
           @end
         </li>
       </ul>
-    @endif
-    @if (auth.user)
+    @end
+    @if(auth.user)
       <ul class="navbar-nav gap-2 mx-auto relx-navbar-app order-lg-2">
-        @if (navbar?.analyses?.length > 0)
+        @if(navbar?.analyses?.length > 0)
           <li class="nav-item dropdown p-4 p-lg-3">
             <a
               class="nav-link p-0 dropdown-toggle {{ request.url().startsWith('/analyses') ? 'active' : '' }}"
@@ -105,11 +111,14 @@
               aria-expanded="false"
             >
               Analyses
-              </a>
+            </a>
             <ul class="dropdown-menu">
               @each(analyse in navbar.analyses)
                 <li>
-                  @menuLink({ route: route('analyses.show', { id: analyse.id }), class: 'dropdown-item' })
+                  @menuLink({
+                    route: urlFor('analyses.show', { id: analyse.id }),
+                    class: 'dropdown-item',
+                  })
                     {{ analyse.titre }}
                   @end
                 </li>
@@ -117,13 +126,15 @@
             </ul>
           </li>
         @end
+
         <li class="nav-item p-4 pt-0 p-lg-3">
-          @menuLink({ route: route('audiences.search'), class: 'nav-link p-0' })
+          @menuLink({ route: urlFor('audiences.search'), class: 'nav-link p-0' })
             Rechercher une audience
           @end
         </li>
       </ul>
     @end
+
     <ul class="navbar-nav gap-2 relx-navbar-contribute order-lg-3 p-3 pt-0 p-lg-2 px-lg-4">
       <li class="nav-item">
         @menuLink({ route: 'contribution', class: 'nav-link p-0' })
@@ -138,13 +149,11 @@
         @end
       </li>
       <li class="nav-item d-md-none">
-        @menuLink({ route: content.msde_url, isExternal: true , class: 'nav-link p-0' })
+        @menuLink({ route: content.msde_url, isExternal: true, class: 'nav-link p-0' })
           Le site MSDE
         @end
       </li>
-      <li class="nav-item d-md-none">
-        <span class="nav-link pe-none">2026 ©MSDE</span>
-      </li>
+      <li class="nav-item d-md-none"><span class="nav-link pe-none">2026 ©MSDE</span></li>
       <li class="nav-item d-md-none">
         @menuLink({ route: 'terms-of-use', class: 'nav-link p-0' })
           Conditions d'utilisation
@@ -155,7 +164,6 @@
           Mentions légales
         @end
       </li>
-
     </ul>
   </div>
 </nav>
