@@ -1,69 +1,64 @@
 {{--
-MoreFilter component is based on dropdown Bootstrap component
+  MoreFilter component is based on dropdown Bootstrap component
 
-```html
-<div id="more-filters" class="dropdown">
+  ```html
+  <div id="more-filters" class="dropdown">
   <buttonclass="btn btn-light dropdown-toggle">Plus de filtres</button>
   <span class="badge text-bg-primary rounded-pill"></span>
   <div class="dropdown-menu dropdown-menu-end">
   </div>
-</div>
-```
+  </div>
+  ```
 
-## Specials attributes
-- `data-more-filters-step=...` to define a step
-- `data-more-filters-goto=...` to define a button to navigate between step
-- `data-more-filters-input=...` to listen input change
-- `data-more-filters-value=...` to get the value of listened input
+  ## Specials attributes
+  - `data-more-filters-step=...` to define a step
+  - `data-more-filters-goto=...` to define a button to navigate between step
+  - `data-more-filters-input=...` to listen input change
+  - `data-more-filters-value=...` to get the value of listened input
 
-## Define steps
+  ## Define steps
 
-The content of `dropdown-menu` elem is managed by a step mechanisme.
+  The content of `dropdown-menu` elem is managed by a step mechanisme.
 
-Inside the `dropdown-menu` element you can define steps with `data-more-filters-step`
+  Inside the `dropdown-menu` element you can define steps with `data-more-filters-step`
 
-```html
-<div class="dropdown-menu dropdown-menu-end">
+  ```html
+  <div class="dropdown-menu dropdown-menu-end">
   <div data-more-filters-step="menu">...</div>
   <div data-more-filters-step="decision">...</div>
   <div data-more-filters-step="dateAudience">...</div>
-</div>
-```
+  </div>
+  ```
 
-To navigate between steps you can add button with `data-more-filters-goto` inside the steps :
+  To navigate between steps you can add button with `data-more-filters-goto` inside the steps :
 
-```html
-<div data-more-filters-step="menu">
+  ```html
+  <div data-more-filters-step="menu">
   <button type="button" class="dropdown-item" data-more-filters-goto="ville">...</button>
-</div>
-<div data-more-filters-step="decision">
+  </div>
+  <div data-more-filters-step="decision">
   <button type="button" class="dropdown-item" data-more-filters-goto="menu">...</button>
-</div>
-```
+  </div>
+  ```
 
-## Use input value
+  ## Use input value
 
-To manipulate the input values of form add `data-more-filters-input` on each input
+  To manipulate the input values of form add `data-more-filters-input` on each input
 
-```html
-<select name="juridiction" class="form-select" data-more-filters-input="juridiction">...</select>
-@!component('components/multi_select', {
-  data: { ['data-more-filters-input']: "collectif" }
-})
-@!component('components/date_range_picker', {
-  data: { ['data-more-filters-input']: "dateDesFaits" }
-})
-```
+  ```html
+  <select name="juridiction" class="form-select" data-more-filters-input="juridiction">...</select>
+  @!component(__EDGE_TAGARG_0__)
+  @!component(__EDGE_TAGARG_1__)
+  ```
 
-With this the MoreFilter component can listen input changes.
+  With this the MoreFilter component can listen input changes.
 
-You can display the values by adding `data-more-filters-value` on a html element.
+  You can display the values by adding `data-more-filters-value` on a html element.
 
-```html
-<span data-more-filters-value="juridiction"> [The value of input will be displayed here] </span>
-```
+  ```html
+  <span data-more-filters-value="juridiction"> [The value of input will be displayed here] </span>
+  ```
 --}}
-
 @pushOnceTo('components')
   <script type="module">
     export default class MoreFilter {
@@ -75,36 +70,38 @@ You can display the values by adding `data-more-filters-value` on a html element
       constructor(refElment, initialStep) {
         this.#refElment = refElment;
         this.#currentStep = initialStep;
-        this.#badge = refElment.querySelector(".badge");
-        this.#refElment.querySelectorAll("[data-more-filters-goto]").forEach(elem => {
-          elem.addEventListener("click", () => {
+        this.#badge = refElment.querySelector('.badge');
+        this.#refElment.querySelectorAll('[data-more-filters-goto]').forEach((elem) => {
+          elem.addEventListener('click', () => {
             this.#currentStep = elem.dataset.moreFiltersGoto;
             this.#renderStep();
           });
         });
-        this.#refElment.querySelectorAll("[data-more-filters-step]").forEach(elem => {
+        this.#refElment.querySelectorAll('[data-more-filters-step]').forEach((elem) => {
           const step = elem.dataset.moreFiltersStep;
           if (step !== initialStep) {
-            elem.style.setProperty("display", "none");
+            elem.style.setProperty('display', 'none');
           }
           this.#steps.push(elem);
         });
-        this.#refElment.querySelectorAll("[data-more-filters-input]").forEach(elem => {
+        this.#refElment.querySelectorAll('[data-more-filters-input]').forEach((elem) => {
           const type = elem.dataset.moreFiltersInput;
           const value = elem.value;
-          this.#refElment.querySelector(`[data-more-filters-value=${type}]`).innerText = value ? ` : ${value}` : "";
+          this.#refElment.querySelector(`[data-more-filters-value=${type}]`).innerText = value
+            ? ` : ${value}`
+            : '';
           this.#renderBadge();
         });
         this.#bind();
       }
       #renderStep() {
-        this.#steps.forEach(elem => {
+        this.#steps.forEach((elem) => {
           const step = elem.dataset.moreFiltersStep;
           if (step !== this.#currentStep) {
-            elem.style.setProperty("display", "none");
+            elem.style.setProperty('display', 'none');
           } else {
-            elem.style.removeProperty("display");
-            elem.querySelector("[data-more-filters-input]")?.showPicker?.();
+            elem.style.removeProperty('display');
+            elem.querySelector('[data-more-filters-input]')?.showPicker?.();
           }
         });
       }
@@ -115,17 +112,19 @@ You can display the values by adding `data-more-filters-value` on a html element
         }
         this.#badge.innerText = count;
         if (count <= 0) {
-          this.#badge.style.setProperty("visibility", "hidden");
+          this.#badge.style.setProperty('visibility', 'hidden');
         } else {
-          this.#badge.style.setProperty("visibility", "visible");
+          this.#badge.style.setProperty('visibility', 'visible');
         }
       }
       #bind() {
-        this.#refElment.querySelectorAll("[data-more-filters-input]").forEach(elem => {
-          elem.addEventListener("change", event => {
+        this.#refElment.querySelectorAll('[data-more-filters-input]').forEach((elem) => {
+          elem.addEventListener('change', (event) => {
             const type = event.target.dataset.moreFiltersInput;
             const value = event.target.value;
-            this.#refElment.querySelector(`[data-more-filters-value=${type}]`).innerText = value ? ` : ${value}` : "";
+            this.#refElment.querySelector(`[data-more-filters-value=${type}]`).innerText = value
+              ? ` : ${value}`
+              : '';
             this.#renderBadge();
           });
         });
@@ -133,10 +132,9 @@ You can display the values by adding `data-more-filters-value` on a html element
       }
     }
 
-    new MoreFilter(document.querySelector("#more-filters"), "menu");
+    new MoreFilter(document.querySelector('#more-filters'), 'menu');
   </script>
 @end
-
 @pushOnceTo('components')
   <style>
     .more-filters-value {
@@ -159,65 +157,79 @@ You can display the values by adding `data-more-filters-value` on a html element
   <div class="dropdown-menu dropdown-menu-end" style="min-width: 20rem">
     <div data-more-filters-step="menu">
       <button type="button" class="dropdown-item" data-more-filters-goto="ville">
-        Ville <span
+        Ville
+        <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="ville"
         ></span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
-
       <button type="button" class="dropdown-item" data-more-filters-goto="juridiction">
-        Juridiction <span
+        Juridiction
+        <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="juridiction"
         ></span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
-
       <button type="button" class="dropdown-item" data-more-filters-goto="decision">
-        Décision <span
+        Décision
+        <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="decision"
         ></span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
-
       <button type="button" class="dropdown-item" data-more-filters-goto="collectif">
-        Collectif <span
+        Collectif
+        <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="collectif"
         ></span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
-
       <button type="button" class="dropdown-item" data-more-filters-goto="dateAudience">
-        Date d'audience <span
+        Date d'audience
+        <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="dateAudience"
-        >{{ searchQuery.dateAudience ? ` : Entre le ${searchQuery.dateAudience.map((date) => date.split('-').reverse().join('.')).join(' et le ')}` : '' }}</span>
+        >
+          {{
+            searchQuery.dateAudience
+              ? ` : Entre le ${searchQuery.dateAudience.map((date) => date.split('-').reverse().join('.')).join(' et le ')}`
+              : ''
+          }}
+        </span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
-
       <button type="button" class="dropdown-item" data-more-filters-goto="dateDesFaits">
-        Date des faits <span
+        Date des faits
+        <span
           class="more-filters-value fw-bold d-inline-block text-truncate align-text-bottom"
           data-more-filters-value="dateDesFaits"
-        >{{ searchQuery.dateDesFaits ? ` : Entre le ${searchQuery.dateDesFaits.map((date) => date.split('-').reverse().join('.')).join(' et le ')}` : '' }}</span>
+        >
+          {{
+            searchQuery.dateDesFaits
+              ? ` : Entre le ${searchQuery.dateDesFaits.map((date) => date.split('-').reverse().join('.')).join(' et le ')}`
+              : ''
+          }}
+        </span>
         <span class="position-absolute end-0 me-3">{{ svg('ph:caret-right') }}</span>
       </button>
     </div>
 
     <div data-more-filters-step="ville">
       <button type="button" class="dropdown-item" data-more-filters-goto="menu">
-        {{ svg('ph:caret-left') }} Ville
+        {{ svg('ph:caret-left') }}
+        Ville
       </button>
       <div class="p-2">
         <select name="ville" class="form-select" data-more-filters-input="ville">
-          <option value="" {{ searchQuery.ville === "" ? "selected" : "" }}>
+          <option value="" {{ searchQuery.ville === '' ? 'selected' : '' }}>
             Toutes les villes
           </option>
           @each(ville in villes)
-            <option value="{{ ville.nom }}" {{ searchQuery.ville === ville.nom ? "selected" : "" }}>
+            <option value="{{ ville.nom }}" {{ searchQuery.ville === ville.nom ? 'selected' : '' }}>
               {{ ville.nom }}
             </option>
           @end
@@ -227,17 +239,18 @@ You can display the values by adding `data-more-filters-value` on a html element
 
     <div data-more-filters-step="juridiction">
       <button type="button" class="dropdown-item" data-more-filters-goto="menu">
-        {{ svg('ph:caret-left') }} Juridiction
+        {{ svg('ph:caret-left') }}
+        Juridiction
       </button>
       <div class="p-2">
         <select name="juridiction" class="form-select" data-more-filters-input="juridiction">
-          <option value="" {{ searchQuery.juridiction === "" ? "selected" : "" }}>
+          <option value="" {{ searchQuery.juridiction === '' ? 'selected' : '' }}>
             Toutes les juridictions
           </option>
           @each(juridiction in juridictions)
             <option
               value="{{ juridiction.intitule }}"
-              {{ searchQuery.juridiction === juridiction.intitule ? "selected" : "" }}
+              {{ searchQuery.juridiction === juridiction.intitule ? 'selected' : '' }}
             >
               {{ juridiction.intitule }}
             </option>
@@ -248,17 +261,21 @@ You can display the values by adding `data-more-filters-value` on a html element
 
     <div data-more-filters-step="decision">
       <button type="button" class="dropdown-item" data-more-filters-goto="menu">
-        {{ svg('ph:caret-left') }} Décision
+        {{ svg('ph:caret-left') }}
+        Décision
       </button>
       <div class="p-2">
         <select name="decision" class="form-select" data-more-filters-input="decision">
-          <option value="" {{ searchQuery.decision === "" ? "selected" : "" }}>
+          <option value="" {{ searchQuery.decision === '' ? 'selected' : '' }}>
             Toutes les décisions
           </option>
-          <option value="Condamnation" {{ searchQuery.decision === "Condamnation" ? "selected" : "" }}>
+          <option
+            value="Condamnation"
+            {{ searchQuery.decision === 'Condamnation' ? 'selected' : '' }}
+          >
             Condamnation
           </option>
-          <option value="Relaxe" {{ searchQuery.decision === "Relaxe" ? "selected" : "" }}>
+          <option value="Relaxe" {{ searchQuery.decision === 'Relaxe' ? 'selected' : '' }}>
             Relaxe
           </option>
         </select>
@@ -267,46 +284,48 @@ You can display the values by adding `data-more-filters-value` on a html element
 
     <div data-more-filters-step="collectif">
       <button type="button" class="dropdown-item" data-more-filters-goto="menu">
-        {{ svg('ph:caret-left') }} Collectif
+        {{ svg('ph:caret-left') }}
+        Collectif
       </button>
       <div class="p-2">
         @!component('components/multi_select', {
-          name: "collectif",
+          name: 'collectif',
           label: "Collectif d'action",
-          options: collectifs.map(c => c.nom),
+          options: collectifs.map((c) => c.nom),
           selected: searchQuery.collectif ?? '',
-          data: { ['data-more-filters-input']: "collectif" }
+          data: { ['data-more-filters-input']: 'collectif' },
         })
       </div>
     </div>
 
     <div data-more-filters-step="dateAudience">
       <button type="button" class="dropdown-item" data-more-filters-goto="menu">
-        {{ svg('ph:caret-left') }} Date d'audience
+        {{ svg('ph:caret-left') }}
+        Date d'audience
       </button>
       <div class="p-2">
         @!component('components/date_range_picker', {
           name: 'dateAudience',
           label: "Date d'audience",
           value: searchQuery.dateAudience ?? [],
-          data: { ['data-more-filters-input']: "dateAudience" }
+          data: { ['data-more-filters-input']: 'dateAudience' },
         })
       </div>
     </div>
 
     <div data-more-filters-step="dateDesFaits">
       <button type="button" class="dropdown-item" data-more-filters-goto="menu">
-        {{ svg('ph:caret-left') }} Date des faits
+        {{ svg('ph:caret-left') }}
+        Date des faits
       </button>
       <div class="p-2">
         @!component('components/date_range_picker', {
           name: 'dateDesFaits',
           label: 'Date des faits',
           value: searchQuery.dateDesFaits ?? [],
-          data: { ['data-more-filters-input']: "dateDesFaits" }
+          data: { ['data-more-filters-input']: 'dateDesFaits' },
         })
       </div>
     </div>
-
   </div>
 </div>

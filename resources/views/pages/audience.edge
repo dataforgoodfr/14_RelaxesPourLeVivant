@@ -63,7 +63,7 @@
                     title="{{ lastDecision }}"
                   >{{ lastDecision }}</span>
                 </div>
-              @endif
+              @end
               <div class="d-flex flex-column align-items-start gap-2">
                 @each(collectif in procedure.collectif_d_action_ou_lutte)
                   <div
@@ -92,7 +92,7 @@
                   @end
                 </div>
               </div>
-            @endif
+            @end
           </section>
 
           <div class="col-xl-9">
@@ -104,7 +104,7 @@
                       {{{ nl2br(procedure.faits_detailles) }}}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </p>
                 @end
               </div>
@@ -115,7 +115,7 @@
                       {{{ nl2br(procedure.poursuites) }}}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </p>
                 @end
               </div>
@@ -145,7 +145,7 @@
                     <small>{{ audienceHelper.dateLabel(audience.date_de_decision) }}</small>
                     @if (isCurrent)
                       <span class="nav-link-indicator"></span>
-                    @endif
+                    @end
                   </span>
                 </a>
               @end
@@ -217,7 +217,7 @@
                         {{ audience.chefs_de_prevention_categorie.join(', ') }}
                       @else
                         @!emptyData()
-                      @endif
+                      @end
                     </p>
                     @if (audience.chefs_de_prevention_sous_categorie?.length > 0)
                       <ul class="mb-0">
@@ -227,7 +227,7 @@
                           </li>
                         @end
                       </ul>
-                    @endif
+                    @end
                   </div>
                 </div>
                 <div class="rounded text-bg-gray p-4 vstack gap-4">
@@ -240,20 +240,20 @@
                       {{{ nl2br(audience.details_de_la_decision_pour_les_infractions_principales) }}}
                     @else
                       <span class="fst-italic text-muted">La décision n'a pas encore été rendue publique.</span>
-                    @endif
+                    @end
                   </p>
                   @if (audience.extrait_de_la_decision)
                     <p class="mb-0 ps-4 border-start border-4 border-blue-green-2 fst-italic">
                       {{ audience.extrait_de_la_decision }}
                     </p>
-                  @endif
+                  @end
                   @if (audience.mots_cles?.length > 0)
                     <section class="hstack gap-3 flex-wrap small mt-auto">
                       @each(motCle in audience.mots_cles)
                         <span class="text-petrol-2 text-uppercase fw-semibold">#{{ motCle }}</span>
                       @end
                     </section>
-                  @endif
+                  @end
                 </div>
               </div>
               <div class="col-lg-4">
@@ -271,7 +271,7 @@
                       <h3 class="mb-0 h4 fw-semibold">
                         {{ audience.decision_pour_les_infractions_principales }}
                       </h3>
-                    @endif
+                    @end
                     @let (jugementFiles = audience.jugement_ou_arret)
                     @each((jugement, index) in (jugementFiles))
                       @downloadButton({
@@ -325,7 +325,7 @@
                         "{{ audience.commentaire_msde }}"
                       @else
                         @!emptyData()
-                      @endif
+                      @end
                     </p>
                   </hgroup>
                 </section>
@@ -379,7 +379,7 @@
                 <metabase-question token="{{ metabaseToken }}" with-title="false">
                 </metabase-question>
               </section>
-            @endif
+            @end
             <div class="row g-5">
               <section class="col-12 vstack gap-3" aria-labelledby="section-informations-generales-heading">
                 <h3 id="section-informations-generales-heading" class="h5 fw-semibold mb-0">
@@ -403,7 +403,7 @@
                       @end
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </p>
                 </div>
                 <dl class="row g-4">
@@ -415,7 +415,7 @@
                       {{ audience.date_de_decision.toFormat('dd/MM/yyyy') }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Référence de la décision
@@ -425,7 +425,7 @@
                       {{ audience.reference_de_la_decision }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Ville de l'audience
@@ -435,7 +435,7 @@
                       {{ audience.ville_de_l_audience }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Juridiction
@@ -455,7 +455,7 @@
                       {{ audience.numero_de_chambre }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                 </dl>
               </section>
@@ -472,7 +472,7 @@
                       {{ audience.nombre_de_prevenus }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Plaidoirie de la défense
@@ -482,7 +482,7 @@
                       {{{ nl2br(audience.plaidoirie_de_la_defense) }}}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                 </dl>
               </section>
@@ -499,7 +499,7 @@
                       {{{ nl2br(audience.requisitions) }}}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Nom des parties civiles
@@ -509,7 +509,7 @@
                       {{ audience.noms_des_parties_civiles }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Demande des parties civiles
@@ -519,7 +519,7 @@
                       {{{ nl2br(audience.demande_des_parties_civiles) }}}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                 </dl>
               </section>
@@ -536,7 +536,7 @@
                       {{ audience.date_de_decision.toFormat('dd/MM/yyyy') }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Décision pour les infractions principales
@@ -546,7 +546,7 @@
                       {{ audience.decision_pour_les_infractions_principales }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Fondement de la relaxe
@@ -556,7 +556,7 @@
                       {{ audience.fondement_de_la_relaxe }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Détails de la décision pour les infractions principales
@@ -566,7 +566,7 @@
                       {{{ nl2br(audience.details_de_la_decision_pour_les_infractions_principales) }}}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Détails des peines pour les infractions principales
@@ -576,7 +576,7 @@
                       {{{ nl2br(audience.details_des_peines_pour_les_infractions_principales) }}}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Décision et peines pour les infractions subies ou incidentes
@@ -586,7 +586,7 @@
                       {{ audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Inscription au casier
@@ -596,7 +596,7 @@
                       {{ audience.inscription_au_casier_judiciaire }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Dommages et intérêts
@@ -607,12 +607,12 @@
                         {{{ nl2br(audience.detail_des_dommages_et_interets) }}}
                       @else
                         Oui
-                      @endif
+                      @end
                     @elseif (audience.dommages_et_interets === false)
                       Non
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                 </dl>
               </section>
@@ -629,7 +629,7 @@
                       {{ audience.appel_d_une_des_parties ? 'Oui' : 'Non' }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Partie de l'appel principal
@@ -639,7 +639,7 @@
                       {{ audience.partie_de_l_appel_principal }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                   <dt class="col-sm-3">
                     Partie de l'appel incident
@@ -649,7 +649,7 @@
                       {{ audience.partie_de_l_appel_incident }}
                     @else
                       @!emptyData()
-                    @endif
+                    @end
                   </dd>
                 </dl>
               </section>

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
-
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      {{ env.get('APP_NAME') }}
-    </title>
+    <title>{{ env.get('APP_NAME') }}</title>
     @include('partials/bootstrap')
   </head>
 
@@ -14,11 +11,7 @@
     @!navbar()
 
     <div class="container my-5">
-      <h1>
-        404 - Page non trouvée
-      </h1>
+      <h1>404 - Page non trouvée</h1>
     </div>
-
   </body>
-
 </html>

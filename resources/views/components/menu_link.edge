@@ -1,15 +1,15 @@
-@let (isCurrentRoute = request.url() === route)
-@let(classAttributes = $props.only(['class'])
+@let(isCurrentRoute = request.url() === route)
+@let(classAttributes = $props
+  .only(['class'])
   .merge({
-    class: [
-      isCurrentRoute ? 'active' : '',
-    ]
+    class: [isCurrentRoute ? 'active' : ''],
   })
-  .toAttrs()
-)
+  .toAttrs())
 <a
   href="{{ route }}"
   {{ classAttributes }}
   {{{ isExternal ? 'target="_blank" rel="noopener noreferrer"' : '' }}}
   {{{ isCurrentRoute ? 'aria-current="page"' : '' }}}
->{{{ await $slots.main() }}}</a>
+>
+  {{{ await $slots.main() }}}
+</a>

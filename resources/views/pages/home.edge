@@ -178,9 +178,7 @@
                         <div class="col-lg-5 d-flex flex-column gap-1 mb-3 mb-lg-0">
                           <h3 class="text-purple small d-flex align-items-center gap-1">
                             @svg('ph:gavel-fill')
-                            
-                            Faits et chronologie
-
+                            <span>Faits et chronologie</span>
                           </h3>
                           <p class="small fw-normal lh-lg mb-0">
                             @if(audience.faits_concis)
@@ -209,8 +207,7 @@
                               src="{{ asset('resources/images/summary_icon.svg') }}"
                               alt="summary icon"
                             />
-                            Extrait de la décision
-
+                            <span>Extrait de la décision</span>
                           </h3>
                           <p class="small fw-normal lh-lg mb-0">
                             @if(audience.extrait_de_la_decision)
@@ -229,8 +226,7 @@
                               src="{{ asset('resources/images/msde_icon_purple.svg') }}"
                               alt="msde leaf"
                             />
-                            Commentaire MSDE
-
+                            <span>Commentaire MSDE</span>
                           </h3>
                           <p class="small fw-normal lh-lg mb-0">
                             @if(audience.commentaire_msde)
