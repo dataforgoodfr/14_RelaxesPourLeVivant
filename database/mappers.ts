@@ -1,6 +1,6 @@
-import { AppFile } from '#models/common'
-import { AttachmentRecord } from '#models/vendors/nocodb'
-import { ColumnOptions } from '@adonisjs/lucid/types/model'
+import type { AppFile } from '#models/common'
+import type { AttachmentRecord } from '#models/vendors/nocodb'
+import type { ColumnOptions } from '@adonisjs/lucid/types/model'
 
 // ---- Multiselect ----
 

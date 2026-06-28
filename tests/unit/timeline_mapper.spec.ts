@@ -1,6 +1,6 @@
 import {
-  TimelineAudienceAVenirItem,
-  TimelineAudienceItem,
+  type TimelineAudienceAVenirItem,
+  type TimelineAudienceItem,
   TimelineDataMapper,
 } from '#controllers/mappers/timeline_mapper'
 import type { SearchAudiencesResponse } from '#services/audience_service'

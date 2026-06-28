@@ -1,4 +1,4 @@
-import { AttachmentRecord } from './vendors/nocodb.js'
+import type { AttachmentRecord } from './vendors/nocodb.js'
 
 /**
  * Represents a file in the application with precomputed properties.

@@ -1,47 +1,41 @@
 <!DOCTYPE html>
 <html lang="fr">
-
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      Liste d'audiences - {{ env.get('APP_NAME') }}
-    </title>
+    <title>Liste d'audiences - {{ env.get('APP_NAME') }}</title>
     @include('partials/bootstrap')
   </head>
 
   <body class="bg-light">
     @!navbar()
-    @let (dateFormat = 'dd.MM.yyyy')
-
-    <!-- Hidden - Accessibilité - Titre principal -->
-    <h1 class="visually-hidden">
-      Liste des audiences
-    </h1>
+    @let(dateFormat = 'dd.MM.yyyy')
+    <!--Hidden - Accessibilité - Titre principal-->
+    <h1 class="visually-hidden">Liste des audiences</h1>
 
     <div class="container my-5">
-
       <div class="mb-3">
         <p class="h3 gelica-display">
-          @if (audiences.total === 0)
+          @if(audiences.total === 0)
             Aucune audience référencée
-          @elseif (audiences.total === 1)
+          @elseif(audiences.total === 1)
             1 audience référencée
           @else
-            {{ audiences.total }} audiences référencées
-          @endif
+            {{ audiences.total }}
+            audiences référencées
+          @end
         </p>
       </div>
-
-      <!-- Hidden - Accessibilité : Annonce du nombre de résultats trouvés -->
+      <!--Hidden - Accessibilité : Annonce du nombre de résultats trouvés-->
       <div aria-live="polite" aria-atomic="true" class="visually-hidden">
-        @if (audiences.total === 0)
+        @if(audiences.total === 0)
           Aucune audience référencée.
-        @elseif (audiences.total === 1)
+        @elseif(audiences.total === 1)
           1 audience référencée.
         @else
-          {{ audiences.total }} audiences référencées.
-        @endif
+          {{ audiences.total }}
+          audiences référencées.
+        @end
       </div>
 
       <form id="search" class="mb-3" method="GET">
@@ -60,16 +54,16 @@
             @!dateRangePicker({
               name: 'dateDeLaDecision',
               label: 'Date de la décision',
-              value: searchQuery.dateDeLaDecision ?? []
+              value: searchQuery.dateDeLaDecision ?? [],
             })
           </div>
           <div class="col-md-3 col-sm-12">
             @!multiSelect({
               name: 'chefDePrevention',
               label: 'Chef de prévention',
-              options: chefDePreventionCategories.map(c => c.intitule),
+              options: chefDePreventionCategories.map((c) => c.intitule),
               selected: searchQuery.chefDePrevention ?? '',
-              data: { ['data-more-filters-input']: "chefDePrevention" }
+              data: { ['data-more-filters-input']: 'chefDePrevention' },
             })
           </div>
           <div class="col-md-2 col-sm-12">
@@ -77,39 +71,41 @@
           </div>
           <div class="col-md-1 col-sm-12">
             <button class="btn btn-primary text-bg-yellow-1" type="submit">
-              <span style="width: 1.5em;">{{ svg('ph:magnifying-glass', { width: 20, height: 20 }) }}</span>
+              <span style="width: 1.5em;">
+                {{ svg('ph:magnifying-glass', { width: 20, height: 20 }) }}
+              </span>
             </button>
           </div>
         </div>
       </form>
-
-      @if (audiences.total > 0)
+      @if(audiences.total > 0)
         <div class="vstack gap-4">
           @each(audience in audiences)
             <a
               class="text-decoration-none"
-              href="{{ route('audiences.show', { id: audience.id }) }}"
+              href="{{ urlFor('audiences.show', { id: audience.id }) }}"
               aria-label="Ouvrir la page de détail de {{ audience.titre }}"
             >
               <div class="card rounded-2">
                 <div class="card-body p-0">
                   <div class="row m-0 d-flex align-items-stretch">
-                    <div class="col-lg-5 vstack gap-4 py-5 px-4 justify-content-center align-items-start">
-                      <h2 class="card-title fs-4">
-                        {{ audience.titre }}
-                      </h2>
+                    <div
+                      class="col-lg-5 vstack gap-4 py-5 px-4 justify-content-center align-items-start"
+                    >
+                      <h2 class="card-title fs-4">{{ audience.titre }}</h2>
                       @if(audience.decision_pour_les_infractions_principales)
-                        @let(
-                          badgeColor = audience.decision_pour_les_infractions_principales === 'Relaxe'
+                        @let(badgeColor =
+                          audience.decision_pour_les_infractions_principales === 'Relaxe'
                             ? 'text-bg-green'
-                            : audience.decision_pour_les_infractions_principales === 'Condamnation'
+                            : audience.decision_pour_les_infractions_principales ===
+                                'Condamnation'
                               ? 'text-bg-red'
-                              : 'text-bg-purple'
-                        )
+                              : 'text-bg-purple')
                         <span class="badge rounded-pill {{ badgeColor }}">
                           {{ audience.decision_pour_les_infractions_principales }}
-                      </span>
-                      @endif
+                        </span>
+                      @end
+
                       <table>
                         <tbody class="align-top">
                           <tr>
@@ -117,7 +113,12 @@
                               @svg('ph:calendar-dot-fill')
                             </td>
                             <td>
-                              Audience : {{ audience.date_de_l_audience ? audience.date_de_l_audience.toFormat(dateFormat) : 'date non disponible' }}
+                              Audience :
+                              {{
+                                audience.date_de_l_audience
+                                  ? audience.date_de_l_audience.toFormat(dateFormat)
+                                  : 'date non disponible'
+                              }}
                             </td>
                           </tr>
                           <tr>
@@ -125,7 +126,12 @@
                               @svg('ph:bank-fill')
                             </td>
                             <td>
-                              {{ audienceHelper.juridictionLabel(audience.juridiction, audience.ville_de_l_audience) }}
+                              {{
+                                audienceHelper.juridictionLabel(
+                                  audience.juridiction,
+                                  audience.ville_de_l_audience,
+                                )
+                              }}
                             </td>
                           </tr>
                           @if(audience.chefs_de_prevention_categorie?.length)
@@ -133,26 +139,23 @@
                               <td class="pe-1">
                                 @svg('ph:scales-fill')
                               </td>
-                              <td>
-                                {{ audience.chefs_de_prevention_categorie.join(', ') }}
-                              </td>
+                              <td>{{ audience.chefs_de_prevention_categorie.join(', ') }}</td>
                             </tr>
-                          @endif
+                          @end
                           @if(audience.type_de_peine_pour_les_infractions_principales)
                             <tr>
                               <td class="pe-1">
                                 @svg('ph:gavel-fill')
                               </td>
-                              <td>
-                                {{ audience.type_de_peine_pour_les_infractions_principales }}
-                              </td>
+                              <td>{{ audience.type_de_peine_pour_les_infractions_principales }}</td>
                             </tr>
-                          @endif
+                          @end
                         </tbody>
                       </table>
-                      @if (audience.fondement_de_la_relaxe || audience.collectif_d_action_ou_lutte?.length)
+                      @if(audience.fondement_de_la_relaxe ||
+                      audience.collectif_d_action_ou_lutte?.length)
                         <div class="d-flex flex-wrap align-items-start gap-2">
-                          @if (audience.fondement_de_la_relaxe)
+                          @if(audience.fondement_de_la_relaxe)
                             <span
                               class="badge rounded-pill border text-secondary"
                               data-bs-toggle="tooltip"
@@ -160,14 +163,14 @@
                             >
                               {{ truncate(audience.fondement_de_la_relaxe, 50) }}
                             </span>
-                          @endif
+                          @end
                           @each(collectif in audience.collectif_d_action_ou_lutte)
                             <span class="badge rounded-pill border text-secondary">
                               {{ collectif }}
                             </span>
                           @end
                         </div>
-                      @endif
+                      @end
                     </div>
 
                     <div class="col-lg-7 d-flex flex-column">
@@ -175,32 +178,43 @@
                         <div class="col-lg-5 d-flex flex-column gap-1 mb-3 mb-lg-0">
                           <h3 class="text-purple small d-flex align-items-center gap-1">
                             @svg('ph:gavel-fill')
-                            Faits et chronologie
+                            <span>Faits et chronologie</span>
                           </h3>
                           <p class="small fw-normal lh-lg mb-0">
                             @if(audience.faits_concis)
                               {{{ nl2br(audience.faits_concis) }}}
                             @else
                               Aucune information
-                            @endif
+                            @end
                           </p>
                         </div>
-                        <div class="col-lg-7 d-flex justify-content-center justify-content-lg-end align-items-center">
-                          @timeline({ data: audience.timeline, current: audience.id, date_des_faits: audience.date_des_faits })
+                        <div
+                          class="col-lg-7 d-flex justify-content-center justify-content-lg-end align-items-center"
+                        >
+                          @timeline({
+                            data: audience.timeline,
+                            current: audience.id,
+                            date_des_faits: audience.date_des_faits,
+                          })
                           @end
                         </div>
                       </div>
                       <div class="row h-100 border-start border-top p-3">
                         <div class="col-12 d-flex flex-column gap-1">
                           <h3 class="text-purple small d-flex align-items-center gap-1">
-                            <img class="summary-icon" src="{{ asset('resources/images/summary_icon.svg') }}" alt="summary icon" />Extrait de la décision
+                            <img
+                              class="summary-icon"
+                              src="{{ asset('resources/images/summary_icon.svg') }}"
+                              alt="summary icon"
+                            />
+                            <span>Extrait de la décision</span>
                           </h3>
                           <p class="small fw-normal lh-lg mb-0">
                             @if(audience.extrait_de_la_decision)
                               <em>{{{ nl2br(audience.extrait_de_la_decision) }}}</em>
                             @else
                               Aucune information
-                            @endif
+                            @end
                           </p>
                         </div>
                       </div>
@@ -211,14 +225,15 @@
                               class="msde-leaf-icon me-1"
                               src="{{ asset('resources/images/msde_icon_purple.svg') }}"
                               alt="msde leaf"
-                            />Commentaire MSDE
+                            />
+                            <span>Commentaire MSDE</span>
                           </h3>
                           <p class="small fw-normal lh-lg mb-0">
                             @if(audience.commentaire_msde)
                               {{{ nl2br(audience.commentaire_msde) }}}
                             @else
                               Aucune information
-                            @endif
+                            @end
                           </p>
                         </div>
                       </div>
@@ -235,17 +250,22 @@
               <li class="page-item">
                 <a
                   href="{{ pagination.url }}"
-                  class="{{ html.classNames(['page-link', { active: pagination.isActive }]) }}"
-                >{{ pagination.page }}</a>
+                  class="{{
+                    html.classNames([
+                      'page-link',
+                      { active: pagination.isActive },
+                    ])
+                  }}"
+                >
+                  {{ pagination.page }}
+                </a>
               </li>
             @end
           </ul>
         </nav>
       @else
         @!search.emptyResult()
-      @endif
+      @end
     </div>
-
   </body>
-
 </html>

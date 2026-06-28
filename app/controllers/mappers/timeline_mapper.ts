@@ -1,5 +1,5 @@
 import type { SearchAudiencesResponse } from '#services/audience_service'
-import { DateTime } from 'luxon'
+import type { DateTime } from 'luxon'
 
 /*
  * Timeline item to be rendered in the view, with or without date.

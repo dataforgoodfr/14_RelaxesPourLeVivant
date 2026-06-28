@@ -13,23 +13,17 @@ import PresseArticle from '#models/presse_article'
 import env from '#start/env'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
-const HealthChecksController = () => import('#controllers/health_checks_controller')
-const AnalysesController = () => import('#controllers/analyses_controller')
-const ImportsController = () => import('#controllers/imports_controller')
-const HomeController = () => import('#controllers/home_controller')
-const AuthController = () => import('#controllers/auth_controller')
-const AudiencesController = () => import('#controllers/audiences_controller')
-const WebhooksController = () => import('#controllers/webhooks_controller')
+import { controllers } from '#generated/controllers'
 
 router.on('/welcome').render('pages/welcome').as('landing')
 router.on('/contribution').render('pages/contribution').as('contribution')
-router.get('/audiences', [HomeController, 'home']).as('audiences.search').use(middleware.auth())
+router.get('/audiences', [controllers.Home, 'home']).as('audiences.search').use(middleware.auth())
 router
-  .get('/audiences/:id/jugements/:jugementId', [AudiencesController, 'getJugementFile'])
+  .get('/audiences/:id/jugements/:jugementId', [controllers.Audiences, 'getJugementFile'])
   .as('audiences.jugements')
   .use(middleware.auth())
 router
-  .get('/audiences/:id', [AudiencesController, 'get'])
+  .get('/audiences/:id', [controllers.Audiences, 'get'])
   .as('audiences.show')
   .use(middleware.auth())
 router.on('/sign-up').render('pages/auth/sign_up').as('sign-up')
@@ -37,34 +31,34 @@ router.on('/sign-in').render('pages/auth/sign_in').use(middleware.guest()).as('a
 router.on('/change-password').render('pages/auth/change_password').use(middleware.auth())
 router.on('/forgotten-password').render('pages/auth/forgotten_password')
 router
-  .get('/reset-password/:token/:email', [AuthController, 'showResetPassword'])
+  .get('/reset-password/:token/:email', [controllers.Auth, 'showResetPassword'])
   .as('auth.show_reset_password')
 router
-  .get('/analyses/:id', [AnalysesController, 'get'])
+  .get('/analyses/:id', [controllers.Analyses, 'get'])
   .where('id', router.matchers.number())
   .as('analyses.show')
   .use(middleware.auth())
 router.on('/legal').render('pages/legal').as('legal')
 router.on('/terms-of-use').render('pages/terms_of_use').as('terms_of_use')
 
-router.post('/sign-up', [AuthController, 'signup'])
-router.post('/sign-in', [AuthController, 'signin'])
-router.post('/logout', [AuthController, 'signout'])
+router.post('/sign-up', [controllers.Auth, 'signup'])
+router.post('/sign-in', [controllers.Auth, 'signin'])
+router.post('/logout', [controllers.Auth, 'signout'])
 router
-  .post('/change-password', [AuthController, 'changePassword'])
+  .post('/change-password', [controllers.Auth, 'changePassword'])
   .as('auth.change_password')
   .use(middleware.auth())
-router.post('/forgotten-password', [AuthController, 'forgottenPassword'])
-router.post('/reset-password', [AuthController, 'handleResetPassword'])
+router.post('/forgotten-password', [controllers.Auth, 'forgottenPassword'])
+router.post('/reset-password', [controllers.Auth, 'handleResetPassword'])
 
 router
   .group(() => {
-    router.post('/webhooks/user', [WebhooksController, 'user'])
+    router.post('/webhooks/user', [controllers.Webhooks, 'user'])
     router
-      .post('/imports/:table', [ImportsController, 'import'])
+      .post('/imports/:table', [controllers.Imports, 'import'])
       .where('table', `^(${Procedure.table}|${Audience.table}|${PresseArticle.table})$`)
     router
-      .get('/exports/:table', [ImportsController, 'export'])
+      .get('/exports/:table', [controllers.Imports, 'export'])
       .where('table', `^(${Procedure.table}|${Audience.table}|${PresseArticle.table})$`)
   })
   .prefix('/_')
@@ -74,7 +68,7 @@ if (env.get('NODE_ENV') === 'development') {
   router.on('/dev/design').render('design_system/design_system')
 }
 
-router.get('/health/live', [HealthChecksController, 'live'])
-router.get('/health/ready', [HealthChecksController, 'ready'])
+router.get('/health/live', [controllers.HealthChecks, 'live'])
+router.get('/health/ready', [controllers.HealthChecks, 'ready'])
 
 router.on('*').redirectToPath('/welcome')

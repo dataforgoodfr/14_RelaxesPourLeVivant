@@ -34,14 +34,14 @@
             <form method="POST" action="/sign-in">
               <div class="vstack gap-3">
                 {{ csrfField() }}
-                @flashMessage('errors.auth')
+                @error('auth')
                   <div class="alert alert-danger">
-                    {{ flashMessages.get('errors.auth') }}
+                    {{ $message }}
                   </div>
                 @end
                 @flashMessage('success.password_reset')
                   <div class="alert alert-success">
-                    {{ flashMessages.get('success.password_reset') }}
+                    {{ $message }}
                   </div>
                 @end
                 <div>

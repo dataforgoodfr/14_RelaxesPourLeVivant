@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      Demande d'accès - {{ env.get('APP_NAME') }}
-    </title>
+    <title>Demande d'accès - {{ env.get('APP_NAME') }}</title>
     @include('partials/bootstrap')
   </head>
 
@@ -24,33 +21,34 @@
               src="{{ asset('resources/images/msde_icon.svg') }}"
               alt="MSDE logo icon"
             />
-            <h2 class="text-center">
-              Demande d'accès
-            </h2>
+            <h2 class="text-center">Demande d'accès</h2>
             <p class="text-center text-secondary">
               Envoyez votre demande d'accès à la plateforme. L'association reviendra vers vous par e-mail pour confirmer l'ouverture de votre compte.
             </p>
-            @if (flashMessages.get('notification.code') === 'SIGNUP_SUCCESS')
+            @if(flashMessages.get('notification.code') === 'SIGNUP_SUCCESS')
               <div class="alert alert-success" role="alert">
-                <h3 class="alert-heading">
-                  Confirmation
-                </h3>
+                <h3 class="alert-heading">Confirmation</h3>
                 <p>
                   Votre demande sera traîtée par MSDE et vous serez recontacté par mail lors de l'activation de votre compte.
                 </p>
               </div>
-              <div class="d-grid">
-                <a href="/" class="text-center">Aller à l'accueil</a>
-              </div>
+              <div class="d-grid"><a href="/" class="text-center">Aller à l'accueil</a></div>
             @else
               <form method="POST" action="/sign-up">
                 <div class="vstack gap-3">
                   {{ csrfField() }}
                   <div>
-                    <label for="email" class="form-label text-secondary">Adresse email <span class="text-danger">*</span></label>
+                    <label for="email" class="form-label text-secondary">
+                      Adresse email
+                      <span class="text-danger">*</span>
+                    </label>
                     <input
                       type="email"
-                      class="form-control {{ flashMessages.has('inputErrorsBag.email') ? 'is-invalid' : '' }}"
+                      class="form-control {{
+                        flashMessages.has('inputErrorsBag.email')
+                          ? 'is-invalid'
+                          : ''
+                      }}"
                       id="email"
                       name="email"
                       placeholder="name@example.com"
@@ -61,22 +59,36 @@
                     @inputError('email')
                       <div id="emailAlreadyUsed" class="invalid-feedback">
                         @each(message in $messages)
-                          <div>
-                            {{ message }}
-                          </div>
+                          <div>{{ message }}</div>
                         @end
                       </div>
                     @end
                   </div>
                   <div>
-                    <label for="password" class="form-label text-secondary">Mot de passe <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" id="password" name="password" required />
-                  </div>
-                  <div>
-                    <label for="confirmPassword" class="form-label text-secondary">Confirmer le mot de passe <span class="text-danger">*</span></label>
+                    <label for="password" class="form-label text-secondary">
+                      Mot de passe
+                      <span class="text-danger">*</span>
+                    </label>
                     <input
                       type="password"
-                      class="form-control {{ flashMessages.has('inputErrorsBag.confirmPassword') ? 'is-invalid' : '' }}"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="confirmPassword" class="form-label text-secondary">
+                      Confirmer le mot de passe
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input
+                      type="password"
+                      class="form-control {{
+                        flashMessages.has('inputErrorsBag.confirmPassword')
+                          ? 'is-invalid'
+                          : ''
+                      }}"
                       id="confirmPassword"
                       name="confirmPassword"
                       required
@@ -85,23 +97,31 @@
                     @inputError('confirmPassword')
                       <div id="confirmPasswordErrors" class="invalid-feedback">
                         @each(message in $messages)
-                          <div>
-                            {{ message }}
-                          </div>
+                          <div>{{ message }}</div>
                         @end
                       </div>
                     @end
                   </div>
                   <div>
-                    <label for="motivation" class="form-label text-secondary">Motivation de la demande <span class="text-danger">*</span></label>
-                    <textarea rows="5" class="form-control" id="motivation" name="motivation" maxlength="1000" required>{{ old('motivation') || '' }}</textarea>
+                    <label for="motivation" class="form-label text-secondary">
+                      Motivation de la demande
+                      <span class="text-danger">*</span>
+                    </label>
+                    <textarea
+                      rows="5"
+                      class="form-control"
+                      id="motivation"
+                      name="motivation"
+                      maxlength="1000"
+                      required
+                    >{{ old('motivation') || '' }}</textarea>
                   </div>
                   <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Envoyer la demande</button>
                   </div>
                 </div>
               </form>
-            @endif
+            @end
           </div>
         </div>
       </div>

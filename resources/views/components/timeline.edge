@@ -18,7 +18,7 @@
       >
         <span class="timeline-link"></span>
       </div>
-    @endif
+    @end
     
     <div
       class="timeline-node flex-1 {{ html.classNames({ 'current': t.id == current, 'timeline-node-skipped': t.skipped_before || t.skipped_after }) }}"
@@ -44,9 +44,9 @@
                 {{ t.type_de_peine_pour_les_infractions_principales }}
               </span>
             </span>
-          @endif
+          @end
         </span>
-      @endif
+      @end
     </div>
   @end
 </div>
