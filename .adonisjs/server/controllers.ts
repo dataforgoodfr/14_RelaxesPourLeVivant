@@ -8,10 +8,10 @@ export const controllers = {
   Audiences: () => import('#controllers/audiences_controller'),
   Auth: () => import('#controllers/auth_controller'),
   HealthChecks: () => import('#controllers/health_checks_controller'),
-  Home: () => import('#controllers/home_controller'),
   Imports: () => import('#controllers/imports_controller'),
   mappers: {
     TimelineMapper: () => import('#controllers/mappers/timeline_mapper'),
   },
   Webhooks: () => import('#controllers/webhooks_controller'),
+  SearchAudiences: () => import('#controllers/search_audiences_controller'),
 }

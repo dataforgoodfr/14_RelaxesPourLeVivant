@@ -2,13 +2,13 @@ import { AudienceService } from '#services/audience_service'
 import { searchQueryValidator } from '#validators/search_query'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
-import { TimelineDataMapper } from './mappers/timeline_mapper.js'
+import { TimelineDataMapper } from './mappers/timeline_mapper.ts'
 
 @inject()
-export default class HomeController {
+export default class SearchAudiencesController {
   constructor(public audienceService: AudienceService) {}
 
-  async home({ request, view }: HttpContext) {
+  async get({ request, view }: HttpContext) {
     const searchQuery = await request.validateUsing(searchQueryValidator)
 
     const [audiences, villes, collectifs, chefDePreventionCategories, juridictions] =
@@ -25,7 +25,7 @@ export default class HomeController {
       Object.assign(audience, { timeline: timelineDataMapper.map(audience) })
     }
 
-    return view.render('pages/home', {
+    return view.render('pages/search_audiences', {
       villes,
       collectifs,
       audiences,

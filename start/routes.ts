@@ -17,7 +17,10 @@ import { controllers } from '#generated/controllers'
 
 router.on('/welcome').render('pages/welcome').as('landing')
 router.on('/contribution').render('pages/contribution').as('contribution')
-router.get('/audiences', [controllers.Home, 'home']).as('audiences.search').use(middleware.auth())
+router
+  .get('/audiences', [controllers.SearchAudiences, 'get'])
+  .as('audiences.search')
+  .use(middleware.auth())
 router
   .get('/audiences/:id/jugements/:jugementId', [controllers.Audiences, 'getJugementFile'])
   .as('audiences.jugements')
