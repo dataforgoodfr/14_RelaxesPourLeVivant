@@ -149,8 +149,7 @@ a {
 
 .btn-outline-primary {
   --bs-btn-color: var(--msde-black);
-  --bs-btn-bg: transparent;
-  --bs-btn-border-color: transparent;
+  --bs-btn-border-color: var(--relx-gray-1);
 
   --bs-btn-hover-color: var(--bs-btn-color);
   --bs-btn-hover-bg: var(--bs-btn-bg);
@@ -160,11 +159,7 @@ a {
   --bs-btn-active-bg: var(--bs-btn-bg);
   --bs-btn-active-border-color: var(--bs-btn-border-color);
 
-  --bs-btn-disabled-color: var(--bs-btn-color);
-  --bs-btn-disabled-bg: var(--bs-btn-bg);
-  --bs-btn-disabled-border-color: var(--bs-btn-border-color);
-
-  --bs-border-radius: 40px;
+  --bs-border-radius: 0px;
 }
 
 .btn-link {
