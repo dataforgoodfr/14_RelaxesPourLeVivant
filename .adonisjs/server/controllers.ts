@@ -12,6 +12,6 @@ export const controllers = {
   mappers: {
     TimelineMapper: () => import('#controllers/mappers/timeline_mapper'),
   },
-  Webhooks: () => import('#controllers/webhooks_controller'),
   SearchAudiences: () => import('#controllers/search_audiences_controller'),
+  Webhooks: () => import('#controllers/webhooks_controller'),
 }

@@ -154,10 +154,7 @@
         const token = document.createElement('span');
         token.className = 'token';
         token.dataset.value = value;
-        token.innerHTML = `
-                        <span class="text-truncate" title="${value}">${value}</span>
-                        <button class="token-remove" data-value="${value}" tabindex="-1" title="Supprimer">✕</button>
-                      `;
+        token.innerHTML = `<span class="text-truncate" title="${value}">${value}</span><button class="token-remove" data-value="${value}" tabindex="-1" title="Supprimer">✕</button>`;
         return token;
       }
 
@@ -181,10 +178,7 @@
           item.className = 'token-dropdown-item' + (isSelected ? ' selected' : '');
           item.dataset.value = opt;
           item.dataset.idx = i;
-          item.innerHTML = `
-                        <input type="checkbox" class="me-1" ${isSelected ? 'checked' : ''} tabindex="-1" style="pointer-events:none">
-                        <span>${this.#highlight(opt, q)}</span>
-                      `;
+          item.innerHTML = `<input type="checkbox" class="me-1" ${isSelected ? 'checked' : ''} tabindex="-1" style="pointer-events:none"><span>${this.#highlight(opt, q)}</span>`;
           this.#dropdown.appendChild(item);
         });
       }
