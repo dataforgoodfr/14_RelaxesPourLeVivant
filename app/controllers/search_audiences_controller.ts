@@ -8,7 +8,7 @@ import { TimelineDataMapper } from './mappers/timeline_mapper.ts'
 export default class SearchAudiencesController {
   constructor(public audienceService: AudienceService) {}
 
-  async get({ request, view }: HttpContext) {
+  async get({ request, view, session }: HttpContext) {
     const searchQuery = await request.validateUsing(searchQueryValidator)
 
     const [audiences, villes, collectifs, chefDePreventionCategories, juridictions] =
@@ -24,6 +24,8 @@ export default class SearchAudiencesController {
     for (const audience of audiences) {
       Object.assign(audience, { timeline: timelineDataMapper.map(audience) })
     }
+
+    session.setIntendedUrl(request.url(true))
 
     return view.render('pages/search_audiences', {
       villes,
