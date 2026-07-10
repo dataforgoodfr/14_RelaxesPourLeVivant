@@ -37,47 +37,13 @@
           audiences référencées.
         @end
       </div>
-
-      <form id="search" class="mb-3" method="GET">
-        <div class="row gx-0">
-          <div class="col-md-3 col-sm-12">
-            <input
-              name="search"
-              value="{{ searchQuery.search ?? '' }}"
-              class="form-control"
-              placeholder="Faits, chef de prévention..."
-              type="text"
-              autocomplete="off"
-            />
-          </div>
-          <div class="col-md-3 col-sm-12">
-            @!dateRangePicker({
-              name: 'dateDeLaDecision',
-              label: 'Date de la décision',
-              value: searchQuery.dateDeLaDecision ?? [],
-            })
-          </div>
-          <div class="col-md-3 col-sm-12">
-            @!multiSelect({
-              name: 'chefDePrevention',
-              label: 'Chef de prévention',
-              options: chefDePreventionCategories.map((c) => c.intitule),
-              selected: searchQuery.chefDePrevention ?? '',
-              data: { ['data-more-filters-input']: 'chefDePrevention' },
-            })
-          </div>
-          <div class="col-md-2 col-sm-12">
-            @!moreFilters({ searchQuery, villes, juridictions, collectifs })
-          </div>
-          <div class="col-md-1 col-sm-12">
-            <button class="btn btn-primary text-bg-yellow-1" type="submit">
-              <span style="width: 1.5em;">
-                {{ svg('ph:magnifying-glass', { width: 20, height: 20 }) }}
-              </span>
-            </button>
-          </div>
-        </div>
-      </form>
+      @!searchBar({
+        searchQuery,
+        chefDePreventionCategories,
+        villes,
+        juridictions,
+        collectifs,
+      })
       @if(audiences.total > 0)
         <div class="vstack gap-4">
           @each(audience in audiences)
