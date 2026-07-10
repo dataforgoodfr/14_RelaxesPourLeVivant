@@ -36,7 +36,7 @@
       <div class="container-md px-4 px-md-0 pb-5">
         <section class="hstack flex-wrap gap-2 justify-content-between py-4">
           <a
-            href="{{ urlFor('audiences.search') }}"
+            href="{{ backUrl ?? urlFor('audiences.search') }}"
             class="d-inline-flex align-items-center gap-2 text-bg-accent text-decoration-none"
           >
             @svg('ph:arrow-left-bold', { width: 24, height: 24, class: 'flex-shrink-0' })

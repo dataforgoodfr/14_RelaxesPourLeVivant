@@ -24,7 +24,7 @@ export default class AudiencesController {
    * @param HttpContext
    * @returns
    */
-  async get({ request, view }: HttpContext) {
+  async get({ request, view, session }: HttpContext) {
     const procedureWithAudiences = await this.procedureService.getProcedureWithAudiencesPubliees(
       request.param('id')
     )
@@ -58,6 +58,7 @@ export default class AudiencesController {
       liensPresse,
       lastDecision,
       metabaseToken,
+      backUrl: session.getIntendedUrl(),
     })
   }
 
