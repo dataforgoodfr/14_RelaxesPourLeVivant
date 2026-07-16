@@ -1,5 +1,6 @@
 import argparse
 import requests
+from urllib.parse import quote
 import os
 from dotenv import load_dotenv
 
@@ -9,27 +10,14 @@ QUERY_PARAMS = {
   "audiences": {
     "ignore[]" : [
       'updated_at',
-      'updated_by',
+      #'updated_by',
+      'created_by',
       'jugement_ou_arret',
       'recit_d_audience',
-      'I___Nombre_de_t_moins',
-      'I___Remarques_entre_nous_MSDE',
-      'I___Heure_de_l_audience',
-      'I___Lieu_de_l_audience',
-      'I___R_cit_d_audience',
-      'I___Illustration_MSDE__',
-      'I___Date_d_origine_si_renvoi',
-      'I___Avocats_de_la_d_fense',
-      'I___T_moins_et_expertise',
-      'I___Jugement_interne_motiv__sur_le_drive__',
-      'I___Nom_du_procureur_e',
-      'I___Expertise_des_t_moins',
-      'I___Personnalit__juridique_des_parties_civiles',
-      'I___Cat_gorie_temporelle',
-      'I___Dur_e_de_l_audience',
-      'I___Composition_du_tribunal',
-      'I___Les_cas_redondant',
-      'I___Personnalit__juridique_des_parties_civiles'
+      'I___Email_de_l_ajouteur',
+      'I___Flag',
+      'I___Lien_recit_d_audience',
+      'I___Lien_illustration_MSDE',
     ]
   }
 }
@@ -41,7 +29,7 @@ def import_data(table_name, file_location=None):
     query_params = QUERY_PARAMS[table_name]
     url += "?"
     for query_key in query_params:
-      url += "&".join([f"{query_key}={value}" for value in query_params[query_key]])
+      url += "&".join([f"{query_key}={quote(value)}" for value in query_params[query_key]])
   print(url)
 
   if not file_location:
@@ -58,12 +46,15 @@ def import_data(table_name, file_location=None):
   headers = {
     'Authorization': 'Bearer ' + os.getenv('AUTHORIZATION_TOKEN_NOCODB'),
     #'Content-Type': 'multipart/form-data', -> if not "missing boundaries"
-    'Accept': 'application/json'
+    #'Accept': 'application/json'
   }
 
-  response = requests.request("POST", url, headers=headers, data=payload, files=files)
+  response = requests.post(url, headers=headers, data=payload, files=files)
 
   print(response.text)
+  print(response.status_code)
+  print(response.reason)
+
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()

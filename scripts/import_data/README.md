@@ -2,9 +2,10 @@ Import data to tables in PostgreSQL using import API
 
 Import API : https://relaxespourlevivant.services.d4g.fr/_/imports/
 
-Inputs
-- Table : ``audiences``, `procedures`, or `presse_articles`
-- Csv file
+Inputs : Csv files for tables
+  - ``audiences``
+  - `procedures`
+  - `presse_articles`
 
 ## How to run it
 
@@ -21,3 +22,5 @@ By default it will take the file in ``scripts/transform_data/exported_tables``. 
 ```
 --file <file_location>
 ```
+
+python3 scripts/import_data/import_data.py --table audiences --file /Users/adele/Downloads/audiences.csv
