@@ -104,9 +104,23 @@ def extract_columns_by_table(
     data["id"] = data["Internal ID"].apply(extract_id_nb)
     return data
 
+def check_columns(columns_1, columns_2):
+    """ Check that two columns contain the same values """
+
+    columns_not_used = set(columns_1) - set(columns_2)
+    # These columns are not used by design
+    columns_not_used -= set(["La presse parle des faits", "Internal ID", "id", "La presse parle du procès"])
+    if columns_not_used:
+      raise ValueError(f"Warning columns not in columns_to_rename : {columns_not_used}")
+
 
 def extract_columns(df: pandas.DataFrame, columns_to_rename: dict) -> pandas.DataFrame:
     """ Only keep the columns listed and rename them from a dataframe """
+
+    # Sanity check : check that all columns listed are used
+    check_columns(df.columns, columns_to_rename.keys())
+    check_columns(columns_to_rename.keys(), df.columns)
+
     df = df.rename(columns=columns_to_rename)
     columns_to_keep = list(columns_to_rename.values())
 

@@ -73,3 +73,12 @@ If true, update the cleaning function, else add a cleaning function on the colum
 #### For a column from `procedures.csv`
 
 Same as for audiences but in [extract_procedures.py](extract_procedures.py)
+
+### Add a new column to transform
+
+- Input csv file
+  - Column must have line 3 (named "Equivalence table") filled with ``Audience`` or `Procédure`
+  - Name of the column in line 2 (named "Equivalence champ")
+- Script ``[tables_columns.py](tables_columns.py)``
+  - Add the column name and its output name in the dictionary ``AUDIENCES_COLUMNS`` or `PROCEDURES_COLUMNS` depending on the table
+- If cleaning is needed on this column, check the previous section
