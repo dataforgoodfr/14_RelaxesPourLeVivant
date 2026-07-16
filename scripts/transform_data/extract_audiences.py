@@ -7,14 +7,15 @@ from cleaning_functions import (
     extract_number,
     clean_multi_select,
     replace_value,
-    extract_urls
+    extract_urls,
+    txt_to_boolean_not_null
 )
 from export_data_functions import extract_columns_by_table
 from check_values import check_audiences
 
 
 MAPPING_CLEANING_BY_COLUMNS_AUDIENCES = {
-    "publiee": txt_to_boolean,
+    "publiee": txt_to_boolean_not_null,
     "Ville de l'audience": uppercase,
     "Date de l'audience": extract_date,
     "Nombre de prévenu·es": extract_number,

@@ -169,6 +169,8 @@ def check_values_of_a_column(df, column, check_function, msg=""):
     if issues:
         print(f"""Column "{column}" {msg},{len(issues)} issues :""")
         print("\t" + "\n\t".join(issues))
+        return True
+    return False
 
 
 def check_not_null(cell_value):
@@ -181,11 +183,21 @@ def check_audiences(df_audiences, debug_mode:bool = False):
         listed_values=LISTED_VALUES_AUDIENCES,
         debug_mode=debug_mode
     )
-    check_values_of_a_column(
+    is_issue_on_ref = check_values_of_a_column(
       df_audiences,
       column="Référence procédure",
       check_function=check_not_null
     )
+    if is_issue_on_ref :
+       raise ValueError("Null values on column Référence procédure")
+
+    is_issue_on_publiee = check_values_of_a_column(
+      df_audiences,
+      column="publiee",
+      check_function=check_not_null
+    )
+    if is_issue_on_publiee :
+       raise ValueError("Null values on column publiee")
 
 def check_procedures(df_procedures, debug_mode:bool = False):
     check_listed_values(

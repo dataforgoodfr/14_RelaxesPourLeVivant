@@ -62,7 +62,6 @@ def extract_number(value):
             return None
         if type(value) == float or type(value) == int:
             return value
-            
         match = re.search(r"[-+]?\d+(?:[.,]\d+)?", str(value))
         if match:
             normalized = match.group(0).replace(",", ".")
@@ -108,6 +107,13 @@ def txt_to_boolean(value) -> str | None:
         return "false"
     return None
 
+def txt_to_boolean_not_null(value) -> str:
+    """ Transform a text to a boolean not null, replace not filled values by False"""
+    clean_value = txt_to_boolean(value)
+    if clean_value:
+       return clean_value
+    return "false"
+
 def extract_urls(input) -> list[str]:
     """ Extract the list of urls from a text """
     pattern = r"""
@@ -132,7 +138,7 @@ def extract_urls(input) -> list[str]:
 def clean_data_by_columns(df, mapping_cleaning_by_columns):
     for column, cleaning_function in mapping_cleaning_by_columns.items():
         df[column] = df[column].apply(cleaning_function)
-    
+
     return df
 
 
