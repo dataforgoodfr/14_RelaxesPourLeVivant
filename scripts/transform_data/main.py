@@ -38,7 +38,7 @@ def get_articles(
 
 def export_csv(df: pandas.DataFrame, name: str):
     """ Export dataframe to csv """
-    df.to_csv("./scripts/transform_data/exported_tables/" + name + ".csv", index=False, encoding="utf-8-sig", sep=";")
+    df.to_csv("./exported_tables/" + name + ".csv", index=False, encoding="utf-8-sig", sep=";")
     print(f"File '{name}' exported to csv : {df.shape[0]} rows, {df.shape[1]} columns")
 
 
