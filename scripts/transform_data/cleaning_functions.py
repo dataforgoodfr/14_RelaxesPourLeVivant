@@ -11,7 +11,8 @@ def clean_basic(value):
     if pandas.isna(value) or value is None:
         return None
     if type(value) == str:
-        val = value.replace("?", "")
+        # Remove "?", unless it is surrounded by 2 characters (like in url)
+        val = re.sub(r'(?<![a-zA-Z])\?|\?(?![a-zA-Z])', '', value)
         val = val.strip()
         if val.lower() in ("na", "n.a", ".", "néant", ""):
             return None
