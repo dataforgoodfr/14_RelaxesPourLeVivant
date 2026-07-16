@@ -10,7 +10,7 @@ QUERY_PARAMS = {
   "audiences": {
     "ignore[]" : [
       'updated_at',
-      #'updated_by',
+      'updated_by',
       'created_by',
       'jugement_ou_arret',
       'recit_d_audience',
@@ -30,7 +30,6 @@ def import_data(table_name, file_location=None):
     url += "?"
     for query_key in query_params:
       url += "&".join([f"{query_key}={quote(value)}" for value in query_params[query_key]])
-  print(url)
 
   if not file_location:
     # By default files are in scripts/transform_data/exported_tables

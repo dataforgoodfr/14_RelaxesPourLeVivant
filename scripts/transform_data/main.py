@@ -104,6 +104,8 @@ def load_transform_and_save_data(filename: str, debug_mode: bool = False):
     ).fillna("")
     # convert audience_id to int, if not they are transformed to float as Nan are float
     presse_articles["audience_id"] = presse_articles["audience_id"].apply(lambda x: int(x) if x else x)
+    # An id column is mandatory for the import API
+    presse_articles["id"] = presse_articles.index + 1
     export_csv(presse_articles, name="presse_articles")
 
 
