@@ -31,6 +31,11 @@ MAPPING_CLEANING_BY_COLUMNS_AUDIENCES = {
     "Chefs de prévention Catégorie": clean_multi_select,
     "Chefs de prévention Sous catégorie": clean_multi_select,
     "La presse parle du procès" : extract_urls,
+    "Nombre de témoins": extract_number,
+    "Expertise des témoins": clean_multi_select,
+    "Personnalité juridique des parties civiles": clean_multi_select,
+    "Les cas redondants": clean_multi_select,
+    "Type d'action pour l'analyse": clean_multi_select,
 }
 
 

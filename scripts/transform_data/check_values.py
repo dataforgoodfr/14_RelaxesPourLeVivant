@@ -77,7 +77,14 @@ LISTED_VALUES_AUDIENCES = {
         "Provocation ou incitation suivie d'effet à s'introduire sans autorisation dans l'enceinte d'une installation civile abritant des matieres nucleaires (Art. L1333-12-2 c.de la défense)",
         "Dissimulation du visage (Art. 431-9-1 C. pénal)",
         "Port d’arme de catégorie D (Art. L-311-2 C. sécurité intérieure)"
-    ]
+    ],
+    "Composition du tribunal": ["Collégiale", "Juge unique"],
+    "Type de lutte": ["Ecologique", "Autre", "Palestine", "Antifa / Lutte contre l'extrême droite"],
+    "Personnalité juridique des parties civiles": [
+      "Personne morale de droit privé (entreprises)",
+      "Personne morale de droit public (Etat ou personne publique)",
+      "Personne privée"
+    ],
 }
 
 # Table Procedures
