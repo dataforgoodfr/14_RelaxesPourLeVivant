@@ -275,18 +275,20 @@
                     @let (jugementFiles = audience.jugement_ou_arret)
                     @each((jugement, index) in (jugementFiles))
                       @downloadButton({
-                                  file: jugement,
-                                  filePosition: (jugementFiles.length > 1) ? index+1 : undefined,
-                                  url:  urlFor('audiences.jugements', [audience.id, jugement.id]),
-                                  class: 'align-self-start align-self-lg-center'
+                        file: jugement,
+                        url: urlFor('audiences.jugements', [audience.id, jugement.id]),
+                        class: 'align-self-start align-self-lg-center'
                       })
                         Télécharger le jugement
                       @end
                     @end
                     @if (audience.recit_d_audience?.length > 0)
+                      @let(subject = encodeURIComponent("Demande de récit d'audience"))
+                      @let(body = encodeURIComponent(`Bonjour,\n\nJe souhaiterai accéder au récit d'audience de l'audience ${request.completeUrl()}\n\n[EXPLIQUEZ NOUS CE QUI MOTIVE VOTRE DEMANDE]`))
+                      @let(mailto = `${env.get('CONTACT_EMAIL')}?subject=${subject}&body=${body}` )
                       <a
-                        href="mailto:{{ env.get('CONTACT_EMAIL') }}"
-                        class="btn btn-sm btn-link text-bg-yellow-1 align-self-start align-self-lg-center d-inline-flex gap-1"
+                        href="mailto:{{ mailto }}"
+                        class="btn btn-sm btn-link text-bg-yellow-1 align-self-start align-self-lg-center d-inline-flex gap-1 hstack"
                       >
                         @svg('ph:envelope-simple', {width: 16, height: 16, class: 'flex-shrink-0'})
                         Demander le récit d'audience
