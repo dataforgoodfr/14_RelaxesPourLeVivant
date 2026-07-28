@@ -1,0 +1,17 @@
+name: Docker Image CI
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Image tag (format: X.Y.Z)'
+        required: true
+        type: boolean
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag relaxes-pour-le-vivant:$TAG
+        env:
+          TAG: ${{ inputs.tag }}
