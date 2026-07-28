@@ -24,5 +24,4 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           push: true
-          labels: relaxes-pour-le-vivant
-          tags: ${{ inputs.tag }}
+          tags: ghcr.io/${{ github.repository }}:${{ inputs.tag }}
