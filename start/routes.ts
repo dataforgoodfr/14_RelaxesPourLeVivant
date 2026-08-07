@@ -56,6 +56,19 @@ router.post('/reset-password', [controllers.Auth, 'handleResetPassword'])
 
 router
   .group(() => {
+    router.get('/imports', [controllers.Imports, 'showImport']).as('admin.imports')
+    router
+      .on('/exports')
+      .render('pages/admin/exports', {
+        tables: [Procedure.table, Audience.table, PresseArticle.table],
+      })
+      .as('admin.exports')
+    router.on('/').redirect('admin.imports')
+  })
+  .prefix('/admin')
+
+router
+  .group(() => {
     router.post('/webhooks/user', [controllers.Webhooks, 'user'])
     router
       .post('/imports/:table', [controllers.Imports, 'import'])

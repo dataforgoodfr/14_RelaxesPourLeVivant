@@ -310,4 +310,20 @@ export default class ImportsController {
       )
     },
   } satisfies Record<string, ExportStrategie>
+
+  async showImport({ view }: HttpContext) {
+    const [columnsProcedure, columnsAudience, columnsPresseArticle] = await Promise.all([
+      this.importService.introspect(Procedure.table),
+      this.importService.introspect(Audience.table),
+      this.importService.introspect(PresseArticle.table),
+    ])
+
+    return view.render('pages/admin/imports', {
+      tables: [
+        { name: Procedure.table, columns: columnsProcedure },
+        { name: Audience.table, columns: columnsAudience },
+        { name: PresseArticle.table, columns: columnsPresseArticle },
+      ],
+    })
+  }
 }
