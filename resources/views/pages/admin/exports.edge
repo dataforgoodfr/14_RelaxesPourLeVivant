@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Exports - {{ env.get('APP_NAME') }}</title>
+    @include('partials/bootstrap')
+  </head>
+  <body class="bg-light">
+    <nav class="navbar" data-bs-theme="light">
+      <a class="nav-link mx-5" href="{{ urlFor('admin.imports') }}">Importer des données</a>
+    </nav>
+    <div class="container mt-5">
+      <div hidden id="alert" class="alert alert-danger" onclick="this.hidden = true"></div>
+      <form class="form">
+        <div>
+          <label for="apiKey" class="form-label">Clé d'API*</label>
+          @!passwordInput({ id: 'apiKey', name: 'apiKey' })
+        </div>
+        <div class="mt-3">
+          <label class="form-label">Table à exporter*</label>
+          @each(table in tables)
+            <div class="ms-3 form-check">
+              <input
+                class="form-check-input"
+                id="{{ table }}"
+                value="{{ table }}"
+                name="table"
+                type="radio"
+                required
+              />
+              <label class="form-check-label" for="{{ table }}">{{ table }}</label>
+            </div>
+          @end
+        </div>
+        <div class="mt-3"><button class="btn btn-primary" type="submit">Exporter</button></div>
+      </form>
+    </div>
+  </body>
+  <script>
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formElem = e.target;
+      let table, apiKey;
+      for (const input of formElem) {
+        if (input.name === 'apiKey') {
+          apiKey = input.value;
+        }
+        if (input.checked) {
+          table = input.value;
+        }
+      }
+
+      // To avoid file data in the exports content. We keep this option open by API but not by UI
+      const qs = '?ignore[]=recit_d_audience&ignore[]=jugement_ou_arret';
+
+      const response = await fetch(`/_/exports/${table}${qs}`, {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          authorization: `Bearer ${apiKey}`,
+        },
+      });
+      if (!response.ok) {
+        const data = await response.json();
+        const alertElem = document.querySelector('#alert');
+        alertElem.textContent = data.error ?? 'Une erreur est survenue';
+        alertElem.hidden = false;
+      } else {
+        const fileUrl = window.URL.createObjectURL(await response.blob());
+        const a = document.createElement('a');
+        a.href = fileUrl;
+        a.download = `${table}.csv`;
+        a.click();
+        delete a;
+      }
+    });
+  </script>
+</html>

@@ -27,6 +27,8 @@ export type ScannedRoutes = {
     'auth.change_password': { paramsTuple?: []; params?: {} }
     'auth.forgotten_password': { paramsTuple?: []; params?: {} }
     'auth.handle_reset_password': { paramsTuple?: []; params?: {} }
+    'admin.imports': { paramsTuple?: []; params?: {} }
+    'admin.exports': { paramsTuple?: []; params?: {} }
     'webhooks.user': { paramsTuple?: []; params?: {} }
     'imports.import': { paramsTuple: [ParamValue]; params: { table: ParamValue } }
     'imports.export': { paramsTuple: [ParamValue]; params: { table: ParamValue } }
@@ -51,6 +53,8 @@ export type ScannedRoutes = {
     'analyses.show': { paramsTuple: [ParamValue]; params: { id: ParamValue } }
     'legal': { paramsTuple?: []; params?: {} }
     'terms_of_use': { paramsTuple?: []; params?: {} }
+    'admin.imports': { paramsTuple?: []; params?: {} }
+    'admin.exports': { paramsTuple?: []; params?: {} }
     'imports.export': { paramsTuple: [ParamValue]; params: { table: ParamValue } }
     'health_checks.live': { paramsTuple?: []; params?: {} }
     'health_checks.ready': { paramsTuple?: []; params?: {} }
@@ -73,6 +77,8 @@ export type ScannedRoutes = {
     'analyses.show': { paramsTuple: [ParamValue]; params: { id: ParamValue } }
     'legal': { paramsTuple?: []; params?: {} }
     'terms_of_use': { paramsTuple?: []; params?: {} }
+    'admin.imports': { paramsTuple?: []; params?: {} }
+    'admin.exports': { paramsTuple?: []; params?: {} }
     'imports.export': { paramsTuple: [ParamValue]; params: { table: ParamValue } }
     'health_checks.live': { paramsTuple?: []; params?: {} }
     'health_checks.ready': { paramsTuple?: []; params?: {} }
