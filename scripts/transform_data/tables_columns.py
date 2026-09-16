@@ -44,6 +44,7 @@ AUDIENCES_COLUMNS = {
     "Extrait de la décision": "extrait_de_la_decision",
     "Mots-clés": "mots_cles",
     "publiee": "publiee",
+    "Lieu": "I__Lieu"
 }
 
 PROCEDURES_COLUMNS = {

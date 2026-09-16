@@ -52,7 +52,14 @@ In the input csv, there is a line with the name of the final table : "Audiences"
 - Select / multi select columns
   - In [check_values.py](check_values.py) the known values by columns being of type "select" (or "multi select") are listed. All the values not in this list will be kept, but a warning message will be displayed. You can add new known values
 
-## How to add a new check or a new cleaning
+## How to
+
+### Add a new column
+
+- In the csv file
+   - Put the name of the column in row "Equivalence champ"
+   - Write "Audience" or the name of the table in row "Equivalence table"
+- Add the column in the dict ``AUDIENCES_COLUMNS`` (or `PROCEDURES_COLUMNS` for procedures) in [tables_columns.py](tables_columns.py) 
 
 ### Add a new value to check
 

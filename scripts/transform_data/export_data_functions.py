@@ -1,7 +1,7 @@
 """ Functions used ot export and parse data from raw csv """
 
 import pandas
-from cleaning_functions import clean_basic
+from cleaning_functions import clean_basic, fill_empty_reference_procedure
 
 
 def get_row_index_from_name(data: pandas.DataFrame, row_name: str) -> int:
@@ -18,13 +18,6 @@ def get_row_index_from_name(data: pandas.DataFrame, row_name: str) -> int:
 
 def remove_empty_rows_for_column(df: pandas.DataFrame, column_name: str):
     return df[df[column_name].notna() & (df[column_name] != '')]
-
-
-def choose_data(df: pandas.DataFrame) -> pandas.DataFrame:
-    """ Rules applied to keep only the correct data """
-    # Column reference_procedure is mandatory
-    df = remove_empty_rows_for_column(df, column_name="Référence procédure")
-    return df
 
 
 def load_data(file_name: str) -> pandas.DataFrame:
@@ -53,8 +46,9 @@ def load_data(file_name: str) -> pandas.DataFrame:
     # Apply basic cleaning on all cells
     raw_data = raw_data.map(clean_basic)
 
-    # Only keep the lines having the right format
-    raw_data = choose_data(raw_data)
+    # Make sure reference_procedure is filled at it is mandatory
+    raw_data = fill_empty_reference_procedure(raw_data)
+
     return raw_data
 
 
@@ -113,7 +107,6 @@ def extract_columns(df: pandas.DataFrame, columns_to_rename: dict) -> pandas.Dat
     for col in columns_to_keep:
         col_issues = [col for col in columns_to_keep if col not in df.columns]
         if col_issues:
-            raise ValueError(f"""Warning columns not in dataset : {col_issues}
-            The dataset is made of these columns : {df.columns}""")
+            raise ValueError(f"""Warning columns not in dataset : {col_issues}""")
 
     return df[list(columns_to_keep)]
