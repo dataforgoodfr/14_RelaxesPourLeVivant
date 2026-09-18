@@ -55,3 +55,26 @@ test
   .teardown(async () => {
     await Utilisateur.truncate(true)
   })
+
+test
+  .group('logout', () => {
+    test('user can logout', async ({ visit, browserContext }) => {
+      const user = await UserFactory.apply('approved').create()
+
+      await browserContext.loginAs(user)
+
+      const page = await visit('/audiences')
+
+      await page.getByLabel('Menu utilisateur').click()
+
+      await page
+        .locator('form[action="/logout"]')
+        .locator('button.dropdown-item[type=submit]')
+        .click()
+
+      await page.assertPath('/sign-in')
+    })
+  })
+  .teardown(async () => {
+    await Utilisateur.truncate(true)
+  })

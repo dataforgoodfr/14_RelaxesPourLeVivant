@@ -1,14 +1,19 @@
 import Dashboard from '#models/dashboard'
 import env from '#start/env'
+import { errors } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 import jwt from 'jsonwebtoken'
 
 export default class AnalysesController {
   async get({ view, request }: HttpContext) {
-    const dashboard = await Dashboard.findByOrFail({
+    const dashboard = await Dashboard.findBy({
       id: request.param('id'),
       publiee: true,
     })
+
+    if (!dashboard) {
+      throw new errors.E_ROUTE_NOT_FOUND([request.method(), request.url()])
+    }
 
     const token = jwt.sign(
       {
