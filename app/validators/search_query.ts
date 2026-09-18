@@ -2,7 +2,7 @@ import vine from '@vinejs/vine'
 
 const dateFormat = /\d{4}-\d{2}-\d{2}/
 
-export const searchQueryValidator = vine.compile(
+export const searchQueryValidator = vine.create(
   vine.object({
     search: vine.string().optional(),
     dateDesFaits: vine.array(vine.string().regex(dateFormat)).fixedLength(2).optional(),

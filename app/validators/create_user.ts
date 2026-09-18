@@ -1,7 +1,7 @@
 import User from '#models/user'
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
-export const createUserValidator = vine.compile(
+export const createUserValidator = vine.create(
   vine.object({
     email: vine.string().email().unique({ table: User.table, column: 'email' }),
     password: vine.string(),
