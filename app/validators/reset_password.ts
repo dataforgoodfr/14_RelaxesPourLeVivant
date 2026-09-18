@@ -1,6 +1,6 @@
 import vine from '@vinejs/vine'
 
-export const resetPasswordValidator = vine.compile(
+export const resetPasswordValidator = vine.create(
   vine.object({
     email: vine.string(),
     token: vine.string(),

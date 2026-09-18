@@ -3,7 +3,7 @@ import vine from '@vinejs/vine'
 /**
  * Validate the user data coming from the webhook.
  */
-export const userApprovedValidator = vine.compile(
+export const userApprovedValidator = vine.create(
   vine.object({
     data: vine.object({
       // = users

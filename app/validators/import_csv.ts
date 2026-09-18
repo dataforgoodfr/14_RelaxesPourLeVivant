@@ -1,6 +1,6 @@
 import vine from '@vinejs/vine'
 
-export const importCsvValidator = vine.compile(
+export const importCsvValidator = vine.create(
   vine.object({
     csv: vine.file({
       size: '10mb',
