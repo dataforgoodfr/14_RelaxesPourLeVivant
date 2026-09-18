@@ -23,6 +23,7 @@
         this.#isClose = true;
 
         this.#bind();
+        this.#renderTokens();
       }
 
       static init() {
@@ -134,6 +135,7 @@
           }
 
           this.#wrapper.insertBefore(lineWrapper, this.#input);
+          this.#input.hidden = !!selectedCount;
         }
 
         // Update hidden inputs for form submission
@@ -219,7 +221,6 @@
         this.#input.value = '';
         this.#activeIdx = -1;
         this.#isClose = true;
-        this.#input.hidden = !!this.#selected.length;
         let lineWrapper = this.#wrapper.querySelector('.token-line-wrapper');
         if (lineWrapper) lineWrapper.hidden = false;
         this.#renderTokens();
