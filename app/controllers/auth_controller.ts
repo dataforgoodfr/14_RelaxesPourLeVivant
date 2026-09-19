@@ -117,17 +117,19 @@ export default class AuthController {
   async changePassword({ auth, request, response, session }: HttpContext) {
     const { oldPassword, newPassword } = await request.validateUsing(changePasswordValidator)
 
+    let user
     try {
       // this route is already protected via auth middleware, user cannot be undefined (auth.user!)
-      const user = await User.verifyCredentials(auth.user!.email, oldPassword)
-      user.password = newPassword
-      await user.save()
-
-      session.flash('success.password_change', 'Le mot de passe a bien été modifié.')
-      return response.redirect().back()
-    } catch (error) {
-      session.flash('errors.auth', "L'ancien mot de passe ne correspond pas.")
+      user = await User.verifyCredentials(auth.user!.email, oldPassword)
+    } catch {
+      session.flashErrors({ old_password_error: "L'ancien mot de passe ne correspond pas." })
       return response.redirect().back()
     }
+
+    user.password = newPassword
+    await user.save()
+
+    session.flash('success.password_change', 'Le mot de passe a bien été modifié.')
+    return response.redirect().back()
   }
 }
