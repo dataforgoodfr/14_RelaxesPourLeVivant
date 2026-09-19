@@ -136,7 +136,7 @@ export class AudienceSchema extends BaseModel {
 export class AudiencesPresseArticleSchema extends BaseModel {
   static $columns = ['audienceId', 'presseArticleId'] as const
   $columns = AudiencesPresseArticleSchema.$columns
-  @column()
+  @column({ isPrimary: true })
   declare audienceId: number
   @column()
   declare presseArticleId: number
@@ -222,7 +222,7 @@ export class ProcedureSchema extends BaseModel {
 export class ProceduresPresseArticleSchema extends BaseModel {
   static $columns = ['presseArticleId', 'referenceProcedure'] as const
   $columns = ProceduresPresseArticleSchema.$columns
-  @column()
+  @column({ isPrimary: true })
   declare presseArticleId: number
   @column()
   declare referenceProcedure: string
