@@ -65,5 +65,10 @@ def extract_procedures(
     # Make sure column title is filled as there is a NOT NULL constraint in the database
     df_procedures = fill_empty_titles(df_procedures)
 
+    # Add column id
+    # WARNING : this only work if there are no existing data in nocoDB, if not there will
+    # be an issue with the existing ids
+    df_procedures['id'] = range(1, len(df_procedures) + 1)
+
     check_procedures(df_procedures)
     return df_procedures

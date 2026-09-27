@@ -3,7 +3,7 @@ import requests
 import os
 from dotenv import load_dotenv
 
-IMPORT_DATA_URL = "https://relaxespourlevivant.services.d4g.fr/_/imports/"
+IMPORT_DATA_URL = "https://relaxespourlevivant.org/_/imports/"
 
 QUERY_PARAMS = {
   "audiences": {

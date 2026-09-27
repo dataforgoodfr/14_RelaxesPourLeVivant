@@ -1,6 +1,6 @@
 Import data to tables in PostgreSQL using import API
 
-Import API : https://relaxespourlevivant.services.d4g.fr/_/imports/
+Import API : https://relaxespourlevivant.org/_/imports/:table
 
 Inputs
 
