@@ -44,7 +44,25 @@ AUDIENCES_COLUMNS = {
     "Extrait de la décision": "extrait_de_la_decision",
     "Mots-clés": "mots_cles",
     "publiee": "publiee",
-    "Lieu de l'audience": "I__Lieu_de_l_audience"
+    # Internal columns
+    "Remarques entre nous MSDE": "I__Remarques_internes_MSDE",
+    "Catégorie temporelle": "I___Categorie_temporelle",
+    "Lieu de l'audience": "I__Lieu_de_l_audience",
+    "Type de lutte": "I__Type_de_lutte",
+    "Heure de l'audience": "I__Heure_de_l_audience",
+    "Récit d’audience": "I__Lien_Recit_d_audience",
+    "Illustration MSDE": "I__Lien_Illustration_MSDE",
+    "Date d'origine si renvoi": "I__Date_d_origine_si_renvoi",
+    "Avocat.es de la défense": "I__Avocat_es_de_la_defense",
+    "Détail des témoins": "I__Detail_des_temoins",
+    "Nombre de témoins": "I__Nombre_de_temoins",
+    "Expertise des témoins": "I__Expertise_des_temoins",
+    "Nom du procureur.e": "I__Nom_du_procureur_e",
+    "Personnalité juridique des parties civiles": "I__Personnalite_juridique_des_parties_civiles",
+    "Composition du tribunal": "I__Composition_du_tribunal",
+    "Détail de l'appel": "I__Detail_de_l_appel",
+    "Type d'action pour l'analyse": "I__Type_d_action_pour_l_analyse",
+    "Les cas redondants": "I__Les_cas_redondants",
 }
 
 PROCEDURES_COLUMNS = {

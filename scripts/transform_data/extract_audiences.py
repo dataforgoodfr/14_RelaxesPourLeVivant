@@ -7,7 +7,8 @@ from cleaning_functions import (
     extract_number,
     clean_multi_select,
     replace_value,
-    extract_urls
+    extract_urls,
+    extract_MSDE_id
 )
 from export_data_functions import extract_columns_by_table
 from check_values import check_audiences
@@ -30,6 +31,10 @@ MAPPING_CLEANING_BY_COLUMNS_AUDIENCES = {
     "Chefs de prévention Catégorie": clean_multi_select,
     "Chefs de prévention Sous catégorie": clean_multi_select,
     "La presse parle du procès" : extract_urls,
+    "Illustration MSDE": lambda x: extract_urls(x)[0] if extract_urls(x) else None,
+    "Récit d’audience": lambda x: extract_urls(x)[0] if extract_urls(x) else extract_MSDE_id(x),
+    "Type d'action pour l'analyse": lambda x: clean_multi_select(x, to_replace = ["/"]),
+    "Les cas redondants": lambda x: clean_multi_select(x, to_replace = ["/"])
 }
 
 

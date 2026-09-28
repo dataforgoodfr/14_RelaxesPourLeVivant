@@ -8,28 +8,8 @@ IMPORT_DATA_URL = "https://relaxespourlevivant.org/_/imports/"
 QUERY_PARAMS = {
   "audiences": {
     "ignore[]" : [
-      'updated_at',
-      'updated_by',
       'jugement_ou_arret',
       'recit_d_audience',
-      'I___Nombre_de_t_moins',
-      'I___Remarques_entre_nous_MSDE',
-      'I___Heure_de_l_audience',
-      'I___Lieu_de_l_audience',
-      'I___R_cit_d_audience',
-      'I___Illustration_MSDE__',
-      'I___Date_d_origine_si_renvoi',
-      'I___Avocats_de_la_d_fense',
-      'I___T_moins_et_expertise',
-      'I___Jugement_interne_motiv__sur_le_drive__',
-      'I___Nom_du_procureur_e',
-      'I___Expertise_des_t_moins',
-      'I___Personnalit__juridique_des_parties_civiles',
-      'I___Cat_gorie_temporelle',
-      'I___Dur_e_de_l_audience',
-      'I___Composition_du_tribunal',
-      'I___Les_cas_redondant',
-      'I___Personnalit__juridique_des_parties_civiles'
     ]
   }
 }

@@ -79,7 +79,7 @@ def uppercase(value):
     except Exception as e:
         print(f"Error on uppercase on {value} : {e}")
 
-def clean_multi_select(value):
+def clean_multi_select(value, to_replace=[]):
     """ Make sure multi select columns are using "," and not ";" """
     try:
         if pandas.isna(value) or value is None:
@@ -89,6 +89,8 @@ def clean_multi_select(value):
             return value
         else:
             value = value.replace(";", ",")
+            for value_to_replace in to_replace:
+              value = value.replace(value_to_replace, ",")
             value = ",".join([x.strip() for x in value.split(",") if x and x.strip()])
             return value
     except Exception as e:
@@ -109,6 +111,12 @@ def txt_to_boolean(value) -> str:
         return "false"
     return None
 
+def extract_regex_pattern(regex_pattern, input):
+    if type(input) == str:
+      elements = re.findall(regex_pattern, input, flags=re.VERBOSE)
+      return elements
+    return []
+
 def extract_urls(input) -> list[str]:
     """ Extract the list of urls from a text """
     pattern = r"""
@@ -123,12 +131,16 @@ def extract_urls(input) -> list[str]:
         (?:/[^\s<>"')\]]*)?            # chemin / query / fragment optionnels
     """
     try :
-        if type(input) == str:
-            urls = re.findall(pattern, input, flags=re.VERBOSE)
-            return urls
-        return []
+        return extract_regex_pattern(pattern, input)
     except Exception as e:
         raise ValueError(f"Error on extract_urls on {input} : {e}")
+
+def extract_MSDE_id(input):
+    ids = extract_regex_pattern(r"MSDE_\S*", input)
+    if ids:
+      return ids[0]
+    return None
+
 
 def clean_data_by_columns(df, mapping_cleaning_by_columns):
     for column, cleaning_function in mapping_cleaning_by_columns.items():
