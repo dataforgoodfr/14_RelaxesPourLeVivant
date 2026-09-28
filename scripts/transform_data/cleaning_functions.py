@@ -94,12 +94,13 @@ def clean_multi_select(value):
     except Exception as e:
         print(f"Error on multi select on {value} : {e}")
 
-def txt_to_boolean(value) -> str | None:
+def txt_to_boolean(value) -> str:
     """ Transform a text to a boolean, in the typescript format : "true" or "false"
         If the text contains "oui" -> true, "non" -> False
+        If nothing is set -> false
     """
     if pandas.isna(value) or value is None:
-        return None
+        return "false"
     if type(value) == bool:
         return str(value).lower()
     if re.search("oui", value, re.I):

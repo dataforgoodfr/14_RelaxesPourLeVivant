@@ -72,7 +72,7 @@ LISTED_VALUES_AUDIENCES = {
         "Outrage à des personnes dépositaires d’autorité publique (Art. 433-5 c. pénal)",
         "Rébellion (Art. 433-6 c. pénal)",
         "Installation en réunion sur le terrain d’autrui sans autorisation du propriétaire en vue d’y habiter (Art. 322-4-1 c. pénal)",
-        "Intrusion ou maintien dans un musée de France (Art. R. 645-13 c. pénal).",
+        "Intrusion ou maintien dans un lieu historique ou culturel (Art. R. 645-13 c. pénal)",
         "Intrusion dans l'enceinte d'une installation civile abritant des matières nucléaires (Art. L1333-13-12 c. de la défense)",
         "Provocation ou incitation suivie d'effet à s'introduire sans autorisation dans l'enceinte d'une installation civile abritant des matieres nucleaires (Art. L1333-12-2 c.de la défense)",
         "Dissimulation du visage (Art. 431-9-1 C. pénal)",
@@ -187,6 +187,14 @@ def check_audiences(df_audiences, debug_mode:bool = False):
       check_function=check_not_null
     )
 
+    # Check columns are not null
+    for not_null_column in ["publiee"]:
+        check_values_of_a_column(
+            df_audiences,
+            column=not_null_column,
+            check_function=check_not_null
+        )
+
 def check_procedures(df_procedures, debug_mode:bool = False):
     check_listed_values(
         df_procedures,
@@ -194,7 +202,7 @@ def check_procedures(df_procedures, debug_mode:bool = False):
         debug_mode=debug_mode
     )
     # Check columns are not null
-    for not_null_column in ["Titre", "Référence procédure"]:
+    for not_null_column in ["Titre", "Référence procédure", "publiee"]:
         check_values_of_a_column(
             df_procedures,
             column=not_null_column,

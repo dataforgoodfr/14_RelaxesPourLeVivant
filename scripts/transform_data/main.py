@@ -104,6 +104,12 @@ def load_transform_and_save_data(filename: str, debug_mode: bool = False):
     ).fillna("")
     # convert audience_id to int, if not they are transformed to float as Nan are float
     presse_articles["audience_id"] = presse_articles["audience_id"].apply(lambda x: int(x) if x else x)
+
+    # Add column id
+    # WARNING : this only work if there are no existing data in nocoDB, if not there will
+    # be an issue with the existing ids
+    presse_articles['id'] = range(1, len(presse_articles) + 1)
+
     export_csv(presse_articles, name="presse_articles")
 
 
