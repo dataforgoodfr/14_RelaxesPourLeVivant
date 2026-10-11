@@ -17,12 +17,12 @@ export class AudienceSchema extends BaseModel {
     'commentaireMsde',
     'dateDeDecision',
     'dateDeLAudience',
-    'decisionEtPeinesPourLesInfractionsSubiesOuIncidentes',
+    'decisionPeinesInfractionsSubies',
     'decisionPourLesInfractionsPrincipales',
     'degreDeJuridiction',
     'demandeDesPartiesCiviles',
     'detailDesDommagesEtInterets',
-    'detailsDeLaDecisionPourLesInfractionsPrincipales',
+    'detailsDecisionInfractionsPrincipales',
     'detailsDesPeinesPourLesInfractionsPrincipales',
     'dommagesEtInterets',
     'extraitDeLaDecision',
@@ -68,7 +68,7 @@ export class AudienceSchema extends BaseModel {
   @column.date()
   declare dateDeLAudience: DateTime | null
   @column()
-  declare decisionEtPeinesPourLesInfractionsSubiesOuIncidentes: string | null
+  declare decisionPeinesInfractionsSubies: string | null
   @column()
   declare decisionPourLesInfractionsPrincipales: string | null
   @column()
@@ -78,7 +78,7 @@ export class AudienceSchema extends BaseModel {
   @column()
   declare detailDesDommagesEtInterets: string | null
   @column()
-  declare detailsDeLaDecisionPourLesInfractionsPrincipales: string | null
+  declare detailsDecisionInfractionsPrincipales: string | null
   @column()
   declare detailsDesPeinesPourLesInfractionsPrincipales: string | null
   @column()

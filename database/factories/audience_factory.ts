@@ -17,7 +17,7 @@ export const AudienceFactory = factory
       ]),
       degre_de_juridiction: faker.helpers.arrayElement(['1ere instance', 'Appel', 'Cassation']),
       date_de_decision: DateTime.fromJSDate(faker.date.past()),
-      details_de_la_decision_pour_les_infractions_principales: faker.lorem.lines(),
+      details_decision_infractions_principales: faker.lorem.lines(),
       decision_pour_les_infractions_principales: faker.helpers.arrayElement([
         'Condamnation',
         'Relaxe',
@@ -47,7 +47,7 @@ export const AudienceFactory = factory
       ]),
       type_de_peine_pour_les_infractions_principales: faker.word.words(2),
       details_des_peines_pour_les_infractions_principales: faker.lorem.lines(),
-      decision_et_peines_pour_les_infractions_subies_ou_incidentes: faker.lorem.paragraph(),
+      decision_peines_infractions_subies: faker.lorem.paragraph(),
       score_de_la_gravite: faker.number.float({ min: 0.5, max: 8 }),
       dommages_et_interets: faker.datatype.boolean(),
       detail_des_dommages_et_interets: faker.lorem.lines(),

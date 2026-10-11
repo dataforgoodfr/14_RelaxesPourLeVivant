@@ -38,7 +38,7 @@ export default class Audience extends BaseModel {
   declare date_de_decision?: DateTime
 
   @column()
-  declare details_de_la_decision_pour_les_infractions_principales?: string
+  declare details_decision_infractions_principales?: string
 
   @column()
   declare decision_pour_les_infractions_principales?: string
@@ -77,7 +77,7 @@ export default class Audience extends BaseModel {
   declare details_des_peines_pour_les_infractions_principales?: string
 
   @column()
-  declare decision_et_peines_pour_les_infractions_subies_ou_incidentes?: string
+  declare decision_peines_infractions_subies?: string
 
   @column()
   declare score_de_la_gravite?: number

@@ -236,8 +236,8 @@
                     Détails de la décision
                   </h3>
                   <p class="mb-0">
-                    @if (audience.details_de_la_decision_pour_les_infractions_principales)
-                      {{{ nl2br(audience.details_de_la_decision_pour_les_infractions_principales) }}}
+                    @if (audience.details_decision_infractions_principales)
+                      {{{ nl2br(audience.details_decision_infractions_principales) }}}
                     @else
                       <span class="fst-italic text-muted">La décision n'a pas encore été rendue publique.</span>
                     @end
@@ -564,8 +564,8 @@
                     Détails de la décision pour les infractions principales
                   </dt>
                   <dd class="col-sm-9">
-                    @if (audience.details_de_la_decision_pour_les_infractions_principales)
-                      {{{ nl2br(audience.details_de_la_decision_pour_les_infractions_principales) }}}
+                    @if (audience.details_decision_infractions_principales)
+                      {{{ nl2br(audience.details_decision_infractions_principales) }}}
                     @else
                       @!emptyData()
                     @end
@@ -584,8 +584,8 @@
                     Décision et peines pour les infractions subies ou incidentes
                   </dt>
                   <dd class="col-sm-9">
-                    @if (audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes)
-                      {{ audience.decision_et_peines_pour_les_infractions_subies_ou_incidentes }}
+                    @if (audience.decision_peines_infractions_subies)
+                      {{ audience.decision_peines_infractions_subies }}
                     @else
                       @!emptyData()
                     @end
