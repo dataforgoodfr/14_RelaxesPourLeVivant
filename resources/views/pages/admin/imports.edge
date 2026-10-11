@@ -106,7 +106,7 @@
 
       if (!response.ok) {
         const successElem = document.querySelector('#success');
-        successElem = true;
+        successElem.hidden = true;
         const alertElem = document.querySelector('#alert');
         const data = await response.json();
         alertElem.textContent = data.error ?? 'Une erreur est survenue';
